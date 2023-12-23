@@ -8,6 +8,7 @@ import SingleNode from "./CustomNode/SingleNode";
 import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
 import InfoNode from "./CustomNode/InfoNode";
 import { calculateLayoutNodes, setInfoSection } from "./lib/EntitreeFlex";   // Change this to use another lib
+import 'reactflow/dist/style.css';
 
 interface EntitreeTreeProps {
     screenWidth: number;
@@ -42,7 +43,7 @@ export default function EntitreeTree({ screenWidth, screenHeight }: EntitreeTree
             y: 0,
             zoom: zoomLevel
         });
-        // setInfoSection(nodes, screenWidth, rootInfo.width)
+        setInfoSection(nodes, screenWidth, rootInfo.width)
     }, [screenWidth]);
 
     return (
