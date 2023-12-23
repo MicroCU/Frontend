@@ -77,12 +77,12 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Ordered, 
+            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Unordered, 
             members: [
                 { id: '51', name: 'Conditional', progress: 50, type: MicroNodeType.Micro },
                 { id: '52', name: 'Loop', progress: 0, type: MicroNodeType.Micro },
                 { id: '53', name: 'Function', progress: 0, type: MicroNodeType.Micro },
-                { id: '54', name: 'Loop 1', progress: 0, type: MicroNodeType.Micro },
+                { id: '54', name: 'Loop 1**', progress: 0, type: MicroNodeType.Micro },
                 // { id: '55', name: 'Function 2', progress: 0, type: MicroNodeType.Micro },
                 // { id: '56', name: 'Function 3', progress: 0, type: MicroNodeType.Micro },
                 // { id: '57', name: 'Loop 2', progress: 0, type: MicroNodeType.Micro },
@@ -93,7 +93,7 @@ export const mockData: IMockData = {
             id: '6', name: 'Useful Library', next: ['7', '70'], type: GroupType.Unordered, 
             members: [
                 { id: '61', name: 'Built-in function', progress: 0, type: MicroNodeType.Micro },
-                { id: '62', name: 'Standard library', progress: 0, type: MicroNodeType.Micro },
+                { id: '62', name: 'Standard library**', progress: 0, type: MicroNodeType.Micro },
                 // { id: '63', name: 'Standard library1', progress: 0, type: MicroNodeType.Micro },
                 // { id: '64', name: 'Built-in function - 1', progress: 0, type: MicroNodeType.Micro },
                 // { id: '65', name: 'Standard library - 1', progress: 0, type: MicroNodeType.Micro },
@@ -103,7 +103,7 @@ export const mockData: IMockData = {
         {
             id: '60', name: 'Useful Library 2', next: ['7', '70'], type: GroupType.Unordered, 
             members: [
-                { id: '601', name: 'Built-in function', progress: 0, type: MicroNodeType.Micro },
+                { id: '601', name: 'Built-in function**', progress: 0, type: MicroNodeType.Micro },
                 // { id: '62', name: 'Standard library', progress: 0, type: MicroNodeType.Micro },
                 // { id: '63', name: 'Standard library1', progress: 0, type: MicroNodeType.Micro },
                 // { id: '64', name: 'Built-in function - 1', progress: 0, type: MicroNodeType.Micro },
@@ -111,6 +111,13 @@ export const mockData: IMockData = {
                 // { id: '66', name: 'Standard library1 - 1', progress: 0, type: MicroNodeType.Micro },
             ]
         },
+        // {
+        //     id: '600', name: 'Useful Library 3', next: ['7', '70'], type: GroupType.Unordered, 
+        //     members: [
+        //         { id: '601', name: 'Built-in function ggg', progress: 0, type: MicroNodeType.Micro },
+        //         { id: '602', name: 'Standard library**', progress: 0, type: MicroNodeType.Micro },
+        //     ]
+        // },
         {
             id: '7', name: 'Python Final Test', next: [], type: GroupType.Unordered, 
             members: [
