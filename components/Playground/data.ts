@@ -77,7 +77,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Unordered, 
+            id: '5', name: 'Control Flow', next: ['7', '70', '700'], type: GroupType.Unordered, 
             members: [
                 { id: '51', name: 'Conditional', progress: 50, type: MicroNodeType.Micro },
                 { id: '52', name: 'Loop', progress: 0, type: MicroNodeType.Micro },
@@ -90,7 +90,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '6', name: 'Useful Library', next: ['7', '70'], type: GroupType.Unordered, 
+            id: '6', name: 'Useful Library', next: ['7', '70', '700'], type: GroupType.Unordered, 
             members: [
                 { id: '61', name: 'Built-in function', progress: 0, type: MicroNodeType.Micro },
                 { id: '62', name: 'Standard library**', progress: 0, type: MicroNodeType.Micro },
@@ -101,13 +101,13 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '60', name: 'Useful Library 2', next: ['7', '70'], type: GroupType.Unordered, 
+            id: '60', name: 'Useful Library 2', next: ['7', '70', '700'], type: GroupType.Unordered, 
             members: [
                 { id: '601', name: 'Built-in function**', progress: 0, type: MicroNodeType.Micro },
-                // { id: '62', name: 'Standard library', progress: 0, type: MicroNodeType.Micro },
-                // { id: '63', name: 'Standard library1', progress: 0, type: MicroNodeType.Micro },
-                // { id: '64', name: 'Built-in function - 1', progress: 0, type: MicroNodeType.Micro },
-                // { id: '65', name: 'Standard library - 1', progress: 0, type: MicroNodeType.Micro },
+                { id: '602', name: 'Standard library', progress: 0, type: MicroNodeType.Micro },
+                // { id: '603', name: 'Standard library1', progress: 0, type: MicroNodeType.Micro },
+                // { id: '604', name: 'Built-in function - 1', progress: 0, type: MicroNodeType.Micro },
+                // { id: '605', name: 'Standard library - 1', progress: 0, type: MicroNodeType.Micro },
                 // { id: '66', name: 'Standard library1 - 1', progress: 0, type: MicroNodeType.Micro },
             ]
         },
@@ -122,7 +122,7 @@ export const mockData: IMockData = {
             id: '7', name: 'Python Final Test', next: [], type: GroupType.Unordered, 
             members: [
                 { id: '71', name: 'Python Final Test 1', progress: 0, type: MicroNodeType.Test },
-                // { id: '72', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
+                { id: '72', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
             ]
         },
         {
@@ -133,9 +133,25 @@ export const mockData: IMockData = {
             ]
         },
         {
+            id: '700', name: 'Python Midterm Test 2', next: [], type: GroupType.Ordered, 
+            members: [
+                { id: '7001', name: 'Python Midterm Test 2', progress: 0, type: MicroNodeType.Test },
+                // { id: '72', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
+            ]
+        },
+        {
             id: '8', name: 'Comment 2', next: [], type: GroupType.Single, 
             members: [
-                { id: '8', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro }
+                { id: '8', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '82', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '83', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '84', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '85', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '86', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '87', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '88', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '89', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
+                // { id: '80', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
             ]
         },
         {

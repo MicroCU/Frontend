@@ -9,6 +9,7 @@ import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
 import InfoNode from "./CustomNode/InfoNode";
 import { calculateLayoutNodes, setInfoSection } from "./lib/EntitreeFlex";   // Change this to use another lib
 import 'reactflow/dist/style.css';
+import { log } from "console";
 
 interface EntitreeTreeProps {
     screenWidth: number;
@@ -29,13 +30,6 @@ export default function EntitreeTree({ screenWidth, screenHeight }: EntitreeTree
     if (bounds.height < screenHeight) {
         bounds.height = screenHeight
     }
-    // console.log("bounds: " + JSON.stringify(bounds))
-
-    // const { x, y, zoom } = getViewportForBounds(bounds, screenWidth, screenHeight, zoomLevel, zoomLevel);
-    // console.log("x: " + x + ", y: " + y + ", zoom: " + zoom)
-
-    // const { x, y, zoom } = useViewport();
-    // console.log("x: " + x + ", y: " + y + ", zoom: " + zoom)
     
     useEffect(() => {
         setViewport({

@@ -90,8 +90,6 @@ export function calculateLayoutNodes(reactFlownodes: Node<any, string | undefine
     nodes.forEach((node) => {
         const reactFlowNode = reactFlownodes.find((value) => value.data.label === node.name)
         if (reactFlowNode) {
-            // reactFlowNode.data.label = reactFlowNode.id  // TEST ONLY
-
             reactFlowNode.position = {
                 x: node.x,
                 y: node.y
