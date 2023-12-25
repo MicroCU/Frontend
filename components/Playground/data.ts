@@ -77,7 +77,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '5', name: 'Control Flow', next: ['7', '70', '700'], type: GroupType.Unordered, 
+            id: '5', name: 'Control Flow', next: ['7-1', '7', '70', '700', '7000'], type: GroupType.Unordered, 
             members: [
                 { id: '51', name: 'Conditional', progress: 50, type: MicroNodeType.Micro },
                 { id: '52', name: 'Loop', progress: 0, type: MicroNodeType.Micro },
@@ -90,7 +90,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '6', name: 'Useful Library', next: ['7', '70', '700'], type: GroupType.Unordered, 
+            id: '6', name: 'Useful Library', next: ['7-1', '7', '70', '700', '7000'], type: GroupType.Unordered, 
             members: [
                 { id: '61', name: 'Built-in function', progress: 0, type: MicroNodeType.Micro },
                 { id: '62', name: 'Standard library**', progress: 0, type: MicroNodeType.Micro },
@@ -101,10 +101,10 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '60', name: 'Useful Library 2', next: ['7', '70', '700'], type: GroupType.Unordered, 
+            id: '60', name: 'Useful Library 2', next: ['7-1', '7', '70', '700', '7000'], type: GroupType.Unordered, 
             members: [
                 { id: '601', name: 'Built-in function**', progress: 0, type: MicroNodeType.Micro },
-                { id: '602', name: 'Standard library', progress: 0, type: MicroNodeType.Micro },
+                // { id: '602', name: 'Standard library', progress: 0, type: MicroNodeType.Micro },
                 // { id: '603', name: 'Standard library1', progress: 0, type: MicroNodeType.Micro },
                 // { id: '604', name: 'Built-in function - 1', progress: 0, type: MicroNodeType.Micro },
                 // { id: '605', name: 'Standard library - 1', progress: 0, type: MicroNodeType.Micro },
@@ -119,23 +119,41 @@ export const mockData: IMockData = {
         //     ]
         // },
         {
+            id: '7-1', name: 'Python Final Test 2', next: [], type: GroupType.Unordered, 
+            members: [
+                { id: '7-1-1', name: 'Python Final Test *', progress: 0, type: MicroNodeType.Test },
+                { id: '7-1-2', name: 'Python Final Test **', progress: 0, type: MicroNodeType.Test },
+                // { id: '73', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
+                // { id: '74', name: 'Python Final Test 4', progress: 0, type: MicroNodeType.Test },
+            ]
+        },
+        {
             id: '7', name: 'Python Final Test', next: [], type: GroupType.Unordered, 
             members: [
                 { id: '71', name: 'Python Final Test 1', progress: 0, type: MicroNodeType.Test },
                 { id: '72', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
+                { id: '73', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
+                // { id: '74', name: 'Python Final Test 4', progress: 0, type: MicroNodeType.Test },
             ]
         },
         {
-            id: '70', name: 'Python Midterm Test', next: [], type: GroupType.Ordered, 
+            id: '70', name: 'MID', next: [], type: GroupType.Unordered, 
             members: [
                 { id: '701', name: 'Python Midterm Test 1', progress: 0, type: MicroNodeType.Test },
+                // { id: '702', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
+            ]
+        },
+        {
+            id: '700', name: 'Midterm Test 2', next: [], type: GroupType.Ordered, 
+            members: [
+                { id: '7001', name: 'Midterm Test 2', progress: 0, type: MicroNodeType.Test },
                 // { id: '72', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
             ]
         },
         {
-            id: '700', name: 'Python Midterm Test 2', next: [], type: GroupType.Ordered, 
+            id: '7000', name: 'Midterm Test 3', next: [], type: GroupType.Ordered, 
             members: [
-                { id: '7001', name: 'Python Midterm Test 2', progress: 0, type: MicroNodeType.Test },
+                { id: '70001', name: 'Midterm Test **', progress: 0, type: MicroNodeType.Test },
                 // { id: '72', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
             ]
         },

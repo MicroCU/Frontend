@@ -40,6 +40,7 @@ export default function EntitreeTree({ screenWidth, screenHeight }: EntitreeTree
         setInfoSection(nodes, screenWidth, rootInfo.width)
     }, [screenWidth]);
 
+    // return ( <div> Test </div> )
     return (
         <>
             <ReactFlow

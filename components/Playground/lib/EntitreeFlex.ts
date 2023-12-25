@@ -41,7 +41,8 @@ export function calculateNodeSize(nodeId: string): [number, number] {
     return [w, h];
 }
 
-function generateStructForFlextree(hierarchy: NodeData, nodes: Node<any, string | undefined>[]) {
+function generateStructForFlextree(nodes: Node<any, string | undefined>[]) {
+    let hierarchy: NodeData = {} as NodeData;
     nodes.forEach((node) => {
         let sizee = calculateNodeSize(node.id!)
         let p = parents.get(node.id!)
@@ -58,8 +59,8 @@ function generateStructForFlextree(hierarchy: NodeData, nodes: Node<any, string 
             spouses: [],
             parents: myParents,
         }
-
     })
+    return hierarchy;
 }
 
 export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], screenWidth: number, rootWidth: number) {
@@ -79,11 +80,8 @@ export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], 
 }
 
 export function calculateLayoutNodes(reactFlownodes: Node<any, string | undefined>[], edges: Edge<any>[], screenWidth: number) {
-    let hierarchy: NodeData = {} as NodeData;
     const rootId: string = findRoot()
-
-    generateStructForFlextree(hierarchy, reactFlownodes)
-
+    const hierarchy: NodeData = generateStructForFlextree(reactFlownodes)
     let { nodes } = layoutFromMap(rootId, hierarchy, defaultSettings);
     let rootWidth = 0;
 

@@ -27,6 +27,16 @@ interface INodeBrief {
     width: number;
 }
 var distinctParents: Map<string, string[]> = new Map<string, string[]>() // key: "p1, p2, p3"  value: ["c1", "c2"]
+var parenMostLeft = {
+    id: "",
+    position: { x: 10000000000000, y: 0 },
+    width: 0
+}
+var parentMostRight = {
+    id: "",
+    position: { x: -10000000000000, y: 0 },
+    width: 0
+}
 export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) {
     parents.forEach((ps, nodeId) => {
         if (ps.size > 1) {
@@ -64,17 +74,6 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
             }
         })
         c.sort((a, b) => a.position.x - b.position.x);
-
-        let parenMostLeft = {
-            id: "",
-            position: { x: 10000000000000, y: 0 },
-            width: 0
-        }
-        let parentMostRight = {
-            id: "",
-            position: { x: -10000000000000, y: 0 },
-            width: 0
-        }
 
         papa.split(", ").forEach(parentId => {
             let node = reactFlownodes.find(node => node.id === parentId)
@@ -144,11 +143,26 @@ function parentsPositionImproved(nodes: INodeBrief[]) { // adjust position of pa
 }
 
 function childrenPositionImproved(nodes: INodeBrief[], parenMostLeft: INodeBrief, parentMostRight: INodeBrief) {
-    // console.log("LEFT: ", parenMostLeft.id, " --> ", parenMostLeft.position.x)
-    // console.log("RIGHT: ", parentMostRight.id, " --> ", parentMostRight.position.x)
-    let centerParentX = ( parentMostRight.position.x + parentMostRight.width - parenMostLeft.position.x )/2
+    let diffCenterParentX = ( parentMostRight.position.x + parentMostRight.width - parenMostLeft.position.x )/2
     let centerChild = nodes[Math.floor(nodes.length / 2)]
-    let diffCenterX = centerParentX - centerChild.position.x - centerChild.width/2
     
-    // centerChild.position.x += parenMostLeft.position.x
+    centerChild.position.x =  parenMostLeft.position.x + diffCenterParentX - centerChild.width/2
+    
+    let left = nodes.slice(0, Math.floor(nodes.length / 2))
+    let right = nodes.slice(Math.floor(nodes.length / 2) + 1)
+    for (let i = left.length - 1; i >= 0; i--) {
+        if (i == left.length - 1) {
+            left[i].position.x = centerChild.position.x - ( (left.length - i) * (left[i].width + neededGap) )
+        } else {
+            left[i].position.x = left[i+1].position.x - left[i].width - neededGap
+        
+        }
+    }
+    for (let i = 0; i < right.length; i++) {
+        if (i == 0) {
+            right[i].position.x = centerChild.position.x + centerChild.width + neededGap
+        } else {
+            right[i].position.x = right[i-1].position.x + right[i-1].width + neededGap
+        }
+    }
 }
