@@ -77,7 +77,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Unordered, 
+            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Ordered, 
             members: [
                 { id: '51', name: 'Conditional', progress: 50, type: MicroNodeType.Micro },
                 { id: '52', name: 'Loop', progress: 0, type: MicroNodeType.Micro },

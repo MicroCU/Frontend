@@ -1,5 +1,5 @@
 import { layoutFromMap } from "entitree-flex";
-import { adjustPosition, compactGraph, findRoot } from "../algorithm";
+import { adjustPosition, findRoot } from "../algorithm";
 import { GroupType } from "../data";
 import { groupMember, parents } from "../node-edges";
 import { defaultSettings, horizontalMargin, verticalMargin } from "../setting";
@@ -88,11 +88,11 @@ export function calculateLayoutNodes(reactFlownodes: Node<any, string | undefine
     })
 
     adjustPosition(reactFlownodes)
-    compactGraph(reactFlownodes, nodes, rootId)
+    // compactGraph(reactFlownodes, nodes, rootId)
     setInfoSection(reactFlownodes, screenWidth, rootWidth)
 
     reactFlownodes.forEach((node) => {
-        node.data.label = node.id + " => " + node.position.x
+        node.data.label = node.id + " => " + node.position.x + ", " + node.position.y
     })
 
     return { lNode: reactFlownodes, lEdge: edges, rootInfo: { width: rootWidth } };
