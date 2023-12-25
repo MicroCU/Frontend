@@ -49,7 +49,7 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
                 }
             })
             p.sort((a, b) => a.position.x - b.position.x);
-            parentsPositionImproved(p)
+            parentsPositionImproved(p, reactFlownodes)
             
             // Prepare for children position improvement
             let key = Array.from(ps).join(", ") // Use string as key because reference type
@@ -77,7 +77,6 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
 
         papa.split(", ").forEach(parentId => {
             let node = reactFlownodes.find(node => node.id === parentId)
-            // console.log("PARENT[FINAL]: ", node?.id, " --> ", node?.position.x)
             if (node) {
                 let size = calculateNodeSize(node.id!)
                 parenMostLeft = parenMostLeft.position.x < node.position.x ? parenMostLeft : { id: node.id!, position: node.position, width: size[0] }
@@ -99,7 +98,22 @@ function checkIfThisElementExistInArray(arr: string[], element: string) {
 }
 
 const neededGap = 0
-function parentsPositionImproved(nodes: INodeBrief[]) { // adjust position of parents in x-axis
+function parentsPositionImproved(nodes: INodeBrief[], reactFlownodes: Node<any, string | undefined>[]) { // adjust position of parents in x-axis
+    const moveCenter = (center: INodeBrief) => {
+        let parentOfCenterIds = parents.get(center.id)
+        if (parentOfCenterIds) {
+            let ids = Array.from(parentOfCenterIds); 
+            if (ids.length > 1) {
+
+            } else {
+                let parentId = ids[0]
+                let n = reactFlownodes.find(node => node.id === parentId)
+                if (n) {
+                    center.position.x = n.position.x
+                }
+            }
+        }
+    }
     const moveLeft = (left: INodeBrief[], center: INodeBrief) => {
         for (let i = 0; i < left.length; i++) {
             let zeroDiff = (center.position.x - (left[i].position.x + left[i].width))
@@ -118,6 +132,8 @@ function parentsPositionImproved(nodes: INodeBrief[]) { // adjust position of pa
 
     if ((nodes.length) % 2 !== 0) {
         let center = nodes[Math.floor(nodes.length / 2)]
+        moveCenter(center)
+
         let left = nodes.slice(0, Math.floor(nodes.length / 2))
         moveLeft(left, center)
 
