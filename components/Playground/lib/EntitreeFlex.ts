@@ -1,23 +1,10 @@
 import { layoutFromMap } from "entitree-flex";
-import { adjustPosition, findRoot } from "../algorithm";
+import { adjustPosition, compactGraph, findRoot } from "../algorithm";
 import { GroupType } from "../data";
 import { groupMember, parents } from "../node-edges";
 import { defaultSettings, horizontalMargin, verticalMargin } from "../setting";
 import { Node, Edge } from "reactflow";
-
-export interface TreeNode {
-    name: string;
-    width?: number;
-    height?: number;
-    children?: string[];
-    spouses?: string[];
-    siblings?: string[];
-    parents?: string[];
-}
-
-export interface NodeData {
-    [key: string]: TreeNode;
-}
+import { NodeData } from "./type";
 
 export function calculateNodeSize(nodeId: string): [number, number] {
     let nodeWidth = defaultSettings.nodeWidth;
@@ -52,6 +39,7 @@ function generateStructForFlextree(nodes: Node<any, string | undefined>[]) {
         })
 
         hierarchy[node.id!] = {
+            id: node.id!,
             name: node.data.label,
             width: sizee[0],
             height: sizee[1],
@@ -100,7 +88,12 @@ export function calculateLayoutNodes(reactFlownodes: Node<any, string | undefine
     })
 
     adjustPosition(reactFlownodes)
+    compactGraph(reactFlownodes, nodes, rootId)
     setInfoSection(reactFlownodes, screenWidth, rootWidth)
+
+    reactFlownodes.forEach((node) => {
+        node.data.label = node.id + " => " + node.position.x
+    })
 
     return { lNode: reactFlownodes, lEdge: edges, rootInfo: { width: rootWidth } };
 }

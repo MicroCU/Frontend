@@ -2,6 +2,8 @@ import { calculateNodeSize } from "./lib/EntitreeFlex";
 import { groupMember, parents } from "./node-edges";
 import { Node, Edge } from "reactflow";
 import { defaultSettings } from "./setting";
+import { TreeNode } from "entitree-flex/dist/TreeNode";
+import { ITreeNode } from "./lib/type";
 
 export function findRoot() {
     let root: string = '';
@@ -26,6 +28,7 @@ interface INodeBrief {
     position: { x: number, y: number };
     width: number;
 }
+
 var distinctParents: Map<string, string[]> = new Map<string, string[]>() // key: "p1, p2, p3"  value: ["c1", "c2"]
 var parenMostLeft = {
     id: "",
@@ -181,4 +184,40 @@ function childrenPositionImproved(nodes: INodeBrief[], parenMostLeft: INodeBrief
             right[i].position.x = right[i-1].position.x + right[i-1].width + neededGap
         }
     }
+}
+
+var maxMap = new Map<string, {left: number, right: number}>()
+export function compactGraph(reactFlownodes: Node<any, string | undefined>[], nodes: TreeNode<ITreeNode>[], rootId: string) {
+    // Update position of nodes (TreeNode) Because we need to use it in recur()
+    nodes.forEach(node => {
+        let reactFlowNode = reactFlownodes.find(n => n.id === node.id)
+        if (reactFlowNode) {
+            node.x = reactFlowNode.position.x
+            node.y = reactFlowNode.position.y
+        }
+    })
+
+    recur(nodes, rootId, 10000000000000, -10000000000000)
+}
+
+function recur(nodes: TreeNode<ITreeNode>[], nodeId: string, maxLeft: number, maxRight: number) {
+    let node = nodes.find(node => node.id === nodeId)
+    if (node && node.children) {
+        if (node.children.length > 0) {
+            let left = node.children[0]
+            let right = node.children[node.children.length - 1]
+            let {maxLeft: left1, maxRight: right1} = recur(nodes, left, maxLeft, maxRight)
+            let {maxLeft: left2, maxRight: right2} = recur(nodes, right, maxLeft, maxRight)
+            maxLeft = left1 < left2 ? left1 : left2
+            maxRight = right1 > right2 ? right1 : right2
+        } else {
+            maxLeft = maxLeft < node.x ? maxLeft : node.x
+            maxRight = maxRight > node.x + node.width ? maxRight : node.x + node.width
+        }
+    }
+
+    if (!maxMap.has(nodeId)) {
+        maxMap.set(nodeId, {left: maxLeft, right: maxRight})
+    }
+    return {maxLeft, maxRight}
 }
