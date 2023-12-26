@@ -1,10 +1,9 @@
 import { calculateNodeSize } from "./lib/EntitreeFlex";
 import { groupMember, parents } from "./node-edges";
-import { Node, Edge } from "reactflow";
+import { Node } from "reactflow";
 import { defaultSettings } from "./setting";
 import { TreeNode } from "entitree-flex/dist/TreeNode";
 import { ITreeNode } from "./lib/type";
-import { mockData } from "./data";
 
 export function findRoot() {
     let root: string = '';
@@ -209,15 +208,31 @@ export function compactGraph(reactFlownodes: Node<any, string | undefined>[], no
     })
 
     findMaxLeftRight(nodes, rootId, 10000000000000, -10000000000000)
-    // maxMap.forEach((value, key) => {
-    //     console.log("nodeId: ", key, " => ", value.left, ", ", value.right)
-    // })
 
     nodes.forEach(node => {
-        let diffCompact = shouldCompact(node.id)
+        let diffCompact = calculateCompactSize(node.id, node.id === rootId)
         if (diffCompact > 0) {
-            console.log("should compact: ", node.id, diffCompact)
-            moveChildren(node.id, diffCompact, nodes)
+            if (node.id === rootId) {
+                moveChildren(node.id, diffCompact, nodes)
+            } else if (node.x < defaultSettings.rootX) {
+                let leftNode = node.children?.[0]
+                if (leftNode) {
+                    let leftChild = nodes.find(node => node.id === leftNode)
+                    if (leftChild) {
+                        leftChild.x += diffCompact
+                        moveLeftChildrenToTheRight(leftChild, diffCompact, nodes, new Set<string>())
+                    }
+                }
+            } else if (node.x > defaultSettings.rootX) {
+                let rightNode = node.children?.[node.children.length - 1]
+                if (rightNode) {
+                    let rightChild = nodes.find(node => node.id === rightNode)
+                    if (rightChild) {
+                        rightChild.x -= diffCompact
+                        moveRightChildrenToTheLeft(rightChild, diffCompact, nodes, new Set<string>())
+                    }
+                }
+            }
         }
     })
 
@@ -265,7 +280,7 @@ function findMaxLeftRight(nodes: TreeNode<ITreeNode>[], nodeId: string, maxLeft:
 }
 
 const maxGap = 0
-function shouldCompact(nodeId: string) {
+function calculateCompactSize(nodeId: string, isRoot: boolean) {
     let nextChildren = groupMember.get(nodeId)?.next
     if (!nextChildren) {
         return 0
@@ -281,7 +296,11 @@ function shouldCompact(nodeId: string) {
     }
 
     if (maxRightChildNode.left - maxLeftChildNode.right > maxGap) {
-        return ( maxRightChildNode.left - maxLeftChildNode.right ) / 2
+        if (isRoot) {
+            return ( maxRightChildNode.left - maxLeftChildNode.right ) / 2
+        } else {
+            return maxRightChildNode.left - maxLeftChildNode.right
+        }
     }
 
     return 0
@@ -289,23 +308,54 @@ function shouldCompact(nodeId: string) {
 
 function moveChildren(nodeId: string, diff: number, nodes: TreeNode<ITreeNode>[]) {
     let node = nodes.find(node => node.id === nodeId)
-    // If the children mask as left there will always be a left
-    // If the children mask as right there will always be a right
     if (node && node.children) {
-        // // left children
-        // let left = node.children[0]
-        // let leftNode = nodes.find(node => node.id === left)
-        // if (leftNode) {
-        //     leftNode.x += diff
-        //     moveChildren(left, diff, nodes)
-        // }
-        // // right children
-        // let right = node.children[node.children.length - 1]
-        // let rightNode = nodes.find(node => node.id === right)
-        // if (rightNode) {
-        //     rightNode.x -= diff
-        //     moveChildren(right, diff, nodes)
-        // }
+        let left = node.children[0]
+        let right = node.children[node.children.length - 1]
+        let leftNode = nodes.find(node => node.id === left)
+        let rightNode = nodes.find(node => node.id === right)
+        let isMoveLeft = new Set<string>()
+        let isMoveRight = new Set<string>()
+        if (leftNode) {
+            leftNode.x += diff
+            isMoveLeft.add(leftNode.id)
+            moveLeftChildrenToTheRight(leftNode, diff, nodes, isMoveLeft)
+        }
+        if (rightNode) {
+            rightNode.x -= diff
+            isMoveRight.add(rightNode.id)
+            moveRightChildrenToTheLeft(rightNode, diff, nodes, isMoveRight)
+        }
     }
+}
 
+function moveLeftChildrenToTheRight(node: TreeNode<ITreeNode>, diff: number, nodes: TreeNode<ITreeNode>[], isMoveLeft: Set<string>) {
+    if (node && node.children) {
+        node.children.forEach(child => {
+            if (isMoveLeft.has(child)) {
+                return
+            }
+            let childNode = nodes.find(node => node.id === child)
+            if (childNode) {
+                childNode.x += diff
+                isMoveLeft.add(childNode.id)
+                moveLeftChildrenToTheRight(childNode, diff, nodes, isMoveLeft)
+            }
+        })
+    }
+}
+
+function moveRightChildrenToTheLeft(node: TreeNode<ITreeNode>, diff: number, nodes: TreeNode<ITreeNode>[], isMoveRight: Set<string>) {
+    if (node && node.children) {
+        node.children.forEach(child => {
+            if (isMoveRight.has(child)) {
+                return
+            }
+            let childNode = nodes.find(node => node.id === child)
+            if (childNode) {
+                childNode.x -= diff
+                isMoveRight.add(childNode.id)
+                moveRightChildrenToTheLeft(childNode, diff, nodes, isMoveRight)
+            }
+        })
+    }
 }

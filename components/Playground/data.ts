@@ -51,14 +51,11 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '4', name: 'Operator', next: ['5', '6'], type: GroupType.Ordered, 
+            id: '4', name: 'Operator', next: ['5', '6'], type: GroupType.Unordered, 
             members: [
                 { id: '41', name: 'Bitwise', progress: 90, type: MicroNodeType.Micro },
                 { id: '42', name: 'Arithmatic', progress: 0, type: MicroNodeType.Micro },
                 { id: '43', name: 'Bitwise - 1', progress: 90, type: MicroNodeType.Micro },
-                // { id: '44', name: 'Arithmatic - 1', progress: 0, type: MicroNodeType.Micro },
-                // { id: '45', name: 'Bitwise - 2', progress: 90, type: MicroNodeType.Micro },
-                // { id: '46', name: 'Arithmatic - 2', progress: 0, type: MicroNodeType.Micro },
             ]
         },
         {

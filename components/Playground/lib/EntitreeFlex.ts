@@ -91,9 +91,9 @@ export function calculateLayoutNodes(reactFlownodes: Node<any, string | undefine
     compactGraph(reactFlownodes, nodes, rootId)
     setInfoSection(reactFlownodes, screenWidth, rootWidth)
 
-    reactFlownodes.forEach((node) => {
-        node.data.label = node.id + " => " + node.position.x + ", " + node.position.y
-    })
+    // reactFlownodes.forEach((node) => {  // TEST ONLY
+    //     node.data.label = node.id + " => " + node.position.x + ", " + node.position.y
+    // })
 
     return { lNode: reactFlownodes, lEdge: edges, rootInfo: { width: rootWidth } };
 }
