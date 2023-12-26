@@ -4,6 +4,7 @@ import { Node, Edge } from "reactflow";
 import { defaultSettings } from "./setting";
 import { TreeNode } from "entitree-flex/dist/TreeNode";
 import { ITreeNode } from "./lib/type";
+import { mockData } from "./data";
 
 export function findRoot() {
     let root: string = '';
@@ -45,7 +46,7 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
             })
             p.sort((a, b) => a.position.x - b.position.x);
             parentsPositionImproved(p, reactFlownodes)
-            
+
             // Prepare for children position improvement
             let key = Array.from(ps).join(", ") // Use string as key because reference type
             if (distinctParents.has(key)) {
@@ -76,7 +77,7 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
             width: 0,
             height: 0
         }
-        let parentMostRight:INodeBrief = {
+        let parentMostRight: INodeBrief = {
             id: "",
             position: { x: -10000000000000, y: 0 },
             width: 0,
@@ -90,7 +91,7 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
                 parentMostRight = parentMostRight.position.x > node.position.x ? parentMostRight : { id: node.id!, position: node.position, width: size[0], height: size[1] }
             }
         })
-    
+
         childrenPositionImproved(c, parenMostLeft, parentMostRight)
     })
 }
@@ -109,7 +110,7 @@ function parentsPositionImproved(nodes: INodeBrief[], reactFlownodes: Node<any, 
     const moveCenter = (center: INodeBrief) => {
         let parentOfCenterIds = parents.get(center.id)
         if (parentOfCenterIds) {
-            let ids = Array.from(parentOfCenterIds); 
+            let ids = Array.from(parentOfCenterIds);
             if (ids.length > 1) {
 
             } else {
@@ -169,20 +170,20 @@ function childrenPositionImproved(nodes: INodeBrief[], parenMostLeft: INodeBrief
     const moveY = (node: INodeBrief) => {
         node.position.y = Math.max(parenMostLeft.position.y + parenMostLeft.height, parentMostRight.position.y + parentMostRight.height) + defaultSettings.sourceTargetSpacing
     }
-    let diffCenterParentX = ( parentMostRight.position.x + parentMostRight.width - parenMostLeft.position.x )/2
+    let diffCenterParentX = (parentMostRight.position.x + parentMostRight.width - parenMostLeft.position.x) / 2
     let centerChild = nodes[Math.floor(nodes.length / 2)]
-    
-    centerChild.position.x =  parenMostLeft.position.x + diffCenterParentX - centerChild.width/2
+
+    centerChild.position.x = parenMostLeft.position.x + diffCenterParentX - centerChild.width / 2
     moveY(centerChild)
-    
+
     let left = nodes.slice(0, Math.floor(nodes.length / 2))
     let right = nodes.slice(Math.floor(nodes.length / 2) + 1)
     for (let i = left.length - 1; i >= 0; i--) {
         if (i == left.length - 1) {
-            left[i].position.x = centerChild.position.x - ( (left.length - i) * (left[i].width + neededGap) )
+            left[i].position.x = centerChild.position.x - ((left.length - i) * (left[i].width + neededGap))
         } else {
-            left[i].position.x = left[i+1].position.x - left[i].width - neededGap
-        
+            left[i].position.x = left[i + 1].position.x - left[i].width - neededGap
+
         }
         moveY(left[i])
     }
@@ -190,44 +191,121 @@ function childrenPositionImproved(nodes: INodeBrief[], parenMostLeft: INodeBrief
         if (i == 0) {
             right[i].position.x = centerChild.position.x + centerChild.width + neededGap
         } else {
-            right[i].position.x = right[i-1].position.x + right[i-1].width + neededGap
+            right[i].position.x = right[i - 1].position.x + right[i - 1].width + neededGap
         }
         moveY(right[i])
     }
 }
 
-// var maxMap = new Map<string, {left: number, right: number}>()
-// export function compactGraph(reactFlownodes: Node<any, string | undefined>[], nodes: TreeNode<ITreeNode>[], rootId: string) {
-//     // Update position of nodes (TreeNode) Because we need to use it in recur()
-//     nodes.forEach(node => {
-//         let reactFlowNode = reactFlownodes.find(n => n.id === node.id)
-//         if (reactFlowNode) {
-//             node.x = reactFlowNode.position.x
-//             node.y = reactFlowNode.position.y
-//         }
-//     })
+var maxMap = new Map<string, { left: number, right: number }>()
+export function compactGraph(reactFlownodes: Node<any, string | undefined>[], nodes: TreeNode<ITreeNode>[], rootId: string) {
+    // Update position of nodes (TreeNode) Because we need to use it in the below algorithm
+    nodes.forEach(node => {
+        let reactFlowNode = reactFlownodes.find(n => n.id === node.id)
+        if (reactFlowNode) {
+            node.x = reactFlowNode.position.x
+            node.y = reactFlowNode.position.y
+        }
+    })
 
-//     recur(nodes, rootId, 10000000000000, -10000000000000)
-// }
+    findMaxLeftRight(nodes, rootId, 10000000000000, -10000000000000)
+    // maxMap.forEach((value, key) => {
+    //     console.log("nodeId: ", key, " => ", value.left, ", ", value.right)
+    // })
 
-// function recur(nodes: TreeNode<ITreeNode>[], nodeId: string, maxLeft: number, maxRight: number) {
-//     let node = nodes.find(node => node.id === nodeId)
-//     if (node && node.children) {
-//         if (node.children.length > 0) {
-//             let left = node.children[0]
-//             let right = node.children[node.children.length - 1]
-//             let {maxLeft: left1, maxRight: right1} = recur(nodes, left, maxLeft, maxRight)
-//             let {maxLeft: left2, maxRight: right2} = recur(nodes, right, maxLeft, maxRight)
-//             maxLeft = left1 < left2 ? left1 : left2
-//             maxRight = right1 > right2 ? right1 : right2
-//         } else {
-//             maxLeft = maxLeft < node.x ? maxLeft : node.x
-//             maxRight = maxRight > node.x + node.width ? maxRight : node.x + node.width
-//         }
-//     }
+    nodes.forEach(node => {
+        let diffCompact = shouldCompact(node.id)
+        if (diffCompact > 0) {
+            console.log("should compact: ", node.id, diffCompact)
+            moveChildren(node.id, diffCompact, nodes)
+        }
+    })
 
-//     if (!maxMap.has(nodeId)) {
-//         maxMap.set(nodeId, {left: maxLeft, right: maxRight})
-//     }
-//     return {maxLeft, maxRight}
-// }
+    // update position
+    nodes.forEach(node => {
+        let reactFlowNode = reactFlownodes.find(n => n.id === node.id)
+        if (reactFlowNode) {
+            reactFlowNode.position.x = node.x
+            reactFlowNode.position.y = node.y
+        }
+    })
+}
+
+function findMaxLeftRight(nodes: TreeNode<ITreeNode>[], nodeId: string, maxLeft: number, maxRight: number) {
+    let node = nodes.find(node => node.id === nodeId)
+    if (maxMap.has(nodeId)) {  // Dynamic programming
+        let value = maxMap.get(nodeId)
+        if (value) {
+            maxLeft = value.left
+            maxRight = value.right
+            return { maxLeft, maxRight }
+        }
+    }
+    if (node && node.children) {
+        if (node.children.length > 0) {
+            let left = node.children[0]
+            let right = node.children[node.children.length - 1]
+            let { maxLeft: left1, maxRight: right1 } = findMaxLeftRight(nodes, left, maxLeft, maxRight)
+            let { maxLeft: left2, maxRight: right2 } = findMaxLeftRight(nodes, right, maxLeft, maxRight)
+            let left3 = node.x
+            let right3 = node.x + node.width
+            maxLeft = Math.min(left1, left2, left3)
+            maxRight = Math.max(right1, right2, right3)
+        } else {
+            maxLeft = maxLeft < node.x ? maxLeft : node.x
+            maxRight = maxRight > node.x + node.width ? maxRight : node.x + node.width
+        }
+    }
+
+    if (!maxMap.has(nodeId)) {
+        maxMap.set(nodeId, { left: maxLeft, right: maxRight })
+    }
+
+    return { maxLeft, maxRight }
+}
+
+const maxGap = 0
+function shouldCompact(nodeId: string) {
+    let nextChildren = groupMember.get(nodeId)?.next
+    if (!nextChildren) {
+        return 0
+    }
+    let leftChild = nextChildren[0]
+    let rightChild = nextChildren[nextChildren.length - 1]
+
+    let maxLeftChildNode = maxMap.get(leftChild)
+    let maxRightChildNode = maxMap.get(rightChild)
+
+    if (!maxLeftChildNode || !maxRightChildNode) {
+        return 0
+    }
+
+    if (maxRightChildNode.left - maxLeftChildNode.right > maxGap) {
+        return ( maxRightChildNode.left - maxLeftChildNode.right ) / 2
+    }
+
+    return 0
+}
+
+function moveChildren(nodeId: string, diff: number, nodes: TreeNode<ITreeNode>[]) {
+    let node = nodes.find(node => node.id === nodeId)
+    // If the children mask as left there will always be a left
+    // If the children mask as right there will always be a right
+    if (node && node.children) {
+        // // left children
+        // let left = node.children[0]
+        // let leftNode = nodes.find(node => node.id === left)
+        // if (leftNode) {
+        //     leftNode.x += diff
+        //     moveChildren(left, diff, nodes)
+        // }
+        // // right children
+        // let right = node.children[node.children.length - 1]
+        // let rightNode = nodes.find(node => node.id === right)
+        // if (rightNode) {
+        //     rightNode.x -= diff
+        //     moveChildren(right, diff, nodes)
+        // }
+    }
+
+}
