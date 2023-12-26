@@ -1,5 +1,5 @@
 "use client"
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import ReactFlow, { useNodesState, useEdgesState, ConnectionLineType, Node, Edge, Background, MiniMap, BackgroundVariant, PanOnScrollMode, getNodesBounds, useReactFlow } from "reactflow";
 import { getInitialNodesAndEdges } from './node-edges';
 import { defaultSettings, zoomLevel } from "./setting";
@@ -19,26 +19,28 @@ interface EntitreeTreeProps {
 export default function EntitreeTree({ screenWidth, screenHeight }: EntitreeTreeProps) {
     const { initialNodes, initialEdges } = getInitialNodesAndEdges();
     const { setViewport } = useReactFlow();
-    const nodeTypes = useMemo(() => ({ orderedGroupNode: OrderedGroupNode, singleNode: SingleNode, 
-        unorderedGroupNode: UnorderedGroupNode, infoNode: InfoNode }), []);
+    const nodeTypes = useMemo(() => ({
+        orderedGroupNode: OrderedGroupNode, singleNode: SingleNode,
+        unorderedGroupNode: UnorderedGroupNode, infoNode: InfoNode
+    }), []);
 
     let { lNode, lEdge, rootInfo } = calculateLayoutNodes(initialNodes, initialEdges, screenWidth);
     const [nodes, setNodes, onNodesChange] = useNodesState(lNode);
     const [edges, setEdges, onEdgesChange] = useEdgesState(lEdge);
-    
     const bounds = getNodesBounds(nodes);
     if (bounds.height < screenHeight) {
         bounds.height = screenHeight
     }
-    
+
     useEffect(() => {
         setViewport({
-            x: defaultSettings.rootX + ( screenWidth / 2) - ( rootInfo.width / 2),
+            x: defaultSettings.rootX + (screenWidth / 2) - (rootInfo.width / 2),
             y: 0,
             zoom: zoomLevel
         });
+
         setInfoSection(nodes, screenWidth, rootInfo.width)
-    }, [screenWidth]);
+    }, [nodes, rootInfo.width, screenWidth, setViewport]);
 
     return (
         <>
@@ -53,7 +55,7 @@ export default function EntitreeTree({ screenWidth, screenHeight }: EntitreeTree
                 zoomOnScroll={false}
                 zoomOnDoubleClick={false}
                 selectNodesOnDrag={false}
-                panOnDrag={false}
+                panOnDrag={true}
                 panOnScroll={true}
 
                 panOnScrollMode={PanOnScrollMode.Free}
@@ -69,9 +71,9 @@ export default function EntitreeTree({ screenWidth, screenHeight }: EntitreeTree
 
                 onInit={() => {
                     setViewport({
-                      x: defaultSettings.rootX + ( screenWidth / 2) - ( rootInfo.width / 2),
-                      y: 0,
-                      zoom: zoomLevel
+                        x: defaultSettings.rootX + (screenWidth / 2) - (rootInfo.width / 2),
+                        y: 0,
+                        zoom: zoomLevel
                     });
                 }}
             >
