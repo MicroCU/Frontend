@@ -55,7 +55,7 @@ export default function EntitreeTree({ screenWidth, screenHeight }: EntitreeTree
                 zoomOnScroll={false}
                 zoomOnDoubleClick={false}
                 selectNodesOnDrag={false}
-                panOnDrag={true}
+                panOnDrag={false}
                 panOnScroll={true}
 
                 panOnScrollMode={PanOnScrollMode.Free}

@@ -31,18 +31,7 @@ interface INodeBrief {
 }
 
 var distinctParents: Map<string, string[]> = new Map<string, string[]>() // key: "p1, p2, p3"  value: ["c1", "c2"]
-var parenMostLeft: INodeBrief = {
-    id: "",
-    position: { x: 10000000000000, y: 0 },
-    width: 0,
-    height: 0
-}
-var parentMostRight:INodeBrief = {
-    id: "",
-    position: { x: -10000000000000, y: 0 },
-    width: 0,
-    height: 0
-}
+// Adjust position is for the case that a node has more than 1 parent
 export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) {
     parents.forEach((ps, nodeId) => {
         if (ps.size > 1) {
@@ -81,6 +70,18 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
         })
         c.sort((a, b) => a.position.x - b.position.x);
 
+        let parenMostLeft: INodeBrief = {
+            id: "",
+            position: { x: 10000000000000, y: 0 },
+            width: 0,
+            height: 0
+        }
+        let parentMostRight:INodeBrief = {
+            id: "",
+            position: { x: -10000000000000, y: 0 },
+            width: 0,
+            height: 0
+        }
         papa.split(", ").forEach(parentId => {
             let node = reactFlownodes.find(node => node.id === parentId)
             if (node) {

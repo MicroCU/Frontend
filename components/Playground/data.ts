@@ -62,7 +62,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Ordered, 
+            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Unordered, 
             members: [
                 { id: '51', name: 'Conditional', progress: 50, type: MicroNodeType.Micro },
                 { id: '52', name: 'Loop', progress: 0, type: MicroNodeType.Micro },
@@ -126,7 +126,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '12', name: 'Lesson I', next: [], type: GroupType.Unordered, 
+            id: '12', name: 'Lesson I', next: ['14', '15'], type: GroupType.Unordered, 
             members: [
                 { id: '121', name: 'Lesson 1 I', progress: 0, type: MicroNodeType.Micro },
                 { id: '122', name: 'Lesson 2 I', progress: 0, type: MicroNodeType.Micro },
@@ -157,5 +157,21 @@ export const mockData: IMockData = {
                 { id: '133', name: 'Lesson 3*IV', progress: 0, type: MicroNodeType.Micro },
             ]
         },
+        // {
+        //     id: '16', name: 'Lesson V', next: [], type: GroupType.Single, 
+        //     members: [
+        //         { id: '16', name: 'Lesson 1 V', progress: 0, type: MicroNodeType.Micro },
+        //         // { id: '142', name: 'Lesson 2 III', progress: 0, type: MicroNodeType.Micro },
+        //         // { id: '143', name: 'Lesson 3 III', progress: 0, type: MicroNodeType.Micro },
+        //     ]
+        // },
+        // {
+        //     id: '17', name: 'Lesson VI', next: [], type: GroupType.Unordered, 
+        //     members: [
+        //         { id: '171', name: 'Lesson 1*VI', progress: 0, type: MicroNodeType.Micro },
+        //         { id: '172', name: 'Lesson 2*VI', progress: 0, type: MicroNodeType.Micro },
+        //         { id: '173', name: 'Lesson 3*VI', progress: 0, type: MicroNodeType.Micro },
+        //     ]
+        // },
     ]
 }
