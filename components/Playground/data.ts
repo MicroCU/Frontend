@@ -45,9 +45,15 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '3', name: 'Syntax - 2', next: ['4', '9'], type: GroupType.Single, 
+            id: '3', name: 'Syntax - 2', next: ['30'], type: GroupType.Single, 
             members: [
                 { id: '3', name: 'Syntax - 2', progress: 80, type: MicroNodeType.Micro }
+            ]
+        },
+        {
+            id: '30', name: 'Syntax - 3', next: ['4', '9'], type: GroupType.Single, 
+            members: [
+                { id: '30', name: 'Syntax - 3', progress: 80, type: MicroNodeType.Micro }
             ]
         },
         {
@@ -59,7 +65,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Unordered, 
+            id: '5', name: 'Control Flow', next: ['7', '70'], type: GroupType.Ordered, 
             members: [
                 { id: '51', name: 'Conditional', progress: 50, type: MicroNodeType.Micro },
                 { id: '52', name: 'Loop', progress: 0, type: MicroNodeType.Micro },
@@ -79,7 +85,7 @@ export const mockData: IMockData = {
             members: [
                 { id: '71', name: 'Python Final Test 1', progress: 0, type: MicroNodeType.Test },
                 { id: '72', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
-                { id: '73', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
+                // { id: '73', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
             ]
         },
         {
@@ -87,7 +93,7 @@ export const mockData: IMockData = {
             members: [
                 { id: '701', name: 'Python Midterm Test 1', progress: 0, type: MicroNodeType.Test },
                 { id: '702', name: 'Python Final Test 2', progress: 0, type: MicroNodeType.Test },
-                { id: '703', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
+                // { id: '703', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
             ]
         },
         {
@@ -99,11 +105,17 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '9', name: 'Operator2', next: [], type: GroupType.Ordered, 
+            id: '9', name: 'Operator2', next: ['90'], type: GroupType.Ordered, 
             members: [
                 { id: '91', name: 'Bitwise', progress: 90, type: MicroNodeType.Micro },
                 { id: '92', name: 'Arithmatic', progress: 0, type: MicroNodeType.Micro },
                 { id: '93', name: 'Arithmatic 2', progress: 0, type: MicroNodeType.Micro },
+            ]
+        },
+        {
+            id: '90', name: 'Operator *', next: ['7', '70'], type: GroupType.Single, 
+            members: [
+                { id: '90', name: 'Operator *', progress: 90, type: MicroNodeType.Micro },
             ]
         },
         {
@@ -127,7 +139,7 @@ export const mockData: IMockData = {
             members: [
                 { id: '121', name: 'Lesson 1 I', progress: 0, type: MicroNodeType.Micro },
                 { id: '122', name: 'Lesson 2 I', progress: 0, type: MicroNodeType.Micro },
-                { id: '123', name: 'Lesson 3 I', progress: 0, type: MicroNodeType.Micro },
+                // { id: '123', name: 'Lesson 3 I', progress: 0, type: MicroNodeType.Micro },
             ]
         },
         {

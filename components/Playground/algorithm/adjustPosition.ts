@@ -1,6 +1,6 @@
 import { Node } from "reactflow";
 import { parents } from "../node-edges";
-import { defaultSettings } from "../setting";
+import { defaultSettings, gapSpecial } from "../setting";
 import { calculateNodeSize } from "./util";
 
 interface INodeBrief {
@@ -11,6 +11,7 @@ interface INodeBrief {
 }
 
 var distinctParents: Map<string, string[]> = new Map<string, string[]>() // key: "p1, p2, p3"  value: ["c1", "c2"]
+
 // Adjust position is for the case that a node has more than 1 parent
 export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) {
     parents.forEach((ps, nodeId) => {
@@ -37,6 +38,10 @@ export function adjustPosition(reactFlownodes: Node<any, string | undefined>[]) 
                 distinctParents.set(key, [nodeId])
             }
         }
+    })
+
+    reactFlownodes.forEach(node => {
+        node.data.label = node.id + " " + node.position.x + " " + node.position.y
     })
 
     distinctParents.forEach((children, papa) => {
@@ -84,14 +89,19 @@ function checkIfThisElementExistInArray(arr: string[], element: string) {
     return false
 }
 
-const neededGap = 0
 function parentsPositionImproved(nodes: INodeBrief[], reactFlownodes: Node<any, string | undefined>[]) { // adjust position of parents in x-axis
     const moveCenter = (center: INodeBrief) => {
         let parentOfCenterIds = parents.get(center.id)
         if (parentOfCenterIds) {
             let ids = Array.from(parentOfCenterIds);
             if (ids.length > 1) {
-
+                let left = ids[0]
+                let right = ids[1]
+                let l = reactFlownodes.find(node => node.id === left)
+                let r = reactFlownodes.find(node => node.id === right)
+                if (l && r) {
+                    center.position.x = (l.position.x + calculateNodeSize(l.id)[0] + r.position.x) / 2
+                }
             } else {
                 let parentId = ids[0]
                 let n = reactFlownodes.find(node => node.id === parentId)
@@ -105,7 +115,7 @@ function parentsPositionImproved(nodes: INodeBrief[], reactFlownodes: Node<any, 
         for (let i = 0; i < left.length; i++) {
             let zeroDiff = (center.position.x - (left[i].position.x + left[i].width))
             left[i].position.x += zeroDiff
-            left[i].position.x -= neededGap
+            left[i].position.x -= gapSpecial
         }
     }
 
@@ -113,7 +123,7 @@ function parentsPositionImproved(nodes: INodeBrief[], reactFlownodes: Node<any, 
         for (let i = 0; i < right.length; i++) {
             let zeroDiff = (right[i].position.x - (center.position.x + center.width))
             right[i].position.x -= zeroDiff
-            right[i].position.x += neededGap
+            right[i].position.x += gapSpecial
         }
     }
 
@@ -132,10 +142,10 @@ function parentsPositionImproved(nodes: INodeBrief[], reactFlownodes: Node<any, 
         let zeroDiffCenter = ((centerRight.position.x - (centerLeft.position.x + centerLeft.width))) / 2
 
         centerLeft.position.x += zeroDiffCenter
-        centerLeft.position.x -= neededGap / 2
+        centerLeft.position.x -= gapSpecial / 2
 
         centerRight.position.x -= zeroDiffCenter
-        centerRight.position.x += neededGap / 2
+        centerRight.position.x += gapSpecial / 2
 
         let left = nodes.slice(0, Math.floor(nodes.length / 2) - 1)
         moveLeft(left, centerLeft)
@@ -145,33 +155,24 @@ function parentsPositionImproved(nodes: INodeBrief[], reactFlownodes: Node<any, 
     }
 }
 
-function childrenPositionImproved(nodes: INodeBrief[], parenMostLeft: INodeBrief, parentMostRight: INodeBrief) {
+function childrenPositionImproved(nodes: INodeBrief[], parentMostLeft: INodeBrief, parentMostRight: INodeBrief) {
     const moveY = (node: INodeBrief) => {
-        node.position.y = Math.max(parenMostLeft.position.y + parenMostLeft.height, parentMostRight.position.y + parentMostRight.height) + defaultSettings.sourceTargetSpacing
+        node.position.y = Math.max(parentMostLeft.position.y + parentMostLeft.height, parentMostRight.position.y + parentMostRight.height) + defaultSettings.sourceTargetSpacing
     }
-    let diffCenterParentX = (parentMostRight.position.x + parentMostRight.width - parenMostLeft.position.x) / 2
-    let centerChild = nodes[Math.floor(nodes.length / 2)]
 
-    centerChild.position.x = parenMostLeft.position.x + diffCenterParentX - centerChild.width / 2
-    moveY(centerChild)
+    // NOTE: nodes' length is always 2 as the constaint described.
+    let leftChild = nodes[0]
+    let rightChild = nodes[1]
 
-    let left = nodes.slice(0, Math.floor(nodes.length / 2))
-    let right = nodes.slice(Math.floor(nodes.length / 2) + 1)
-    for (let i = left.length - 1; i >= 0; i--) {
-        if (i == left.length - 1) {
-            left[i].position.x = centerChild.position.x - ((left.length - i) * (left[i].width + neededGap))
-        } else {
-            left[i].position.x = left[i + 1].position.x - left[i].width - neededGap
+    leftChild.position.x = parentMostLeft.position.x
+    moveY(leftChild)
 
-        }
-        moveY(left[i])
-    }
-    for (let i = 0; i < right.length; i++) {
-        if (i == 0) {
-            right[i].position.x = centerChild.position.x + centerChild.width + neededGap
-        } else {
-            right[i].position.x = right[i - 1].position.x + right[i - 1].width + neededGap
-        }
-        moveY(right[i])
-    }
+    rightChild.position.x = leftChild.position.x + leftChild.width + gapSpecial
+    moveY(rightChild)
+
+    let diffCenterParentX = (parentMostRight.position.x + parentMostRight.width - parentMostLeft.position.x) / 2
+    let diffCenterChildX = (rightChild.position.x + rightChild.width - leftChild.position.x) / 2
+
+    leftChild.position.x += diffCenterParentX - diffCenterChildX
+    rightChild.position.x += diffCenterParentX - diffCenterChildX
 }

@@ -2,7 +2,7 @@ import { TreeNode } from "entitree-flex";
 import { Node } from "reactflow";
 import { ITreeNode } from "../lib/type";
 import { groupMember } from "../node-edges";
-import { defaultSettings } from "../setting";
+import { defaultSettings, gapSpecial } from "../setting";
 
 var maxMap = new Map<string, { left: number, right: number }>()
 export function compactGraph(reactFlownodes: Node<any, string | undefined>[], nodes: TreeNode<ITreeNode>[], rootId: string) {
@@ -42,6 +42,7 @@ export function compactGraph(reactFlownodes: Node<any, string | undefined>[], no
                 }
             }
         }
+
     })
 
     // update position
@@ -87,7 +88,6 @@ function findMaxLeftRight(nodes: TreeNode<ITreeNode>[], nodeId: string, maxLeft:
     return { maxLeft, maxRight }
 }
 
-const maxGap = 0
 function calculateCompactSize(nodeId: string, isRoot: boolean) {
     let nextChildren = groupMember.get(nodeId)?.next
     if (!nextChildren) {
@@ -103,11 +103,11 @@ function calculateCompactSize(nodeId: string, isRoot: boolean) {
         return 0
     }
 
-    if (maxRightChildNode.left - maxLeftChildNode.right > maxGap) {
+    if (maxRightChildNode.left - maxLeftChildNode.right > gapSpecial) {
         if (isRoot) {
-            return ( maxRightChildNode.left - maxLeftChildNode.right ) / 2
+            return ( maxRightChildNode.left - maxLeftChildNode.right ) / 2 - gapSpecial / 2
         } else {
-            return maxRightChildNode.left - maxLeftChildNode.right
+            return maxRightChildNode.left - maxLeftChildNode.right - gapSpecial
         }
     }
 
@@ -121,7 +121,7 @@ function moveChildren(nodeId: string, diff: number, nodes: TreeNode<ITreeNode>[]
         let right = node.children[node.children.length - 1]
         let leftNode = nodes.find(node => node.id === left)
         let rightNode = nodes.find(node => node.id === right)
-        let isMoveLeft = new Set<string>()
+        let isMoveLeft = new Set<string>() // To avoid duplicate move
         let isMoveRight = new Set<string>()
         if (leftNode) {
             leftNode.x += diff

@@ -2,7 +2,7 @@ import { MarkerType, Node } from "reactflow";
 import { GroupType, IMicroNode, mockData } from "./data";
 
 const position = { x: 0, y: 0 };
-const edgeType = 'smoothstep';
+const edgeType = 'bezier';
 export interface IGroupValueMap {
     name: string;
     next: string[];
