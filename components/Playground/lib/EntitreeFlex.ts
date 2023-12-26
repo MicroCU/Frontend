@@ -1,32 +1,11 @@
 import { layoutFromMap } from "entitree-flex";
-import { adjustPosition, compactGraph, findRoot } from "../algorithm";
-import { GroupType } from "../data";
 import { groupMember, parents } from "../node-edges";
-import { defaultSettings, horizontalMargin, verticalMargin } from "../setting";
+import { defaultSettings } from "../setting";
 import { Node, Edge } from "reactflow";
 import { NodeData } from "./type";
-
-export function calculateNodeSize(nodeId: string): [number, number] {
-    let nodeWidth = defaultSettings.nodeWidth;
-    let nodeHeight = defaultSettings.nodeHeight;
-    const nodeInfo = groupMember.get(nodeId)
-    if (!nodeInfo) {
-        return [nodeWidth, nodeHeight]
-    }
-    let memberCount = nodeInfo.members.length;
-    let w, h;
-    if (nodeInfo.type === GroupType.Unordered) {
-        w = (nodeWidth * memberCount) + (horizontalMargin * (memberCount - 1));
-        h = nodeHeight;
-    } else if (nodeInfo.type === GroupType.Ordered) {
-        w = nodeWidth;
-        h = (nodeHeight * memberCount) + (verticalMargin * (memberCount - 1));
-    } else {
-        w = nodeWidth;
-        h = nodeHeight;
-    }
-    return [w, h];
-}
+import { calculateNodeSize, findRoot } from "../algorithm/util";
+import { adjustPosition } from "../algorithm/adjustPosition";
+import { compactGraph } from "../algorithm/compact";
 
 function generateStructForFlextree(nodes: Node<any, string | undefined>[]) {
     let hierarchy: NodeData = {} as NodeData;
