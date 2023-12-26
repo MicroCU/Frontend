@@ -11,7 +11,7 @@ export default function UnorderedGroupNode({ id, data, isConnectable }: { id: st
             <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
             <div style={{backgroundColor: 'red', display: 'flex', flexDirection: 'row'}}>
                 {member.map((value, index) => {
-                    return <div style={{ backgroundColor: '#ffabdc', marginRight: `${index !== member.length - 1 ? '5px' : ''}`, width: `${defaultSettings.nodeWidth}px`, height: `${defaultSettings.nodeHeight}px` }} key={value.id}> {value.name}</div>
+                    return <div style={{ backgroundColor: '#ffabdc', marginRight: `${index !== member.length - 1 ? '5px' : ''}`, width: `${defaultSettings.singleWidth}px`, height: `${defaultSettings.singleHeight}px` }} key={value.id}> {value.name}</div>
                 })}
             </div>
             <Handle type="source" position={Position.Bottom} id="b" isConnectable={isConnectable} />

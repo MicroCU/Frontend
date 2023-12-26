@@ -1,6 +1,9 @@
 export const defaultSettings = {
     rootX: 0,
     rootY: 100,
+    singleWidth: 172,
+    singleHeight: 36,
+    Padding: 10,
 }
 
 export const horizontalMargin = 5;

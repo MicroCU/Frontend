@@ -1,7 +1,7 @@
 "use client"
 import Dagre from "@/components/Dagre";
 import Item from "@/components/Item";
-import { useScreenContext } from "@/components/Playground/context/ScreenContext";
+import { useScreenContext } from "@/components/Dagre/context/ScreenContext";
 import { ReactFlowProvider } from 'reactflow'
 
 export default function Explore() {

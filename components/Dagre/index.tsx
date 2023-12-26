@@ -19,8 +19,8 @@ interface EntitreeTreeProps {
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-const nodeWidth = 172*3 + 10
-const nodeHeight = 36*3 + 10
+const nodeWidth = defaultSettings.singleWidth*3 + defaultSettings.Padding*2
+const nodeHeight = defaultSettings.singleHeight*3 + defaultSettings.Padding*2
 
 const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge<any>[], direction = 'TB') => {
     dagreGraph.setGraph({ rankdir: direction });
@@ -82,19 +82,19 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
         bounds.height = screenHeight
     }
 
-    // console.log("RootInfo: ", rootInfo)
+    console.log("RootInfo: ", rootInfo)
 
-    const { x, y, zoom } = useViewport();
-    console.log("Viewport: ", x, y, zoom)
+    // const { x, y, zoom } = useViewport();
+    // console.log("Viewport: ", x, y, zoom)
 
     useEffect(() => {
         setViewport({
-            x: -screenWidth/2,
-            y: 0,
+            x: rootInfo.x,
+            y: rootInfo.y,
             zoom: zoomLevel
         });
 
-        // setInfoSection(nodes, screenWidth, rootInfo.width)
+        setInfoSection(nodes, screenWidth, rootInfo)
     }, [screenWidth]);
 
     return (
@@ -126,8 +126,8 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
 
                 onInit={() => {
                     setViewport({
-                        x: -screenWidth/2,
-                        y: 0,
+                        x: rootInfo.x - screenWidth/2,
+                        y: rootInfo.y,
                         zoom: zoomLevel
                     });
                 }}
