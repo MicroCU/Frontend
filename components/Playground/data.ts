@@ -134,11 +134,27 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '13', name: 'Lesson II', next: [], type: GroupType.Unordered, 
+            id: '13', name: 'Lesson II', next: ['14', '15'], type: GroupType.Unordered, 
             members: [
                 { id: '131', name: 'Lesson 1*II', progress: 0, type: MicroNodeType.Micro },
                 { id: '132', name: 'Lesson 2*II', progress: 0, type: MicroNodeType.Micro },
                 { id: '133', name: 'Lesson 3*II', progress: 0, type: MicroNodeType.Micro },
+            ]
+        },
+        {
+            id: '14', name: 'Lesson III', next: [], type: GroupType.Single, 
+            members: [
+                { id: '14', name: 'Lesson 1 III', progress: 0, type: MicroNodeType.Micro },
+                // { id: '142', name: 'Lesson 2 III', progress: 0, type: MicroNodeType.Micro },
+                // { id: '143', name: 'Lesson 3 III', progress: 0, type: MicroNodeType.Micro },
+            ]
+        },
+        {
+            id: '15', name: 'Lesson IV', next: [], type: GroupType.Unordered, 
+            members: [
+                { id: '131', name: 'Lesson 1*IV', progress: 0, type: MicroNodeType.Micro },
+                { id: '132', name: 'Lesson 2*IV', progress: 0, type: MicroNodeType.Micro },
+                { id: '133', name: 'Lesson 3*IV', progress: 0, type: MicroNodeType.Micro },
             ]
         },
     ]

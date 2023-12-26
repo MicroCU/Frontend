@@ -36,13 +36,20 @@ export function getInitialNodesAndEdges() {
 
         groupMember.set(group.id, {name: group.name, type: group.type, next: group.next, members: group.members})
 
-        group.next.forEach(next => {
-            if (parents.has(next)) {
-                parents.get(next)?.add(group.id)
+        group.next.forEach(nextId => {
+            if (parents.has(nextId)) {
+                parents.get(nextId)?.add(group.id)
             } else {
-                parents.set(next, new Set<string>(group.id))
+                let tmp = new Set<string>()
+                parents.set(nextId, tmp.add(group.id))
             }
         })
+        
+        // Display parents data
+        // parents.forEach((ps, nodeId) => {
+        //     console.log("nodeId: ", nodeId, " -> ", ps)
+        // })
+        // console.log("=====================================")
 
         group.next.forEach(next => {
             initialEdges.push({
