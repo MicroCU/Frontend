@@ -1,12 +1,12 @@
 "use client"
-
+import Dagre from "@/components/Dagre";
 import Item from "@/components/Item";
 import { useScreenContext } from "@/components/Playground/context/ScreenContext";
 import { ReactFlowProvider } from 'reactflow'
 
-export default function Testna() {
+export default function Explore() {
     const { screenWidth, screenHeight } = useScreenContext();
-    console.log("Testna page");
+
     return (
         <Item>
             <div style={{ width: '100vw', height: '5vh', backgroundColor: 'blue' }}>
@@ -15,7 +15,7 @@ export default function Testna() {
             <div style={{ width: '100vw', height: '95vh' }}>
                 {screenWidth !== null && screenHeight != null &&
                     <ReactFlowProvider>
-                        
+                        <Dagre screenWidth={screenWidth} screenHeight={screenHeight} />
                     </ReactFlowProvider>
                 }
                 {(screenWidth === null || screenHeight == null) && <p>Loading...</p>}
