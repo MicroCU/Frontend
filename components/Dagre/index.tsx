@@ -10,6 +10,7 @@ import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
 import InfoNode from "./CustomNode/InfoNode";
 import { setInfoSection } from "./util";
 import 'reactflow/dist/style.css';
+import { findRoot } from "./algorithm";
 
 interface EntitreeTreeProps {
     screenWidth: number;
@@ -38,6 +39,7 @@ const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge
     let rootWidth = 0;
     let rootX = 0;
     let rootY = 0;
+    let rootId = findRoot()
     nodes.forEach((node) => {
         const nodeWithPosition = dagreGraph.node(node.id);
 
@@ -48,12 +50,12 @@ const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge
             y: nodeWithPosition.y - nodeHeight / 2,
         };
 
-        if (node.id === "1") {  // TODO: add algo for find Root
+        node.data.label = node.id // TEST ONLY
+
+        if (node.id === rootId) {
             rootWidth = nodeWidth;
             rootX = node.position.x;
             rootY = node.position.y;
-
-            console.log("Root: ", node.position.x, " --> ", nodeWithPosition.x)
         }
 
         return node;
@@ -82,15 +84,15 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
         bounds.height = screenHeight
     }
 
-    console.log("RootInfo: ", rootInfo)
+    // console.log("RootInfo: ", rootInfo, " screenWidth: ", screenWidth)
 
-    // const { x, y, zoom } = useViewport();
-    // console.log("Viewport: ", x, y, zoom)
+    const { x, y, zoom } = useViewport();
+    console.log("Viewport: ", x, y, zoom)
 
     useEffect(() => {
         setViewport({
             x: rootInfo.x,
-            y: rootInfo.y,
+            y: defaultSettings.rootY,
             zoom: zoomLevel
         });
 
@@ -126,8 +128,8 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
 
                 onInit={() => {
                     setViewport({
-                        x: rootInfo.x - screenWidth/2,
-                        y: rootInfo.y,
+                        x: x,
+                        y: defaultSettings.rootY,
                         zoom: zoomLevel
                     });
                 }}

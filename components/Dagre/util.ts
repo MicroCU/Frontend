@@ -1,5 +1,6 @@
 import { Node } from "reactflow";
 import { defaultSettings } from "./setting";
+
 export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], screenWidth: number, rootInfo: {
     width: number;
     x: number;

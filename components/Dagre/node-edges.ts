@@ -1,5 +1,6 @@
 import { MarkerType, Node } from "reactflow";
 import { GroupType, IMicroNode, mockData } from "./data";
+import { findMostLeftAndMostRightNodes, findRoot } from "./algorithm";
 
 const position = { x: 0, y: 0 };
 const edgeType = 'smoothstep';
@@ -24,6 +25,7 @@ export function getInitialNodesAndEdges() {
             color: string;
         };
     }[] = [];
+    let nextData: IGraph = {} as IGraph;
 
     mockData.groups.forEach(group => {
         initialNodes.push({
@@ -44,12 +46,6 @@ export function getInitialNodesAndEdges() {
                 parents.set(nextId, tmp.add(group.id))
             }
         })
-        
-        // Display parents data
-        // parents.forEach((ps, nodeId) => {
-        //     console.log("nodeId: ", nodeId, " -> ", ps)
-        // })
-        // console.log("=====================================")
 
         group.next.forEach(next => {
             initialEdges.push({
@@ -60,7 +56,12 @@ export function getInitialNodesAndEdges() {
                 markerEnd: { type: MarkerType.ArrowClosed, color: 'black' }
             });
         })
+
+        nextData[group.id] = { id: group.id, next: group.next }
     })
+
+    let ans = findMostLeftAndMostRightNodes(nextData, findRoot())
+    console.log(ans)
 
     return { initialNodes, initialEdges };
 }
