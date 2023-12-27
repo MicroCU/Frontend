@@ -1,6 +1,5 @@
 import { MarkerType, Node } from "reactflow";
 import { GroupType, IMicroNode, mockData } from "./data";
-import { findMostLeftAndMostRightNodes, findRoot } from "./algorithm";
 
 const position = { x: 0, y: 0 };
 const edgeType = 'smoothstep';
@@ -59,9 +58,6 @@ export function getInitialNodesAndEdges() {
 
         nextData[group.id] = { id: group.id, next: group.next }
     })
-
-    let ans = findMostLeftAndMostRightNodes(nextData, findRoot())
-    console.log(ans)
 
     return { initialNodes, initialEdges };
 }

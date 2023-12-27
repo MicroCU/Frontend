@@ -1,4 +1,6 @@
+import { GroupType } from "./data";
 import { groupMember } from "./node-edges";
+import { defaultSettings } from "./setting";
 
 export function findRoot() {
     let root: string = '';
@@ -18,33 +20,19 @@ export function findRoot() {
     return root;
 }
 
-export function findMostLeftAndMostRightNodes(graph: IGraph, startNodeId: string): { left: string; right: string } {
-    const visited: Set<string> = new Set();
-    let mostLeft: string | null = null;
-    let mostRight: string | null = null;
-
-    function dfs(nodeId: string) {
-        visited.add(nodeId);
-
-        if (mostLeft === null) {
-            mostLeft = nodeId;
-        }
-
-        if (mostRight === null || graph[nodeId].next.length === 0) {
-            mostRight = nodeId;
-        }
-
-        for (const nextNodeId of graph[nodeId].next) {
-            if (!visited.has(nextNodeId)) {
-                dfs(nextNodeId);
-            }
+export function getRootRealWidth(rootId: string) {
+    let root = groupMember.get(rootId)
+    let memberOfRoot = root?.members
+    if (memberOfRoot && memberOfRoot.length == 1) {
+        return defaultSettings.singleWidth
+    } else if (memberOfRoot && memberOfRoot.length > 1) {
+        if (root?.type === GroupType.Ordered) {
+            return ( defaultSettings.singleWidth * memberOfRoot.length ) + (defaultSettings.Padding * (memberOfRoot.length - 1))
+        } else if (root?.type === GroupType.Unordered) {
+            return defaultSettings.singleWidth
+        } else {
+            return 0
         }
     }
-
-    if (graph[startNodeId]) {
-        dfs(startNodeId);
-    }
-
-    return { left: mostLeft || '', right: mostRight || '' };
+    return 0
 }
-

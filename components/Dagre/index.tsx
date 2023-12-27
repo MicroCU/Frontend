@@ -10,7 +10,7 @@ import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
 import InfoNode from "./CustomNode/InfoNode";
 import { setInfoSection } from "./util";
 import 'reactflow/dist/style.css';
-import { findRoot } from "./algorithm";
+import { findRoot, getRootRealWidth } from "./algorithm";
 
 interface EntitreeTreeProps {
     screenWidth: number;
@@ -61,7 +61,7 @@ const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge
         return node;
     });
 
-    return { nodes, edges, rootInfo: {width: rootWidth, x: rootX, y: rootY } };
+    return { nodes, edges, rootInfo: {id: rootId, width: rootWidth, x: rootX, y: rootY } };
 };
 
 export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) {
@@ -86,12 +86,12 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
 
     // console.log("RootInfo: ", rootInfo, " screenWidth: ", screenWidth)
 
-    const { x, y, zoom } = useViewport();
-    console.log("Viewport: ", x, y, zoom)
+    // const { x, y, zoom } = useViewport();
+    // console.log("Viewport: ", x, y, zoom)
 
     useEffect(() => {
         setViewport({
-            x: rootInfo.x,
+            x: -rootInfo.x + screenWidth/2 - getRootRealWidth(rootInfo.id)/2,
             y: defaultSettings.rootY,
             zoom: zoomLevel
         });
@@ -128,7 +128,7 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
 
                 onInit={() => {
                     setViewport({
-                        x: x,
+                        x: -rootInfo.x + screenWidth/2 - getRootRealWidth(rootInfo.id)/2,
                         y: defaultSettings.rootY,
                         zoom: zoomLevel
                     });
