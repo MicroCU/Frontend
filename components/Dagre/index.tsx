@@ -10,7 +10,7 @@ import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
 import InfoNode from "./CustomNode/InfoNode";
 import { setInfoSection } from "./util";
 import 'reactflow/dist/style.css';
-import { findRoot, improvePositionForVerticalGroup } from "./algorithm";
+import { calculateNodeSize, findRoot, improvePositionForVerticalGroup } from "./algorithm";
 
 interface EntitreeTreeProps {
     screenWidth: number;
@@ -50,6 +50,9 @@ const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge
             y: nodeWithPosition.y - nodeHeight / 2,
         };
 
+        // let nodeSize = calculateNodeSize(node.id)
+        // node.width = nodeSize[0]
+        // node.height = nodeSize[1]
         node.data.label = node.id // TEST ONLY
 
         if (node.id === rootId) {
@@ -79,7 +82,9 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
         initialNodes,
         initialEdges
     );
+    
     const [nodes, setNodes, onNodesChange] = useNodesState(lNode);
+    console.log("nodes: ", nodes)
     const [edges, setEdges, onEdgesChange] = useEdgesState(lEdge);
     const bounds = getNodesBounds(nodes);
     if (bounds.height < screenHeight) {
@@ -136,7 +141,7 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
                     });
                 }}
             >
-                <MiniMap pannable={true} />
+                <MiniMap pannable={true} /> {/* PROBLEM */}
                 <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
             </ReactFlow>
         </>

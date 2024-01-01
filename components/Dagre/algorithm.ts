@@ -21,6 +21,28 @@ export function findRoot() {
     return root;
 }
 
+export function calculateNodeSize(nodeId: string): [number, number] {
+    let nodeWidth = defaultSettings.singleWidth;
+    let nodeHeight = defaultSettings.singleHeight;
+    const nodeInfo = groupMember.get(nodeId)
+    if (!nodeInfo) {
+        return [nodeWidth, nodeHeight]
+    }
+    let memberCount = nodeInfo.members.length;
+    let w, h;
+    if (nodeInfo.type === GroupType.Unordered) {
+        w = (nodeWidth * memberCount) + (defaultSettings.Margin * (memberCount - 1));
+        h = nodeHeight;
+    } else if (nodeInfo.type === GroupType.Ordered) {
+        w = nodeWidth;
+        h = (nodeHeight * memberCount) + (defaultSettings.Margin * (memberCount - 1));
+    } else {
+        w = nodeWidth;
+        h = nodeHeight;
+    }
+    return [w, h];
+}
+
 export function improvePositionForVerticalGroup(nodes: Node<any, string | undefined>[]) {
     let isAdjusted = new Set<string>();
     nodes.forEach(node => {

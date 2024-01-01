@@ -6,6 +6,10 @@ export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], 
     x: number;
     y: number;
 }) {
+    let isExists = reactFlownodes.find(node => node.id === 'info')?.data?.label
+    if (isExists) {
+        return;
+    }
     reactFlownodes.push({
         id: 'info',
         type: 'infoNode',
