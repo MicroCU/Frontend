@@ -84,7 +84,6 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
     );
     
     const [nodes, setNodes, onNodesChange] = useNodesState(lNode);
-    console.log("nodes: ", nodes)
     const [edges, setEdges, onEdgesChange] = useEdgesState(lEdge);
     const bounds = getNodesBounds(nodes);
     if (bounds.height < screenHeight) {
