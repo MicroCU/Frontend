@@ -11,7 +11,7 @@ export default function OrderedGroupNode({ id, data, isConnectable }: { id: stri
             <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
             <div style={{backgroundColor: 'red'}}>
                 {member.map((value, index) => {
-                    return <div style={{ backgroundColor: '#ffe5d1', marginBottom: `${index !== member.length - 1 ? '5px' : ''}`, width: `${defaultSettings.singleWidth}px`, height: `${defaultSettings.singleHeight}px` }} key={value.id}> {value.name}</div>
+                    return <div style={{ backgroundColor: '#ffe5d1', marginBottom: `${index !== member.length - 1 ? defaultSettings.Padding + 'px' : ''}`, width: `${defaultSettings.singleWidth}px`, height: `${defaultSettings.singleHeight}px` }} key={value.id}> {value.name}</div>
                 })}
             </div>
             <Handle type="source" position={Position.Bottom} id="b" isConnectable={isConnectable} />

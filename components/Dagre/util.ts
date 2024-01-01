@@ -1,5 +1,5 @@
 import { Node } from "reactflow";
-import { defaultSettings } from "./setting";
+import { defaultSettings, groupSettings } from "./setting";
 
 export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], screenWidth: number, rootInfo: {
     width: number;
@@ -10,7 +10,7 @@ export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], 
         id: 'info',
         type: 'infoNode',
         position: {
-            x: rootInfo.x - screenWidth/2 + defaultSettings.singleWidth/2, //In case, the root is single node 
+            x: rootInfo.x - screenWidth/2 + groupSettings.width/2,
             y: rootInfo.y - defaultSettings.rootY
         },
         data: {

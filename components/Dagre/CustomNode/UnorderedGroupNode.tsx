@@ -11,22 +11,10 @@ export default function UnorderedGroupNode({ id, data, isConnectable }: { id: st
             <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
             <div style={{backgroundColor: 'red', display: 'flex', flexDirection: 'row'}}>
                 {member.map((value, index) => {
-                    return <div style={{ backgroundColor: '#ffabdc', marginRight: `${index !== member.length - 1 ? '5px' : ''}`, width: `${defaultSettings.singleWidth}px`, height: `${defaultSettings.singleHeight}px` }} key={value.id}> {value.name}</div>
+                    return <div style={{ backgroundColor: '#ffabdc', marginRight: `${index !== member.length - 1 ? defaultSettings.Padding + 'px' : ''}`, width: `${defaultSettings.singleWidth}px`, height: `${defaultSettings.singleHeight}px` }} key={value.id}> {value.name}</div>
                 })}
             </div>
             <Handle type="source" position={Position.Bottom} id="b" isConnectable={isConnectable} />
         </div>
     );
-    // return (
-    //     <div style={{ backgroundColor: 'blue', alignItems: 'center', minWidth: `688px`, minHeight: `${nodeHeight}px` }}>
-    //         <p style={{ backgroundColor: 'transparent', textAlign: 'left', position: 'absolute', top: '-20px' }}> {data.label} </p>
-    //         <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
-    //         <div style={{backgroundColor: 'red'}}>
-    //             {member.map((value) => {
-    //                 return <div style={{ backgroundColor: '#ffabdc', marginRight: '5px' }} key={value.id}> {value.name}</div>
-    //             })}
-    //         </div>
-    //         <Handle type="source" position={Position.Bottom} id="b" isConnectable={isConnectable} />
-    //     </div>
-    // );
 }

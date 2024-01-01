@@ -3,14 +3,14 @@ import { useMemo, useEffect } from "react";
 import ReactFlow, { useNodesState, useEdgesState, ConnectionLineType, Node, Edge, Background, MiniMap, BackgroundVariant, PanOnScrollMode, getNodesBounds, useReactFlow, useViewport } from "reactflow";
 import dagre from 'dagre';
 import { getInitialNodesAndEdges } from './node-edges';
-import { defaultSettings, zoomLevel } from "./setting";
+import { defaultSettings, groupSettings, zoomLevel } from "./setting";
 import OrderedGroupNode from "./CustomNode/OrderedGroupNode";
 import SingleNode from "./CustomNode/SingleNode";
 import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
 import InfoNode from "./CustomNode/InfoNode";
 import { setInfoSection } from "./util";
 import 'reactflow/dist/style.css';
-import { findRoot, getRootRealWidth } from "./algorithm";
+import { findRoot } from "./algorithm";
 
 interface EntitreeTreeProps {
     screenWidth: number;
@@ -20,8 +20,8 @@ interface EntitreeTreeProps {
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-const nodeWidth = defaultSettings.singleWidth*3 + defaultSettings.Padding*2
-const nodeHeight = defaultSettings.singleHeight*3 + defaultSettings.Padding*2
+const nodeWidth = groupSettings.width
+const nodeHeight = groupSettings.height
 
 const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge<any>[], direction = 'TB') => {
     dagreGraph.setGraph({ rankdir: direction });
@@ -91,7 +91,7 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
 
     useEffect(() => {
         setViewport({
-            x: -rootInfo.x + screenWidth/2 - getRootRealWidth(rootInfo.id)/2,
+            x: -rootInfo.x + screenWidth/2 - groupSettings.width/2,
             y: defaultSettings.rootY,
             zoom: zoomLevel
         });
@@ -128,7 +128,7 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
 
                 onInit={() => {
                     setViewport({
-                        x: -rootInfo.x + screenWidth/2 - getRootRealWidth(rootInfo.id)/2,
+                        x: -rootInfo.x + screenWidth/2 - groupSettings.width/2,
                         y: defaultSettings.rootY,
                         zoom: zoomLevel
                     });

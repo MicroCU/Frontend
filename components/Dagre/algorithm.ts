@@ -1,6 +1,6 @@
 import { GroupType } from "./data";
 import { groupMember } from "./node-edges";
-import { defaultSettings } from "./setting";
+import { defaultSettings, groupSettings } from "./setting";
 
 export function findRoot() {
     let root: string = '';
@@ -18,21 +18,4 @@ export function findRoot() {
         }
     })
     return root;
-}
-
-export function getRootRealWidth(rootId: string) {
-    let root = groupMember.get(rootId)
-    let memberOfRoot = root?.members
-    if (memberOfRoot && memberOfRoot.length == 1) {
-        return defaultSettings.singleWidth
-    } else if (memberOfRoot && memberOfRoot.length > 1) {
-        if (root?.type === GroupType.Ordered) {
-            return ( defaultSettings.singleWidth * memberOfRoot.length ) + (defaultSettings.Padding * (memberOfRoot.length - 1))
-        } else if (root?.type === GroupType.Unordered) {
-            return defaultSettings.singleWidth
-        } else {
-            return 0
-        }
-    }
-    return 0
 }
