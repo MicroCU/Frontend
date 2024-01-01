@@ -10,7 +10,7 @@ import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
 import InfoNode from "./CustomNode/InfoNode";
 import { setInfoSection } from "./util";
 import 'reactflow/dist/style.css';
-import { findRoot } from "./algorithm";
+import { findRoot, improvePositionForVerticalGroup } from "./algorithm";
 
 interface EntitreeTreeProps {
     screenWidth: number;
@@ -60,6 +60,8 @@ const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge
 
         return node;
     });
+
+    improvePositionForVerticalGroup(nodes);
 
     return { nodes, edges, rootInfo: {id: rootId, width: rootWidth, x: rootX, y: rootY } };
 };
