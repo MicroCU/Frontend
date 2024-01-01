@@ -97,7 +97,7 @@ export const mockData: IMockData = {
             ]
         },
         {
-            id: '8', name: 'Comment 2', next: ['10', '11'], type: GroupType.Unordered, 
+            id: '8', name: 'Comment 2', next: ['10', '11'], type: GroupType.Ordered, 
             members: [
                 { id: '81', name: 'Comment 2', progress: 0, type: MicroNodeType.Micro },
                 { id: '82', name: 'Comment 3', progress: 0, type: MicroNodeType.Micro },
