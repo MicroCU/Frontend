@@ -50,13 +50,17 @@ const getLayoutedElements = (nodes: Node<any, string | undefined>[], edges: Edge
             y: nodeWithPosition.y - nodeHeight / 2,
         };
 
-        // let nodeSize = calculateNodeSize(node.id)
-        // node.width = nodeSize[0]
-        // node.height = nodeSize[1]
-        node.data.label = node.id // TEST ONLY
+        let nodeSize = calculateNodeSize(node.id)
+        node.width = nodeSize[0]
+        node.height = nodeSize[1]
+        // node.data.label = node.id // TEST ONLY
+
+        if (node.type !== 'unorderedGroupNode') {
+            node.position.x += defaultSettings.singleWidth + defaultSettings.Margin
+        }
 
         if (node.id === rootId) {
-            rootWidth = nodeWidth;
+            rootWidth = node.width;
             rootX = node.position.x;
             rootY = node.position.y;
         }
@@ -77,7 +81,6 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
         unorderedGroupNode: UnorderedGroupNode, infoNode: InfoNode
     }), []);
 
-    // let { lNode, lEdge, rootInfo } = calculateLayoutNodes(initialNodes, initialEdges, screenWidth);
     const { nodes: lNode, edges: lEdge, rootInfo } = getLayoutedElements(
         initialNodes,
         initialEdges
@@ -90,14 +93,12 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
         bounds.height = screenHeight
     }
 
-    // console.log("RootInfo: ", rootInfo, " screenWidth: ", screenWidth)
-
     // const { x, y, zoom } = useViewport();
     // console.log("Viewport: ", x, y, zoom)
 
     useEffect(() => {
         setViewport({
-            x: -rootInfo.x + screenWidth/2 - groupSettings.width/2,
+            x: -rootInfo.x + screenWidth/2 - rootInfo.width/2,
             y: defaultSettings.rootY,
             zoom: zoomLevel
         });
@@ -134,13 +135,13 @@ export default function Dagre({ screenWidth, screenHeight }: EntitreeTreeProps) 
 
                 onInit={() => {
                     setViewport({
-                        x: -rootInfo.x + screenWidth/2 - groupSettings.width/2,
+                        x: -rootInfo.x + screenWidth/2 - rootInfo.width/2,
                         y: defaultSettings.rootY,
                         zoom: zoomLevel
                     });
                 }}
             >
-                <MiniMap pannable={true} /> {/* PROBLEM */}
+                <MiniMap pannable={true} />
                 <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
             </ReactFlow>
         </>

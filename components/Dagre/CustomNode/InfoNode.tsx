@@ -4,9 +4,6 @@ import { defaultSettings } from '../setting';
 import { useScreenContext } from '../context/ScreenContext';
 
 export default function InfoNode({ id, data, isConnectable }: { id: string, data: {label: string}, isConnectable: boolean }) {
-    // return (
-    //     <div> {data.label} </div>
-    // )
     const { screenWidth, setScreenWidth } = useScreenContext();
     return (
         <div style={{ backgroundColor: 'red', width: 'fit-content' }}>

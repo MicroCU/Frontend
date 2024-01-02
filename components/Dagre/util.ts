@@ -6,15 +6,19 @@ export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], 
     x: number;
     y: number;
 }) {
-    let isExists = reactFlownodes.find(node => node.id === 'info')?.data?.label
-    if (isExists) {
-        return;
+    let infoNode = reactFlownodes.find(node => node.id === 'info')
+    if (infoNode) {
+        infoNode.position = {
+            x: rootInfo.x - screenWidth/2 + rootInfo.width/2,
+            y: rootInfo.y - defaultSettings.rootY
+        }
+        return 
     }
     reactFlownodes.push({
         id: 'info',
         type: 'infoNode',
         position: {
-            x: rootInfo.x - screenWidth/2 + groupSettings.width/2,
+            x: rootInfo.x - screenWidth/2 + rootInfo.width/2,
             y: rootInfo.y - defaultSettings.rootY
         },
         data: {
