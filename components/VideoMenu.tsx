@@ -1,23 +1,25 @@
 import { ListVideo, File } from "lucide-react";
 import { useState } from "react";
 
-interface VideoControlProps {
-  controlRef: React.MutableRefObject<HTMLDivElement | null>;
+interface VideoMenuProps {
+  menuRef: React.MutableRefObject<HTMLDivElement | null>;
   playing: boolean;
 }
 
-const VideoControl: React.FC<VideoControlProps> = ({ controlRef, playing }) => {
+const VideoMenu: React.FC<VideoMenuProps> = ({ menuRef, playing }) => {
   const [isVideoListOpen, setIsVideoListOpen] = useState(false);
   const [isFileListOpen, setIsFileListOpen] = useState(false);
   return (
     <div
-      ref={controlRef}
+      ref={menuRef}
       className="bg-black bg-opacity-40 absolute top-16 right-0 flex flex-col z-10 justify-between p-4 rounded-l"
     >
       <div className="flex items-center justify-end gap-7 mr-5">
         <button type="button" className="ListVideo-button">
           <ListVideo
-            className={`cursor-pointer ${isVideoListOpen ? "text-primary" : "text-white"}`}
+            className={`cursor-pointer ${
+              isVideoListOpen ? "text-primary" : "text-white"
+            }`}
             strokeWidth={3}
             onClick={() => {
               setIsVideoListOpen(!isVideoListOpen);
@@ -27,7 +29,9 @@ const VideoControl: React.FC<VideoControlProps> = ({ controlRef, playing }) => {
         </button>
         <button type="button" className="File-button">
           <File
-            className={`cursor-pointer ${isFileListOpen ? "text-primary" : "text-white"}`}
+            className={`cursor-pointer ${
+              isFileListOpen ? "text-primary" : "text-white"
+            }`}
             strokeWidth={3}
             onClick={() => {
               setIsFileListOpen(!isFileListOpen);
@@ -58,4 +62,4 @@ const VideoControl: React.FC<VideoControlProps> = ({ controlRef, playing }) => {
   );
 };
 
-export default VideoControl;
+export default VideoMenu;
