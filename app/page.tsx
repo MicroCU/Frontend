@@ -1,9 +1,10 @@
 import Image from "next/image";
+import VideoPlayer from "../components/VideoPlayer";
 
 export default function Home() {
   return (
     <main>
-      <div className="font-inter bg-primary Bold32">Example</div>
+      <VideoPlayer/>
     </main>
   );
 }
