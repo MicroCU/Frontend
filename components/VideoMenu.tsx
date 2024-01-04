@@ -1,5 +1,7 @@
 import { ListVideo, File } from "lucide-react";
 import { useState } from "react";
+import VideoCard from "./VideoCard";
+import FileCard from "./FileCard";
 
 interface VideoMenuProps {
   menuRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -43,20 +45,27 @@ const VideoMenu: React.FC<VideoMenuProps> = ({ menuRef, playing }) => {
       <div
         className={`${
           isVideoListOpen && !playing
-            ? "fixed top-32 bottom-16 right-0 bg-white rounded-l-[10px] p-5 w-[300px] transition-right ease-in-out duration-300"
-            : "fixed top-32 bottom-16 right-[-400px] bg-white rounded-l-[10px] p-5 w-[300px] transition-right ease-in-out duration-300"
+            ? "fixed top-32 flex flex-col gap-4 overflow-auto bottom-20 right-0 bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300"
+            : "fixed top-32 flex flex-col gap-4 overflow-auto bottom-20 right-[-400px] bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300"
         }`}
       >
-        Video
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
       </div>
       <div
         className={`${
           isFileListOpen && !playing
-            ? "fixed top-32 bottom-16 right-0 bg-white rounded-l-[10px] p-5 w-[300px] transition-right ease-in-out duration-300"
-            : "fixed top-32 bottom-16 right-[-400px] bg-white rounded-l-[10px] p-5 w-[300px] transition-right ease-in-out duration-300"
+          ? "fixed top-32 flex flex-col gap-4 overflow-auto bottom-20 right-0 bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300"
+          : "fixed top-32 flex flex-col gap-4 overflow-auto bottom-20 right-[-400px] bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300"
         }`}
       >
-        File
+        <FileCard />
+        <FileCard />
+        <FileCard />
       </div>
     </div>
   );

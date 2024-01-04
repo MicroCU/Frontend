@@ -34,10 +34,16 @@ const VideoPlayer = () => {
     if (menuRef.current) {
       menuRef.current.style.visibility = "visible";
     }
+    // if (nextRef.current) {
+    //   nextRef.current.style.visibility = "visible";
+    // }
+  };
+
+  const handleEnded = () => {
     if (nextRef.current) {
       nextRef.current.style.visibility = "visible";
     }
-  };
+  }
 
   return (
     isClient && (
@@ -53,6 +59,7 @@ const VideoPlayer = () => {
           controls={true}
           onPlay={handlePlay}
           onPause={handlePause}
+          onEnded={handleEnded}
         />
         <VideoMenu menuRef={menuRef} playing={videoState.playing} />
         <VideoNext nextRef={nextRef} playing={false} />
