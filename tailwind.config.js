@@ -49,6 +49,9 @@ module.exports = {
         primary: "#5C4EFF",
         danger: "#FF4E4E",
         success: "#22C55E",
+        passed: "#7343C5",
+        primaryLight: "#E6E3FF",
+        passedLight: "#E3D9F3",
       },
     },
     
