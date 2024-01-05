@@ -51,7 +51,7 @@ const VideoPlayer = () => {
         <ReactPlayer
           className="p-0 m-0 w-full h-full"
           url="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-          //   url="https://www.youtube.com/watch?v=J3pF2jkQ4vc"
+          // url="https://www.youtube.com/watch?v=KnZmaNZ2Bck"
           width="100%"
           height="100%"
           playing={true}
