@@ -15,6 +15,17 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    colors: {
+      black: "#000000",
+      grayMain: "#494949",
+      grayMedium: "#7E7D7D",
+      graySmall: "#D9D9D9",
+      grayLight: "#F3F3F3",
+      white: "#FFFFFF",
+      primary: "#5C4EFF",
+      danger: "#FF4E4E",
+      success: "#22C55E",
+    },
     extend: {
       borderRadius: {
         lg: "var(--radius)",
@@ -37,24 +48,48 @@ module.exports = {
       },
       fontFamily: {
         "bai-jamjuree": ["Bai Jamjuree", "sans-serif"],
-        "inter": ["Inter", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
-      colors: {
-        black: "#000000",
-        grayMain: "#494949",
-        grayMedium: "#7E7D7D",
-        graySmall: "#D9D9D9",
-        grayLight: "#F3F3F3",
-        white: "#FFFFFF",
-        primary: "#5C4EFF",
-        danger: "#FF4E4E",
-        success: "#22C55E",
+    },
+  },
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".Reg12": {
+          fontSize: "12px",
+          fontWeight: 400,
+        },
+        ".Reg16": {
+          fontSize: "16px",
+          fontWeight: 400,
+        },
+        ".Bold16": {
+          fontSize: "16px",
+          fontWeight: 700,
+        },
+        ".Bold24": {
+          fontSize: "24px",
+          fontWeight: 700,
+        },
+        ".Bold32": {
+          fontSize: "32px",
+          fontWeight: 700,
+        },
+        ".Medium12": {
+          fontSize: "12px",
         passed: "#7343C5",
         primaryLight: "#E6E3FF",
         passedLight: "#E3D9F3",
-      },
+          fontWeight: 500,
+        },
+        ".RegUnderline12": {
+          fontSize: "12px",
+          fontWeight: 400,
+          textDecoration: "underline",
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
     },
-    
-  },
-  plugins: [require("tailwindcss-animate")],
+  ],
 };
