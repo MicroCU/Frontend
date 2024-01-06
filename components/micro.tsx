@@ -61,7 +61,7 @@ export default function Micro({ title, progress, type, status, isGroup = true }:
         <div className={`${parentStyle}`}>
             <div className="relative w-[115px] h-[43px]">
                 <div className={`${backgroundColor} w-full h-full px-5 py-3 text-center
-            ${borderRadius} text-base ${textColor} font-semibold flex items-center justify-center`}>
+            ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}>
                     <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
                         {title}
                     </div>
