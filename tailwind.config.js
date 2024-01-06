@@ -67,6 +67,10 @@ module.exports = {
           fontSize: "16px",
           fontWeight: 400,
         },
+        ".Bold12": {
+          fontSize: "12px",
+          fontWeight: 700,
+        },
         ".Bold16": {
           fontSize: "16px",
           fontWeight: 700,

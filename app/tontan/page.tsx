@@ -1,6 +1,7 @@
 import Group, { GroupTypeEnum } from "@/components/Group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
 import Node, { NodeStatusEnum } from "@/components/Node";
+import { RadialProgress } from "@/components/RadialProgress";
 import { Button } from "@/components/ui/button";
 
 export default function TontanComponent() {
@@ -91,6 +92,11 @@ export default function TontanComponent() {
                 <Button variant="secondary" className="w-[252px] h-[43px]"> Go to path 2 </Button>
                 <Button variant="ghost" className="w-[112px] h-[35px]"> Go to path 3 </Button>
             </div>
+            <div className="bg-primaryLight flex flex-row gap-4 pl-4">
+                <RadialProgress progress={0} widthHeight={80} />
+                <RadialProgress progress={50} widthHeight={80} />
+                <RadialProgress progress={75} widthHeight={80} />
+            </div>  
         </>
     );
 }
