@@ -10,7 +10,8 @@ export enum MicroStatusEnum {
     COMPLETED = 3,
 }
 
-export interface IMrcosProps {
+export interface IMicroProps {
+    id: string
     title: string
     progress: number // 0 - 100
     type: MicroTypeEnum
@@ -18,7 +19,7 @@ export interface IMrcosProps {
     isGroup?: boolean
 }
 
-export default function Micro({ title, progress, type, status, isGroup = true }: IMrcosProps) {
+export default function Micro({ title, progress, type, status, isGroup = true }: IMicroProps) {
     let backgroundColor = ''
     let textColor = 'text-white'
     if (type === MicroTypeEnum.VIDEO) {
