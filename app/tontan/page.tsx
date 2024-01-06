@@ -1,6 +1,7 @@
 import Group, { GroupTypeEnum } from "@/components/Group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
 import Node, { NodeStatusEnum } from "@/components/Node";
+import { Button } from "@/components/ui/button";
 
 export default function TontanComponent() {
     return (
@@ -84,6 +85,11 @@ export default function TontanComponent() {
                 <Node status={NodeStatusEnum.STILL_LEARNING} />
                 <Node status={NodeStatusEnum.PASSED_TEST} />
                 <Node status={NodeStatusEnum.NOT_VISITED} />
+            </div>
+            <div className=" bg-white flex flex-row gap-4 pl-4">
+                <Button className="w-[112px] h-[35px]"> Go to path 1 </Button>
+                <Button variant="secondary" className="w-[252px] h-[43px]"> Go to path 2 </Button>
+                <Button variant="ghost" className="w-[112px] h-[35px]"> Go to path 3 </Button>
             </div>
         </>
     );
