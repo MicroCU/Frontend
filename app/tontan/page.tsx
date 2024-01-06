@@ -1,6 +1,6 @@
-import Group, { GroupTypeEnum } from "@/components/group";
-import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/micro";
-import Node, { NodeStatusEnum } from "@/components/node";
+import Group, { GroupTypeEnum } from "@/components/Group";
+import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
+import Node, { NodeStatusEnum } from "@/components/Node";
 
 export default function TontanComponent() {
     return (

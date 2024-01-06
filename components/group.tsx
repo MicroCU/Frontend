@@ -1,4 +1,4 @@
-import Micro, { IMicroProps } from './micro'
+import Micro, { IMicroProps } from './Micro'
 
 export enum GroupTypeEnum {
     Unordered = 1,
