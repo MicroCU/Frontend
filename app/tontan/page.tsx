@@ -1,5 +1,6 @@
 import Group, { GroupTypeEnum } from "@/components/group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/micro";
+import Node, { NodeStatusEnum } from "@/components/node";
 
 export default function TontanComponent() {
     return (
@@ -77,6 +78,12 @@ export default function TontanComponent() {
                         isGroup: true,
                     },
                 ]} type={GroupTypeEnum.Unordered} />
+            </div>
+            <div className="bg-black flex flex-row gap-4 pl-4">
+                <Node status={NodeStatusEnum.CURRENT_PREVIEW} />
+                <Node status={NodeStatusEnum.STILL_LEARNING} />
+                <Node status={NodeStatusEnum.PASSED_TEST} />
+                <Node status={NodeStatusEnum.NOT_VISITED} />
             </div>
         </>
     );

@@ -30,14 +30,14 @@ export default function Micro({ title, progress, type, status, isGroup = true }:
             backgroundColor = 'bg-white'
         }
     } else if (type === MicroTypeEnum.PRACTICE) {
-        if (status === MicroStatusEnum.COMPLETED) {
-            backgroundColor = 'bg-passed'
+        if (status === MicroStatusEnum.COMPLETED || status === MicroStatusEnum.IN_PROGRESS) {
+            backgroundColor = 'bg-progress'
         } else {
             backgroundColor = 'bg-primary'
         }
     } else if (type === MicroTypeEnum.TEST) {
-        if (status === MicroStatusEnum.COMPLETED) {
-            backgroundColor = 'bg-passed'
+        if (status === MicroStatusEnum.COMPLETED || status === MicroStatusEnum.IN_PROGRESS) {
+            backgroundColor = 'bg-progress'
         } else {
             backgroundColor = 'bg-primary'
         }
@@ -52,7 +52,7 @@ export default function Micro({ title, progress, type, status, isGroup = true }:
     let parentStyle = ''
     if (type === MicroTypeEnum.TEST) {
         if (status === MicroStatusEnum.COMPLETED) {
-            parentStyle = 'flex items-center justify-center w-[147px] h-[75px] rounded-2xl bg-passedLight'
+            parentStyle = 'flex items-center justify-center w-[147px] h-[75px] rounded-2xl bg-progressLight'
         } else {
             parentStyle = 'flex items-center justify-center w-[147px] h-[75px] rounded-2xl bg-primaryLight'
         }

@@ -25,9 +25,9 @@ module.exports = {
       primary: "#5C4EFF",
       danger: "#FF4E4E",
       success: "#22C55E",
-      passed: "#7343C5",
+      progress: "#7343C5",
       primaryLight: "#E6E3FF",
-      passedLight: "#E3D9F3",
+      progressLight: "#E3D9F3",
     },
     extend: {
       borderRadius: {
@@ -81,9 +81,6 @@ module.exports = {
         },
         ".Medium12": {
           fontSize: "12px",
-        passed: "#7343C5",
-        primaryLight: "#E6E3FF",
-        passedLight: "#E3D9F3",
           fontWeight: 500,
         },
         ".RegUnderline12": {
