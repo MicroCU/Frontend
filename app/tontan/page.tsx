@@ -2,6 +2,7 @@ import CheckList from "@/components/CheckList";
 import { CheckListItem, CheckListItemStatusEnum } from "@/components/CheckListItem";
 import Group, { GroupTypeEnum } from "@/components/Group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
+import NavigateBtn from "@/components/NavigateBtn";
 import Node, { NodeStatusEnum } from "@/components/Node";
 import { RadialProgress } from "@/components/RadialProgress";
 import Toast, { ToastTypeEnum } from "@/components/Toast";
@@ -130,6 +131,7 @@ export default function TontanComponent() {
                 <Toast message="Your message has been sent." type={ToastTypeEnum.INFO} className="w-[400px]"/>
                 <Toast message="Your message has been sent." type={ToastTypeEnum.SUCCESS} />
                 <Toast title="Uh oh! Something went wrong." message="There was a problem with your request." type={ToastTypeEnum.ERROR} />
+                <NavigateBtn />
             </div>
         </>
     );
