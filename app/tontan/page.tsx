@@ -1,3 +1,4 @@
+import { CheckListItem, CheckListItemStatusEnum } from "@/components/CheckListItem";
 import Group, { GroupTypeEnum } from "@/components/Group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
 import Node, { NodeStatusEnum } from "@/components/Node";
@@ -7,25 +8,29 @@ import { Button } from "@/components/ui/button";
 export default function TontanComponent() {
     return (
         <>
-            <div className=" bg-black flex flex-col gap-4 pl-4">
-                <p className="text-white"> Not start </p>
-                <Micro id="1" title="Video" progress={0} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.NOT_STARTED} isGroup={false} />
-                <Micro id="1" title="video G" progress={0} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.NOT_STARTED} isGroup={true} />
-                <Micro id="1" title="practice" progress={0} type={MicroTypeEnum.PRACTICE} status={MicroStatusEnum.NOT_STARTED} />
-                <Micro id="1" title="test" progress={0} type={MicroTypeEnum.TEST} status={MicroStatusEnum.NOT_STARTED} />
-                <p> ------------------------- </p>
-                <p className="text-white"> In progress </p>
-                <Micro id="1" title="video30" progress={30} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
-                <Micro id="1" title="video40" progress={40} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
-                <Micro id="1" title="video50" progress={50} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
-                <Micro id="1" title="video80" progress={80} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
-                <Micro id="1" title="practice" progress={50} type={MicroTypeEnum.PRACTICE} status={MicroStatusEnum.IN_PROGRESS} />
-                <Micro id="1" title="testlongggggggggggggg" progress={50} type={MicroTypeEnum.TEST} status={MicroStatusEnum.IN_PROGRESS} />
-                <p> ------------------------- </p>
-                <p className="text-white"> Completed </p>
-                <Micro id="1" title="video" progress={100} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.COMPLETED} />
-                <Micro id="1" title="practice" progress={100} type={MicroTypeEnum.PRACTICE} status={MicroStatusEnum.COMPLETED} />
-                <Micro id="1" title="test" progress={100} type={MicroTypeEnum.TEST} status={MicroStatusEnum.COMPLETED} />
+            <div className=" bg-black flex flex-row gap-4 pl-4">
+                <div className="flex flex-col gap-4">
+                    <p className="text-white"> Not start </p>
+                    <Micro id="1" title="Video" progress={0} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.NOT_STARTED} isGroup={false} />
+                    <Micro id="1" title="video G" progress={0} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.NOT_STARTED} isGroup={true} />
+                    <Micro id="1" title="practice" progress={0} type={MicroTypeEnum.PRACTICE} status={MicroStatusEnum.NOT_STARTED} />
+                    <Micro id="1" title="test" progress={0} type={MicroTypeEnum.TEST} status={MicroStatusEnum.NOT_STARTED} />
+                </div>
+                <div className="flex flex-col gap-4">
+                    <p className="text-white"> In progress </p>
+                    <Micro id="1" title="video30" progress={30} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
+                    <Micro id="1" title="video40" progress={40} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
+                    <Micro id="1" title="video50" progress={50} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
+                    <Micro id="1" title="video80" progress={80} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.IN_PROGRESS} />
+                    <Micro id="1" title="practice" progress={50} type={MicroTypeEnum.PRACTICE} status={MicroStatusEnum.IN_PROGRESS} />
+                    <Micro id="1" title="testlongggggggggggggg" progress={50} type={MicroTypeEnum.TEST} status={MicroStatusEnum.IN_PROGRESS} />
+                </div>
+                <div className="flex flex-col gap-4">
+                    <p className="text-white"> Completed </p>
+                    <Micro id="1" title="video" progress={100} type={MicroTypeEnum.VIDEO} status={MicroStatusEnum.COMPLETED} />
+                    <Micro id="1" title="practice" progress={100} type={MicroTypeEnum.PRACTICE} status={MicroStatusEnum.COMPLETED} />
+                    <Micro id="1" title="test" progress={100} type={MicroTypeEnum.TEST} status={MicroStatusEnum.COMPLETED} />
+                </div>
             </div>
             <div className="bg-grayMain flex flex-row gap-4 pl-4">
                 <Group micros={[
@@ -96,7 +101,11 @@ export default function TontanComponent() {
                 <RadialProgress progress={0} widthHeight={80} />
                 <RadialProgress progress={50} widthHeight={80} />
                 <RadialProgress progress={75} widthHeight={80} />
-            </div>  
+            </div>
+            <div className="bg-primaryLight flex flex-row gap-4">
+                <CheckListItem journey="Software Engineer" paths={["Algorithm Design", "ETL", "Python", "Data Struct", "long1long2long3long4long5long6long7"]} progress={75} status={CheckListItemStatusEnum.SHOWN} />
+                <CheckListItem journey="" paths={[]} progress={0} status={CheckListItemStatusEnum.LOADING} />
+            </div>
         </>
     );
 }
