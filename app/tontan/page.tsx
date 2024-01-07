@@ -103,11 +103,11 @@ export default function TontanComponent() {
                 <RadialProgress progress={50} widthHeight={80} />
                 <RadialProgress progress={75} widthHeight={80} />
             </div>
-            <div className="bg-primaryLight flex flex-row gap-4">
+            <div className="bg-primaryLight flex flex-row gap-4 p-4">
                 <CheckListItem journey="Software Engineer" paths={["Algorithm Design", "ETL", "Python", "Data Struct", "long1long2long3long4long5long6long7"]} progress={75} status={CheckListItemStatusEnum.SHOWN} />
                 <CheckListItem journey="" paths={[]} progress={0} status={CheckListItemStatusEnum.LOADING} />
             </div>
-            <div className="bg-primaryLight flex flex-row gap-4">
+            <div className="bg-primaryLight flex flex-row gap-4 p-5">
                 <CheckList checkListItems={[
                     {
                         journey: "Software Engineer",
@@ -121,9 +121,9 @@ export default function TontanComponent() {
                         progress: 25,
                         status: CheckListItemStatusEnum.SHOWN,
                     },
-                ]} status={CheckListItemStatusEnum.SHOWN} />
-                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.LOADING} />
-                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} />
+                ]} status={CheckListItemStatusEnum.SHOWN} className="max-h-[200px]"/>
+                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.LOADING} className="max-h-[200px]" />
+                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} className="max-h-[200px]"/>
             </div>
         </>
     );
