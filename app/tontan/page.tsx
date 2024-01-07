@@ -4,6 +4,7 @@ import Group, { GroupTypeEnum } from "@/components/Group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
 import Node, { NodeStatusEnum } from "@/components/Node";
 import { RadialProgress } from "@/components/RadialProgress";
+import Toast, { ToastTypeEnum } from "@/components/Toast";
 import { Button } from "@/components/ui/button";
 
 export default function TontanComponent() {
@@ -107,7 +108,7 @@ export default function TontanComponent() {
                 <CheckListItem journey="Software Engineer" paths={["Algorithm Design", "ETL", "Python", "Data Struct", "long1long2long3long4long5long6long7"]} progress={75} status={CheckListItemStatusEnum.SHOWN} />
                 <CheckListItem journey="" paths={[]} progress={0} status={CheckListItemStatusEnum.LOADING} />
             </div>
-            <div className="bg-primaryLight flex flex-row gap-4 p-5">
+            <div className="bg-white flex flex-row gap-4 p-5">
                 <CheckList checkListItems={[
                     {
                         journey: "Software Engineer",
@@ -124,6 +125,11 @@ export default function TontanComponent() {
                 ]} status={CheckListItemStatusEnum.SHOWN} className="max-h-[200px]"/>
                 <CheckList checkListItems={[]} status={CheckListItemStatusEnum.LOADING} className="max-h-[200px]" />
                 <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} className="max-h-[200px]"/>
+            </div>
+            <div className="bg-white flex flex-col gap-4 p-4">
+                <Toast message="Your message has been sent." type={ToastTypeEnum.INFO} className="w-[400px]"/>
+                <Toast message="Your message has been sent." type={ToastTypeEnum.SUCCESS} />
+                <Toast title="Uh oh! Something went wrong." message="There was a problem with your request." type={ToastTypeEnum.ERROR} />
             </div>
         </>
     );

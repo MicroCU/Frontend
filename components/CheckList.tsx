@@ -10,7 +10,7 @@ export interface ICheckListProps {
 export default function CheckList({ checkListItems, status, className }: ICheckListProps) {
     const loadingItems = Array.from({ length: 3 });
     return (
-        <div className={`flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[250px] overflow-y-auto ${className}`}>
+        <div className={`flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[250px] overflow-y-auto drop-shadow-lg ${className}`}>
             <div className="flex items-center gap-x-1">
                 <ListTodo size={24} className="stroke-primary" />
                 <p className="Bold24 text-primary"> Checklist </p>
