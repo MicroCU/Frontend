@@ -2,16 +2,17 @@ export interface IRadialProgressProps {
     progress: number,
     widthHeight: number,
     status?: "LOADING" | "SHOWN",
+    className?: string
 }
 
-export function RadialProgress({ progress, widthHeight, status }: IRadialProgressProps) {
+export function RadialProgress({ progress, widthHeight, status, className }: IRadialProgressProps) {
     const strokeWidth = 6
-    const radius = (widthHeight / 2) - (strokeWidth * 2)
+    const radius = (widthHeight / 2) - strokeWidth
     const circumference = radius * 2 * Math.PI
     const strokeDasharray = `${circumference} ${circumference}`
     const strokeDashoffset = circumference - ((progress / 100) * circumference)
     return (
-        <div className="relative flex items-center justify-center" style={{ width: widthHeight, height: widthHeight }}>
+        <div className={`relative flex items-center justify-center ${className}`} style={{ width: widthHeight, height: widthHeight }}>
             <div className="absolute left-0 bottom-0" style={{ width: widthHeight, height: widthHeight }}>
                 <svg style={{ width: widthHeight, height: widthHeight }} className="-rotate-90">
                     {status == "LOADING" ? (
@@ -26,7 +27,7 @@ export function RadialProgress({ progress, widthHeight, status }: IRadialProgres
                     ) :
                         <>
                             <circle
-                                className="absolute stroke-white"
+                                className="absolute stroke-graySmall"
                                 strokeWidth={`${strokeWidth}`}
                                 fill="transparent"
                                 r={`${radius}`}

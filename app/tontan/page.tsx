@@ -1,3 +1,4 @@
+import CheckList from "@/components/CheckList";
 import { CheckListItem, CheckListItemStatusEnum } from "@/components/CheckListItem";
 import Group, { GroupTypeEnum } from "@/components/Group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
@@ -105,6 +106,24 @@ export default function TontanComponent() {
             <div className="bg-primaryLight flex flex-row gap-4">
                 <CheckListItem journey="Software Engineer" paths={["Algorithm Design", "ETL", "Python", "Data Struct", "long1long2long3long4long5long6long7"]} progress={75} status={CheckListItemStatusEnum.SHOWN} />
                 <CheckListItem journey="" paths={[]} progress={0} status={CheckListItemStatusEnum.LOADING} />
+            </div>
+            <div className="bg-primaryLight flex flex-row gap-4">
+                <CheckList checkListItems={[
+                    {
+                        journey: "Software Engineer",
+                        paths: ["Algorithm Design", "ETL", "Python", "Data Struct", "long1long2long3"],
+                        progress: 75,
+                        status: CheckListItemStatusEnum.SHOWN,
+                    },
+                    {
+                        journey: "Basic Programming Language in 2020",
+                        paths: ["Python Daily", "Intro to Programming World"],
+                        progress: 25,
+                        status: CheckListItemStatusEnum.SHOWN,
+                    },
+                ]} status={CheckListItemStatusEnum.SHOWN} />
+                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.LOADING} />
+                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} />
             </div>
         </>
     );
