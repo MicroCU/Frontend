@@ -132,9 +132,9 @@ export default function TontanComponent() {
                 <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} className="max-h-[200px]" />
             </div>
             <div className="bg-white flex flex-col gap-4 p-4">
-                <Toast message="Your message has been sent." type={ToastTypeEnum.INFO} className="w-[400px]" />
-                <Toast message="Your message has been sent." type={ToastTypeEnum.SUCCESS} />
-                <Toast title="Uh oh! Something went wrong." message="There was a problem with your request." type={ToastTypeEnum.ERROR} />
+                <Toast message="Your message has been sent." type={ToastTypeEnum.INFO} buttonTitle="Click me to see toast!" />
+                <Toast message="Your message has been sent." type={ToastTypeEnum.SUCCESS} buttonTitle="Click me to see toast!" />
+                <Toast title="Uh oh! Something went wrong." message="There was a problem with your request." type={ToastTypeEnum.ERROR} buttonTitle="Click me to see toast!" />
                 <NavigateBtn />
                 <Tag title="Capstone" imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png" />
                 <Tag title="Software Architecture" imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg" />

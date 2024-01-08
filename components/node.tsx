@@ -13,8 +13,8 @@ export default function Node({ status }: INodeProps) {
     if (status === NodeStatusEnum.CURRENT_PREVIEW) {
         return (
             <div className="relative p-2">
-                <div className="bg-primary w-12 h-12 rounded-full"></div>
-                <div className="absolute -inset-1 rounded-full blur-md bg-primary z-10"></div>
+                <div className="bg-primary w-12 h-12 rounded-full glow-selected-node"></div>
+                {/* <div className="absolute -inset-1 rounded-full blur-md bg-primary z-10"></div> */}
             </div>
         )
     } else {

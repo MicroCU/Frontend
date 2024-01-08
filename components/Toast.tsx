@@ -11,10 +11,10 @@ export interface IToastProps {
     title?: string
     message: string
     type: ToastTypeEnum
-    className?: string
+    buttonTitle: string
 }
 
-export default function Toast({ title, message, type, className }: IToastProps) {
+export default function Toast({ title, message, type, buttonTitle }: IToastProps) {
     const { toast } = useToast()
     return (
         <Button
@@ -26,12 +26,7 @@ export default function Toast({ title, message, type, className }: IToastProps) 
                 })
             }}
         >
-            Show Toast
+            { buttonTitle }
         </Button>
-        // <div className={`${className} ${type === ToastTypeEnum.INFO ? 'bg-white' : type === ToastTypeEnum.SUCCESS ? 'bg-success' : 'bg-danger'} 
-        //     p-4 rounded-md ${type === ToastTypeEnum.INFO ? 'text-black' :'text-white'} shadow-lg`}>
-        //         { type === ToastTypeEnum.ERROR && <p className="Bold16"> {title} </p> }
-        //         <p className="Reg12"> {message} </p>
-        // </div>
     )
 }
