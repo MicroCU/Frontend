@@ -14,20 +14,6 @@ export interface ICheckListItem {
 }
 
 export function CheckListItem({ journey, paths, progress, status }: ICheckListItem) {
-    if (status === CheckListItemStatusEnum.LOADING) {
-        return (
-            <div className="max-w-[250px] flex flex-row grow gap-6 justify-center items-center">
-                <div className="w-2/5">
-                    <RadialProgress progress={progress} widthHeight={70} status="LOADING" />
-                </div>
-                <div className="flex flex-col gap-y-2 grow justify-center items-center w-3/5">
-                    <div className="h-4 w-full bg-grayLight rounded">
-                    </div>
-                    <div className="h-[41px] w-full bg-graySmall rounded"></div>
-                </div>
-            </div>
-        )
-    }
     return (
         <div className="max-w-[250px] flex flex-row gap-x-5 justify-center items-start">
             <div className="w-2/5">
