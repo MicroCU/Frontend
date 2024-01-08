@@ -14,6 +14,7 @@ import TabIcon, { TabIconModeEnum, TabIconTypeEnum } from "@/components/TabIcon"
 import Next from "@/components/Next";
 import Zoom from "@/components/Zoom";
 import NoResult, { NoResultTypeEnum } from "@/components/NoResult";
+import SearchInput from "@/components/SearchInput";
 
 
 export default function TontanComponent() {
@@ -165,6 +166,10 @@ export default function TontanComponent() {
             <div className="bg-progressLight flex flex-row gap-4 p-4">
                 <NoResult type={NoResultTypeEnum.NoRecentlyPaths} />
                 <NoResult type={NoResultTypeEnum.NoResultsFound} />
+            </div>
+            <div className="bg-progressLight flex flex-col gap-4 p-4">
+                <SearchInput defaultValue="Python" />
+                <SearchInput defaultValue="Python" className="w-[200px] border border-black" />
             </div>
         </>
     );
