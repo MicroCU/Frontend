@@ -10,6 +10,7 @@ import Toast, { ToastTypeEnum } from "@/components/Toast";
 import Tag from "@/components/Tag";
 import { Button } from "@/components/ui/button";
 import NavToolTip from "@/components/NavToolTip";
+import TabIcon, { TabIconModeEnum, TabIconTypeEnum } from "@/components/TabIcon";
 
 
 export default function TontanComponent() {
@@ -143,6 +144,14 @@ export default function TontanComponent() {
                 <NavToolTip mainText="Hover Journey" subText="Journey" />
                 <NavToolTip mainText="Hover Recently" subText="Recently" />
                 <NavToolTip mainText="Hover Search" subText="Search" />
+            </div>
+            <div className="bg-progressLight flex flex-row gap-4 p-4">
+                <TabIcon type={TabIconTypeEnum.library} mode={TabIconModeEnum.FILLED} />
+                <TabIcon type={TabIconTypeEnum.search} mode={TabIconModeEnum.FILLED} />
+                <TabIcon type={TabIconTypeEnum.history} mode={TabIconModeEnum.FILLED} />
+                <TabIcon type={TabIconTypeEnum.library} mode={TabIconModeEnum.OUTLINE} />
+                <TabIcon type={TabIconTypeEnum.search} mode={TabIconModeEnum.OUTLINE} />
+                <TabIcon type={TabIconTypeEnum.history} mode={TabIconModeEnum.OUTLINE} />
             </div>
         </>
     );
