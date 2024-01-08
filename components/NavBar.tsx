@@ -1,12 +1,7 @@
+import { Page } from "@/types/enum";
 import NavHeader from "./NavHeader";
-import { Button } from "./ui/button";
+import NormalModal from "./NormalModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-
-enum Page {
-  Journey = "journey",
-  Recently = "recently",
-  Search = "search",
-}
 
 const NavBar = () => {
   return (
@@ -28,7 +23,7 @@ const NavBar = () => {
           <MockContent text={Page.Search} />
         </TabsContent>
       </Tabs>
-      <Button size="w-full">Switch to Normal Mode</Button>
+      <NormalModal />
     </div>
   );
 };
@@ -38,7 +33,8 @@ type MockContentProps = {
   text: string;
 };
 
-const MockContent = ({ text }: MockContentProps) => {
+export const MockContent = ({ text }: MockContentProps) => {
+  // TODO: Replace with real content
   return (
     <div className="p-4 bg-grayLight h-full">
       <h1>{text}</h1>
