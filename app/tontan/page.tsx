@@ -13,6 +13,7 @@ import NavToolTip from "@/components/NavToolTip";
 import TabIcon, { TabIconModeEnum, TabIconTypeEnum } from "@/components/TabIcon";
 import Next from "@/components/Next";
 import Zoom from "@/components/Zoom";
+import NoResult, { NoResultTypeEnum } from "@/components/NoResult";
 
 
 export default function TontanComponent() {
@@ -160,6 +161,10 @@ export default function TontanComponent() {
                 }} onClickZoomOut={() => {
                     alert("Zoom out")
                 }} />
+            </div>
+            <div className="bg-progressLight flex flex-row gap-4 p-4">
+                <NoResult type={NoResultTypeEnum.NoRecentlyPaths} />
+                <NoResult type={NoResultTypeEnum.NoResultsFound} />
             </div>
         </>
     );

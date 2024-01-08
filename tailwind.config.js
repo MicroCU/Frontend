@@ -87,6 +87,10 @@ module.exports = {
           fontSize: "12px",
           fontWeight: 500,
         },
+        ".Medium16": {
+          fontSize: "16px",
+          fontWeight: 500,
+        },
         ".RegUnderline12": {
           fontSize: "12px",
           fontWeight: 400,
