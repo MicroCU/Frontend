@@ -15,6 +15,7 @@ import Next from "@/components/Next";
 import Zoom from "@/components/Zoom";
 import NoResult, { NoResultTypeEnum } from "@/components/NoResult";
 import SearchInput from "@/components/SearchInput";
+import LoadingGraph from "@/components/LoadingGraph";
 
 
 export default function TontanComponent() {
@@ -170,6 +171,9 @@ export default function TontanComponent() {
             <div className="bg-progressLight flex flex-col gap-4 p-4">
                 <SearchInput defaultValue="Python" />
                 <SearchInput defaultValue="Python" className="w-[200px] border border-black" />
+            </div>
+            <div className="bg-black flex flex-col gap-4 p-4">
+                <LoadingGraph />
             </div>
         </>
     );
