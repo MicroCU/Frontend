@@ -16,6 +16,7 @@ import Zoom from "@/components/Zoom";
 import NoResult, { NoResultTypeEnum } from "@/components/NoResult";
 import SearchInput from "@/components/SearchInput";
 import LoadingGraph from "@/components/LoadingGraph";
+import PathItems from "@/components/PathItems";
 
 
 export default function TontanComponent() {
@@ -174,6 +175,10 @@ export default function TontanComponent() {
             </div>
             <div className="bg-black flex flex-col gap-4 p-4">
                 <LoadingGraph />
+            </div>
+            <div className="bg-progressLight flex flex-col gap-4 p-4">
+                <PathItems name="Python Basic" isSelected={true} className="w-[200px]" />
+                <PathItems name="Data Structure" isSelected={false} className="w-[200px]" />
             </div>
         </>
     );
