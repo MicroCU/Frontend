@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import NavToolTip from "@/components/NavToolTip";
 import TabIcon, { TabIconModeEnum, TabIconTypeEnum } from "@/components/TabIcon";
 import Next from "@/components/Next";
+import Zoom from "@/components/Zoom";
 
 
 export default function TontanComponent() {
@@ -154,6 +155,11 @@ export default function TontanComponent() {
                 <TabIcon type={TabIconTypeEnum.search} mode={TabIconModeEnum.OUTLINE} />
                 <TabIcon type={TabIconTypeEnum.history} mode={TabIconModeEnum.OUTLINE} />
                 <Next />
+                <Zoom onClickZoomIn={() => {
+                    alert("Zoom in")
+                }} onClickZoomOut={() => {
+                    alert("Zoom out")
+                }} />
             </div>
         </>
     );
