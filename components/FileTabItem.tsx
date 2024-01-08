@@ -1,13 +1,27 @@
+"use client";
+
 import { ArrowDownToLine } from "lucide-react";
 
 interface FileTabItemProps {
-    name: string
+  fileName: string;
+  fileUrl: string;
 }
 
-const FileTabItem: React.FC<FileTabItemProps> = ({name}) => {
+const FileTabItem: React.FC<FileTabItemProps> = ({ fileName, fileUrl }) => {
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
-    <div className="flex justify-between w-[300px] gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain">
-      <p>{name}</p>
+    <div
+      className="flex justify-between w-[300px] gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain"
+      onClick={handleDownload}
+    >
+      <p>{fileName}</p>
       <ArrowDownToLine />
     </div>
   );
