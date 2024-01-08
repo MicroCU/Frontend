@@ -92,6 +92,12 @@ module.exports = {
           fontWeight: 400,
           textDecoration: "underline",
         },
+        ".effect-default": {
+          boxShadow: "0 4px 4px 0 rgba(0, 0, 0, 0.25)",
+        },
+        ".glow-selected-node": {
+          boxShadow: "0 0 30px -1px rgba(92, 78, 255, 1)",
+        },
       };
       addUtilities(newUtilities, ["responsive", "hover"]);
     },
