@@ -6,6 +6,7 @@ import NavigateBtn from "@/components/NavigateBtn";
 import Node, { NodeStatusEnum } from "@/components/Node";
 import { RadialProgress } from "@/components/RadialProgress";
 import Toast, { ToastTypeEnum } from "@/components/Toast";
+import Tag from "@/components/Tag";
 import { Button } from "@/components/ui/button";
 
 export default function TontanComponent() {
@@ -132,6 +133,8 @@ export default function TontanComponent() {
                 <Toast message="Your message has been sent." type={ToastTypeEnum.SUCCESS} />
                 <Toast title="Uh oh! Something went wrong." message="There was a problem with your request." type={ToastTypeEnum.ERROR} />
                 <NavigateBtn />
+                <Tag title="Capstone" imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png" />
+                <Tag title="Software Architecture" imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg" />
             </div>
         </>
     );
