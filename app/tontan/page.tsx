@@ -140,7 +140,9 @@ export default function TontanComponent() {
                 <Tag title="Software Architecture" imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg" />
             </div>
             <div className="bg-white flex flex-row gap-4 p-4">
-                <NavToolTip mainText="Hover Me" subText="Journey" />
+                <NavToolTip mainText="Hover Journey" subText="Journey" />
+                <NavToolTip mainText="Hover Recently" subText="Recently" />
+                <NavToolTip mainText="Hover Search" subText="Search" />
             </div>
         </>
     );

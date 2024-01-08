@@ -1,17 +1,23 @@
-import "./NavToolTip.css";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 export interface NavToolTipProps {
     mainText: string
     subText: string
 }
 export default function NavToolTip({ mainText, subText }: NavToolTipProps) {
     return (
-        <div className="text-center">
-            <div className="tooltip">
-                { mainText }
-                <div className="tooltiptext"> 
-                    <p className="bg-grayMain text-grayLight"> {subText} </p> 
-                </div>
-            </div>
-        </div>
+        <TooltipProvider>
+            <Tooltip delayDuration={0}>
+                <TooltipTrigger> {mainText} </TooltipTrigger>
+                <TooltipContent side = "right">
+                    <p> {subText} </p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     )
 }
