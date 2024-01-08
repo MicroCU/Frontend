@@ -1,3 +1,4 @@
+"use client"
 import CheckList from "@/components/CheckList";
 import { CheckListItem, CheckListItemStatusEnum } from "@/components/CheckListItem";
 import Group, { GroupTypeEnum } from "@/components/Group";
@@ -8,6 +9,8 @@ import { RadialProgress } from "@/components/RadialProgress";
 import Toast, { ToastTypeEnum } from "@/components/Toast";
 import Tag from "@/components/Tag";
 import { Button } from "@/components/ui/button";
+import NavToolTip from "@/components/NavToolTip";
+
 
 export default function TontanComponent() {
     return (
@@ -124,17 +127,20 @@ export default function TontanComponent() {
                         progress: 25,
                         status: CheckListItemStatusEnum.SHOWN,
                     },
-                ]} status={CheckListItemStatusEnum.SHOWN} className="max-h-[200px]"/>
+                ]} status={CheckListItemStatusEnum.SHOWN} className="max-h-[200px]" />
                 <CheckList checkListItems={[]} status={CheckListItemStatusEnum.LOADING} className="max-h-[200px]" />
-                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} className="max-h-[200px]"/>
+                <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} className="max-h-[200px]" />
             </div>
             <div className="bg-white flex flex-col gap-4 p-4">
-                <Toast message="Your message has been sent." type={ToastTypeEnum.INFO} className="w-[400px]"/>
+                <Toast message="Your message has been sent." type={ToastTypeEnum.INFO} className="w-[400px]" />
                 <Toast message="Your message has been sent." type={ToastTypeEnum.SUCCESS} />
                 <Toast title="Uh oh! Something went wrong." message="There was a problem with your request." type={ToastTypeEnum.ERROR} />
                 <NavigateBtn />
                 <Tag title="Capstone" imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png" />
                 <Tag title="Software Architecture" imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg" />
+            </div>
+            <div className="bg-white flex flex-row gap-4 p-4">
+                <NavToolTip mainText="Hover Me" subText="Journey" />
             </div>
         </>
     );

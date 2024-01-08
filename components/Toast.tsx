@@ -1,3 +1,7 @@
+"use client"
+import { useToast } from "@/components/ui/use-toast"
+import { Button } from "./ui/button"
+
 export enum ToastTypeEnum {
     SUCCESS = "SUCCESS",
     ERROR = "ERROR",
@@ -10,12 +14,24 @@ export interface IToastProps {
     className?: string
 }
 
-export default function Toast({title, message, type, className}: IToastProps) {
+export default function Toast({ title, message, type, className }: IToastProps) {
+    const { toast } = useToast()
     return (
-        <div className={`${className} ${type === ToastTypeEnum.INFO ? 'bg-white' : type === ToastTypeEnum.SUCCESS ? 'bg-success' : 'bg-danger'} 
-            p-4 rounded-md ${type === ToastTypeEnum.INFO ? 'text-black' :'text-white'} shadow-lg`}>
-                { type === ToastTypeEnum.ERROR && <p className="Bold16"> {title} </p> }
-                <p className="Reg12"> {message} </p>
-        </div>
+        <Button
+            onClick={() => {
+                toast({
+                    variant: type === ToastTypeEnum.INFO ? 'info' : type === ToastTypeEnum.SUCCESS ? 'success' : 'destructive' ,
+                    title: title ? title : "",
+                    description: message,
+                })
+            }}
+        >
+            Show Toast
+        </Button>
+        // <div className={`${className} ${type === ToastTypeEnum.INFO ? 'bg-white' : type === ToastTypeEnum.SUCCESS ? 'bg-success' : 'bg-danger'} 
+        //     p-4 rounded-md ${type === ToastTypeEnum.INFO ? 'text-black' :'text-white'} shadow-lg`}>
+        //         { type === ToastTypeEnum.ERROR && <p className="Bold16"> {title} </p> }
+        //         <p className="Reg12"> {message} </p>
+        // </div>
     )
 }
