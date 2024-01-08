@@ -14,11 +14,12 @@ export enum TabIconTypeEnum {
 export interface ITabIcon {
     type: TabIconTypeEnum
     mode: TabIconModeEnum
+    className?: string
 }
 
-export default function TabIcon({ type, mode }: ITabIcon) {
+export default function TabIcon({ type, mode, className }: ITabIcon) {
     return (
-        <div className={`w-8 h-8 rounded flex justify-center items-center ${mode === TabIconModeEnum.FILLED ? 'bg-grayMain' : ''}`}>
+        <div className={`w-8 h-8 rounded flex justify-center items-center ${mode === TabIconModeEnum.FILLED ? 'bg-grayMain' : ''} ${className}`}>
             {type === TabIconTypeEnum.library ? <LibraryBig className={`${mode === TabIconModeEnum.FILLED ? 'stroke-grayLight' : 'stroke-grayMain'}`} /> :
                 type === TabIconTypeEnum.search ? <Search size={28} strokeWidth={2} className={`${mode === TabIconModeEnum.FILLED ? 'stroke-grayLight' : 'stroke-grayMain'}`} /> : 
                 <History className={`${mode === TabIconModeEnum.FILLED ? 'stroke-grayLight' : 'stroke-grayMain'}`} />}

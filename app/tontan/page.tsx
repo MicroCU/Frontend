@@ -11,6 +11,7 @@ import Tag from "@/components/Tag";
 import { Button } from "@/components/ui/button";
 import NavToolTip from "@/components/NavToolTip";
 import TabIcon, { TabIconModeEnum, TabIconTypeEnum } from "@/components/TabIcon";
+import Next from "@/components/Next";
 
 
 export default function TontanComponent() {
@@ -152,6 +153,7 @@ export default function TontanComponent() {
                 <TabIcon type={TabIconTypeEnum.library} mode={TabIconModeEnum.OUTLINE} />
                 <TabIcon type={TabIconTypeEnum.search} mode={TabIconModeEnum.OUTLINE} />
                 <TabIcon type={TabIconTypeEnum.history} mode={TabIconModeEnum.OUTLINE} />
+                <Next />
             </div>
         </>
     );
