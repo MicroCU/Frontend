@@ -18,8 +18,10 @@ const SelectedPathModal = ({
       <div className="space-y-3">
         <h1 className="Bold32 text-primary">{title}</h1>
         <div className="flex gap-3">
-          {tags.map((tag) => {
-            return <Tag imageURL={tag.imageURL} title={tag.title} />;
+          {tags.map((tag, index) => {
+            return (
+              <Tag imageURL={tag.imageURL} title={tag.title} key={index} />
+            );
           })}
         </div>
       </div>
