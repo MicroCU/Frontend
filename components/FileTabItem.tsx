@@ -18,7 +18,7 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ fileName, fileUrl }) => {
   };
   return (
     <div
-      className="flex justify-between w-[300px] gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain"
+      className="flex justify-between gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain"
       onClick={handleDownload}
     >
       <p>{fileName}</p>

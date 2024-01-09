@@ -17,7 +17,7 @@ const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
     router.push(link);
   }
   return (
-    <div className="flex w-[320px] gap-4 cursor-pointer" onClick={handleRoute}>
+    <div className="flex  gap-4 cursor-pointer" onClick={handleRoute}>
       <div className="bg-primary min-w-[150px] h-[90px]">
         <img
           src={imageURL}
