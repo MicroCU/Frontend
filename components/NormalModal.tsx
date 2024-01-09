@@ -49,14 +49,38 @@ const NormalModal = () => {
             <TabsTrigger value="search">Search</TabsTrigger>
           </TabsList>
           <TabsContent value={Page.Journey}>
-            <JourneyModalItems
-              name="Journey 1"
+            <div className="space-y-6 max-h-[720px] overflow-y-auto">
+              <JourneyModalItems
+                name="Journey 1"
+                type={JourneyModalType.Shown}
+                paths={mockPath}
+              />
+              <JourneyModalItems
+                name="Journey 2"
+                type={JourneyModalType.Shown}
+                paths={mockPath}
+              />
+              <JourneyModalItems
+                name="Journey 3"
+                type={JourneyModalType.Shown}
+                paths={mockPath}
+              />
+            </div>
+          </TabsContent>
+          <TabsContent value={Page.Recently}>
+            {/* <JourneyModalItems
+              name="Journey 2"
               type={JourneyModalType.Shown}
               paths={mockPath}
-            />
+            /> */}
           </TabsContent>
-          <TabsContent value={Page.Recently}></TabsContent>
-          <TabsContent value={Page.Search}></TabsContent>
+          <TabsContent value={Page.Search}>
+            {/* <JourneyModalItems
+              name="Journey 3"
+              type={JourneyModalType.Shown}
+              paths={mockPath}
+            /> */}
+          </TabsContent>
         </Tabs>
       </DialogContent>
     </Dialog>

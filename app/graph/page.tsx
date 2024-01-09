@@ -1,5 +1,6 @@
 import { IPath } from "@/components/JourneyModalItems";
 import NavBar from "@/components/NavBar";
+import OnBoardModal from "@/components/OnBoardModal";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import { TagProps } from "@/types/type";
 
