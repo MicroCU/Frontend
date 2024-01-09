@@ -454,7 +454,7 @@ export default function TontanComponent() {
               id: "1",
               name: "Algorithm Design",
               description:
-                "Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience",
+                "Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience",
               categories: [
                 {
                   id: "11",

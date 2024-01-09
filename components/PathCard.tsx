@@ -41,7 +41,7 @@ export default function PathCard({
         ) : (
           <>
             <p className="Bold16 text-black"> {name} </p>
-            <p className="Reg12 text-grayMain"> {description} </p>
+            <p className="Reg12 text-grayMain line-clamp-2"> {description} </p>
             <div className="flex flex-row gap-x-2">
               {categories?.map((category) => (
                 <Tag
@@ -55,7 +55,7 @@ export default function PathCard({
         )}
       </div>
       {type === PathCardType.Loading ? (
-        <Skeleton className="w-2/12 h-[120px] bg-graySmall">
+        <Skeleton className="w-[200px] h-[120px] bg-graySmall">
           <div className="flex flex-col w-full h-full justify-center items-center">
             <div className="bg-grayMedium w-fit h-fit rounded p-[2px]">
               <Text strokeWidth={3} className="stroke-graySmall" />
@@ -63,7 +63,7 @@ export default function PathCard({
           </div>
         </Skeleton>
       ) : (
-        <div className="flex flex-col justify-center items-center w-2/12 h-[120px] bg-graySmall">
+        <div className="flex flex-col justify-center items-center w-[200px] h-[120px] bg-graySmall">
           <div className="bg-grayMedium w-fit h-fit rounded p-[2px]">
             <Text strokeWidth={3} className="stroke-graySmall" />
           </div>
