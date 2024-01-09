@@ -20,6 +20,7 @@ import PathItems from "@/components/PathItems";
 import JourneyItems from "@/components/JourneyItems";
 import PathCard, { PathCardType } from "@/components/PathCard";
 import JourneyModalItems, { JourneyModalType } from "@/components/JourneyModalItems";
+import CheckListIcon from "@/components/CheckListIcon";
 
 
 export default function TontanComponent() {
@@ -140,6 +141,7 @@ export default function TontanComponent() {
                 ]} status={CheckListItemStatusEnum.SHOWN} className="max-h-[200px]" />
                 <CheckList checkListItems={[]} status={CheckListItemStatusEnum.LOADING} className="max-h-[200px]" />
                 <CheckList checkListItems={[]} status={CheckListItemStatusEnum.COMPLETED} className="max-h-[200px]" />
+                <CheckListIcon />
             </div>
             <div className="bg-white flex flex-col gap-4 p-4">
                 <Toast message="Your message has been sent." type={ToastTypeEnum.INFO} buttonTitle="Click me to see toast!" />
