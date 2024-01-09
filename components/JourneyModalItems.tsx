@@ -1,13 +1,13 @@
 import PathCard, { PathCardType } from "./PathCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface ICategory {
+export interface ICategory {
   id: string;
   name: string;
   imageURL: string;
 }
 
-interface IPath {
+export interface IPath {
   id?: string;
   name?: string;
   description?: string;

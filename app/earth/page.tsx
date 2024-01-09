@@ -1,3 +1,4 @@
+import { IPath } from "@/components/JourneyModalItems";
 import NavBar from "@/components/NavBar";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import { TagProps } from "@/types/type";
@@ -8,6 +9,33 @@ const descp =
 const mockTags: TagProps[] = [
   { imageURL: "", title: "Programming" },
   { imageURL: "", title: "Python" }
+];
+
+const mockPath: IPath[] = [
+  {
+    id: "1",
+    name: "Path 1",
+    description: "Description 1",
+    categories: [
+      {
+        id: "1",
+        name: "Category 1",
+        imageURL: ""
+      }
+    ]
+  },
+  {
+    id: "1",
+    name: "Path 1",
+    description: "Description 1",
+    categories: [
+      {
+        id: "1",
+        name: "Category 1",
+        imageURL: ""
+      }
+    ]
+  }
 ];
 
 const EarthPage = () => {

@@ -2,7 +2,38 @@ import { Button } from "./ui/button";
 import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { Page } from "@/types/enum";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
-import { MockContent } from "./NavBar";
+import JourneyModalItems, {
+  IPath,
+  JourneyModalType
+} from "./JourneyModalItems";
+
+const mockPath: IPath[] = [
+  {
+    id: "1",
+    name: "Path 1",
+    description: "Description 1",
+    categories: [
+      {
+        id: "1",
+        name: "Category 1",
+        imageURL: ""
+      }
+    ]
+  },
+  {
+    id: "1",
+    name: "Path 1",
+    description:
+      "Description 1 Description 1 Description 1Description 1Description 1Description 1Description 1Description 1Description 1Description 1",
+    categories: [
+      {
+        id: "1",
+        name: "Category 1",
+        imageURL: ""
+      }
+    ]
+  }
+];
 
 const NormalModal = () => {
   return (
@@ -18,14 +49,14 @@ const NormalModal = () => {
             <TabsTrigger value="search">Search</TabsTrigger>
           </TabsList>
           <TabsContent value={Page.Journey}>
-            <MockContent text={Page.Journey} />
+            <JourneyModalItems
+              name="Journey 1"
+              type={JourneyModalType.Shown}
+              paths={mockPath}
+            />
           </TabsContent>
-          <TabsContent value={Page.Recently}>
-            <MockContent text={Page.Recently} />
-          </TabsContent>
-          <TabsContent value={Page.Search}>
-            <MockContent text={Page.Search} />
-          </TabsContent>
+          <TabsContent value={Page.Recently}></TabsContent>
+          <TabsContent value={Page.Search}></TabsContent>
         </Tabs>
       </DialogContent>
     </Dialog>
