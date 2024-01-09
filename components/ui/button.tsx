@@ -15,7 +15,8 @@ const buttonVariants = cva(
         // outline:
         //   "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-grayMain text-white hover:bg-grayMedium",
-        ghost: "hover:text-grayMain hover:text-progress"
+        ghost: "hover:text-grayMain hover:text-progress",
+        videoChoice: "bg-white text-grayMain hover:bg-primary hover:text-white Bold24",
         // link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -23,7 +24,8 @@ const buttonVariants = cva(
         // sm: "h-9 rounded-md px-2 py-3",
         lg: "px-5 py-4",
         // icon: "h-10 w-10",
-        "w-full": "w-full py-3"
+        "w-full": "w-full py-3",
+        videoChoice: "w-[530px] py-6",
       }
     },
     defaultVariants: {
