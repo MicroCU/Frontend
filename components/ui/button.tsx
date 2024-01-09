@@ -16,7 +16,6 @@ const buttonVariants = cva(
         //   "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-grayMain text-white hover:bg-grayMedium",
         ghost: "hover:text-grayMain hover:text-progress",
-        videoChoice: "bg-white text-grayMain hover:bg-primary hover:text-white Bold24",
         // link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -25,7 +24,6 @@ const buttonVariants = cva(
         lg: "px-5 py-4",
         // icon: "h-10 w-10",
         "w-full": "w-full py-3",
-        videoChoice: "w-[530px] py-6",
       }
     },
     defaultVariants: {
