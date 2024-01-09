@@ -18,6 +18,7 @@ import SearchInput from "@/components/SearchInput";
 import LoadingGraph from "@/components/LoadingGraph";
 import PathItems from "@/components/PathItems";
 import JourneyItems from "@/components/JourneyItems";
+import PathCard, { PathCardType } from "@/components/PathCard";
 
 
 export default function TontanComponent() {
@@ -224,6 +225,33 @@ export default function TontanComponent() {
                         ]
                     },
                 ]} width={300} />
+            </div>
+            <div className="bg-progressLight flex flex-col gap-4 p-4">
+                <PathCard name="Architecture Design" description="Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience" categories={[
+                    {
+                        id: "1",
+                        name: "Software Engineer",
+                        imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+                    },
+                    {
+                        id: "2",
+                        name: "Software Architecture",
+                        imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg"
+                    },
+                ]} type={PathCardType.Shown} />
+                 <PathCard name="Architecture Design" categories={[
+                    {
+                        id: "1",
+                        name: "Software Engineer",
+                        imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+                    },
+                    {
+                        id: "2",
+                        name: "Software Architecture",
+                        imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg"
+                    },
+                ]} type={PathCardType.Shown} />
+                <PathCard type={PathCardType.Loading} />
             </div>
         </>
     );
