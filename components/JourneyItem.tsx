@@ -13,7 +13,7 @@ export interface IPathItems {
     name: string
 }
 
-export interface IJourneyItem {
+export interface JourneyItemProps {
     id: string
     name: string
     paths: IPathItems[]
@@ -22,7 +22,7 @@ export interface IJourneyItem {
     width?: number
 }
 
-export default function JourneyItem({ id, name, paths, selectedPath, setSelectedPath, width }: IJourneyItem) {
+export default function JourneyItem({ id, name, paths, selectedPath, setSelectedPath, width }: JourneyItemProps) {
     const [open, setOpen] = useState<boolean>(false)
     return (
         <Collapsible open={open} onOpenChange={setOpen} style={{maxWidth: width}}>
