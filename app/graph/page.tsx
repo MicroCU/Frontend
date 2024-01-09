@@ -1,6 +1,4 @@
-import { IPath } from "@/components/JourneyModalItems";
 import NavBar from "@/components/NavBar";
-import OnBoardModal from "@/components/OnBoardModal";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import { TagProps } from "@/types/type";
 
@@ -12,34 +10,7 @@ const mockTags: TagProps[] = [
   { imageURL: "", title: "Python" }
 ];
 
-const mockPath: IPath[] = [
-  {
-    id: "1",
-    name: "Path 1",
-    description: "Description 1",
-    categories: [
-      {
-        id: "1",
-        name: "Category 1",
-        imageURL: ""
-      }
-    ]
-  },
-  {
-    id: "1",
-    name: "Path 1",
-    description: "Description 1",
-    categories: [
-      {
-        id: "1",
-        name: "Category 1",
-        imageURL: ""
-      }
-    ]
-  }
-];
-
-const EarthPage = () => {
+const GraphPage = () => {
   return (
     <div className="flex min-h-screen bg-grayLight">
       <NavBar />
@@ -50,4 +21,4 @@ const EarthPage = () => {
   );
 };
 
-export default EarthPage;
+export default GraphPage;
