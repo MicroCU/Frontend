@@ -17,6 +17,7 @@ import NoResult, { NoResultTypeEnum } from "@/components/NoResult";
 import SearchInput from "@/components/SearchInput";
 import LoadingGraph from "@/components/LoadingGraph";
 import PathItems from "@/components/PathItems";
+import JourneyItems from "@/components/JourneyItems";
 
 
 export default function TontanComponent() {
@@ -179,6 +180,50 @@ export default function TontanComponent() {
             <div className="bg-progressLight flex flex-col gap-4 p-4">
                 <PathItems name="Python Basic" isSelected={true} className="w-[200px]" />
                 <PathItems name="Data Structure" isSelected={false} className="w-[200px]" />
+            </div>
+            <div className="bg-progressLight flex flex-col gap-4 p-4">
+                <JourneyItems journeys={[
+                    {
+                        id: "1",
+                        name: "Software Engineer",
+                        paths: [
+                            {
+                                id: "1",
+                                name: "Algorithm Design",
+                            },
+                            {
+                                id: "2",
+                                name: "ETL",
+                            },
+                            {
+                                id: "3",
+                                name: "Python",
+                            },
+                            {
+                                id: "4",
+                                name: "Data Struct",
+                            },
+                            {
+                                id: "5",
+                                name: "long1long2long3long4long5long6long7",
+                            },
+                        ]
+                    },
+                    {
+                        id: "21",
+                        name: "Basic Programming Language in 2020",
+                        paths: [
+                            {
+                                id: "21",
+                                name: "Python Daily",
+                            },
+                            {
+                                id: "22",
+                                name: "Intro to Programming World",
+                            },
+                        ]
+                    },
+                ]} width={300} />
             </div>
         </>
     );
