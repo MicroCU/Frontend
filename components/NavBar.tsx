@@ -2,6 +2,38 @@ import { Page } from "@/types/enum";
 import NavHeader from "./NavHeader";
 import NormalModal from "./NormalModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import JourneyItems, { IJourneyItem } from "./JourneyItems";
+
+const mockJourneys: IJourneyItem[] = [
+  {
+    id: "1",
+    name: "Journey 1",
+    paths: [
+      {
+        id: "1",
+        name: "Path 1"
+      },
+      {
+        id: "2",
+        name: "Path 2"
+      }
+    ]
+  },
+  {
+    id: "2",
+    name: "Journey 2",
+    paths: [
+      {
+        id: "1",
+        name: "Path 1"
+      },
+      {
+        id: "2",
+        name: "Path 2"
+      }
+    ]
+  }
+];
 
 const NavBar = () => {
   return (
@@ -14,14 +46,10 @@ const NavBar = () => {
           <TabsTrigger value="search">Search</TabsTrigger>
         </TabsList>
         <TabsContent value={Page.Journey}>
-          <MockContent text={Page.Journey} />
+          <JourneyItems journeys={mockJourneys} className="flex-1" />
         </TabsContent>
-        <TabsContent value={Page.Recently}>
-          <MockContent text={Page.Recently} />
-        </TabsContent>
-        <TabsContent value={Page.Search}>
-          <MockContent text={Page.Search} />
-        </TabsContent>
+        <TabsContent value={Page.Recently}></TabsContent>
+        <TabsContent value={Page.Search}></TabsContent>
       </Tabs>
       <NormalModal />
     </div>
