@@ -45,9 +45,21 @@ export default function PathCard({ name, description, categories, type }: PathCa
                     </>
                 )}
             </div>
-            <div className="flex flex-col justify-center items-center w-2/12 h-[120px] bg-graySmall">
-                <div className="bg-grayMedium w-fit h-fit rounded p-[2px]"> <Text strokeWidth={3} className="stroke-graySmall" /> </div>
-            </div>
+            {type === PathCardType.Loading ? (
+                <Skeleton className="w-2/12 h-[120px] bg-graySmall">
+                    <div className="flex flex-col w-full h-full justify-center items-center">
+                        <div className="bg-grayMedium w-fit h-fit rounded p-[2px]">
+                            <Text strokeWidth={3} className="stroke-graySmall" />
+                        </div>
+                    </div>
+                </Skeleton>
+            ) : (
+                <div className="flex flex-col justify-center items-center w-2/12 h-[120px] bg-graySmall">
+                    <div className="bg-grayMedium w-fit h-fit rounded p-[2px]">
+                        <Text strokeWidth={3} className="stroke-graySmall" />
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

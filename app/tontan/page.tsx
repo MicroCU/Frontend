@@ -19,6 +19,7 @@ import LoadingGraph from "@/components/LoadingGraph";
 import PathItems from "@/components/PathItems";
 import JourneyItems from "@/components/JourneyItems";
 import PathCard, { PathCardType } from "@/components/PathCard";
+import JourneyModalItems, { JourneyModalType } from "@/components/JourneyModalItems";
 
 
 export default function TontanComponent() {
@@ -239,7 +240,7 @@ export default function TontanComponent() {
                         imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg"
                     },
                 ]} type={PathCardType.Shown} />
-                 <PathCard name="Architecture Design" categories={[
+                <PathCard name="Architecture Design" categories={[
                     {
                         id: "1",
                         name: "Software Engineer",
@@ -252,6 +253,40 @@ export default function TontanComponent() {
                     },
                 ]} type={PathCardType.Shown} />
                 <PathCard type={PathCardType.Loading} />
+            </div>
+            <div className="bg-progressLight flex flex-col gap-4 p-4">
+                <JourneyModalItems name="Software Engineer" paths={[
+                    {
+                        id: "1",
+                        name: "Algorithm Design",
+                        description: "Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience",
+                        categories: [
+                            {
+                                id: "11",
+                                name: "Software Engineer",
+                                imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+                            },
+                            {
+                                id: "12",
+                                name: "Software Architecture",
+                                imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg"
+                            },
+                        ]
+                    },
+                    {
+                        id: "2",
+                        name: "Python Basic",
+                        description: "Explore the dynamic world of prototyping in Figma and learn how this versatile design tool can supercharge your project's user experience",
+                        categories: [
+                            {
+                                id: "21",
+                                name: "Software Engineer",
+                                imageURL: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+                            },
+                        ]
+                    },
+                ]} type={JourneyModalType.Shown} />
+                <JourneyModalItems type={JourneyModalType.Loading} />
             </div>
         </>
     );
