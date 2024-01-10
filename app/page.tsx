@@ -326,12 +326,12 @@ function useLayoutElements() {
         })
       )
       .force("x", forceX().x(0).strength(0.03))
-      .force("y", forceY().y(0).strength(0.04))
+      .force("y", forceY().y(0).strength(0.05))
       .force(
         "collide",
         forceCollide().radius((d: any) => d.data.mass * 4 + 70)
       )
-      .alphaTarget(0.1)
+      .alphaTarget(0.25)
       .stop()
       .nodes(nodes)
       .force(
