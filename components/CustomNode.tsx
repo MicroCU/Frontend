@@ -3,8 +3,9 @@ import { Handle, NodeProps, Position } from "reactflow";
 export default function CustomNode(props: NodeProps) {
   let calSize = props.data.mass;
   calSize = calSize * 5 + 70;
+  calSize = 70
 
-  const size = `${calSize}px`; // assumes mass represents pixel size
+  const size = `${calSize}px`;
 
   return (
     <div
