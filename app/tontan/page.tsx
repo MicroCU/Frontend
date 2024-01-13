@@ -4,10 +4,10 @@ import {
   CheckListItem,
   CheckListItemStatusEnum
 } from "@/components/CheckListItem";
-import Group, { GroupTypeEnum } from "@/components/group";
+import Group, { GroupTypeEnum } from "@/components/Group";
 import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
 import NavigateBtn from "@/components/NavigateBtn";
-import Node, { NodeStatusEnum } from "@/components/node";
+import Node, { NodeStatusEnum } from "@/components/Node";
 import { RadialProgress } from "@/components/RadialProgress";
 import Toast, { ToastTypeEnum } from "@/components/Toast";
 import Tag from "@/components/Tag";
