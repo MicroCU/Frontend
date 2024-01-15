@@ -10,6 +10,8 @@ export interface IMicroProps {
   status: MicroStatusEnum;
   isGroup?: boolean;
   className?: string;
+  microIndex?: number;
+  handleWidthCalculation?: (index: number, width: number) => void;
 }
 
 export default function Micro({
@@ -18,7 +20,9 @@ export default function Micro({
   type,
   status,
   isGroup = true,
-  className
+  className,
+  microIndex,
+  handleWidthCalculation: setTotalWidth
 }: IMicroProps) {
   const [widthNode, setWidthNode] = useState(0);
   const [heightNode, setHeightNode] = useState(0);
@@ -34,6 +38,7 @@ export default function Micro({
     };
 
     const { width, height } = getWidthAndHeight();
+    setTotalWidth && setTotalWidth(microIndex!, width);
     setWidthNode(width);
     setHeightNode(height);
 
@@ -42,7 +47,7 @@ export default function Micro({
     return () => {
       window.removeEventListener("resize", getWidthAndHeight);
     };
-  }, []);
+  }, [microIndex, setTotalWidth]);
 
   const { backgroundColor, textColor, borderRadius, parentStyle } = customStyle(
     type,
@@ -59,10 +64,7 @@ export default function Micro({
         height: type === MicroTypeEnum.TEST ? heightNode + 32 : heightNode
       }}
     >
-      <div
-        ref={componentRef}
-        className="relative w-fit h-fit max-w-52"
-      >
+      <div ref={componentRef} className="relative w-fit h-fit max-w-52">
         <div
           className={`${backgroundColor} w-full h-full px-5 py-3 text-center
             ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
