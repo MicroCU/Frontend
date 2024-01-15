@@ -2,6 +2,30 @@ import { GroupTypeEnum, MicroTypeEnum } from "@/types/enum";
 import { IMockDirectedGraphData } from "@/types/type";
 
 export const mockData: IMockDirectedGraphData = {
+    // groups: [
+    //     {
+    //         id: '1', name: 'Overview', next: ['2'], type: GroupTypeEnum.Single,
+    //         members: [
+    //             { id: '1', name: 'Overview', progress: 0, type: MicroTypeEnum.VIDEO },
+    //         ]
+    //     },
+    //     {
+    //         id: '2', name: 'Comment', next: ['3'], type: GroupTypeEnum.Unordered,
+    //         members: [
+    //             { id: '21', name: 'Comment 111111', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '22', name: 'Comment 2', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '23', name: 'Comment 3', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //         ]
+    //     },
+    //     {
+    //         id: '3', name: 'Comment', next: [], type: GroupTypeEnum.Ordered,
+    //         members: [
+    //             { id: '21', name: 'Comment 1', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '22', name: 'Comment 2', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '23', name: 'Comment 3', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //         ]
+    //     },
+    // ]
     groups: [
         {
             id: '1', name: 'Overview', next: ['2', '3'], type: GroupTypeEnum.Single,
@@ -10,9 +34,11 @@ export const mockData: IMockDirectedGraphData = {
             ]
         },
         {
-            id: '2', name: 'Comment', next: ['8'], type: GroupTypeEnum.Single,
+            id: '2', name: 'Comment', next: ['8'], type: GroupTypeEnum.Unordered,
             members: [
-                { id: '2', name: 'Comment', progress: 0, type: MicroTypeEnum.PRACTICE }
+                { id: '21', name: 'Comment 1', progress: 0, type: MicroTypeEnum.PRACTICE },
+                { id: '22', name: 'Comment 2', progress: 0, type: MicroTypeEnum.PRACTICE },
+                { id: '23', name: 'Comment 3', progress: 0, type: MicroTypeEnum.PRACTICE },
             ]
         },
         {
@@ -86,7 +112,7 @@ export const mockData: IMockDirectedGraphData = {
         {
             id: '90', name: 'Operator *', next: ['7', '70'], type: GroupTypeEnum.Single,
             members: [
-                { id: '90', name: 'Operator *', progress: 90, type: MicroTypeEnum.TEST },
+                { id: '90', name: 'Operator *', progress: 90, type: MicroTypeEnum.PRACTICE },
             ]
         },
         {
@@ -102,7 +128,7 @@ export const mockData: IMockDirectedGraphData = {
             members: [
                 { id: '111', name: 'Lesson 1*', progress: 0, type: MicroTypeEnum.VIDEO },
                 { id: '112', name: 'Lesson 2*', progress: 0, type: MicroTypeEnum.VIDEO },
-                { id: '113', name: 'Lesson 3*', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '113', name: 'Lesson 3* longlonglonglonglonglong', progress: 0, type: MicroTypeEnum.VIDEO },
             ]
         },
         {

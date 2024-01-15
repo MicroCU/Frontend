@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 import { MicroTypeEnum, MicroStatusEnum } from "@/types/enum";
 
 export interface IMicroProps {
@@ -45,6 +44,47 @@ export default function Micro({
     };
   }, []);
 
+  const { backgroundColor, textColor, borderRadius, parentStyle } = customStyle(
+    type,
+    status,
+    progress,
+    isGroup
+  );
+
+  return (
+    <div
+      className={`${parentStyle} ${className}`}
+      style={{
+        width: type === MicroTypeEnum.TEST ? widthNode + 32 : widthNode,
+        height: type === MicroTypeEnum.TEST ? heightNode + 32 : heightNode
+      }}
+    >
+      <div ref={componentRef} className="relative w-fit h-fit max-w-52">
+        <div
+          className={`${backgroundColor} w-full h-full px-5 py-3 text-center
+            ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
+        >
+          <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
+            {title}
+          </div>
+        </div>
+        {progress > 0 && progress <= 100 && type === MicroTypeEnum.VIDEO && (
+          <div
+            className="absolute bottom-0 left-0 h-1 bg-primary"
+            style={{ width: (progress / 100) * widthNode }}
+          ></div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function customStyle(
+  type: MicroTypeEnum,
+  status: MicroStatusEnum,
+  progress: number,
+  isGroup: boolean
+) {
   let backgroundColor = "";
   let textColor = "text-white";
   if (type === MicroTypeEnum.VIDEO) {
@@ -90,30 +130,10 @@ export default function Micro({
     }
   }
 
-  return (
-    <div
-      className={`${parentStyle} ${className}`}
-      style={{
-        width: type === MicroTypeEnum.TEST ? widthNode + 32 : widthNode,
-        height: type === MicroTypeEnum.TEST ? heightNode + 32 : heightNode
-      }}
-    >
-      <div ref={componentRef} className="relative w-fit h-fit max-w-52">
-        <div
-          className={`${backgroundColor} w-full h-full px-5 py-3 text-center
-            ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
-        >
-          <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
-            {title}
-          </div>
-        </div>
-        {progress > 0 && progress <= 100 && type === MicroTypeEnum.VIDEO && (
-          <div
-            className="absolute bottom-0 left-0 h-1 bg-primary"
-            style={{ width: (progress / 100) * widthNode }}
-          ></div>
-        )}
-      </div>
-    </div>
-  );
+  return {
+    backgroundColor,
+    textColor,
+    borderRadius,
+    parentStyle
+  };
 }

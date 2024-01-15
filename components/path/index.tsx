@@ -21,9 +21,7 @@ import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
 import "reactflow/dist/style.css";
 import {
-  calculateNodeSize,
   findRoot,
-  improvePositionForVerticalGroup
 } from "./algorithm";
 
 interface EntitreeTreeProps {
@@ -66,16 +64,16 @@ const getLayoutedElements = (
       y: nodeWithPosition.y - nodeHeight / 2
     };
 
-    let nodeSize = calculateNodeSize(node.id);
-    node.width = nodeSize[0];
-    node.height = nodeSize[1];
+    // let nodeSize = calculateNodeSize(node.id);
+    // node.width = nodeSize[0];
+    // node.height = nodeSize[1];
 
-    if (node.type !== "unorderedGroupNode") {
-      node.position.x += defaultSettings.singleWidth + defaultSettings.Padding;
-    }
+    // if (node.type !== "unorderedGroupNode") {
+    //   node.position.x += defaultSettings.singleWidth + defaultSettings.Padding;
+    // }
 
     if (node.id === rootId) {
-      rootWidth = node.width;
+      // rootWidth = node.width;
       rootX = node.position.x;
       rootY = node.position.y;
     }
@@ -83,7 +81,8 @@ const getLayoutedElements = (
     return node;
   });
 
-  improvePositionForVerticalGroup(nodes);
+  // improveHorizontalPosition(nodes);
+  // improvePositionForVerticalGroup(nodes);
 
   return {
     nodes,
@@ -101,7 +100,7 @@ export default function DirectedGraph({
   const nodeTypes = useMemo(
     () => ({
       groupNode: GroupNode,
-      singleNode: SingleNode,
+      singleNode: SingleNode
     }),
     []
   );

@@ -4,7 +4,7 @@ import { mockData } from "./data";
 import { IMicroData } from "@/types/type";
 
 const position = { x: 0, y: 0 };
-const edgeType = 'smoothstep';
+const edgeType = 'default';
 
 interface INode {
     id: string;
@@ -22,7 +22,7 @@ export interface IGroupValueMap {
     members: IMicroData[];
 }
 export let groupMember = new Map<string, IGroupValueMap>() // key: {group node id, group name}, value: node's member
-export let parents = new Map<string, Set<string>>() // key: {node id}, value: node's parents
+// export let parents = new Map<string, Set<string>>() // key: {node id}, value: node's parents
 
 export function getInitialNodesAndEdges() {
     let initialNodes: Node<any, string | undefined>[] = [];
@@ -49,14 +49,14 @@ export function getInitialNodesAndEdges() {
 
         groupMember.set(group.id, { name: group.name, type: group.type, next: group.next, members: group.members })
 
-        group.next.forEach(nextId => {
-            if (parents.has(nextId)) {
-                parents.get(nextId)?.add(group.id)
-            } else {
-                let tmp = new Set<string>()
-                parents.set(nextId, tmp.add(group.id))
-            }
-        })
+        // group.next.forEach(nextId => {
+        //     if (parents.has(nextId)) {
+        //         parents.get(nextId)?.add(group.id)
+        //     } else {
+        //         let tmp = new Set<string>()
+        //         parents.set(nextId, tmp.add(group.id))
+        //     }
+        // })
 
         group.next.forEach(next => {
             initialEdges.push({

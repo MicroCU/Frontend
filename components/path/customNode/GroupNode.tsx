@@ -4,6 +4,7 @@ import { IMicroData } from "@/types/type";
 import Group from "@/components/Group";
 import { IMicroProps } from "@/components/Micro";
 import { GroupTypeEnum, MicroStatusEnum } from "@/types/enum";
+import { defaultSettings, groupSettings } from "../setting";
 
 export default function GroupNode({
   id,
@@ -34,22 +35,37 @@ export default function GroupNode({
     });
   });
   return (
-    <div style={{ width: "fit-content" }}>
+    <div
+      className="flex flex-row justify-center content-center border"
+      style={{ width: groupSettings.width, height: groupSettings.height }}
+    >
       <p className="bg-transparent text-left Bold16 absolute -top-8">
         {data.label}
       </p>
-      <Handle
-        type="target"
-        position={Position.Top}
-        isConnectable={isConnectable}
-      />
-      <Group micros={micros} type={groupType} />
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="b"
-        isConnectable={isConnectable}
-      />
+      <div
+        className="absolute w-fit h-fit"
+        style={{
+          top:
+            groupType === GroupTypeEnum.Unordered
+              ? groupSettings.height / 2 -
+                defaultSettings.singleHeight / 2 -
+                defaultSettings.Padding
+              : 0
+        }}
+      >
+        <Handle
+          type="target"
+          position={Position.Top}
+          isConnectable={isConnectable}
+        />
+        <Group micros={micros} type={groupType} />
+        <Handle
+          type="source"
+          position={Position.Bottom}
+          id="b"
+          isConnectable={isConnectable}
+        />
+      </div>
     </div>
   );
 }
