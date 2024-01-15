@@ -17,9 +17,8 @@ import ReactFlow, {
 import dagre from "dagre";
 import { getInitialNodesAndEdges } from "./node-edges";
 import { defaultSettings, groupSettings, zoomLevel } from "./setting";
-import OrderedGroupNode from "./customNode/OrderedGroupNode";
+import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
-import UnorderedGroupNode from "./customNode/UnorderedGroupNode";
 import InfoNode from "./customNode/InfoNode";
 import { setInfoSection } from "./util";
 import "reactflow/dist/style.css";
@@ -103,9 +102,8 @@ export default function DirectedGraph({
   const { setViewport } = useReactFlow();
   const nodeTypes = useMemo(
     () => ({
-      orderedGroupNode: OrderedGroupNode,
+      groupNode: GroupNode,
       singleNode: SingleNode,
-      unorderedGroupNode: UnorderedGroupNode,
       infoNode: InfoNode
     }),
     []

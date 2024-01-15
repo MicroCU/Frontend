@@ -1,7 +1,7 @@
 import { Handle, Position } from "reactflow";
-import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
+import Micro from "@/components/Micro";
 import { groupMember } from "../node-edges";
-import { MicroNodeType } from "@/types/enum";
+import { MicroTypeEnum, MicroStatusEnum } from "@/types/enum";
 
 export default function SingleNode({
   id,
@@ -12,8 +12,8 @@ export default function SingleNode({
   data: { label: string };
   isConnectable: boolean;
 }) {
-  let nodeType = groupMember.get(id)?.members[0].type;
-  let progress = groupMember.get(id)?.members[0].progress;
+  let nodeType = groupMember.get(id)?.members[0].type || MicroTypeEnum.VIDEO;
+  let progress = groupMember.get(id)?.members[0].progress || 0;
   return (
     <div className="w-full">
       <Handle
@@ -25,17 +25,11 @@ export default function SingleNode({
         id={id}
         title={data.label}
         progress={progress ? progress : 0}
-        type={
-          nodeType === MicroNodeType.Micro
-            ? MicroTypeEnum.VIDEO
-            : nodeType === MicroNodeType.Practice
-            ? MicroTypeEnum.PRACTICE
-            : MicroTypeEnum.TEST
-        }
+        type={nodeType}
         status={
-          progress && progress > 0 && progress < 100
+          progress > 0 && progress < 100
             ? MicroStatusEnum.IN_PROGRESS
-            : progress && progress === 100
+            : progress === 100
             ? MicroStatusEnum.COMPLETED
             : MicroStatusEnum.NOT_STARTED
         }

@@ -1,14 +1,4 @@
-export enum MicroTypeEnum {
-  VIDEO = 1,
-  PRACTICE = 2,
-  TEST = 3
-}
-
-export enum MicroStatusEnum {
-  NOT_STARTED = 1,
-  IN_PROGRESS = 2,
-  COMPLETED = 3
-}
+import { MicroTypeEnum, MicroStatusEnum } from "@/types/enum";
 
 export interface IMicroProps {
   id: string;
@@ -29,7 +19,7 @@ export default function Micro({
   let backgroundColor = "";
   let textColor = "text-white";
   if (type === MicroTypeEnum.VIDEO) {
-    textColor = "text-black";
+    textColor = "text-grayMain";
     if (isGroup) {
       backgroundColor = "bg-grayLight";
     } else {

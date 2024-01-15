@@ -4,8 +4,8 @@ import {
   CheckListItem,
   CheckListItemStatusEnum
 } from "@/components/CheckListItem";
-import Group, { GroupTypeEnum } from "@/components/Group";
-import Micro, { MicroStatusEnum, MicroTypeEnum } from "@/components/Micro";
+import Group from "@/components/Group";
+import Micro from "@/components/Micro";
 import NavigateBtn from "@/components/NavigateBtn";
 import Node, { NodeStatusEnum } from "@/components/Node";
 import { RadialProgress } from "@/components/RadialProgress";
@@ -29,6 +29,7 @@ import JourneyModalItems, {
   JourneyModalType
 } from "@/components/JourneyModalItems";
 import CheckListIcon from "@/components/CheckListIcon";
+import { GroupTypeEnum, MicroStatusEnum, MicroTypeEnum } from "@/types/enum";
 
 export default function TontanComponent() {
   return (

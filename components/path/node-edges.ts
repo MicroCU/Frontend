@@ -1,7 +1,7 @@
-import { GroupType } from "@/types/enum";
+import { GroupTypeEnum } from "@/types/enum";
 import { MarkerType, Node } from "reactflow";
 import { mockData } from "./data";
-import { IMicroNode } from "@/types/type";
+import { IMicroData } from "@/types/type";
 
 const position = { x: 0, y: 0 };
 const edgeType = 'smoothstep';
@@ -18,8 +18,8 @@ interface IGraph {
 export interface IGroupValueMap {
     name: string;
     next: string[];
-    type: GroupType;
-    members: IMicroNode[];
+    type: GroupTypeEnum;
+    members: IMicroData[];
 }
 export let groupMember = new Map<string, IGroupValueMap>() // key: {group node id, group name}, value: node's member
 export let parents = new Map<string, Set<string>>() // key: {node id}, value: node's parents
@@ -44,7 +44,7 @@ export function getInitialNodesAndEdges() {
             data: { label: group.name },
             position,
             draggable: false,
-            type: group.type === GroupType.Single ? 'singleNode' : group.type === GroupType.Ordered ? 'orderedGroupNode' : 'unorderedGroupNode',
+            type: group.type === GroupTypeEnum.Single ? 'singleNode' : 'groupNode',
         });
 
         groupMember.set(group.id, { name: group.name, type: group.type, next: group.next, members: group.members })

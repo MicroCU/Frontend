@@ -11,7 +11,7 @@ export default function Path() {
       <div className="w-screen" style={{ height: "5vh" }}>
         <h1 className="h-full text-center bg-success"> 1 </h1>
       </div>
-      <div className="w-screen" style={{ height: "95vh" }}>
+      <div className="w-screen bg-graySmall" style={{ height: "95vh" }}>
         {screenWidth !== null && screenHeight != null && (
           <ReactFlowProvider>
             <DirectedGraph

@@ -1,25 +1,25 @@
-import { GroupType, MicroNodeType } from "./enum";
+import { GroupTypeEnum, MicroTypeEnum } from "./enum";
 
 export type TagProps = {
   imageURL: string;
   title: string;
 };
 
-export interface IMicroNode {
+export interface IMicroData {
   id: string;
   name: string;
   progress: number;
-  type: MicroNodeType;
+  type: MicroTypeEnum;
 }
 
-export interface IGroup {
+export interface IGroupData {
   id: string;
   name: string;
   next: string[];
-  type: GroupType;
-  members: IMicroNode[];
+  type: GroupTypeEnum;
+  members: IMicroData[];
 }
 
 export interface IMockDirectedGraphData {
-  groups: IGroup[];
+  groups: IGroupData[];
 }

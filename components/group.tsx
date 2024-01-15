@@ -1,9 +1,5 @@
+import { GroupTypeEnum } from "@/types/enum";
 import Micro, { IMicroProps } from "./Micro";
-
-export enum GroupTypeEnum {
-  Unordered = 1,
-  Ordered = 2
-}
 
 export interface IGroupProps {
   micros: IMicroProps[];
@@ -11,12 +7,13 @@ export interface IGroupProps {
 }
 
 export default function Group({ micros, type }: IGroupProps) {
+  console.log("Group: ", micros);
   return (
     <>
       {type === GroupTypeEnum.Ordered ? (
         <div className="flex flex-col bg-white w-fit h-fit content-center p-4 gap-y-4 rounded-2xl">
           {micros.map((micro) => (
-            <div key={micro.id} className="">
+            <div key={micro.id}>
               <Micro
                 id={micro.id}
                 title={micro.title}

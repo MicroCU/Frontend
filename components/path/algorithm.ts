@@ -1,5 +1,5 @@
 
-import { GroupType } from "@/types/enum";
+import { GroupTypeEnum } from "@/types/enum";
 import { groupMember } from "./node-edges";
 import { defaultSettings, groupSettings } from "./setting";
 import { Node } from "reactflow";
@@ -31,10 +31,10 @@ export function calculateNodeSize(nodeId: string): [number, number] {
     }
     let memberCount = nodeInfo.members.length;
     let w, h;
-    if (nodeInfo.type === GroupType.Unordered) {
+    if (nodeInfo.type === GroupTypeEnum.Unordered) {
         w = (nodeWidth * memberCount) + (defaultSettings.Margin * (memberCount - 1));
         h = nodeHeight;
-    } else if (nodeInfo.type === GroupType.Ordered) {
+    } else if (nodeInfo.type === GroupTypeEnum.Ordered) {
         w = nodeWidth;
         h = (nodeHeight * memberCount) + (defaultSettings.Margin * (memberCount - 1));
     } else {
@@ -47,7 +47,7 @@ export function calculateNodeSize(nodeId: string): [number, number] {
 export function improvePositionForVerticalGroup(nodes: Node<any, string | undefined>[]) {
     let isAdjusted = new Set<string>();
     nodes.forEach(node => {
-        if (groupMember.get(node.id)?.type === GroupType.Ordered) {
+        if (groupMember.get(node.id)?.type === GroupTypeEnum.Ordered) {
             isAdjusted.add(node.id)
             adjustChildrenPosition(node.id, nodes, isAdjusted)
         }

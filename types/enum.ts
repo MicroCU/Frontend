@@ -4,14 +4,20 @@ export const enum Page {
   Search = "search"
 }
 
-export enum GroupType {
-  Single,
-  Ordered,
-  Unordered
+export enum GroupTypeEnum {
+  Single = "Single",
+  Ordered = "Ordered",
+  Unordered = "Unordered"
 }
 
-export enum MicroNodeType {
-  Micro = "Micro",
-  Practice = "Practice",
-  Test = "Test"
+export enum MicroTypeEnum {
+  VIDEO = "VIDEO",
+  PRACTICE = "PRACTICE",
+  TEST = "TEST"
+}
+
+export enum MicroStatusEnum {
+  NOT_STARTED = "NOT_STARTED",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED"
 }
