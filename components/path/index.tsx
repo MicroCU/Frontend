@@ -19,8 +19,6 @@ import { getInitialNodesAndEdges } from "./node-edges";
 import { defaultSettings, groupSettings } from "./setting";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
-import InfoNode from "./customNode/InfoNode";
-import { setInfoSection } from "./util";
 import "reactflow/dist/style.css";
 import {
   calculateNodeSize,
@@ -104,7 +102,6 @@ export default function DirectedGraph({
     () => ({
       groupNode: GroupNode,
       singleNode: SingleNode,
-      infoNode: InfoNode
     }),
     []
   );

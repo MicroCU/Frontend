@@ -143,7 +143,7 @@ export default function TontanComponent() {
           micros={[
             {
               id: "1",
-              title: "video 1",
+              title: "video 1111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
               status: MicroStatusEnum.IN_PROGRESS,
@@ -151,7 +151,7 @@ export default function TontanComponent() {
             },
             {
               id: "2",
-              title: "video 2",
+              title: "video222222222222222222222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
               status: MicroStatusEnum.COMPLETED,
@@ -172,7 +172,7 @@ export default function TontanComponent() {
           micros={[
             {
               id: "1",
-              title: "video 1",
+              title: "video 11111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
               status: MicroStatusEnum.IN_PROGRESS,
@@ -180,7 +180,7 @@ export default function TontanComponent() {
             },
             {
               id: "2",
-              title: "video 2",
+              title: "video222222222222222222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
               status: MicroStatusEnum.COMPLETED,

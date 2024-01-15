@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 import { MicroTypeEnum, MicroStatusEnum } from "@/types/enum";
 
 export interface IMicroProps {
@@ -7,6 +10,7 @@ export interface IMicroProps {
   type: MicroTypeEnum;
   status: MicroStatusEnum;
   isGroup?: boolean;
+  className?: string;
 }
 
 export default function Micro({
@@ -14,8 +18,33 @@ export default function Micro({
   progress,
   type,
   status,
-  isGroup = true
+  isGroup = true,
+  className
 }: IMicroProps) {
+  const [widthNode, setWidthNode] = useState(0);
+  const [heightNode, setHeightNode] = useState(0);
+  const componentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const getWidthAndHeight = () => {
+      if (componentRef.current) {
+        const { width, height } = componentRef.current.getBoundingClientRect();
+        return { width, height };
+      }
+      return { width: 0, height: 0 };
+    };
+
+    const { width, height } = getWidthAndHeight();
+    setWidthNode(width);
+    setHeightNode(height);
+
+    window.addEventListener("resize", getWidthAndHeight);
+
+    return () => {
+      window.removeEventListener("resize", getWidthAndHeight);
+    };
+  }, []);
+
   let backgroundColor = "";
   let textColor = "text-white";
   if (type === MicroTypeEnum.VIDEO) {
@@ -46,7 +75,6 @@ export default function Micro({
   }
 
   let borderRadius = "rounded-lg";
-  const widthNode = 115;
   if (progress > 0 && type === MicroTypeEnum.VIDEO) {
     borderRadius = "rounded-t-lg";
   }
@@ -55,16 +83,22 @@ export default function Micro({
   if (type === MicroTypeEnum.TEST) {
     if (status === MicroStatusEnum.COMPLETED) {
       parentStyle =
-        "flex items-center justify-center w-[147px] h-[75px] rounded-2xl bg-progressLight";
+        "flex items-center justify-center content-center rounded-2xl bg-progressLight";
     } else {
       parentStyle =
-        "flex items-center justify-center w-[147px] h-[75px] rounded-2xl bg-primaryLight";
+        "flex items-center justify-center content-center rounded-2xl bg-primaryLight";
     }
   }
 
   return (
-    <div className={`${parentStyle}`}>
-      <div className="relative w-[115px] h-[43px]">
+    <div
+      className={`${parentStyle} ${className}`}
+      style={{
+        width: type === MicroTypeEnum.TEST ? widthNode + 32 : widthNode,
+        height: type === MicroTypeEnum.TEST ? heightNode + 32 : heightNode
+      }}
+    >
+      <div ref={componentRef} className="relative w-fit h-fit max-w-52">
         <div
           className={`${backgroundColor} w-full h-full px-5 py-3 text-center
             ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
