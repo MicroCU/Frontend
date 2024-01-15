@@ -1,5 +1,5 @@
 "use client";
-import Dagre from "@/components/directed-graph";
+import DirectedGraph from "@/components/path";
 import { useScreenContext } from "@/components/context/ScreenContext";
 import { ReactFlowProvider } from "reactflow";
 
@@ -8,13 +8,16 @@ export default function Path() {
 
   return (
     <div>
-      <div style={{ width: "100vw", height: "5vh", backgroundColor: "blue" }}>
-        <h1 style={{ textAlign: "center", backgroundColor: "pink" }}> 1 </h1>
+      <div className="w-screen" style={{ height: "5vh" }}>
+        <h1 className="h-full text-center bg-success"> 1 </h1>
       </div>
-      <div style={{ width: "100vw", height: "95vh" }}>
+      <div className="w-screen" style={{ height: "95vh" }}>
         {screenWidth !== null && screenHeight != null && (
           <ReactFlowProvider>
-            <Dagre screenWidth={screenWidth} screenHeight={screenHeight} />
+            <DirectedGraph
+              screenWidth={screenWidth}
+              screenHeight={screenHeight}
+            />
           </ReactFlowProvider>
         )}
         {(screenWidth === null || screenHeight == null) && <p>Loading...</p>}

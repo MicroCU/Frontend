@@ -1,4 +1,5 @@
-import { GroupType } from "./data";
+
+import { GroupType } from "@/types/enum";
 import { groupMember } from "./node-edges";
 import { defaultSettings, groupSettings } from "./setting";
 import { Node } from "reactflow";

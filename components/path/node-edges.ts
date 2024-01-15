@@ -1,8 +1,20 @@
+import { GroupType } from "@/types/enum";
 import { MarkerType, Node } from "reactflow";
-import { GroupType, IMicroNode, mockData } from "./data";
+import { mockData } from "./data";
+import { IMicroNode } from "@/types/type";
 
 const position = { x: 0, y: 0 };
 const edgeType = 'smoothstep';
+
+interface INode {
+    id: string;
+    next: string[];
+}
+
+interface IGraph {
+    [id: string]: INode;
+}
+
 export interface IGroupValueMap {
     name: string;
     next: string[];

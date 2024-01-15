@@ -1,36 +1,7 @@
-export enum GroupType {
-    Single,
-    Ordered,
-    Unordered
-}
+import { GroupType, MicroNodeType } from "@/types/enum";
+import { IMockDirectedGraphData } from "@/types/type";
 
-export enum MicroNodeType {
-    Micro,
-    Practice,
-    Test
-}
-
-export interface IMicroNode {
-    id: string;
-    name: string;
-    progress: number;
-    type: MicroNodeType;
-}
-
-export interface IGroup {
-    id: string;
-    name: string;
-    next: string[];
-    type: GroupType;
-    members: IMicroNode[];
-}
-
-export interface IMockData {
-    groups: IGroup[];
-}
-
-// For EntitreeFlex name of each node must be unique !!!
-export const mockData: IMockData = {
+export const mockData: IMockDirectedGraphData = {
     groups: [
         {
             id: '1', name: 'Overview', next: ['2', '3'], type: GroupType.Single,
@@ -41,13 +12,13 @@ export const mockData: IMockData = {
         {
             id: '2', name: 'Comment', next: ['8'], type: GroupType.Single,
             members: [
-                { id: '2', name: 'Comment', progress: 0, type: MicroNodeType.Micro }
+                { id: '2', name: 'Comment', progress: 0, type: MicroNodeType.Practice }
             ]
         },
         {
             id: '3', name: 'Syntax - 2', next: ['30'], type: GroupType.Single,
             members: [
-                { id: '3', name: 'Syntax - 2', progress: 80, type: MicroNodeType.Micro }
+                { id: '3', name: 'Syntax - 2', progress: 40, type: MicroNodeType.Micro }
             ]
         },
         {
@@ -115,7 +86,7 @@ export const mockData: IMockData = {
         {
             id: '90', name: 'Operator *', next: ['7', '70'], type: GroupType.Single,
             members: [
-                { id: '90', name: 'Operator *', progress: 90, type: MicroNodeType.Micro },
+                { id: '90', name: 'Operator *', progress: 90, type: MicroNodeType.Test },
             ]
         },
         {

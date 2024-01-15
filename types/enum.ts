@@ -3,3 +3,15 @@ export const enum Page {
   Recently = "recently",
   Search = "search"
 }
+
+export enum GroupType {
+  Single,
+  Ordered,
+  Unordered
+}
+
+export enum MicroNodeType {
+  Micro = "Micro",
+  Practice = "Practice",
+  Test = "Test"
+}

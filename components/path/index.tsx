@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -17,10 +17,10 @@ import ReactFlow, {
 import dagre from "dagre";
 import { getInitialNodesAndEdges } from "./node-edges";
 import { defaultSettings, groupSettings, zoomLevel } from "./setting";
-import OrderedGroupNode from "./CustomNode/OrderedGroupNode";
-import SingleNode from "./CustomNode/SingleNode";
-import UnorderedGroupNode from "./CustomNode/UnorderedGroupNode";
-import InfoNode from "./CustomNode/InfoNode";
+import OrderedGroupNode from "./customNode/OrderedGroupNode";
+import SingleNode from "./customNode/SingleNode";
+import UnorderedGroupNode from "./customNode/UnorderedGroupNode";
+import InfoNode from "./customNode/InfoNode";
 import { setInfoSection } from "./util";
 import "reactflow/dist/style.css";
 import {
@@ -64,8 +64,6 @@ const getLayoutedElements = (
   nodes.forEach((node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
 
-    // We are shifting the dagre node position (anchor=center center) to the top left
-    // so it matches the React Flow node anchor point (top left).
     node.position = {
       x: nodeWithPosition.x - nodeWidth / 2,
       y: nodeWithPosition.y - nodeHeight / 2
@@ -74,7 +72,6 @@ const getLayoutedElements = (
     let nodeSize = calculateNodeSize(node.id);
     node.width = nodeSize[0];
     node.height = nodeSize[1];
-    // node.data.label = node.id // TEST ONLY
 
     if (node.type !== "unorderedGroupNode") {
       node.position.x += defaultSettings.singleWidth + defaultSettings.Margin;
@@ -98,7 +95,7 @@ const getLayoutedElements = (
   };
 };
 
-export default function Dagre({
+export default function DirectedGraph({
   screenWidth,
   screenHeight
 }: EntitreeTreeProps) {
@@ -156,22 +153,10 @@ export default function Dagre({
         panOnScroll={true}
         panOnScrollMode={PanOnScrollMode.Free}
         fitView
-        // fitViewOptions={{ nodes: nodes }}
-        // maxZoom={zoomLevel}
-        // minZoom={zoomLevel}
         translateExtent={[
           [bounds.x, bounds.y],
           [bounds.x + bounds.width, bounds.y + bounds.height]
         ]}
-        // onlyRenderVisibleElements={true}
-
-        // onInit={() => {
-        //   setViewport({
-        //     x: -rootInfo.x + screenWidth / 2 - rootInfo.width / 2,
-        //     y: defaultSettings.rootY,
-        //     zoom: zoomLevel,
-        //   });
-        // }}
       >
         <MiniMap pannable={true} />
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />

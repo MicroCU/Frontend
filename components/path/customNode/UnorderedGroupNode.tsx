@@ -1,7 +1,7 @@
 import { Handle, Position } from "reactflow";
-import { IMicroNode } from "../data";
 import { groupMember } from "../node-edges";
 import { defaultSettings } from "../setting";
+import { IMicroNode } from "@/types/type";
 
 export default function UnorderedGroupNode({
   id,
