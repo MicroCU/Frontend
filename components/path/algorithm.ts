@@ -32,11 +32,11 @@ export function calculateNodeSize(nodeId: string): [number, number] {
     let memberCount = nodeInfo.members.length;
     let w, h;
     if (nodeInfo.type === GroupTypeEnum.Unordered) {
-        w = (nodeWidth * memberCount) + (defaultSettings.Margin * (memberCount - 1));
+        w = (nodeWidth * memberCount) + (defaultSettings.Padding * (memberCount - 1));
         h = nodeHeight;
     } else if (nodeInfo.type === GroupTypeEnum.Ordered) {
         w = nodeWidth;
-        h = (nodeHeight * memberCount) + (defaultSettings.Margin * (memberCount - 1));
+        h = (nodeHeight * memberCount) + (defaultSettings.Padding * (memberCount - 1));
     } else {
         w = nodeWidth;
         h = nodeHeight;

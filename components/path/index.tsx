@@ -16,7 +16,7 @@ import ReactFlow, {
 } from "reactflow";
 import dagre from "dagre";
 import { getInitialNodesAndEdges } from "./node-edges";
-import { defaultSettings, groupSettings, zoomLevel } from "./setting";
+import { defaultSettings, groupSettings } from "./setting";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
 import InfoNode from "./customNode/InfoNode";
@@ -73,7 +73,7 @@ const getLayoutedElements = (
     node.height = nodeSize[1];
 
     if (node.type !== "unorderedGroupNode") {
-      node.position.x += defaultSettings.singleWidth + defaultSettings.Margin;
+      node.position.x += defaultSettings.singleWidth + defaultSettings.Padding;
     }
 
     if (node.id === rootId) {
@@ -156,7 +156,7 @@ export default function DirectedGraph({
           [bounds.x + bounds.width, bounds.y + bounds.height]
         ]}
       >
-        <MiniMap pannable={true} />
+        {/* <MiniMap pannable={true} /> */}
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
       </ReactFlow>
     </>

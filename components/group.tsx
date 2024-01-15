@@ -7,7 +7,6 @@ export interface IGroupProps {
 }
 
 export default function Group({ micros, type }: IGroupProps) {
-  console.log("Group: ", micros);
   return (
     <>
       {type === GroupTypeEnum.Ordered ? (

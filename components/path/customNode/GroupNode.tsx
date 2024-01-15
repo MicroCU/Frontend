@@ -1,6 +1,5 @@
 import { Handle, Position } from "reactflow";
 import { groupMember } from "../node-edges";
-import { defaultSettings } from "../setting";
 import { IMicroData } from "@/types/type";
 import Group from "@/components/Group";
 import { IMicroProps } from "@/components/Micro";
@@ -36,16 +35,8 @@ export default function GroupNode({
   });
   return (
     <div style={{ width: "fit-content" }}>
-      <p
-        style={{
-          backgroundColor: "transparent",
-          textAlign: "left",
-          position: "absolute",
-          top: "-20px"
-        }}
-      >
-        {" "}
-        {data.label}{" "}
+      <p className="bg-transparent text-left Bold16 absolute -top-8">
+        {data.label}
       </p>
       <Handle
         type="target"
