@@ -140,6 +140,7 @@ export default function TontanComponent() {
       </div>
       <div className="bg-grayMain flex flex-row gap-4 pl-4">
         <Group
+          title="Basic Libraryyyy11112222212333455555577"
           micros={[
             {
               id: "1",
@@ -169,6 +170,39 @@ export default function TontanComponent() {
           type={GroupTypeEnum.Ordered}
         />
         <Group
+          title="Basic Library"
+          micros={[
+            {
+              id: "1",
+              title: "video 1111111",
+              progress: 50,
+              type: MicroTypeEnum.VIDEO,
+              status: MicroStatusEnum.IN_PROGRESS,
+              isGroup: true
+            },
+            {
+              id: "2",
+              title: "video222222222222222222222222222",
+              progress: 100,
+              type: MicroTypeEnum.VIDEO,
+              status: MicroStatusEnum.COMPLETED,
+              isGroup: true
+            },
+            {
+              id: "3",
+              title: "practice",
+              progress: 70,
+              type: MicroTypeEnum.PRACTICE,
+              status: MicroStatusEnum.IN_PROGRESS,
+              isGroup: true
+            }
+          ]}
+          type={GroupTypeEnum.Ordered}
+        />
+      </div>
+      <div className="bg-grayMain flex flex-column gap-4 pl-4">
+        <Group
+          title="Basic Library"
           micros={[
             {
               id: "1",
@@ -189,6 +223,38 @@ export default function TontanComponent() {
             {
               id: "3",
               title: "practice",
+              progress: 100,
+              type: MicroTypeEnum.PRACTICE,
+              status: MicroStatusEnum.COMPLETED,
+              isGroup: true
+            }
+          ]}
+          type={GroupTypeEnum.Unordered}
+        />
+      </div>
+      <div className="bg-grayMain flex flex-column gap-4 pl-4">
+        <Group
+          title="Basic LibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyy"
+          micros={[
+            {
+              id: "1",
+              title: "video11111111111111111111111111111111",
+              progress: 50,
+              type: MicroTypeEnum.VIDEO,
+              status: MicroStatusEnum.IN_PROGRESS,
+              isGroup: true
+            },
+            {
+              id: "2",
+              title: "video222222222222222222222222",
+              progress: 100,
+              type: MicroTypeEnum.VIDEO,
+              status: MicroStatusEnum.COMPLETED,
+              isGroup: true
+            },
+            {
+              id: "3",
+              title: "practice33333333333333333333333",
               progress: 100,
               type: MicroTypeEnum.PRACTICE,
               status: MicroStatusEnum.COMPLETED,

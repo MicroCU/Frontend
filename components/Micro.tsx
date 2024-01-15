@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { MicroTypeEnum, MicroStatusEnum } from "@/types/enum";
 
 export interface IMicroProps {
@@ -59,7 +59,10 @@ export default function Micro({
         height: type === MicroTypeEnum.TEST ? heightNode + 32 : heightNode
       }}
     >
-      <div ref={componentRef} className="relative w-fit h-fit max-w-52">
+      <div
+        ref={componentRef}
+        className="relative w-fit h-fit max-w-52"
+      >
         <div
           className={`${backgroundColor} w-full h-full px-5 py-3 text-center
             ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
