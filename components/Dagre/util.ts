@@ -9,17 +9,17 @@ export function setInfoSection(reactFlownodes: Node<any, string | undefined>[], 
     let infoNode = reactFlownodes.find(node => node.id === 'info')
     if (infoNode) {
         infoNode.position = {
-            x: rootInfo.x - screenWidth/2 + rootInfo.width/2,
-            y: rootInfo.y - defaultSettings.rootY
+            x: rootInfo.x - screenWidth / 2 + rootInfo.width / 2,
+            y: -500
         }
-        return 
+        return
     }
     reactFlownodes.push({
         id: 'info',
         type: 'infoNode',
         position: {
-            x: rootInfo.x - screenWidth/2 + rootInfo.width/2,
-            y: rootInfo.y - defaultSettings.rootY
+            x: rootInfo.x - screenWidth / 2 + rootInfo.width / 2,
+            y: -500
         },
         data: {
             label: 'info section (mock na)'
