@@ -20,9 +20,7 @@ import { defaultSettings, groupSettings } from "./setting";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
 import "reactflow/dist/style.css";
-import {
-  findRoot,
-} from "./algorithm";
+import { findRoot } from "./algorithm";
 
 interface EntitreeTreeProps {
   screenWidth: number;
@@ -147,6 +145,10 @@ export default function DirectedGraph({
         panOnScroll={true}
         panOnScrollMode={PanOnScrollMode.Free}
         fitView
+        fitViewOptions={{
+          includeHiddenNodes: true,
+          nodes: nodes
+        }}
         translateExtent={[
           [bounds.x, bounds.y],
           [bounds.x + bounds.width, bounds.y + bounds.height]

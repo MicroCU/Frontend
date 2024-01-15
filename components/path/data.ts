@@ -120,14 +120,14 @@ export const mockData: IMockDirectedGraphData = {
             members: [
                 { id: '101', name: 'Lesson 1', progress: 0, type: MicroTypeEnum.VIDEO },
                 { id: '102', name: 'Lesson 2', progress: 0, type: MicroTypeEnum.VIDEO },
-                { id: '103', name: 'Lesson 3', progress: 0, type: MicroTypeEnum.VIDEO },
+                // { id: '103', name: 'Lesson 3', progress: 0, type: MicroTypeEnum.VIDEO },
             ]
         },
         {
             id: '11', name: 'Lesson *', next: ['12', '13'], type: GroupTypeEnum.Unordered,
             members: [
-                { id: '111', name: 'Lesson 1*', progress: 0, type: MicroTypeEnum.VIDEO },
-                { id: '112', name: 'Lesson 2*', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '111', name: 'Lesson 1* longlonglonglonglonglong', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '112', name: 'Lesson 2* longlonglonglonglonglong', progress: 0, type: MicroTypeEnum.VIDEO },
                 { id: '113', name: 'Lesson 3* longlonglonglonglonglong', progress: 0, type: MicroTypeEnum.VIDEO },
             ]
         },
@@ -150,7 +150,7 @@ export const mockData: IMockDirectedGraphData = {
         {
             id: '14', name: 'Lesson III', next: [], type: GroupTypeEnum.Single,
             members: [
-                { id: '14', name: 'Lesson 1 III', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '14', name: 'Lesson 1 III', progress: 0, type: MicroTypeEnum.TEST },
                 // { id: '142', name: 'Lesson 2 III', progress: 0, type: MicroNodeType.VIDEO },
                 // { id: '143', name: 'Lesson 3 III', progress: 0, type: MicroNodeType.VIDEO },
             ]

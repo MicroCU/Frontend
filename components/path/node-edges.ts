@@ -1,5 +1,5 @@
 import { GroupTypeEnum } from "@/types/enum";
-import { MarkerType, Node } from "reactflow";
+import { MarkerType, Node, Edge } from "reactflow";
 import { mockData } from "./data";
 import { IMicroData } from "@/types/type";
 
@@ -26,16 +26,7 @@ export let groupMember = new Map<string, IGroupValueMap>() // key: {group node i
 
 export function getInitialNodesAndEdges() {
     let initialNodes: Node<any, string | undefined>[] = [];
-    let initialEdges: {
-        id: string;
-        source: string;
-        target: string;
-        type: string;
-        markerEnd: {
-            type: MarkerType;
-            color: string;
-        };
-    }[] = [];
+    let initialEdges: Edge<any>[] = [];
     let nextData: IGraph = {} as IGraph;
 
     mockData.groups.forEach(group => {
@@ -64,7 +55,8 @@ export function getInitialNodesAndEdges() {
                 source: group.id,
                 target: next,
                 type: edgeType,
-                markerEnd: { type: MarkerType.ArrowClosed, color: 'black' }
+                markerEnd: { type: MarkerType.ArrowClosed, color: '#5C4EFF', width: 25, height: 25, },
+                style: { stroke: '#5C4EFF', strokeWidth: 2 },
             });
         })
 

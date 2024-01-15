@@ -39,9 +39,6 @@ export default function GroupNode({
       className="flex flex-row justify-center content-center border"
       style={{ width: groupSettings.width, height: groupSettings.height }}
     >
-      <p className="bg-transparent text-left Bold16 absolute -top-8">
-        {data.label}
-      </p>
       <div
         className="absolute w-fit h-fit"
         style={{
@@ -50,9 +47,14 @@ export default function GroupNode({
               ? groupSettings.height / 2 -
                 defaultSettings.singleHeight / 2 -
                 defaultSettings.Padding
+              : groupType === GroupTypeEnum.Ordered && member.length == 2
+              ? defaultSettings.singleHeight / 2
               : 0
         }}
       >
+        <div className="absolute -top-8 bg-transparent">
+          <p className="text-left Bold16 ">{data.label}</p>
+        </div>
         <Handle
           type="target"
           position={Position.Top}
