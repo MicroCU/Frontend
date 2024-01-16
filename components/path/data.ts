@@ -94,11 +94,13 @@ export const mockData: IMockDirectedGraphData = {
             ]
         },
         {
-            id: '8', name: 'Comment 2', next: ['10', '11'], type: GroupTypeEnum.Ordered,
+            id: '8', name: 'Comment 2 Long', next: ['10', '11'], type: GroupTypeEnum.Ordered,
             members: [
-                { id: '81', name: 'Comment 2', progress: 0, type: MicroTypeEnum.VIDEO },
-                { id: '82', name: 'Comment 3', progress: 0, type: MicroTypeEnum.VIDEO },
-                { id: '83', name: 'Comment 4', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '81', name: 'Comment 2', progress: 20, type: MicroTypeEnum.VIDEO },
+                { id: '82', name: 'Comment 3', progress: 40, type: MicroTypeEnum.VIDEO },
+                { id: '83', name: 'Comment 4', progress: 60, type: MicroTypeEnum.VIDEO },
+                { id: '84', name: 'Comment 5', progress: 100, type: MicroTypeEnum.VIDEO },
+                { id: '85', name: 'Comment 6', progress: 35, type: MicroTypeEnum.VIDEO },
             ]
         },
         {
@@ -124,11 +126,13 @@ export const mockData: IMockDirectedGraphData = {
             ]
         },
         {
-            id: '11', name: 'Lesson *', next: ['12', '13'], type: GroupTypeEnum.Unordered,
+            id: '11', name: 'Lesson * (Long)', next: ['12', '13'], type: GroupTypeEnum.Unordered,
             members: [
                 { id: '111', name: 'Lesson 1* longlonglonglonglonglong', progress: 0, type: MicroTypeEnum.VIDEO },
                 { id: '112', name: 'Lesson 2* longlonglonglonglonglong', progress: 0, type: MicroTypeEnum.VIDEO },
                 { id: '113', name: 'Lesson 3* longlonglonglonglonglong', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '114', name: 'Lesson 4', progress: 50, type: MicroTypeEnum.VIDEO },
+                { id: '115', name: 'Lesson 5', progress: 70, type: MicroTypeEnum.VIDEO },
             ]
         },
         {
@@ -140,7 +144,7 @@ export const mockData: IMockDirectedGraphData = {
             ]
         },
         {
-            id: '13', name: 'Lesson II', next: ['14', '15'], type: GroupTypeEnum.Unordered,
+            id: '13', name: 'Lesson II abbcvgdvcgsgvcdhsdcghvcfhvhgcvgvfhcvvdhcvdvh', next: ['14', '15'], type: GroupTypeEnum.Unordered,
             members: [
                 { id: '131', name: 'Lesson 1*II', progress: 0, type: MicroTypeEnum.VIDEO },
                 { id: '132', name: 'Lesson 2*II', progress: 0, type: MicroTypeEnum.VIDEO },

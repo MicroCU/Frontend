@@ -22,28 +22,25 @@ export function findRoot() {
     return root;
 }
 
-// export function calculateNodeSize(nodeId: string): [number, number] { // NEED CHANGE
-//     let nodeWidth = defaultSettings.singleWidth;
-//     let nodeHeight = defaultSettings.singleHeight;
-//     const nodeInfo = groupMember.get(nodeId)
-//     if (!nodeInfo) {
-//         return [nodeWidth, nodeHeight]
-//     }
-//     let memberCount = nodeInfo.members.length;
-//     let w, h;
-//     if (nodeInfo.type === GroupTypeEnum.Unordered) {
-//         w = (nodeWidth * memberCount) + (defaultSettings.Padding * (memberCount - 1));
-//         h = nodeHeight;
-//     } else if (nodeInfo.type === GroupTypeEnum.Ordered) {
-//         w = nodeWidth;
-//         h = (nodeHeight * memberCount) + (defaultSettings.Padding * (memberCount - 1));
-//     } else {
-//         w = nodeWidth;
-//         h = nodeHeight;
-//     }
+export function calculateNodeSize(nodeId: string, type?: string | undefined) {
+    let componentData
+    if (type === "groupNode") {
+        componentData = document
+            .getElementById(`group-display-${nodeId}`)
+            ?.getBoundingClientRect();
+    } else {
+        componentData = document
+            .getElementById(`micro-display-${nodeId}`)
+            ?.getBoundingClientRect();
+    }
+    let width = componentData ? componentData.width : 0;
+    let height = componentData ? componentData.height : 0;
 
-//     return [w, h];
-// }
+    return {
+        width: width,
+        height: height,
+    };
+}
 
 // export function improveHorizontalPosition(nodes: Node<any, string | undefined>[]) {
 //     nodes.forEach(node => {

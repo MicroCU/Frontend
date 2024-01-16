@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -21,9 +21,9 @@ import { defaultSettings, groupSettings } from "./setting";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
 import "reactflow/dist/style.css";
-import { findRoot } from "./algorithm";
+import { calculateNodeSize, findRoot } from "./algorithm";
 
-interface EntitreeTreeProps {
+interface pathProps {
   screenWidth: number;
   screenHeight: number;
 }
@@ -63,22 +63,12 @@ const getLayoutedElements = (
       y: nodeWithPosition.y - nodeHeight / 2
     };
 
-    if (node.type === "groupNode") {
-      let componentData = document
-        .getElementById(`group-display-${node.id}`)
-        ?.getBoundingClientRect();
-      node.width = componentData ? componentData.width : 0;
-      node.height = componentData ? componentData.height : 0;
-    } else {
-      let componentData = document
-        .getElementById(`micro-display-${node.id}`)
-        ?.getBoundingClientRect();
-      node.width = componentData ? componentData.width : 0;
-      node.height = componentData ? componentData.height : 0;
-    }
+    let nodeSize = calculateNodeSize(node.id, node.type);
+    node.width = nodeSize.width;
+    node.height = nodeSize.height;
 
     if (node.id === rootId) {
-      // rootWidth = node.width;
+      rootWidth = node.width;
       rootX = node.position.x;
       rootY = node.position.y;
     }
@@ -99,7 +89,7 @@ const getLayoutedElements = (
 export default function DirectedGraph({
   screenWidth,
   screenHeight
-}: EntitreeTreeProps) {
+}: pathProps) {
   const { initialNodes, initialEdges } = getInitialNodesAndEdges();
   const { setViewport } = useReactFlow();
   const nodeTypes = useMemo(
@@ -116,26 +106,25 @@ export default function DirectedGraph({
     rootInfo
   } = getLayoutedElements(initialNodes, initialEdges);
 
-  console.log(lNode);
+  console.log("Root: ", rootInfo);
+
   const [nodes, setNodes, onNodesChange] = useNodesState(lNode);
   const [edges, setEdges, onEdgesChange] = useEdgesState(lEdge);
   const bounds = getNodesBounds(nodes);
 
-  // if (bounds.height < screenHeight) {
-  //   bounds.height = screenHeight;
-  // }
+  if (bounds.height < screenHeight) {
+    bounds.height = screenHeight;
+  }
 
-  // const { x, y, zoom } = useViewport();
-  // console.log("Viewport: ", x, y, zoom)
+  const { x, y, zoom } = useViewport();
+  console.log("Viewport: ", x, y, zoom);
 
   // useEffect(() => {
   //   setViewport({
   //     x: -rootInfo.x + screenWidth / 2 - rootInfo.width / 2,
-  //     y: defaultSettings.rootY,
-  //     zoom: zoomLevel
+  //     y: 0,
+  //     zoom: zoom
   //   });
-
-  //   setInfoSection(nodes, screenWidth, rootInfo);
   // }, [screenWidth]);
 
   return (
@@ -154,14 +143,21 @@ export default function DirectedGraph({
         panOnScroll={true}
         panOnScrollMode={PanOnScrollMode.Free}
         fitView
-        fitViewOptions={{
-          includeHiddenNodes: true,
-          nodes: nodes
-        }}
+        // fitViewOptions={{
+        //   includeHiddenNodes: true,
+        //   nodes: nodes
+        // }}
         translateExtent={[
           [bounds.x, bounds.y],
           [bounds.x + bounds.width, bounds.y + bounds.height]
         ]}
+        // onInit={() => {
+        //   setViewport({
+        //     x: -rootInfo.x,
+        //     y: rootInfo.y,
+        //     zoom: 0.5
+        //   });
+        // }}
       >
         <Controls />
         <MiniMap pannable zoomable />

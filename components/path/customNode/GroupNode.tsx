@@ -5,14 +5,17 @@ import Group from "@/components/Group";
 import { IMicroProps } from "@/components/Micro";
 import { GroupTypeEnum } from "@/types/enum";
 import { defaultSettings, groupSettings } from "../setting";
+import { calculateNodeSize } from "../algorithm";
 
 export default function GroupNode({
   id,
   data,
+  type,
   isConnectable
 }: {
   id: string;
   data: { label: string };
+  type: string;
   isConnectable: boolean;
 }) {
   let member: IMicroData[] = groupMember.get(id)?.members || [];
@@ -28,11 +31,12 @@ export default function GroupNode({
     });
   });
   return (
-    <div
-      className="flex flex-row justify-center content-center"
-      style={{ width: groupSettings.maxWidth, height: groupSettings.maxHeight }}
-    >
-      <div
+    <>
+      {/* <div
+      className="flex flex-row justify-center content-center border"
+      style={{ width: nodeSize.width, height: nodeSize.height }}
+    > */}
+      {/* <div
         className="absolute w-fit h-fit"
         style={{
           top:
@@ -45,20 +49,21 @@ export default function GroupNode({
                 defaultSettings.groupTitleHigh / 2
               : 0
         }}
-      >
-        <Handle
-          type="target"
-          position={Position.Top}
-          isConnectable={isConnectable}
-        />
-        <Group micros={micros} type={groupType} title={data.label} id={id} />
-        <Handle
-          type="source"
-          position={Position.Bottom}
-          id="b"
-          isConnectable={isConnectable}
-        />
-      </div>
-    </div>
+      > */}
+      <Handle
+        type="target"
+        position={Position.Top}
+        isConnectable={isConnectable}
+      />
+      <Group micros={micros} type={groupType} title={data.label} id={id} />
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        id="b"
+        isConnectable={isConnectable}
+      />
+      {/* </div> */}
+      {/* </div> */}
+    </>
   );
 }
