@@ -6,6 +6,6 @@ export const defaultSettings = {
 }
 
 export const groupSettings = {
-    width: defaultSettings.singleWidth * 3 + defaultSettings.Padding * 4,
-    height: defaultSettings.singleHeight * 3 + defaultSettings.Padding * 5 + defaultSettings.groupTitleHigh,
+    maxWidth: defaultSettings.singleWidth * 3 + defaultSettings.Padding * 4,
+    maxHeight: defaultSettings.singleHeight * 3 + defaultSettings.Padding * 5 + defaultSettings.groupTitleHigh,
 }

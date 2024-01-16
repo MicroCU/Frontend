@@ -30,8 +30,8 @@ interface EntitreeTreeProps {
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-const nodeWidth = groupSettings.width;
-const nodeHeight = groupSettings.height;
+const nodeWidth = groupSettings.maxWidth;
+const nodeHeight = groupSettings.maxHeight;
 
 const getLayoutedElements = (
   nodes: Node<any, string | undefined>[],

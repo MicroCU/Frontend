@@ -31,7 +31,7 @@ export default function Group({ id, title, micros, type }: IGroupProps) {
               {title}
             </p>
           </div>
-          <ScrollArea className="w-fit h-44 border-none">
+          <ScrollArea className="w-fit max-h-44 border-none">
             <div
               className="flex flex-col w-fit h-fit justify-center content-center gap-y-4 pl-4 pr-4"
               id={`micros-display-${id}`}

@@ -18,12 +18,12 @@ export default function SingleNode({
   return (
     <div
       className="relative flex flex-row justify-center content-center border"
-      style={{ width: groupSettings.width, height: groupSettings.height }}
+      style={{ width: groupSettings.maxWidth, height: groupSettings.maxHeight }}
     >
       <div
         className="absolute w-fit h-fit"
         style={{
-          top: groupSettings.height / 2 - defaultSettings.singleHeight / 2
+          top: groupSettings.maxHeight / 2 - defaultSettings.singleHeight / 2
         }}
       >
         <Handle

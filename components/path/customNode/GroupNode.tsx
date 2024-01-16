@@ -17,7 +17,6 @@ export default function GroupNode({
 }) {
   let member: IMicroData[] = groupMember.get(id)?.members || [];
   let groupType = groupMember.get(id)?.type || GroupTypeEnum.Ordered;
-  let progress = groupMember.get(id)?.members[0].progress || 0;
   let micros: IMicroProps[] = [];
   member.forEach((value) => {
     micros.push({
@@ -31,30 +30,28 @@ export default function GroupNode({
   return (
     <div
       className="flex flex-row justify-center content-center border"
-      style={{ width: groupSettings.width, height: groupSettings.height }}
+      style={{ width: groupSettings.maxWidth, height: groupSettings.maxHeight }}
     >
       <div
         className="absolute w-fit h-fit"
         style={{
           top:
             groupType === GroupTypeEnum.Unordered
-              ? groupSettings.height / 2 -
-                defaultSettings.singleHeight / 2 -
-                defaultSettings.Padding
+              ? groupSettings.maxHeight / 2 -
+                2 * defaultSettings.Padding -
+                defaultSettings.groupTitleHigh
               : groupType === GroupTypeEnum.Ordered && member.length == 2
-              ? defaultSettings.singleHeight / 2
+              ? defaultSettings.singleHeight / 2 +
+                defaultSettings.groupTitleHigh / 2
               : 0
         }}
       >
-        <div className="absolute -top-8 bg-transparent">
-          <p className="text-left Bold16 ">{data.label}</p>
-        </div>
         <Handle
           type="target"
           position={Position.Top}
           isConnectable={isConnectable}
         />
-        <Group micros={micros} type={groupType} title={data.label} />
+        <Group micros={micros} type={groupType} title={data.label} id={id} />
         <Handle
           type="source"
           position={Position.Bottom}
