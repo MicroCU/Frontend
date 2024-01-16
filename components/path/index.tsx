@@ -159,8 +159,8 @@ export default function DirectedGraph({
         //   });
         // }}
       >
-        <Controls />
-        <MiniMap pannable zoomable />
+        {/* <Controls />
+        <MiniMap pannable zoomable /> */}
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
       </ReactFlow>
     </>

@@ -20,35 +20,38 @@ export default function SingleNode({
   let progress = groupMember.get(id)?.members[0].progress || 0;
   return (
     <>
-      {/* <div
-       className="flex flex-row justify-center content-center"
-       style={{ width: nodeSize.width, height: nodeSize.height }}
-     > */}
-      {/* <div
-        className="absolute w-fit h-fit"
+      <div
+        className="relative flex flex-row justify-center content-center"
         style={{
-          top: groupSettings.maxHeight / 2 - defaultSettings.singleHeight / 2
+          width: groupSettings.maxWidth,
+          height: groupSettings.maxHeight
         }}
-      > */}
-      <Handle
-        type="target"
-        position={Position.Top}
-        isConnectable={isConnectable}
-      />
-      <Micro
-        id={id}
-        title={data.label}
-        progress={progress ? progress : 0}
-        type={nodeType}
-      />
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="b"
-        isConnectable={isConnectable}
-      />
-      {/* </div> */}
-      {/* </div> */}
+      >
+        <div
+          className="absolute w-fit h-fit"
+          style={{
+            top: groupSettings.maxHeight / 2 - defaultSettings.singleHeight / 2
+          }}
+        >
+          <Handle
+            type="target"
+            position={Position.Top}
+            isConnectable={isConnectable}
+          />
+          <Micro
+            id={id}
+            title={data.label}
+            progress={progress ? progress : 0}
+            type={nodeType}
+          />
+          <Handle
+            type="source"
+            position={Position.Bottom}
+            id="b"
+            isConnectable={isConnectable}
+          />
+        </div>
+      </div>
     </>
   );
 }

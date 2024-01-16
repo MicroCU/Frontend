@@ -20,9 +20,9 @@ export const mockData: IMockDirectedGraphData = {
     //     {
     //         id: '3', name: 'Comment', next: [], type: GroupTypeEnum.Ordered,
     //         members: [
-    //             { id: '21', name: 'Comment 1', progress: 0, type: MicroTypeEnum.PRACTICE },
-    //             { id: '22', name: 'Comment 2', progress: 0, type: MicroTypeEnum.PRACTICE },
-    //             // { id: '23', name: 'Comment 3', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '31', name: 'Comment 1', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '32', name: 'Comment 2', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             // { id: '33', name: 'Comment 3', progress: 0, type: MicroTypeEnum.PRACTICE },
     //         ]
     //     },
     // ]
