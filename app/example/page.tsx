@@ -29,7 +29,7 @@ import JourneyModalItems, {
   JourneyModalType
 } from "@/components/JourneyModalItems";
 import CheckListIcon from "@/components/CheckListIcon";
-import { GroupTypeEnum, MicroStatusEnum, MicroTypeEnum } from "@/types/enum";
+import { GroupTypeEnum, MicroTypeEnum } from "@/types/enum";
 
 export default function TontanComponent() {
   return (
@@ -42,7 +42,6 @@ export default function TontanComponent() {
             title="Video"
             progress={0}
             type={MicroTypeEnum.VIDEO}
-            status={MicroStatusEnum.NOT_STARTED}
             isGroup={false}
           />
           <Micro
@@ -50,7 +49,6 @@ export default function TontanComponent() {
             title="video G"
             progress={0}
             type={MicroTypeEnum.VIDEO}
-            status={MicroStatusEnum.NOT_STARTED}
             isGroup={true}
           />
           <Micro
@@ -58,15 +56,8 @@ export default function TontanComponent() {
             title="practice"
             progress={0}
             type={MicroTypeEnum.PRACTICE}
-            status={MicroStatusEnum.NOT_STARTED}
           />
-          <Micro
-            id="1"
-            title="test"
-            progress={0}
-            type={MicroTypeEnum.TEST}
-            status={MicroStatusEnum.NOT_STARTED}
-          />
+          <Micro id="1" title="test" progress={0} type={MicroTypeEnum.TEST} />
         </div>
         <div className="flex flex-col gap-4">
           <p className="text-white"> In progress </p>
@@ -75,42 +66,36 @@ export default function TontanComponent() {
             title="video30"
             progress={30}
             type={MicroTypeEnum.VIDEO}
-            status={MicroStatusEnum.IN_PROGRESS}
           />
           <Micro
             id="1"
             title="video40"
             progress={40}
             type={MicroTypeEnum.VIDEO}
-            status={MicroStatusEnum.IN_PROGRESS}
           />
           <Micro
             id="1"
             title="video50"
             progress={50}
             type={MicroTypeEnum.VIDEO}
-            status={MicroStatusEnum.IN_PROGRESS}
           />
           <Micro
             id="1"
             title="video80"
             progress={80}
             type={MicroTypeEnum.VIDEO}
-            status={MicroStatusEnum.IN_PROGRESS}
           />
           <Micro
             id="1"
             title="practice"
             progress={50}
             type={MicroTypeEnum.PRACTICE}
-            status={MicroStatusEnum.IN_PROGRESS}
           />
           <Micro
             id="1"
             title="testlongggggggggggggg"
             progress={50}
             type={MicroTypeEnum.TEST}
-            status={MicroStatusEnum.IN_PROGRESS}
           />
         </div>
         <div className="flex flex-col gap-4">
@@ -120,22 +105,14 @@ export default function TontanComponent() {
             title="video"
             progress={100}
             type={MicroTypeEnum.VIDEO}
-            status={MicroStatusEnum.COMPLETED}
           />
           <Micro
             id="1"
             title="practice"
             progress={100}
             type={MicroTypeEnum.PRACTICE}
-            status={MicroStatusEnum.COMPLETED}
           />
-          <Micro
-            id="1"
-            title="test"
-            progress={100}
-            type={MicroTypeEnum.TEST}
-            status={MicroStatusEnum.COMPLETED}
-          />
+          <Micro id="1" title="test" progress={100} type={MicroTypeEnum.TEST} />
         </div>
       </div>
       <div className="bg-grayMain flex flex-row gap-4 pl-4">
@@ -147,7 +124,6 @@ export default function TontanComponent() {
               title: "video 11",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -155,7 +131,6 @@ export default function TontanComponent() {
               title: "video22",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             },
             {
@@ -163,7 +138,6 @@ export default function TontanComponent() {
               title: "practice",
               progress: 70,
               type: MicroTypeEnum.PRACTICE,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             }
           ]}
@@ -177,7 +151,6 @@ export default function TontanComponent() {
               title: "video 1111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -185,7 +158,6 @@ export default function TontanComponent() {
               title: "video222222222222222222222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             },
             {
@@ -193,7 +165,6 @@ export default function TontanComponent() {
               title: "practice",
               progress: 70,
               type: MicroTypeEnum.PRACTICE,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -201,7 +172,6 @@ export default function TontanComponent() {
               title: "practice 1",
               progress: 80,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -209,7 +179,6 @@ export default function TontanComponent() {
               title: "practice 2",
               progress: 80,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             }
           ]}
@@ -223,7 +192,6 @@ export default function TontanComponent() {
               title: "video 1111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -231,7 +199,6 @@ export default function TontanComponent() {
               title: "video222222222222222222222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             },
             {
@@ -239,7 +206,6 @@ export default function TontanComponent() {
               title: "practice",
               progress: 70,
               type: MicroTypeEnum.PRACTICE,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             }
           ]}
@@ -255,7 +221,6 @@ export default function TontanComponent() {
               title: "video 11111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -263,7 +228,6 @@ export default function TontanComponent() {
               title: "video222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             },
             {
@@ -271,7 +235,6 @@ export default function TontanComponent() {
               title: "practice",
               progress: 100,
               type: MicroTypeEnum.PRACTICE,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             }
           ]}
@@ -287,7 +250,6 @@ export default function TontanComponent() {
               title: "video 11111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -295,7 +257,6 @@ export default function TontanComponent() {
               title: "video222222222222222222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             },
             {
@@ -303,7 +264,6 @@ export default function TontanComponent() {
               title: "practice",
               progress: 100,
               type: MicroTypeEnum.PRACTICE,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             }
           ]}
@@ -319,7 +279,6 @@ export default function TontanComponent() {
               title: "video11111111111111111111111111111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -327,7 +286,6 @@ export default function TontanComponent() {
               title: "video222222222222222222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             },
             {
@@ -335,7 +293,6 @@ export default function TontanComponent() {
               title: "practice33333333333333333333333",
               progress: 100,
               type: MicroTypeEnum.PRACTICE,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             }
           ]}
@@ -351,7 +308,6 @@ export default function TontanComponent() {
               title: "video11111111111111111111111111111111",
               progress: 50,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.IN_PROGRESS,
               isGroup: true
             },
             {
@@ -359,7 +315,6 @@ export default function TontanComponent() {
               title: "video222222222222222222222222",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
               isGroup: true
             },
             {
@@ -367,7 +322,7 @@ export default function TontanComponent() {
               title: "practice33333333333333333333333",
               progress: 100,
               type: MicroTypeEnum.PRACTICE,
-              status: MicroStatusEnum.COMPLETED,
+
               isGroup: true
             },
             {
@@ -375,7 +330,7 @@ export default function TontanComponent() {
               title: "video",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
+
               isGroup: true
             },
             {
@@ -383,7 +338,7 @@ export default function TontanComponent() {
               title: "video 1234",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
-              status: MicroStatusEnum.COMPLETED,
+
               isGroup: true
             }
           ]}

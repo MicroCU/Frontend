@@ -3,7 +3,7 @@ import { groupMember } from "../node-edges";
 import { IMicroData } from "@/types/type";
 import Group from "@/components/Group";
 import { IMicroProps } from "@/components/Micro";
-import { GroupTypeEnum, MicroStatusEnum } from "@/types/enum";
+import { GroupTypeEnum } from "@/types/enum";
 import { defaultSettings, groupSettings } from "../setting";
 
 export default function GroupNode({
@@ -25,12 +25,6 @@ export default function GroupNode({
       title: value.name,
       progress: value.progress,
       type: value.type,
-      status:
-        progress > 0 && progress < 100
-          ? MicroStatusEnum.IN_PROGRESS
-          : progress === 100
-          ? MicroStatusEnum.COMPLETED
-          : MicroStatusEnum.NOT_STARTED,
       isGroup: member.length > 1
     });
   });
@@ -60,7 +54,7 @@ export default function GroupNode({
           position={Position.Top}
           isConnectable={isConnectable}
         />
-        <Group micros={micros} type={groupType} />
+        <Group micros={micros} type={groupType} title={data.label} />
         <Handle
           type="source"
           position={Position.Bottom}

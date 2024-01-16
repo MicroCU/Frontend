@@ -1,70 +1,40 @@
-"use client";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { MicroTypeEnum, MicroStatusEnum } from "@/types/enum";
+import { MicroTypeEnum } from "@/types/enum";
 
 export interface IMicroProps {
   id: string;
   title: string;
   progress: number; // 0 - 100
   type: MicroTypeEnum;
-  status: MicroStatusEnum;
   isGroup?: boolean;
   className?: string;
-  microIndex?: number;
-  handleWidthCalculation?: (index: number, width: number) => void;
 }
 
 export default function Micro({
   title,
   progress,
   type,
-  status,
   isGroup = true,
-  className,
-  microIndex,
-  handleWidthCalculation: setTotalWidth
+  className
 }: IMicroProps) {
-  const [widthNode, setWidthNode] = useState(0);
-  const [heightNode, setHeightNode] = useState(0);
-  const componentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const getWidthAndHeight = () => {
-      if (componentRef.current) {
-        const { width, height } = componentRef.current.getBoundingClientRect();
-        return { width, height };
-      }
-      return { width: 0, height: 0 };
-    };
-
-    const { width, height } = getWidthAndHeight();
-    setTotalWidth && setTotalWidth(microIndex!, width);
-    setWidthNode(width);
-    setHeightNode(height);
-
-    window.addEventListener("resize", getWidthAndHeight);
-
-    return () => {
-      window.removeEventListener("resize", getWidthAndHeight);
-    };
-  }, [microIndex, setTotalWidth]);
-
-  const { backgroundColor, textColor, borderRadius, parentStyle } = customStyle(
+  const { backgroundColor, textColor, borderRadius } = customStyle(
     type,
-    status,
     progress,
     isGroup
   );
 
   return (
     <div
-      className={`${parentStyle} ${className}`}
-      style={{
-        width: type === MicroTypeEnum.TEST ? widthNode + 32 : widthNode,
-        height: type === MicroTypeEnum.TEST ? heightNode + 32 : heightNode
-      }}
+      className={`${className} ${
+        type === MicroTypeEnum.TEST &&
+        progress === 100 &&
+        "border-3 p-4 rounded-2xl w-fit bg-progressLight"
+      } ${
+        type === MicroTypeEnum.TEST &&
+        progress !== 100 &&
+        "border-3 p-4 rounded-2xl w-fit bg-primaryLight"
+      }`}
     >
-      <div ref={componentRef} className="relative w-fit h-fit max-w-52">
+      <div className="relative w-fit h-fit max-w-52">
         <div
           className={`${backgroundColor} w-full h-full px-5 py-3 text-center
             ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
@@ -76,7 +46,7 @@ export default function Micro({
         {progress > 0 && progress <= 100 && type === MicroTypeEnum.VIDEO && (
           <div
             className="absolute bottom-0 left-0 h-1 bg-primary"
-            style={{ width: (progress / 100) * widthNode }}
+            style={{ width: progress + "%" }}
           ></div>
         )}
       </div>
@@ -84,12 +54,7 @@ export default function Micro({
   );
 }
 
-function customStyle(
-  type: MicroTypeEnum,
-  status: MicroStatusEnum,
-  progress: number,
-  isGroup: boolean
-) {
+function customStyle(type: MicroTypeEnum, progress: number, isGroup: boolean) {
   let backgroundColor = "";
   let textColor = "text-white";
   if (type === MicroTypeEnum.VIDEO) {
@@ -99,20 +64,8 @@ function customStyle(
     } else {
       backgroundColor = "bg-white";
     }
-  } else if (type === MicroTypeEnum.PRACTICE) {
-    if (
-      status === MicroStatusEnum.COMPLETED ||
-      status === MicroStatusEnum.IN_PROGRESS
-    ) {
-      backgroundColor = "bg-progress";
-    } else {
-      backgroundColor = "bg-primary";
-    }
-  } else if (type === MicroTypeEnum.TEST) {
-    if (
-      status === MicroStatusEnum.COMPLETED ||
-      status === MicroStatusEnum.IN_PROGRESS
-    ) {
+  } else if (type === MicroTypeEnum.PRACTICE || type === MicroTypeEnum.TEST) {
+    if (progress > 0) {
       backgroundColor = "bg-progress";
     } else {
       backgroundColor = "bg-primary";
@@ -124,21 +77,9 @@ function customStyle(
     borderRadius = "rounded-t-lg";
   }
 
-  let parentStyle = "";
-  if (type === MicroTypeEnum.TEST) {
-    if (status === MicroStatusEnum.COMPLETED) {
-      parentStyle =
-        "flex items-center justify-center content-center rounded-2xl bg-progressLight";
-    } else {
-      parentStyle =
-        "flex items-center justify-center content-center rounded-2xl bg-primaryLight";
-    }
-  }
-
   return {
     backgroundColor,
     textColor,
-    borderRadius,
-    parentStyle
+    borderRadius
   };
 }

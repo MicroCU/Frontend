@@ -15,9 +15,3 @@ export enum MicroTypeEnum {
   PRACTICE = "PRACTICE",
   TEST = "TEST"
 }
-
-export enum MicroStatusEnum {
-  NOT_STARTED = "NOT_STARTED",
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED"
-}

@@ -1,7 +1,7 @@
 import { Handle, Position } from "reactflow";
 import Micro from "@/components/Micro";
 import { groupMember } from "../node-edges";
-import { MicroTypeEnum, MicroStatusEnum } from "@/types/enum";
+import { MicroTypeEnum } from "@/types/enum";
 import { defaultSettings, groupSettings } from "../setting";
 
 export default function SingleNode({
@@ -36,13 +36,6 @@ export default function SingleNode({
           title={data.label}
           progress={progress ? progress : 0}
           type={nodeType}
-          status={
-            progress > 0 && progress < 100
-              ? MicroStatusEnum.IN_PROGRESS
-              : progress === 100
-              ? MicroStatusEnum.COMPLETED
-              : MicroStatusEnum.NOT_STARTED
-          }
         />
         <Handle
           type="source"

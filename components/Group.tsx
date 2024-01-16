@@ -45,12 +45,9 @@ export default function Group({ title, micros, type }: IGroupProps) {
                   title={micro.title}
                   progress={micro.progress}
                   type={micro.type}
-                  status={micro.status}
                   isGroup={micro.isGroup}
                   key={micro.id}
                   className="mx-auto"
-                  microIndex={index}
-                  handleWidthCalculation={handleWidth}
                 />
               ))}
             </div>
@@ -73,11 +70,8 @@ export default function Group({ title, micros, type }: IGroupProps) {
                   title={micro.title}
                   progress={micro.progress}
                   type={micro.type}
-                  status={micro.status}
                   isGroup={micro.isGroup}
                   key={micro.id}
-                  microIndex={index}
-                  handleWidthCalculation={handleWidth}
                 />
               ))}
             </div>
