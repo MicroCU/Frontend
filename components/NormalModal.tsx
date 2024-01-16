@@ -16,7 +16,8 @@ const mockPath: IPath[] = [
       {
         id: "1",
         name: "Category 1",
-        imageURL: ""
+        imageURL:
+          "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
       }
     ]
   },
@@ -29,7 +30,8 @@ const mockPath: IPath[] = [
       {
         id: "1",
         name: "Category 1",
-        imageURL: ""
+        imageURL:
+          "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
       }
     ]
   }

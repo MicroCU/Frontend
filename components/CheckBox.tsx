@@ -5,16 +5,17 @@ import { cn } from "@/lib/utils";
 type CheckboxProps = {
   title: string;
   checked?: boolean;
-  onClick: () => void;
+  onCheck: () => void;
 };
 
-const Checkbox = ({ title, checked, onClick }: CheckboxProps) => {
+const Checkbox = ({ title, checked, onCheck }: CheckboxProps) => {
   return (
     <Button
       className={cn(
-        "flex justify-between py-[10px] px-[18px] text-grayMain bg-graySmall",
+        "flex justify-between py-[10px] px-[18px] text-grayMain bg-graySmall hover:text-white",
         checked ? "bg-primary text-white" : ""
       )}
+      onClick={onCheck}
     >
       <h1 className="Bold16 text-left">{title}</h1>
       <CheckCircle2 />

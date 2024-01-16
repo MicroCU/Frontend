@@ -15,3 +15,8 @@ export enum MicroTypeEnum {
   PRACTICE = "PRACTICE",
   TEST = "TEST"
 }
+
+export enum OnBoardMode {
+  NOGOAL = "NOGOAL",
+  GOAL = "GOAL"
+}

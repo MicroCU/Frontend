@@ -2,15 +2,25 @@ type RadioProps = {
   name: string;
   title: string;
   checked: boolean;
-  onClick: () => void;
+  onSelect: () => void;
 };
 
-const Radio = ({ title, checked, onClick, name }: RadioProps) => {
+const Radio = ({ title, checked, onSelect, name }: RadioProps) => {
   return (
     <>
       <div className="space-x-2 align-middle flex">
-        <input type="radio" name={name} className="h-[30px] w-[30px]" />
-        <label className="Bold16 text-grayMain">{title}</label>
+        <input
+          className="h-[30px] w-[30px] accent-primary"
+          type="radio"
+          id={title}
+          value={title}
+          name={name}
+          checked={checked}
+          onChange={onSelect}
+        />
+        <label htmlFor={title} className="Bold16 text-grayMain">
+          {title}
+        </label>
       </div>
     </>
   );
