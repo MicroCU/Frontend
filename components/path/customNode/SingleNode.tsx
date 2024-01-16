@@ -17,7 +17,7 @@ export default function SingleNode({
   let progress = groupMember.get(id)?.members[0].progress || 0;
   return (
     <div
-      className="relative flex flex-row justify-center content-center border"
+      className="relative flex flex-row justify-center content-center"
       style={{ width: groupSettings.maxWidth, height: groupSettings.maxHeight }}
     >
       <div

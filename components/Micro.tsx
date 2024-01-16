@@ -10,6 +10,7 @@ export interface IMicroProps {
 }
 
 export default function Micro({
+  id,
   title,
   progress,
   type,
@@ -24,6 +25,7 @@ export default function Micro({
 
   return (
     <div
+      id={`micro-display-${id}`}
       className={`${className} ${
         type === MicroTypeEnum.TEST &&
         progress === 100 &&

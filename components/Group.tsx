@@ -20,7 +20,7 @@ export default function Group({ id, title, micros, type }: IGroupProps) {
     setMicroComponentWidth(doc ? doc.width : 0);
   }, [id]);
   return (
-    <>
+    <div id={`group-display-${id}`}>
       {type === GroupTypeEnum.Ordered ? (
         <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
           <div
@@ -81,6 +81,6 @@ export default function Group({ id, title, micros, type }: IGroupProps) {
           </ScrollArea>
         </div>
       )}
-    </>
+    </div>
   );
 }

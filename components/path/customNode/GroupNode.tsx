@@ -29,7 +29,7 @@ export default function GroupNode({
   });
   return (
     <div
-      className="flex flex-row justify-center content-center border"
+      className="flex flex-row justify-center content-center"
       style={{ width: groupSettings.maxWidth, height: groupSettings.maxHeight }}
     >
       <div
