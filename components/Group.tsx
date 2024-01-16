@@ -1,44 +1,41 @@
 "use client";
 import { GroupTypeEnum } from "@/types/enum";
 import Micro, { IMicroProps } from "./Micro";
-import { useEffect, useState } from "react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import { useEffect, useState } from "react";
 
 export interface IGroupProps {
+  id: string;
   title: string;
   micros: IMicroProps[];
   type: GroupTypeEnum;
 }
 
-export default function Group({ title, micros, type }: IGroupProps) {
-  const [totalWidth, setTotalWidth] = useState(0);
-  const [microsWidth, setMicrosWidth] = useState<Map<number, number>>(
-    new Map()
-  );
-  const handleWidth = (index: number, width: number) => {
-    setMicrosWidth((prev) => {
-      prev.set(index, width);
-      return prev;
-    });
-  };
+export default function Group({ id, title, micros, type }: IGroupProps) {
+  const [microComponentWidth, setMicroComponentWidth] = useState(0);
   useEffect(() => {
-    setTotalWidth(calculateTotalWidth(microsWidth));
-  }, [microsWidth]);
+    let doc = document
+      .getElementById("micros-display-" + id)
+      ?.getBoundingClientRect();
+    setMicroComponentWidth(doc ? doc.width : 0);
+  }, [id]);
   return (
     <>
       {type === GroupTypeEnum.Ordered ? (
         <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
           <div
-            className="pl-4 pr-4"
-            style={{ maxWidth: getMaxWidth(microsWidth) }}
+            className="pl-4 pr-4 w-fit"
+            style={{ maxWidth: microComponentWidth }}
           >
             <p className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis">
-              {" "}
-              {title}{" "}
+              {title}
             </p>
           </div>
           <ScrollArea className="w-fit h-44 border-none">
-            <div className="flex flex-col w-fit h-fit justify-center content-center gap-y-4 pl-4 pr-4">
+            <div
+              className="flex flex-col w-fit h-fit justify-center content-center gap-y-4 pl-4 pr-4"
+              id={`micros-display-${id}`}
+            >
               {micros.map((micro, index) => (
                 <Micro
                   id={micro.id}
@@ -56,14 +53,19 @@ export default function Group({ title, micros, type }: IGroupProps) {
         </div>
       ) : (
         <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pl-4 pr-4">
-          <div className="pt-4" style={{ maxWidth: totalWidth }}>
+          <div
+            className="pt-4 w-full"
+            style={{ maxWidth: microComponentWidth }}
+          >
             <p className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis">
-              {" "}
               {title}
             </p>
           </div>
-          <ScrollArea className="w-[656px] h-fit border-none">
-            <div className="flex flex-row bg-white w-fit h-fit justify-center content-center gap-x-4 rounded-2xl pb-4">
+          <ScrollArea className="max-w-[656px] h-fit border-none">
+            <div
+              className="flex flex-row bg-white w-fit h-fit justify-center content-center gap-x-4 rounded-2xl pb-4"
+              id={`micros-display-${id}`}
+            >
               {micros.map((micro, index) => (
                 <Micro
                   id={micro.id}
@@ -81,23 +83,4 @@ export default function Group({ title, micros, type }: IGroupProps) {
       )}
     </>
   );
-}
-
-function calculateTotalWidth(totalWidth: Map<number, number>) {
-  // TODO: Only first 3 and should plus padding
-  let total = 0;
-  totalWidth.forEach((width) => {
-    total += width;
-  });
-  return total;
-}
-
-function getMaxWidth(totalWidth: Map<number, number>) {
-  let max = 0;
-  totalWidth.forEach((width) => {
-    if (width > max) {
-      max = width;
-    }
-  });
-  return max + 32;
 }

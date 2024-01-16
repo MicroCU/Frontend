@@ -117,6 +117,7 @@ export default function TontanComponent() {
       </div>
       <div className="bg-grayMain flex flex-row gap-4 pl-4">
         <Group
+          id="G1"
           title="Basic Libraryyyy11112222212333455555577"
           micros={[
             {
@@ -144,6 +145,7 @@ export default function TontanComponent() {
           type={GroupTypeEnum.Ordered}
         />
         <Group
+          id="G2"
           title="Basic Libraryyyy11112222212333455555577"
           micros={[
             {
@@ -185,6 +187,7 @@ export default function TontanComponent() {
           type={GroupTypeEnum.Ordered}
         />
         <Group
+          id="G3"
           title="Basic Library"
           micros={[
             {
@@ -196,7 +199,7 @@ export default function TontanComponent() {
             },
             {
               id: "2",
-              title: "video222222222222222222222222222",
+              title: "video22222222223114",
               progress: 100,
               type: MicroTypeEnum.VIDEO,
               isGroup: true
@@ -214,6 +217,7 @@ export default function TontanComponent() {
       </div>
       <div className="bg-grayMain flex flex-column gap-4 pl-4">
         <Group
+          id="G4"
           title="Basic Library"
           micros={[
             {
@@ -243,6 +247,7 @@ export default function TontanComponent() {
       </div>
       <div className="bg-grayMain flex flex-column gap-4 pl-4">
         <Group
+          id="G5"
           title="Basic LibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyy"
           micros={[
             {
@@ -272,6 +277,7 @@ export default function TontanComponent() {
       </div>
       <div className="bg-grayMain flex flex-column gap-4 pl-4">
         <Group
+          id="G6"
           title="Basic LibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyy"
           micros={[
             {
@@ -301,6 +307,7 @@ export default function TontanComponent() {
       </div>
       <div className="bg-grayMain flex flex-column gap-4 pl-4">
         <Group
+          id="G7"
           title="Basic Library (LONG)"
           micros={[
             {
