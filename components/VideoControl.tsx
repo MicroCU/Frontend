@@ -9,7 +9,14 @@ import {
 } from "lucide-react";
 import VideoNav from "./VideoNav";
 import { Slider } from "@/components/ui/slider";
-import { MutableRefObject } from "react";
+import { MutableRefObject, useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger
+} from "./ui/dropdown-menu";
 
 interface VideoControlProps {
   onPlayPause: () => void;
@@ -27,6 +34,8 @@ interface VideoControlProps {
   controlRef: MutableRefObject<HTMLDivElement | null>;
   fullscreenHandler: () => void;
   isFullScreen: boolean;
+  speed: number;
+  speedHandler: (value: string) => void
 }
 
 const VideoControl = ({
@@ -45,9 +54,15 @@ const VideoControl = ({
   controlRef,
   fullscreenHandler,
   isFullScreen,
+  speed,
+  speedHandler,
 }: VideoControlProps) => {
   return (
-    <div ref={controlRef} style={{"visibility":"visible"}} className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full">
+    <div
+      ref={controlRef}
+      style={{ visibility: "visible" }}
+      className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full"
+    >
       <VideoNav videoName={"Example"} />
       <div className="h-full" onClick={onPlayPause}></div>
       <div className="px-4">
@@ -80,12 +95,46 @@ const VideoControl = ({
               onValueChange={onVolumeChangeHandler}
               onValueCommit={onVolumeSeekUp}
             />
-            <p className="text-white Medium16">{currentTime} / {duration}</p>
+            <p className="text-white Medium16">
+              {currentTime} / {duration}
+            </p>
           </div>
           <div className="flex justify-end items-center w-1/2 gap-5">
-            <p className="text-white Medium16">1x</p>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <p className="text-white Medium16 cursor-pointer">
+                  {Number(speed).toFixed(1) + "x"}
+                </p>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white">
+                <DropdownMenuRadioGroup value={speed.toString()} onValueChange={speedHandler}>
+                  <DropdownMenuRadioItem
+                    className="hover:bg-graySmall  cursor-pointer"
+                    value="2"
+                  >
+                    2.0x
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem
+                    className="hover:bg-graySmall  cursor-pointer"
+                    value="1.5"
+                  >
+                    1.5x
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem
+                    className="hover:bg-graySmall  cursor-pointer"
+                    value="1"
+                  >
+                    1.0x
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <div className="cursor-pointer" onClick={fullscreenHandler}>
-              {isFullScreen ? <Minimize color="white" /> : <Maximize color="white"/>}
+              {isFullScreen ? (
+                <Minimize color="white" />
+              ) : (
+                <Maximize color="white" />
+              )}
             </div>
           </div>
         </div>

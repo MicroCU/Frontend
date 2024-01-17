@@ -19,6 +19,7 @@ interface VideoState {
   played: number;
   seeking: boolean;
   buffer: boolean;
+  speed: number;
 }
 
 let count = 0;
@@ -30,15 +31,16 @@ const VideoPage = ({ params }: VideoPageProps) => {
   const controlRef = useRef<HTMLDivElement | null>(null);
 
   const [videoState, setVideoState] = useState<VideoState>({
-    playing: true,
+    playing: false,
     muted: false,
     volume: 1,
     played: 0,
     seeking: false,
-    buffer: true
+    buffer: true,
+    speed: 1,
   });
 
-  const { playing, muted, volume, played, seeking, buffer } = videoState;
+  const { playing, muted, volume, played, seeking, buffer, speed } = videoState;
 
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -134,6 +136,10 @@ const VideoPage = ({ params }: VideoPageProps) => {
     count = 0;
   };
 
+  const speedHandler = (value: string) => {
+    setVideoState({ ...videoState, speed: Number(value) });
+  }
+
   const handleFullScreenToggle = () => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
@@ -192,6 +198,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
           controls={false}
           volume={volume}
           onProgress={progressHandler}
+          playbackRate={speed}
         />
         <VideoControl
           controlRef={controlRef}
@@ -209,6 +216,8 @@ const VideoPage = ({ params }: VideoPageProps) => {
           currentTime={formatCurrentTime}
           fullscreenHandler={handleFullScreenToggle}
           isFullScreen={isFullScreen}
+          speed={speed}
+          speedHandler={speedHandler}
         />
       </div>
     )
