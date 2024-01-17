@@ -73,6 +73,14 @@ const VideoPage = ({ params }: VideoPageProps) => {
     setVideoState({ ...videoState, playing: !videoState.playing });
   };
 
+  const rewindHandler = () => {
+    videoPlayerRef.current?.seekTo(videoPlayerRef.current.getCurrentTime() - 5);
+  };
+
+  const fastFowardHandler = () => {
+    videoPlayerRef.current?.seekTo(videoPlayerRef.current.getCurrentTime() + 5);
+  };
+
   const progressHandler = (state: OnProgressProps) => {
     if (controlRef.current) {
       console.log(count);
@@ -138,17 +146,25 @@ const VideoPage = ({ params }: VideoPageProps) => {
   };
 
   const handleKeyPress = (event: KeyboardEvent) => {
-    if ((event.key === ' ' || event.key === 'Spacebar')) {
+    if (event.key === " " || event.key === "Spacebar") {
       event.preventDefault(); // Prevent scrolling the page when using the space bar
       playPauseHandler();
-      mouseMoveHandler();   
+      mouseMoveHandler();
+    }
+    if (event.key === "ArrowLeft") {
+      rewindHandler();
+      mouseMoveHandler();
+    }
+    if (event.key === "ArrowRight") {
+      fastFowardHandler();
+      mouseMoveHandler();
     }
   };
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener("keydown", handleKeyPress);
     return () => {
-      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [videoState]);
 
@@ -158,7 +174,9 @@ const VideoPage = ({ params }: VideoPageProps) => {
   return (
     isClient && (
       <div
-        className="relative bg-black flex flex-col justify-center items-center w-full h-screen"
+        className={`relative bg-black flex flex-col justify-center items-center w-full h-screen ${
+          controlRef.current?.style.visibility === "hidden" && "cursor-none"
+        }`}
         onMouseMove={mouseMoveHandler}
         onClick={mouseMoveHandler}
       >
@@ -166,7 +184,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
           url="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-          // url="https://www.youtube.com/watch?v=KnZmaNZ2Bck"
+          // url="https://www.youtube.com/watch?v=X-pAMO2TSyo"
           width="100%"
           height="100%"
           playing={playing}
