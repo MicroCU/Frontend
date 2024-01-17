@@ -21,15 +21,18 @@ interface VideoState {
   buffer: boolean;
 }
 
+let count = 0;
+
 const VideoPage = ({ params }: VideoPageProps) => {
   const [isClient, setIsClient] = useState(false);
 
-  const videoPlayerRef = useRef(null);
+  const videoPlayerRef = useRef<ReactPlayer>(null);
+  const controlRef = useRef<HTMLDivElement | null>(null);
 
   const [videoState, setVideoState] = useState<VideoState>({
     playing: true,
     muted: false,
-    volume: 0.5,
+    volume: 1,
     played: 0,
     seeking: false,
     buffer: true
@@ -37,19 +40,53 @@ const VideoPage = ({ params }: VideoPageProps) => {
 
   const { playing, muted, volume, played, seeking, buffer } = videoState;
 
+  const currentTime = videoPlayerRef.current
+    ? videoPlayerRef.current.getCurrentTime()
+    : 0.0;
+
+  const duration = videoPlayerRef.current
+    ? videoPlayerRef.current.getDuration()
+    : 0.0;
+
+  const formatTime = (time: number) => {
+    //formarting duration of video
+    if (isNaN(time)) {
+      return "00:00";
+    }
+
+    const date = new Date(time * 1000);
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const seconds = date.getUTCSeconds().toString().padStart(2, "0");
+    if (hours) {
+      return `${hours}:${minutes.toString().padStart(2, "0")} `;
+    } else return `${minutes}:${seconds}`;
+  };
+
+  const formatCurrentTime = formatTime(currentTime);
+
+  const formatDuration = formatTime(duration);
+
   const playPauseHandler = () => {
     setVideoState({ ...videoState, playing: !videoState.playing });
   };
 
   const progressHandler = (state: OnProgressProps) => {
+    if (controlRef.current) {
+      console.log(count);
+      if (count > 2) {
+        controlRef.current.style.visibility = "hidden";
+      } else if (controlRef.current.style.visibility === "visible") {
+        count += 1;
+      }
+    }
+
     if (!seeking) {
       setVideoState({ ...videoState, ...state });
     }
   };
 
   const seekHandler = (value: number[]) => {
-    console.log(value);
-    
     setVideoState({ ...videoState, played: value[0] / 100 });
   };
 
@@ -58,12 +95,44 @@ const VideoPage = ({ params }: VideoPageProps) => {
     (videoPlayerRef.current as ReactPlayer | null)?.seekTo(value[0] / 100);
   };
 
+  const volumeChangeHandler = (value: number[]) => {
+    const newVolume = value[0] / 100;
+    setVideoState({
+      ...videoState,
+      volume: newVolume,
+      muted: newVolume === 0
+    });
+  };
+
+  const volumeSeekUpHandler = (value: number[]) => {
+    const newVolume = value[0] / 100;
+    setVideoState({
+      ...videoState,
+      volume: newVolume,
+      muted: newVolume === 0
+    });
+  };
+
+  const muteHandler = () => {
+    setVideoState({ ...videoState, muted: !videoState.muted });
+  };
+
+  const mouseMoveHandler = () => {
+    if (controlRef.current) {
+      controlRef.current.style.visibility = "visible";
+    }
+    count = 0;
+  };
+
   useEffect(() => {
     setIsClient(true);
   }, []);
   return (
     isClient && (
-      <div className="relative bg-black flex flex-col justify-center items-center w-full h-screen">
+      <div
+        className="relative bg-black flex flex-col justify-center items-center w-full h-screen"
+        onMouseMove={mouseMoveHandler}
+      >
         <ReactPlayer
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
@@ -72,16 +141,25 @@ const VideoPage = ({ params }: VideoPageProps) => {
           width="100%"
           height="100%"
           playing={playing}
-          muted={true}
+          muted={muted}
           controls={false}
+          volume={volume}
           onProgress={progressHandler}
         />
         <VideoControl
+          controlRef={controlRef}
           onPlayPause={playPauseHandler}
           playing={playing}
           played={played}
           onSeek={seekHandler}
           onSeekMouseUp={seekMouseUpHandler}
+          onVolumeChangeHandler={volumeChangeHandler}
+          onVolumeSeekUp={volumeSeekUpHandler}
+          muted={muted}
+          onMute={muteHandler}
+          volume={volume}
+          duration={formatDuration}
+          currentTime={formatCurrentTime}
         />
       </div>
     )

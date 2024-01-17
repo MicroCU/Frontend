@@ -1,6 +1,14 @@
-import { Maximize, Pause, Play, SkipForward, Volume2 } from "lucide-react";
+import {
+  Maximize,
+  Pause,
+  Play,
+  SkipForward,
+  Volume2,
+  VolumeX
+} from "lucide-react";
 import VideoNav from "./VideoNav";
 import { Slider } from "@/components/ui/slider";
+import { MutableRefObject } from "react";
 
 interface VideoControlProps {
   onPlayPause: () => void;
@@ -8,6 +16,14 @@ interface VideoControlProps {
   played: number;
   onSeek: (value: number[]) => void;
   onSeekMouseUp: (value: number[]) => void;
+  onVolumeChangeHandler: (value: number[]) => void;
+  onVolumeSeekUp: (value: number[]) => void;
+  muted: boolean;
+  onMute: () => void;
+  volume: number;
+  duration: string;
+  currentTime: string;
+  controlRef: MutableRefObject<HTMLDivElement | null>;
 }
 
 const VideoControl = ({
@@ -16,13 +32,22 @@ const VideoControl = ({
   played,
   onSeek,
   onSeekMouseUp,
+  onVolumeChangeHandler,
+  onVolumeSeekUp,
+  muted,
+  onMute,
+  volume,
+  duration,
+  currentTime,
+  controlRef,
 }: VideoControlProps) => {
   return (
-    <div className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full">
+    <div ref={controlRef} style={{"visibility":"visible"}} className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full">
       <VideoNav videoName={"Example"} />
       <div>mid</div>
       <div className="px-4">
         <Slider
+          className="cursor-pointer"
           variant="video"
           defaultValue={[0]}
           max={100}
@@ -37,15 +62,20 @@ const VideoControl = ({
               {playing ? <Pause color="white" /> : <Play color="white" />}
             </div>
             <SkipForward color="white" />
-            <Volume2 color="white" />
+            <div className="cursor-pointer" onClick={onMute}>
+              {muted ? <VolumeX color="white" /> : <Volume2 color="white" />}
+            </div>
             <Slider
               variant="volume"
               defaultValue={[100]}
               max={100}
               step={1}
-              className="w-20"
+              value={muted ? [0] : [volume * 100]}
+              className="w-20 cursor-pointer"
+              onValueChange={onVolumeChangeHandler}
+              onValueCommit={onVolumeSeekUp}
             />
-            <p className="text-white Medium16">2.01 / 5.34</p>
+            <p className="text-white Medium16">{currentTime} / {duration}</p>
           </div>
           <div className="flex justify-end items-center w-1/2 gap-5">
             <p className="text-white Medium16">1x</p>
