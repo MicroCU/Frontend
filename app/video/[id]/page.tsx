@@ -40,6 +40,8 @@ const VideoPage = ({ params }: VideoPageProps) => {
 
   const { playing, muted, volume, played, seeking, buffer } = videoState;
 
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
   const currentTime = videoPlayerRef.current
     ? videoPlayerRef.current.getCurrentTime()
     : 0.0;
@@ -124,6 +126,32 @@ const VideoPage = ({ params }: VideoPageProps) => {
     count = 0;
   };
 
+  const handleFullScreenToggle = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+      setIsFullScreen(false);
+    } else {
+      document.documentElement.requestFullscreen().then(() => {
+        setIsFullScreen(true);
+      });
+    }
+  };
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if ((event.key === ' ' || event.key === 'Spacebar')) {
+      event.preventDefault(); // Prevent scrolling the page when using the space bar
+      playPauseHandler();
+      mouseMoveHandler();   
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [videoState]);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -132,6 +160,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
       <div
         className="relative bg-black flex flex-col justify-center items-center w-full h-screen"
         onMouseMove={mouseMoveHandler}
+        onClick={mouseMoveHandler}
       >
         <ReactPlayer
           ref={videoPlayerRef}
@@ -160,6 +189,8 @@ const VideoPage = ({ params }: VideoPageProps) => {
           volume={volume}
           duration={formatDuration}
           currentTime={formatCurrentTime}
+          fullscreenHandler={handleFullScreenToggle}
+          isFullScreen={isFullScreen}
         />
       </div>
     )

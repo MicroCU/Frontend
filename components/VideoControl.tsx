@@ -1,5 +1,6 @@
 import {
   Maximize,
+  Minimize,
   Pause,
   Play,
   SkipForward,
@@ -24,6 +25,8 @@ interface VideoControlProps {
   duration: string;
   currentTime: string;
   controlRef: MutableRefObject<HTMLDivElement | null>;
+  fullscreenHandler: () => void;
+  isFullScreen: boolean;
 }
 
 const VideoControl = ({
@@ -40,11 +43,13 @@ const VideoControl = ({
   duration,
   currentTime,
   controlRef,
+  fullscreenHandler,
+  isFullScreen,
 }: VideoControlProps) => {
   return (
     <div ref={controlRef} style={{"visibility":"visible"}} className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full">
       <VideoNav videoName={"Example"} />
-      <div>mid</div>
+      <div className="h-full" onClick={onPlayPause}></div>
       <div className="px-4">
         <Slider
           className="cursor-pointer"
@@ -79,7 +84,9 @@ const VideoControl = ({
           </div>
           <div className="flex justify-end items-center w-1/2 gap-5">
             <p className="text-white Medium16">1x</p>
-            <Maximize color="white" />
+            <div className="cursor-pointer" onClick={fullscreenHandler}>
+              {isFullScreen ? <Minimize color="white" /> : <Maximize color="white"/>}
+            </div>
           </div>
         </div>
       </div>
