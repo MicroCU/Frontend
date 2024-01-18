@@ -3,7 +3,6 @@ import Micro from "@/components/Micro";
 import { groupMember } from "../node-edges";
 import { MicroTypeEnum } from "@/types/enum";
 import { defaultSettings, groupSettings } from "../setting";
-import { calculateNodeSize } from "../algorithm";
 
 export default function SingleNode({
   id,

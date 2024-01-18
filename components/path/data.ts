@@ -26,6 +26,28 @@ export const mockData: IMockDirectedGraphData = {
     //         ]
     //     },
     // ]
+    // groups: [
+    //     {
+    //         id: '1', name: 'Overview', next: ['2', '3'], type: GroupTypeEnum.Single,
+    //         members: [
+    //             { id: '1', name: 'Overview', progress: 0, type: MicroTypeEnum.VIDEO },
+    //         ]
+    //     },
+    //     {
+    //         id: '2', name: 'Comment', next: [], type: GroupTypeEnum.Unordered,
+    //         members: [
+    //             { id: '21', name: 'Comment 1', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '22', name: 'Comment 2', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //             { id: '23', name: 'Comment 3', progress: 0, type: MicroTypeEnum.PRACTICE },
+    //         ]
+    //     },
+    //     {
+    //         id: '3', name: 'Syntax - 2', next: [], type: GroupTypeEnum.Single,
+    //         members: [
+    //             { id: '3', name: 'Syntax - 2', progress: 40, type: MicroTypeEnum.VIDEO }
+    //         ]
+    //     },
+    // ]
     groups: [
         {
             id: '1', name: 'Overview', next: ['2', '3'], type: GroupTypeEnum.Single,

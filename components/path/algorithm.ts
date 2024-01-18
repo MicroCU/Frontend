@@ -22,25 +22,25 @@ export function findRoot() {
     return root;
 }
 
-export function calculateNodeSize(nodeId: string, type?: string | undefined) {
-    let componentData
-    if (type === "groupNode") {
-        componentData = document
-            .getElementById(`group-display-${nodeId}`)
-            ?.getBoundingClientRect();
-    } else {
-        componentData = document
-            .getElementById(`micro-display-${nodeId}`)
-            ?.getBoundingClientRect();
-    }
-    let width = componentData ? componentData.width : 0;
-    let height = componentData ? componentData.height : 0;
+// export function calculateNodeSize(nodeId: string, type?: string | undefined) {  // TODO: EDIT
+//     let componentData
+//     if (type === "groupNode") {
+//         componentData = document
+//             .getElementById(`group-display-${nodeId}`)
+//             ?.getBoundingClientRect();
+//     } else {
+//         componentData = document
+//             .getElementById(`micro-display-${nodeId}`)
+//             ?.getBoundingClientRect();
+//     }
+//     let width = componentData ? componentData.width : 0;
+//     let height = componentData ? componentData.height : 0;
 
-    return {
-        width: width,
-        height: height,
-    };
-}
+//     return {
+//         width: width,
+//         height: height,
+//     };
+// }
 
 // export function improveHorizontalPosition(nodes: Node<any, string | undefined>[]) {
 //     nodes.forEach(node => {

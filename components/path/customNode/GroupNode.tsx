@@ -5,8 +5,6 @@ import Group from "@/components/Group";
 import { IMicroProps } from "@/components/Micro";
 import { GroupTypeEnum } from "@/types/enum";
 import { defaultSettings, groupSettings } from "../setting";
-import { calculateNodeSize } from "../algorithm";
-
 export default function GroupNode({
   id,
   data,

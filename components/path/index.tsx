@@ -21,7 +21,7 @@ import { defaultSettings, groupSettings } from "./setting";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
 import "reactflow/dist/style.css";
-import { calculateNodeSize, findRoot } from "./algorithm";
+import { findRoot } from "./algorithm";
 
 interface pathProps {
   screenWidth: number;
@@ -63,12 +63,12 @@ const getLayoutedElements = (
       y: nodeWithPosition.y - nodeHeight / 2
     };
 
-    let nodeSize = calculateNodeSize(node.id, node.type);
-    node.width = nodeSize.width;
-    node.height = nodeSize.height;
+    // let nodeSize = calculateNodeSize(node.id, node.type);
+    // node.width = nodeSize.width;
+    // node.height = nodeSize.height;
 
     if (node.id === rootId) {
-      rootWidth = node.width;
+      // rootWidth = node.width;
       rootX = node.position.x;
       rootY = node.position.y;
     }

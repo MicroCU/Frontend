@@ -2,7 +2,7 @@
 import { GroupTypeEnum } from "@/types/enum";
 import Micro, { IMicroProps } from "./Micro";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface IGroupProps {
   id: string;
@@ -13,14 +13,26 @@ export interface IGroupProps {
 
 export default function Group({ id, title, micros, type }: IGroupProps) {
   const [microComponentWidth, setMicroComponentWidth] = useState(0);
+  const groupRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    let doc = document
-      .getElementById("micros-display-" + id)
-      ?.getBoundingClientRect();
-    setMicroComponentWidth(doc ? doc.width : 0);
+    const getWidth = () => {
+      if (groupRef.current) {
+        const width = groupRef.current.getBoundingClientRect().width;
+        setMicroComponentWidth(width);
+      }
+    };
+
+    getWidth();
+    window.addEventListener("resize", getWidth);
+
+    return () => {
+      window.removeEventListener("resize", getWidth);
+    };
   }, [id]);
+
   return (
-    <div id={`group-display-${id}`}>
+    <div ref={groupRef}>
       {type === GroupTypeEnum.Ordered ? (
         <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
           <div
