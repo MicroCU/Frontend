@@ -1,7 +1,6 @@
 "use client";
 
-import VideoControl from "@/components/VideoControl";
-import VideoNav from "@/components/VideoNav";
+import VideoControlLayer from "@/components/VideoControlLayer";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
@@ -151,6 +150,13 @@ const VideoPage = ({ params }: VideoPageProps) => {
     }
   };
 
+  const endingHandler = () => {
+    setVideoState({ ...videoState, playing: false });
+    if (controlRef.current) {
+      controlRef.current.style.visibility = "visible";
+    }
+  }
+
   const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === " " || event.key === "Spacebar") {
       event.preventDefault(); // Prevent scrolling the page when using the space bar
@@ -199,8 +205,9 @@ const VideoPage = ({ params }: VideoPageProps) => {
           volume={volume}
           onProgress={progressHandler}
           playbackRate={speed}
+          onEnded={endingHandler}
         />
-        <VideoControl
+        <VideoControlLayer
           controlRef={controlRef}
           onPlayPause={playPauseHandler}
           playing={playing}
