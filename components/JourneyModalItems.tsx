@@ -1,5 +1,5 @@
+import JourneyModalItemsLoading from "./JourneyModalItemsLoading";
 import PathCard, { PathCardType } from "./PathCard";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export interface ICategory {
   id: string;
@@ -33,20 +33,7 @@ export default function JourneyModalItems({
   type
 }: JourneyModalItemsProps) {
   if (type === JourneyModalType.Loading) {
-    const loadingItems = Array.from({ length: 2 });
-    return (
-      <div>
-        <Skeleton className="w-3/6 h-[32px] bg-grayLight rounded mb-4" />
-        <div className="flex flex-row w-full h-full">
-          <Skeleton className="w-[16px] flex-x-1 bg-grayLight rounded" />
-          <div className="flex flex-col flex-1 gap-y-4 pl-6 border-graySmall">
-            {loadingItems.map((_, index) => (
-              <PathCard key={index} type={PathCardType.Loading} />
-            ))}
-          </div>
-        </div>
-      </div>
-    );
+    <JourneyModalItemsLoading />;
   }
 
   return (

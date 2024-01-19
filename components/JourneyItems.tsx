@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import JourneyItem, { IPathItems } from "./JourneyItem";
-import { Skeleton } from "@/components/ui/skeleton";
+import JourneyItemsLoading from "./JourneyItemsLoading";
 
 export interface IJourneyItem {
   id: string;
@@ -43,15 +43,7 @@ export default function JourneyItems({
             width={width}
           />
         ))}
-      {type === JourneyItemsType.Loading && (
-        <>
-          <Skeleton className="h-8 w-full bg-grayLight" />
-          <Skeleton className="h-8 w-full bg-graySmall" />
-          <Skeleton className="h-8 w-full bg-grayLight" />
-          <Skeleton className="h-8 w-full bg-graySmall" />
-          <Skeleton className="h-8 w-full bg-grayLight" />
-        </>
-      )}
+      {type === JourneyItemsType.Loading && <JourneyItemsLoading />}
     </div>
   );
 }

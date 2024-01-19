@@ -13,12 +13,7 @@ export interface ICheckListItem {
   status: CheckListItemStatusEnum;
 }
 
-export function CheckListItem({
-  journey,
-  paths,
-  progress,
-  status
-}: ICheckListItem) {
+export function CheckListItem({ journey, paths, progress }: ICheckListItem) {
   return (
     <div className="max-w-[250px] flex flex-row gap-x-5 justify-center items-start">
       <div className="w-2/5">
