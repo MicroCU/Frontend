@@ -2,7 +2,7 @@ import { defaultSettings, groupSettings } from "@/app/path/[id]/setting";
 import { GroupTypeEnum } from "@/types/enum";
 import { ReactNode } from "react";
 
-export default function DegreWrapper({
+export default function DegreWrapperGroup({
   children,
   groupType,
   memberLength

@@ -4,7 +4,7 @@ import { IMicroData } from "@/types/type";
 import Group from "@/components/Group";
 import { IMicroProps } from "@/components/Micro";
 import { GroupTypeEnum } from "@/types/enum";
-import DegreWrapper from "./DegreWrapperGroup";
+import DegreWrapperGroup from "./DegreWrapperGroup";
 export default function GroupNode({
   id,
   data,
@@ -29,7 +29,7 @@ export default function GroupNode({
     });
   });
   return (
-    <DegreWrapper groupType={groupType} memberLength={member.length}>
+    <DegreWrapperGroup groupType={groupType} memberLength={member.length}>
       <Handle
         type="target"
         position={Position.Top}
@@ -42,6 +42,6 @@ export default function GroupNode({
         id="b"
         isConnectable={isConnectable}
       />
-    </DegreWrapper>
+    </DegreWrapperGroup>
   );
 }
