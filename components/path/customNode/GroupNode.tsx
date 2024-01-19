@@ -1,10 +1,10 @@
 import { Handle, Position } from "reactflow";
-import { groupMember } from "../node-edges";
+import { groupMember } from "../../../app/path/[id]/node-edges";
 import { IMicroData } from "@/types/type";
 import Group from "@/components/Group";
 import { IMicroProps } from "@/components/Micro";
 import { GroupTypeEnum } from "@/types/enum";
-import { defaultSettings, groupSettings } from "../setting";
+import DegreWrapper from "./DegreWrapperGroup";
 export default function GroupNode({
   id,
   data,
@@ -29,42 +29,19 @@ export default function GroupNode({
     });
   });
   return (
-    <>
-      <div
-        className="relative flex flex-row justify-center content-center"
-        style={{
-          width: groupSettings.maxWidth,
-          height: groupSettings.maxHeight
-        }}
-      >
-        <div
-          className="absolute w-fit h-fit"
-          style={{
-            top:
-              groupType === GroupTypeEnum.Unordered
-                ? groupSettings.maxHeight / 2 -
-                  2 * defaultSettings.Padding -
-                  defaultSettings.groupTitleHigh
-                : groupType === GroupTypeEnum.Ordered && member.length == 2
-                ? defaultSettings.singleHeight / 2 +
-                  defaultSettings.groupTitleHigh / 2
-                : 0
-          }}
-        >
-          <Handle
-            type="target"
-            position={Position.Top}
-            isConnectable={isConnectable}
-          />
-          <Group micros={micros} type={groupType} title={data.label} id={id} />
-          <Handle
-            type="source"
-            position={Position.Bottom}
-            id="b"
-            isConnectable={isConnectable}
-          />
-        </div>
-      </div>
-    </>
+    <DegreWrapper groupType={groupType} memberLength={member.length}>
+      <Handle
+        type="target"
+        position={Position.Top}
+        isConnectable={isConnectable}
+      />
+      <Group micros={micros} type={groupType} title={data.label} id={id} />
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        id="b"
+        isConnectable={isConnectable}
+      />
+    </DegreWrapper>
   );
 }

@@ -15,82 +15,23 @@ import ReactFlow, {
   useReactFlow,
   useViewport
 } from "reactflow";
-import dagre from "dagre";
-import { getInitialNodesAndEdges } from "./node-edges";
-import { defaultSettings, groupSettings } from "./setting";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
 import "reactflow/dist/style.css";
-import { findRoot } from "./algorithm";
 
 interface pathProps {
   screenWidth: number;
   screenHeight: number;
+  initialNodes: Node[];
+  initialEdges: Edge[];
 }
-
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
-
-const nodeWidth = groupSettings.maxWidth;
-const nodeHeight = groupSettings.maxHeight;
-
-const getLayoutedElements = (
-  nodes: Node<any, string | undefined>[],
-  edges: Edge<any>[],
-  direction = "TB"
-) => {
-  dagreGraph.setGraph({ rankdir: direction });
-
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
-  });
-
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
-
-  dagre.layout(dagreGraph);
-
-  let rootWidth = 0;
-  let rootX = 0;
-  let rootY = 0;
-  let rootId = findRoot();
-  nodes.forEach((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-
-    node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2
-    };
-
-    // let nodeSize = calculateNodeSize(node.id, node.type);
-    // node.width = nodeSize.width;
-    // node.height = nodeSize.height;
-
-    if (node.id === rootId) {
-      // rootWidth = node.width;
-      rootX = node.position.x;
-      rootY = node.position.y;
-    }
-
-    return node;
-  });
-
-  // improveHorizontalPosition(nodes);
-  // improvePositionForVerticalGroup(nodes);
-
-  return {
-    nodes,
-    edges,
-    rootInfo: { id: rootId, width: rootWidth, x: rootX, y: rootY }
-  };
-};
 
 export default function DirectedGraph({
   screenWidth,
-  screenHeight
+  screenHeight,
+  initialNodes,
+  initialEdges
 }: pathProps) {
-  const { initialNodes, initialEdges } = getInitialNodesAndEdges();
   const { setViewport } = useReactFlow();
   const nodeTypes = useMemo(
     () => ({
@@ -100,16 +41,8 @@ export default function DirectedGraph({
     []
   );
 
-  const {
-    nodes: lNode,
-    edges: lEdge,
-    rootInfo
-  } = getLayoutedElements(initialNodes, initialEdges);
-
-  console.log("Root: ", rootInfo);
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(lNode);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(lEdge);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const bounds = getNodesBounds(nodes);
 
   if (bounds.height < screenHeight) {

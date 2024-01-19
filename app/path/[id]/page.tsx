@@ -2,9 +2,17 @@
 import DirectedGraph from "@/components/path";
 import { useScreenContext } from "@/components/context/ScreenContext";
 import { ReactFlowProvider } from "reactflow";
+import { getInitialNodesAndEdges } from "./node-edges";
+import { getLayoutedElements } from "./dagre";
 
 export default function Path() {
   const { screenWidth, screenHeight } = useScreenContext();
+  const { initialNodes, initialEdges } = getInitialNodesAndEdges();
+  const {
+    nodes: lNode,
+    edges: lEdge,
+    rootInfo
+  } = getLayoutedElements(initialNodes, initialEdges);
 
   return (
     <div>
@@ -17,6 +25,8 @@ export default function Path() {
             <DirectedGraph
               screenWidth={screenWidth}
               screenHeight={screenHeight}
+              initialNodes={lNode}
+              initialEdges={lEdge}
             />
           </ReactFlowProvider>
         )}
