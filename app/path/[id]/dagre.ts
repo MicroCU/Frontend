@@ -9,7 +9,7 @@ dagreGraph.setDefaultEdgeLabel(() => ({}));
 const nodeWidth = groupSettings.maxWidth;
 const nodeHeight = groupSettings.maxHeight;
 
-export function getLayoutedElements(
+export function getDagreLayouted(
     nodes: Node<any, string | undefined>[],
     edges: Edge<any>[],
     direction = "TB"

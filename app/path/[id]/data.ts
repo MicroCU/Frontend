@@ -189,21 +189,5 @@ export const mockData: IMockDirectedGraphData = {
                 { id: '133', name: 'Lesson 3*IV', progress: 0, type: MicroTypeEnum.VIDEO },
             ]
         },
-        // {
-        //     id: '16', name: 'Lesson V', next: [], type: GroupType.Single, 
-        //     members: [
-        //         { id: '16', name: 'Lesson 1 V', progress: 0, type: MicroNodeType.VIDEO },
-        //         // { id: '142', name: 'Lesson 2 III', progress: 0, type: MicroNodeType.VIDEO },
-        //         // { id: '143', name: 'Lesson 3 III', progress: 0, type: MicroNodeType.VIDEO },
-        //     ]
-        // },
-        // {
-        //     id: '17', name: 'Lesson VI', next: [], type: GroupType.Unordered, 
-        //     members: [
-        //         { id: '171', name: 'Lesson 1*VI', progress: 0, type: MicroNodeType.VIDEO },
-        //         { id: '172', name: 'Lesson 2*VI', progress: 0, type: MicroNodeType.VIDEO },
-        //         { id: '173', name: 'Lesson 3*VI', progress: 0, type: MicroNodeType.VIDEO },
-        //     ]
-        // },
     ]
 }

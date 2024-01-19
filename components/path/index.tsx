@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo } from "react";
+import { useMemo, useState } from "react";
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -7,32 +7,25 @@ import ReactFlow, {
   Node,
   Edge,
   Background,
-  MiniMap,
-  Controls,
   BackgroundVariant,
   PanOnScrollMode,
   getNodesBounds,
-  useReactFlow,
-  useViewport
+  Viewport,
+  useOnViewportChange
 } from "reactflow";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
 import "reactflow/dist/style.css";
 
 interface pathProps {
-  screenWidth: number;
-  screenHeight: number;
   initialNodes: Node[];
   initialEdges: Edge[];
 }
 
 export default function DirectedGraph({
-  screenWidth,
-  screenHeight,
   initialNodes,
   initialEdges
 }: pathProps) {
-  const { setViewport } = useReactFlow();
   const nodeTypes = useMemo(
     () => ({
       groupNode: GroupNode,
@@ -44,21 +37,11 @@ export default function DirectedGraph({
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const bounds = getNodesBounds(nodes);
-
-  if (bounds.height < screenHeight) {
-    bounds.height = screenHeight;
-  }
-
-  const { x, y, zoom } = useViewport();
-  console.log("Viewport: ", x, y, zoom);
-
-  // useEffect(() => {
-  //   setViewport({
-  //     x: -rootInfo.x + screenWidth / 2 - rootInfo.width / 2,
-  //     y: 0,
-  //     zoom: zoom
-  //   });
-  // }, [screenWidth]);
+  const [minZoomLevel, setMinZoomLevel] = useState<number>(0);
+  useOnViewportChange({
+    onChange: (viewport: Viewport) =>
+      minZoomLevel === 0 && setMinZoomLevel(viewport.zoom)
+  });
 
   return (
     <>
@@ -76,24 +59,14 @@ export default function DirectedGraph({
         panOnScroll={true}
         panOnScrollMode={PanOnScrollMode.Free}
         fitView
-        // fitViewOptions={{
-        //   includeHiddenNodes: true,
-        //   nodes: nodes
-        // }}
         translateExtent={[
           [bounds.x, bounds.y],
           [bounds.x + bounds.width, bounds.y + bounds.height]
         ]}
-        // onInit={() => {
-        //   setViewport({
-        //     x: -rootInfo.x,
-        //     y: rootInfo.y,
-        //     zoom: 0.5
-        //   });
-        // }}
+        minZoom={minZoomLevel}
       >
-        {/* <Controls />
-        <MiniMap pannable zoomable /> */}
+        {/* <Controls /> */}
+        {/* <MiniMap pannable zoomable /> */}
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
       </ReactFlow>
     </>
