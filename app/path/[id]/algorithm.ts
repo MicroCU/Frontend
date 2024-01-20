@@ -3,6 +3,8 @@ import { GroupTypeEnum } from "@/types/enum";
 import { groupMember } from "./node-edges";
 import { defaultSettings, groupSettings } from "./setting";
 import { Node } from "reactflow";
+import { IMicroData } from "@/types/type";
+import { IMicroProps } from "@/components/Micro";
 
 export function findRoot() {
     let root: string = '';
@@ -20,6 +22,21 @@ export function findRoot() {
         }
     })
     return root;
+}
+
+export function getMicroInGroup(groupId: string) {
+    let member: IMicroData[] = groupMember.get(groupId)?.members || [];
+    let micros: IMicroProps[] = [];
+    member.forEach((value) => {
+        micros.push({
+            id: value.id,
+            title: value.name,
+            progress: value.progress,
+            type: value.type,
+            isGroup: member.length > 1
+        });
+    });
+    return micros;
 }
 
 // export function calculateNodeSize(nodeId: string, type?: string | undefined) {  // TODO: EDIT

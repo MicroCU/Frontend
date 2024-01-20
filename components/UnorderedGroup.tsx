@@ -1,18 +1,21 @@
+import { GroupTypeEnum } from "@/types/enum";
 import Micro, { IMicroProps } from "./Micro";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import GroupScrollArea from "./GroupScrollArea";
 
 export interface IUnorderedGroupProps {
   id: string;
   title: string;
   micros: IMicroProps[];
   maxMicroComponentWidth: number;
+  isScrollable?: boolean;
 }
 
 export default function UnorderedGroup({
   id,
   title,
   micros,
-  maxMicroComponentWidth
+  maxMicroComponentWidth,
+  isScrollable
 }: IUnorderedGroupProps) {
   return (
     <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pl-4 pr-4">
@@ -21,7 +24,11 @@ export default function UnorderedGroup({
           {title}
         </p>
       </div>
-      <ScrollArea className="max-w-[656px] h-fit border-none">
+      <GroupScrollArea
+        type={GroupTypeEnum.Unordered}
+        microLength={micros.length}
+        isScrollable={isScrollable}
+      >
         <div className="flex flex-row bg-white w-fit h-fit justify-center content-center gap-x-4 rounded-2xl pb-4">
           {micros.map((micro, index) => (
             <Micro
@@ -34,10 +41,7 @@ export default function UnorderedGroup({
             />
           ))}
         </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+      </GroupScrollArea>
     </div>
   );
 }
-
-// Remove Line 24, 37-38 If you don't want to use scroll

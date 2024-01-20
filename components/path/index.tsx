@@ -15,6 +15,8 @@ import ReactFlow, {
 } from "reactflow";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
+import TendonGroupNode from "./tendonCustomNode/GroupNode";
+import TendonSingleNode from "./tendonCustomNode/SingleNode";
 import "reactflow/dist/style.css";
 
 interface pathProps {
@@ -30,6 +32,8 @@ export default function DirectedGraph({
     () => ({
       groupNode: GroupNode,
       singleNode: SingleNode
+      // groupNode: TendonGroupNode,  // Uncomment this line to use Tendon Node
+      // singleNode: TendonSingleNode  // Uncomment this line to use Tendon Node
     }),
     []
   );

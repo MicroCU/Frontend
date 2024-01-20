@@ -146,7 +146,7 @@ export default function TontanComponent() {
         />
         <Group
           id="G2"
-          title="Basic Libraryyyy11112222212333455555577"
+          title="Basic Libraryyyy11112222212333455555577 (LONG)"
           micros={[
             {
               id: "1",

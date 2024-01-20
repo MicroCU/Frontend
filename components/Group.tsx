@@ -10,9 +10,16 @@ export interface IGroupProps {
   title: string;
   micros: IMicroProps[];
   type: GroupTypeEnum;
+  isScrollable?: boolean;
 }
 
-export default function Group({ id, title, micros, type }: IGroupProps) {
+export default function Group({
+  id,
+  title,
+  micros,
+  type,
+  isScrollable
+}: IGroupProps) {
   const [microComponentWidth, setMicroComponentWidth] = useState(0);
   const groupRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +47,7 @@ export default function Group({ id, title, micros, type }: IGroupProps) {
           title={title}
           micros={micros}
           maxMicroComponentWidth={microComponentWidth}
+          isScrollable={isScrollable}
         />
       ) : (
         <UnorderedGroup
@@ -47,6 +55,7 @@ export default function Group({ id, title, micros, type }: IGroupProps) {
           title={title}
           micros={micros}
           maxMicroComponentWidth={microComponentWidth}
+          isScrollable={isScrollable}
         />
       )}
     </div>
