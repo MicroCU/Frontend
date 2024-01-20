@@ -11,7 +11,8 @@ import ReactFlow, {
   PanOnScrollMode,
   getNodesBounds,
   Viewport,
-  useOnViewportChange
+  useOnViewportChange,
+  Controls
 } from "reactflow";
 import GroupNode from "./customNode/GroupNode";
 import SingleNode from "./customNode/SingleNode";
@@ -59,9 +60,10 @@ export default function DirectedGraph({
         zoomOnScroll={false}
         zoomOnDoubleClick={false}
         selectNodesOnDrag={false}
-        panOnDrag={false}
+        panOnDrag={true}
         panOnScroll={true}
         panOnScrollMode={PanOnScrollMode.Free}
+        preventScrolling={false}
         fitView
         translateExtent={[
           [bounds.x, bounds.y],
@@ -69,7 +71,7 @@ export default function DirectedGraph({
         ]}
         minZoom={minZoomLevel}
       >
-        {/* <Controls /> */}
+        <Controls />
         {/* <MiniMap pannable zoomable /> */}
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
       </ReactFlow>
