@@ -1,8 +1,8 @@
 import { Handle, Position } from "reactflow";
 import Micro from "@/components/Micro";
-import { groupMember } from "../../../app/path/[id]/node-edges";
 import { MicroTypeEnum } from "@/types/enum";
 import DegreWrapperSingle from "./DegreWrapperSingle";
+import { getGroupMemberData } from "@/app/path/[id]/node-edges";
 
 export default function SingleNode({
   id,
@@ -15,6 +15,7 @@ export default function SingleNode({
   type: string;
   isConnectable: boolean;
 }) {
+  let groupMember = getGroupMemberData();
   let nodeType = groupMember.get(id)?.members[0].type || MicroTypeEnum.VIDEO;
   let progress = groupMember.get(id)?.members[0].progress || 0;
   return (

@@ -17,16 +17,19 @@ export default function GroupScrollArea({
   return (
     <>
       {type === GroupTypeEnum.Ordered ? (
-        <ScrollArea
-          className={`w-fit ${microLength >= 3 ? "h-44" : "h-28"} border-none`}
+        <div
+          className={`w-fit ${
+            microLength >= 3 ? "h-44" : "h-28"
+          } border-none overflow-auto`}
         >
           {children}
-          <ScrollBar orientation="vertical" />
-        </ScrollArea>
+          {/* <ScrollBar orientation="vertical" /> */}
+        </div>
       ) : (
-        <ScrollArea className="max-w-[656px] h-fit border-none">
-          {children} <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        <div className="max-w-[656px] h-fit border-none overflow-auto">
+          {children}
+          {/* <ScrollBar orientation="horizontal" /> */}
+        </div>
       )}
     </>
   );

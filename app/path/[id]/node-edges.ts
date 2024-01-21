@@ -3,7 +3,6 @@ import { MarkerType, Node, Edge } from "reactflow";
 import { mockData } from "./data";
 import { IMicroData } from "@/types/type";
 
-const position = { x: 0, y: 0 };
 const edgeType = 'default';
 
 interface INode {
@@ -21,7 +20,8 @@ export interface IGroupValueMap {
     type: GroupTypeEnum;
     members: IMicroData[];
 }
-export let groupMember = new Map<string, IGroupValueMap>() // key: {group node id, group name}, value: node's member
+
+let groupMember = new Map<string, IGroupValueMap>() // key: {group node id, group name}, value: node's member
 // export let parents = new Map<string, Set<string>>() // key: {node id}, value: node's parents
 
 export function getInitialNodesAndEdges() {
@@ -33,7 +33,7 @@ export function getInitialNodesAndEdges() {
         initialNodes.push({
             id: group.id,
             data: { label: group.name },
-            position,
+            position: { x: 0, y: 0 },
             draggable: false,
             type: group.type === GroupTypeEnum.Single ? 'singleNode' : 'groupNode',
         });
@@ -64,4 +64,8 @@ export function getInitialNodesAndEdges() {
     })
 
     return { initialNodes, initialEdges };
+}
+
+export function getGroupMemberData() {
+    return groupMember
 }

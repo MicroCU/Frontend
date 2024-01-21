@@ -57,13 +57,6 @@ export default function DirectedGraph({
         onEdgesChange={onEdgesChange}
         connectionLineType={ConnectionLineType.SmoothStep}
         nodeTypes={nodeTypes}
-        zoomOnScroll={false}
-        zoomOnDoubleClick={false}
-        selectNodesOnDrag={false}
-        panOnDrag={true}
-        panOnScroll={true}
-        panOnScrollMode={PanOnScrollMode.Free}
-        preventScrolling={false}
         fitView
         translateExtent={[
           [bounds.x, bounds.y],
