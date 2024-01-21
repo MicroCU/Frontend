@@ -1,11 +1,12 @@
 import { GroupTypeEnum } from "@/types/enum";
 import GroupScrollArea from "./GroupScrollArea";
-import Micro, { IMicroProps } from "./Micro";
+import Micro from "./Micro";
+import { IMicroData } from "@/types/type";
 
 export interface IOrderedGroupProps {
   id: string;
   title: string;
-  micros: IMicroProps[];
+  micros: IMicroData[];
   maxMicroComponentWidth: number;
   isScrollable?: boolean;
 }
@@ -35,11 +36,8 @@ export default function OrderedGroup({
         <div className="flex flex-col w-fit h-fit justify-center content-center gap-y-4 pl-4 pr-4">
           {micros.map((micro, index) => (
             <Micro
-              id={micro.id}
-              title={micro.title}
-              progress={micro.progress}
-              type={micro.type}
-              isGroup={micro.isGroup}
+              data={micro}
+              isGroup={true}
               key={micro.id}
               className="mx-auto"
             />

@@ -8,21 +8,21 @@ import ReactFlow, {
   Edge,
   Background,
   BackgroundVariant,
-  PanOnScrollMode,
   getNodesBounds,
   Viewport,
   useOnViewportChange,
   Controls
 } from "reactflow";
-import GroupNode from "./customNode/GroupNode";
+import OrderedGroup from "./customNode/Ordered";
 import SingleNode from "./customNode/SingleNode";
-import TendonGroupNode from "./tendonCustomNode/GroupNode";
-import TendonSingleNode from "./tendonCustomNode/SingleNode";
 import "reactflow/dist/style.css";
+import { GroupTypeEnum } from "@/types/enum";
+import { IGroupData } from "@/types/type";
+import UnorderedGroup from "./customNode/Unordered";
 
 interface pathProps {
-  initialNodes: Node[];
-  initialEdges: Edge[];
+  initialNodes: Node<IGroupData, GroupTypeEnum>[];
+  initialEdges: Edge<any>[];
 }
 
 export default function DirectedGraph({
@@ -31,15 +31,15 @@ export default function DirectedGraph({
 }: pathProps) {
   const nodeTypes = useMemo(
     () => ({
-      groupNode: GroupNode,
-      singleNode: SingleNode
-      // groupNode: TendonGroupNode,  // Uncomment this line to use Tendon Node
-      // singleNode: TendonSingleNode  // Uncomment this line to use Tendon Node
+      Ordered: OrderedGroup,
+      Unordered: UnorderedGroup,
+      Single: SingleNode
     }),
     []
   );
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] =
+    useNodesState<IGroupData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const bounds = getNodesBounds(nodes);
   const [minZoomLevel, setMinZoomLevel] = useState<number>(0);
@@ -63,6 +63,8 @@ export default function DirectedGraph({
           [bounds.x + bounds.width, bounds.y + bounds.height]
         ]}
         minZoom={minZoomLevel}
+        preventScrolling={false}
+        panOnDrag={true}
       >
         <Controls />
         {/* <MiniMap pannable zoomable /> */}

@@ -1,14 +1,14 @@
 "use client";
 import { GroupTypeEnum } from "@/types/enum";
-import { IMicroProps } from "./Micro";
 import { useEffect, useRef, useState } from "react";
 import UnorderedGroup from "./UnorderedGroup";
 import OrderedGroup from "./OrderedGroup";
+import { IMicroData } from "@/types/type";
 
 export interface IGroupProps {
   id: string;
   title: string;
-  micros: IMicroProps[];
+  micros: IMicroData[];
   type: GroupTypeEnum;
   isScrollable?: boolean;
 }

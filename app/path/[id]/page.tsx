@@ -9,11 +9,10 @@ import PathDescription from "@/components/path/PathDescription";
 export default function Path() {
   const { screenWidth, screenHeight } = useScreenContext();
   const { initialNodes, initialEdges } = getInitialNodesAndEdges();
-  const {
-    nodes: lNode,
-    edges: lEdge,
-    rootInfo
-  } = getDagreLayout(initialNodes, initialEdges); // Calculating (x, y) position of each node
+  const { nodes: lNode, edges: lEdge } = getDagreLayout(
+    initialNodes,
+    initialEdges
+  ); // Calculating (x, y) position of each node
 
   return (
     <div className="overflow-y-scroll w-screen">

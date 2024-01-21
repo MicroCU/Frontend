@@ -1,7 +1,8 @@
 import { groupSettings } from "@/app/path/[id]/setting";
+import { GroupTypeEnum } from "@/types/enum";
+import { IGroupData } from "@/types/type";
 import dagre from "dagre";
 import { Edge, Node } from "reactflow";
-import { findRoot } from "./algorithm";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -10,7 +11,7 @@ const nodeWidth = groupSettings.maxWidth;
 const nodeHeight = groupSettings.maxHeight;
 
 export function getDagreLayouted(
-    nodes: Node<any, string | undefined>[],
+    nodes: Node<IGroupData, GroupTypeEnum>[],
     edges: Edge<any>[],
     direction = "TB"
 ) {
@@ -26,10 +27,6 @@ export function getDagreLayouted(
 
     dagre.layout(dagreGraph);
 
-    let rootWidth = 0;
-    let rootX = 0;
-    let rootY = 0;
-    let rootId = findRoot();
     nodes.forEach((node) => {
         const nodeWithPosition = dagreGraph.node(node.id);
 
@@ -38,25 +35,13 @@ export function getDagreLayouted(
             y: nodeWithPosition.y - nodeHeight / 2
         };
 
-        // let nodeSize = calculateNodeSize(node.id, node.type);
-        // node.width = nodeSize.width;
-        // node.height = nodeSize.height;
-
-        if (node.id === rootId) {
-            // rootWidth = node.width;
-            rootX = node.position.x;
-            rootY = node.position.y;
-        }
+        // TODO: Adjust position
 
         return node;
     });
 
-    // improveHorizontalPosition(nodes);
-    // improvePositionForVerticalGroup(nodes);
-
     return {
         nodes,
         edges,
-        rootInfo: { id: rootId, width: rootWidth, x: rootX, y: rootY }
     };
 };

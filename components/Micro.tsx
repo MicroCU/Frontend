@@ -1,22 +1,19 @@
 import { MicroTypeEnum } from "@/types/enum";
+import { IMicroData } from "@/types/type";
 
 export interface IMicroProps {
-  id: string;
-  title: string;
-  progress: number; // 0 - 100
-  type: MicroTypeEnum;
+  data: IMicroData;
   isGroup?: boolean;
   className?: string;
 }
 
 export default function Micro({
-  id,
-  title,
-  progress,
-  type,
+  data,
   isGroup = true,
   className
 }: IMicroProps) {
+  const type = data.type;
+  const progress = data.progress;
   const { backgroundColor, textColor, borderRadius } = customStyle(
     type,
     progress,
@@ -41,7 +38,7 @@ export default function Micro({
             ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
         >
           <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
-            {title}
+            {data.name}
           </div>
         </div>
         {progress > 0 && progress <= 100 && type === MicroTypeEnum.VIDEO && (
