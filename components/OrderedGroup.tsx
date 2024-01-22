@@ -26,7 +26,7 @@ export default function OrderedGroup({
   return (
     <div className="flex flex-col bg-white w-full h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
       <OverflowTooltip text={title} isOverflowing={isOverflow}>
-        <div className="pl-4 pr-4 w-fit max-w-52">
+        <div className="pl-4 pr-4 w-fit max-w-56">
           <p
             className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis"
             ref={containerOverflowRef}
