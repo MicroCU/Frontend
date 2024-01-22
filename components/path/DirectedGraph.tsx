@@ -66,8 +66,7 @@ export default function DirectedGraph({
         preventScrolling={false}
         panOnDrag={true}
       >
-        <Controls />
-        {/* <MiniMap pannable zoomable /> */}
+        <Controls position="top-left" />
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
       </ReactFlow>
     </>
