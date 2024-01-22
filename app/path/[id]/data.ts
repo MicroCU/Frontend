@@ -94,9 +94,9 @@ export const mockData: IMockDirectedGraphData = {
         {
             id: '6', name: 'Useful Library', next: ['7', '70'], type: GroupTypeEnum.Unordered,
             members: [
-                { id: '61', name: 'Built-in function', progress: 0, type: MicroTypeEnum.VIDEO },
-                { id: '62', name: 'Standard library**', progress: 0, type: MicroTypeEnum.VIDEO },
-                { id: '63', name: 'Standard library1', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '61', name: 'Built-in function 123456', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '62', name: 'Standard library** 123456', progress: 0, type: MicroTypeEnum.VIDEO },
+                { id: '63', name: 'Standard library1 123456', progress: 0, type: MicroTypeEnum.VIDEO },
             ]
         },
         {
@@ -116,7 +116,7 @@ export const mockData: IMockDirectedGraphData = {
             ]
         },
         {
-            id: '8', name: 'Comment 2 Long', next: ['10', '11'], type: GroupTypeEnum.Ordered,
+            id: '8', name: 'Comment 2 Long Long Long Long Long Long Long Long Long', next: ['10', '11'], type: GroupTypeEnum.Ordered,
             members: [
                 { id: '81', name: 'Comment 2', progress: 20, type: MicroTypeEnum.VIDEO },
                 { id: '82', name: 'Comment 3', progress: 40, type: MicroTypeEnum.VIDEO },

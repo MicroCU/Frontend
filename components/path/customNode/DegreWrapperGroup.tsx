@@ -17,7 +17,7 @@ export default function DegreWrapperGroup({
 }) {
   return (
     <div
-      className="nodrag nowheel relative flex flex-row justify-center content-center"
+      className="nodrag nowheel relative flex flex-row justify-center content-center border"
       style={{
         width: groupSettings.maxWidth,
         height: groupSettings.maxHeight

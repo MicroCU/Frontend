@@ -18,13 +18,19 @@ export default function GroupScrollArea({
     <>
       {type === GroupTypeEnum.Ordered ? (
         <ScrollArea
-          className={`w-fit ${microLength >= 3 ? "h-44" : "h-28"} border-none`}
+          className={`w-full ${
+            microLength > 3 ? "h-[152px]" : "h-fit"
+          } border-none`}
         >
           {children}
           <ScrollBar orientation="vertical" />
         </ScrollArea>
       ) : (
-        <ScrollArea className="max-w-[656px] h-fit border-none">
+        <ScrollArea
+          className={`${
+            microLength > 3 ? "max-w-[600px]" : "max-w-[656px]"
+          } h-fit border-none`}
+        >
           {children}
           <ScrollBar orientation="horizontal" />
         </ScrollArea>

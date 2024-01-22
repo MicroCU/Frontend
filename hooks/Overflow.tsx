@@ -3,7 +3,7 @@ import { RefObject, useEffect, useState } from "react";
 export const useOverflowDetection = (
   ref: RefObject<HTMLDivElement>,
   title: string,
-  maxMicroComponentWidth: number
+  maxMicroComponentWidth?: number
 ) => {
   const [isOverflow, setIsOverflow] = useState(false);
 

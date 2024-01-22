@@ -46,7 +46,6 @@ export default function Group({
           id={id}
           title={title}
           micros={micros}
-          maxMicroComponentWidth={microComponentWidth}
           isScrollable={isScrollable}
         />
       ) : (

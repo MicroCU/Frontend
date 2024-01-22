@@ -8,7 +8,7 @@ export default function DegreWrapperSingle({
 }) {
   return (
     <div
-      className="relative flex flex-row justify-center content-center"
+      className="relative flex flex-row justify-center content-center border"
       style={{
         width: groupSettings.maxWidth,
         height: groupSettings.maxHeight

@@ -11,7 +11,6 @@ export interface IOrderedGroupProps {
   id: string;
   title: string;
   micros: IMicroData[];
-  maxMicroComponentWidth: number;
   isScrollable?: boolean;
 }
 
@@ -19,23 +18,15 @@ export default function OrderedGroup({
   id,
   title,
   micros,
-  maxMicroComponentWidth,
   isScrollable
 }: IOrderedGroupProps) {
   const containerOverflowRef = useRef<HTMLDivElement>(null);
-  const isOverflow = useOverflowDetection(
-    containerOverflowRef,
-    title,
-    maxMicroComponentWidth
-  );
+  const isOverflow = useOverflowDetection(containerOverflowRef, title);
 
   return (
-    <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
+    <div className="flex flex-col bg-white w-full h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
       <OverflowTooltip text={title} isOverflowing={isOverflow}>
-        <div
-          className="pl-4 pr-4 w-fit"
-          style={{ maxWidth: maxMicroComponentWidth }}
-        >
+        <div className="pl-4 pr-4 w-fit max-w-52">
           <p
             className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis"
             ref={containerOverflowRef}
@@ -49,7 +40,7 @@ export default function OrderedGroup({
         microLength={micros.length}
         isScrollable={isScrollable}
       >
-        <div className="flex flex-col w-fit h-fit justify-center content-center gap-y-4 pl-4 pr-4">
+        <div className="flex flex-col w-full h-fit justify-center content-center gap-y-4 pl-4 pr-4">
           {micros.map((micro, index) => (
             <Micro
               data={micro}
