@@ -1,7 +1,7 @@
 import { GroupTypeEnum, MicroTypeEnum } from "@/types/enum";
-import { IMockDirectedGraphData } from "@/types/type";
+import { MockDirectedGraphData } from "@/types/type";
 
-export const mockData: IMockDirectedGraphData = {
+export const mockData: MockDirectedGraphData = {
     // groups: [
     //     {
     //         id: '1', name: 'Overview', next: ['2'], type: GroupTypeEnum.Single,

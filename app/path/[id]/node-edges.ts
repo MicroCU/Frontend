@@ -1,12 +1,12 @@
 import { GroupTypeEnum } from "@/types/enum";
 import { MarkerType, Node, Edge } from "reactflow";
 import { mockData } from "./data";
-import { IGroupData } from "@/types/type";
+import { GroupData } from "@/types/type";
 
 const edgeType = 'default';
 
 export function getInitialNodesAndEdges() {
-    let initialNodes: Node<IGroupData, GroupTypeEnum>[] = [];
+    let initialNodes: Node<GroupData, GroupTypeEnum>[] = [];
     let initialEdges: Edge<any>[] = [];
 
     mockData.groups.forEach(group => {

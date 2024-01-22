@@ -1,11 +1,11 @@
 import { MicroTypeEnum } from "@/types/enum";
-import { IMicroData } from "@/types/type";
+import { MicroData } from "@/types/type";
 import MicroVideo from "./MicroVideo";
 import MicroPractice from "./MicroPractice";
 import MicroTest from "./MicroTest";
 
 export interface MicroProps {
-  data: IMicroData;
+  data: MicroData;
   isGroup?: boolean;
   className?: string;
 }

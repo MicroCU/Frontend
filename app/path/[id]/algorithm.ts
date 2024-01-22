@@ -1,4 +1,4 @@
-import { IGroupData } from "@/types/type";
+import { GroupData } from "@/types/type";
 import { getInitialNodesAndEdges } from "./node-edges";
 
 export function getMicroInGroup(groupId: string) {
@@ -15,5 +15,5 @@ export function getGroupData(groupId: string) {
             return node.data
         }
     })
-    return {} as IGroupData
+    return {} as GroupData
 }

@@ -17,11 +17,11 @@ import OrderedGroup from "./customNode/Ordered";
 import SingleNode from "./customNode/SingleNode";
 import "reactflow/dist/style.css";
 import { GroupTypeEnum } from "@/types/enum";
-import { IGroupData } from "@/types/type";
+import { GroupData } from "@/types/type";
 import UnorderedGroup from "./customNode/Unordered";
 
 interface pathProps {
-  initialNodes: Node<IGroupData, GroupTypeEnum>[];
+  initialNodes: Node<GroupData, GroupTypeEnum>[];
   initialEdges: Edge<any>[];
 }
 
@@ -39,7 +39,7 @@ export default function DirectedGraph({
   );
 
   const [nodes, setNodes, onNodesChange] =
-    useNodesState<IGroupData>(initialNodes);
+    useNodesState<GroupData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const bounds = getNodesBounds(nodes);
   const [minZoomLevel, setMinZoomLevel] = useState<number>(0);

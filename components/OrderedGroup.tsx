@@ -2,7 +2,7 @@
 import { GroupTypeEnum } from "@/types/enum";
 import GroupScrollArea from "./GroupScrollArea";
 import Micro from "./Micro";
-import { IMicroData } from "@/types/type";
+import { MicroData } from "@/types/type";
 import OverflowTooltip from "./OverflowTooltip";
 import { useRef } from "react";
 import { useOverflowDetection } from "@/hooks/Overflow";
@@ -10,7 +10,7 @@ import { useOverflowDetection } from "@/hooks/Overflow";
 export interface IOrderedGroupProps {
   id: string;
   title: string;
-  micros: IMicroData[];
+  micros: MicroData[];
   isScrollable?: boolean;
 }
 

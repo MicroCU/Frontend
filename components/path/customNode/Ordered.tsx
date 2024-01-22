@@ -1,5 +1,5 @@
 import { Handle, Position } from "reactflow";
-import { IGroupData } from "@/types/type";
+import { GroupData } from "@/types/type";
 import Group from "@/components/Group";
 import { GroupTypeEnum } from "@/types/enum";
 import DegreWrapperGroup from "./DegreWrapperGroup";
@@ -10,7 +10,7 @@ export default function OrderedGroup({
   type
 }: {
   id: string;
-  data: IGroupData;
+  data: GroupData;
   type: string;
 }) {
   return (

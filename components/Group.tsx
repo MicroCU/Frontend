@@ -3,12 +3,12 @@ import { GroupTypeEnum } from "@/types/enum";
 import { useEffect, useRef, useState } from "react";
 import UnorderedGroup from "./UnorderedGroup";
 import OrderedGroup from "./OrderedGroup";
-import { IMicroData } from "@/types/type";
+import { MicroData } from "@/types/type";
 
 export interface IGroupProps {
   id: string;
   title: string;
-  micros: IMicroData[];
+  micros: MicroData[];
   type: GroupTypeEnum;
   isScrollable?: boolean;
 }

@@ -1,6 +1,6 @@
 import { Handle, Position } from "reactflow";
 import Micro from "@/components/Micro";
-import { IGroupData } from "@/types/type";
+import { GroupData } from "@/types/type";
 import DegreWrapperSingle from "./DegreWrapperSingle";
 
 export default function SingleNode({
@@ -9,7 +9,7 @@ export default function SingleNode({
   type
 }: {
   id: string;
-  data: IGroupData;
+  data: GroupData;
   type: string;
 }) {
   return (

@@ -1,6 +1,6 @@
 import { groupSettings } from "@/app/path/[id]/setting";
 import { GroupTypeEnum } from "@/types/enum";
-import { IGroupData } from "@/types/type";
+import { GroupData } from "@/types/type";
 import dagre from "dagre";
 import { Edge, Node } from "reactflow";
 
@@ -11,7 +11,7 @@ const nodeWidth = groupSettings.maxWidth;
 const nodeHeight = groupSettings.maxHeight;
 
 export function getDagreLayouted(
-    nodes: Node<IGroupData, GroupTypeEnum>[],
+    nodes: Node<GroupData, GroupTypeEnum>[],
     edges: Edge<any>[],
     direction = "TB"
 ) {

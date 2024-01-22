@@ -30,7 +30,7 @@ import JourneyModalItems, {
 } from "@/components/JourneyModalItems";
 import CheckListIcon from "@/components/CheckListIcon";
 import { GroupTypeEnum, MicroTypeEnum } from "@/types/enum";
-import { IMicroData } from "@/types/type";
+import { MicroData } from "@/types/type";
 import OverflowTooltip from "@/components/OverflowTooltip";
 
 export default function TontanComponent() {
@@ -51,7 +51,7 @@ export default function TontanComponent() {
                 name: "video",
                 progress: 0,
                 type: MicroTypeEnum.VIDEO
-              } as IMicroData
+              } as MicroData
             }
             isGroup={false}
           />
@@ -62,7 +62,7 @@ export default function TontanComponent() {
                 name: "practice",
                 progress: 0,
                 type: MicroTypeEnum.PRACTICE
-              } as IMicroData
+              } as MicroData
             }
             isGroup={true}
           />
@@ -73,7 +73,7 @@ export default function TontanComponent() {
                 name: "test",
                 progress: 0,
                 type: MicroTypeEnum.TEST
-              } as IMicroData
+              } as MicroData
             }
             isGroup={true}
           />
@@ -84,7 +84,7 @@ export default function TontanComponent() {
                 name: "test",
                 progress: 0,
                 type: MicroTypeEnum.TEST
-              } as IMicroData
+              } as MicroData
             }
           />
         </div>
@@ -97,7 +97,7 @@ export default function TontanComponent() {
                 name: "video30",
                 progress: 30,
                 type: MicroTypeEnum.VIDEO
-              } as IMicroData
+              } as MicroData
             }
           />
           <Micro
@@ -107,7 +107,7 @@ export default function TontanComponent() {
                 name: "video40",
                 progress: 40,
                 type: MicroTypeEnum.VIDEO
-              } as IMicroData
+              } as MicroData
             }
           />
           <Micro
@@ -117,7 +117,7 @@ export default function TontanComponent() {
                 name: "video50",
                 progress: 50,
                 type: MicroTypeEnum.VIDEO
-              } as IMicroData
+              } as MicroData
             }
           />
           <Micro
@@ -127,7 +127,7 @@ export default function TontanComponent() {
                 name: "video80",
                 progress: 80,
                 type: MicroTypeEnum.VIDEO
-              } as IMicroData
+              } as MicroData
             }
           />
           <Micro
@@ -137,7 +137,7 @@ export default function TontanComponent() {
                 name: "practice",
                 progress: 50,
                 type: MicroTypeEnum.PRACTICE
-              } as IMicroData
+              } as MicroData
             }
           />
           <Micro
@@ -147,7 +147,7 @@ export default function TontanComponent() {
                 name: "testlongggggggggggggggggg",
                 progress: 50,
                 type: MicroTypeEnum.TEST
-              } as IMicroData
+              } as MicroData
             }
           />
         </div>
@@ -160,7 +160,7 @@ export default function TontanComponent() {
                 name: "video",
                 progress: 100,
                 type: MicroTypeEnum.VIDEO
-              } as IMicroData
+              } as MicroData
             }
           />
           <Micro
@@ -170,7 +170,7 @@ export default function TontanComponent() {
                 name: "practice",
                 progress: 100,
                 type: MicroTypeEnum.PRACTICE
-              } as IMicroData
+              } as MicroData
             }
           />
           <Micro
@@ -180,7 +180,7 @@ export default function TontanComponent() {
                 name: "test",
                 progress: 100,
                 type: MicroTypeEnum.TEST
-              } as IMicroData
+              } as MicroData
             }
           />
         </div>

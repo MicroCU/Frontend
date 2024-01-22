@@ -1,11 +1,11 @@
 "use client";
-import { IMicroData } from "@/types/type";
+import { MicroData } from "@/types/type";
 import OverflowTooltip from "./OverflowTooltip";
 import { useRef } from "react";
 import { useOverflowDetection } from "@/hooks/Overflow";
 
 interface MicroVideoProps {
-  data: IMicroData;
+  data: MicroData;
   isGroup: boolean;
   className?: string;
 }
