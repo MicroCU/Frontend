@@ -1,4 +1,8 @@
-import { defaultSettings, groupSettings } from "@/app/path/[id]/setting";
+import {
+  groupSettings,
+  orderedGroupHighWithTwoMember,
+  unOrderedGroupHigh
+} from "@/app/path/[id]/setting";
 import { GroupTypeEnum } from "@/types/enum";
 import { ReactNode } from "react";
 
@@ -13,7 +17,7 @@ export default function DegreWrapperGroup({
 }) {
   return (
     <div
-      className="nodrag nowheel relative flex flex-row justify-center content-center"
+      className="nodrag nowheel relative flex flex-row justify-center content-center border"
       style={{
         width: groupSettings.maxWidth,
         height: groupSettings.maxHeight
@@ -24,12 +28,9 @@ export default function DegreWrapperGroup({
         style={{
           top:
             groupType === GroupTypeEnum.Unordered
-              ? groupSettings.maxHeight / 2 -
-                2 * defaultSettings.Padding -
-                defaultSettings.groupTitleHigh
+              ? groupSettings.maxHeight / 2 - unOrderedGroupHigh / 2
               : groupType === GroupTypeEnum.Ordered && memberLength == 2
-              ? defaultSettings.singleHeight / 2 +
-                defaultSettings.groupTitleHigh / 2
+              ? groupSettings.maxHeight / 2 - orderedGroupHighWithTwoMember / 2
               : 0
         }}
       >

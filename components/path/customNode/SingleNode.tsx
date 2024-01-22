@@ -1,7 +1,7 @@
 import { Handle, Position } from "reactflow";
 import Micro from "@/components/Micro";
-import { IGroupData, IMicroData } from "@/types/type";
-import { getMicroInGroup } from "@/app/path/[id]/algorithm";
+import { IGroupData } from "@/types/type";
+import DegreWrapperSingle from "./DegreWrapperSingle";
 
 export default function SingleNode({
   id,
@@ -13,7 +13,7 @@ export default function SingleNode({
   type: string;
 }) {
   return (
-    <>
+    <DegreWrapperSingle>
       <Handle type="target" position={Position.Top} isConnectable={false} />
       <Micro data={data.members[0]} isGroup={false} />
       <Handle
@@ -22,6 +22,6 @@ export default function SingleNode({
         id="b"
         isConnectable={false}
       />
-    </>
+    </DegreWrapperSingle>
   );
 }

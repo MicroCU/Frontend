@@ -35,8 +35,6 @@ export function getDagreLayouted(
             y: nodeWithPosition.y - nodeHeight / 2
         };
 
-        // TODO: Adjust position
-
         return node;
     });
 

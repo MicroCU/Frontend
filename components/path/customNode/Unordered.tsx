@@ -1,8 +1,8 @@
 import { Handle, Position } from "reactflow";
 import { IGroupData } from "@/types/type";
 import Group from "@/components/Group";
-import { getGroupData } from "@/app/path/[id]/algorithm";
 import { GroupTypeEnum } from "@/types/enum";
+import DegreWrapperGroup from "./DegreWrapperGroup";
 
 export default function UnorderedGroup({
   id,
@@ -14,7 +14,10 @@ export default function UnorderedGroup({
   type: string;
 }) {
   return (
-    <div className="nodrag nowheel">
+    <DegreWrapperGroup
+      groupType={GroupTypeEnum.Unordered}
+      memberLength={data.members.length}
+    >
       <Handle type="target" position={Position.Top} isConnectable={false} />
       <Group
         micros={data.members}
@@ -28,6 +31,6 @@ export default function UnorderedGroup({
         id="b"
         isConnectable={false}
       />
-    </div>
+    </DegreWrapperGroup>
   );
 }
