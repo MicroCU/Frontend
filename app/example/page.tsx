@@ -30,116 +30,183 @@ import JourneyModalItems, {
 } from "@/components/JourneyModalItems";
 import CheckListIcon from "@/components/CheckListIcon";
 import { GroupTypeEnum, MicroTypeEnum } from "@/types/enum";
+import { IMicroData } from "@/types/type";
+import OverflowTooltip from "@/components/OverflowTooltip";
 
 export default function TontanComponent() {
   return (
     <>
+      <div className="bg-white flex flex-row gap-4 p-4">
+        <NavToolTip mainText="Hover Journey" subText="Journey" />
+        <NavToolTip mainText="Hover Recently" subText="Recently" />
+        <NavToolTip mainText="Hover Search" subText="Search" />
+      </div>
       <div className=" bg-black flex flex-row gap-4 pl-4">
         <div className="flex flex-col gap-4">
           <p className="text-white"> Not start </p>
           <Micro
-            id="1"
-            title="Video"
-            progress={0}
-            type={MicroTypeEnum.VIDEO}
+            data={
+              {
+                id: "1",
+                name: "video",
+                progress: 0,
+                type: MicroTypeEnum.VIDEO
+              } as IMicroData
+            }
             isGroup={false}
           />
           <Micro
-            id="1"
-            title="video G"
-            progress={0}
-            type={MicroTypeEnum.VIDEO}
+            data={
+              {
+                id: "1",
+                name: "practice",
+                progress: 0,
+                type: MicroTypeEnum.PRACTICE
+              } as IMicroData
+            }
             isGroup={true}
           />
           <Micro
-            id="1"
-            title="practice"
-            progress={0}
-            type={MicroTypeEnum.PRACTICE}
+            data={
+              {
+                id: "1",
+                name: "test",
+                progress: 0,
+                type: MicroTypeEnum.TEST
+              } as IMicroData
+            }
+            isGroup={true}
           />
-          <Micro id="1" title="test" progress={0} type={MicroTypeEnum.TEST} />
+          <Micro
+            data={
+              {
+                id: "1",
+                name: "test",
+                progress: 0,
+                type: MicroTypeEnum.TEST
+              } as IMicroData
+            }
+          />
         </div>
         <div className="flex flex-col gap-4">
           <p className="text-white"> In progress </p>
           <Micro
-            id="1"
-            title="video30"
-            progress={30}
-            type={MicroTypeEnum.VIDEO}
+            data={
+              {
+                id: "1",
+                name: "video30",
+                progress: 30,
+                type: MicroTypeEnum.VIDEO
+              } as IMicroData
+            }
           />
           <Micro
-            id="1"
-            title="video40"
-            progress={40}
-            type={MicroTypeEnum.VIDEO}
+            data={
+              {
+                id: "1",
+                name: "video40",
+                progress: 40,
+                type: MicroTypeEnum.VIDEO
+              } as IMicroData
+            }
           />
           <Micro
-            id="1"
-            title="video50"
-            progress={50}
-            type={MicroTypeEnum.VIDEO}
+            data={
+              {
+                id: "1",
+                name: "video50",
+                progress: 50,
+                type: MicroTypeEnum.VIDEO
+              } as IMicroData
+            }
           />
           <Micro
-            id="1"
-            title="video80"
-            progress={80}
-            type={MicroTypeEnum.VIDEO}
+            data={
+              {
+                id: "1",
+                name: "video80",
+                progress: 80,
+                type: MicroTypeEnum.VIDEO
+              } as IMicroData
+            }
           />
           <Micro
-            id="1"
-            title="practice"
-            progress={50}
-            type={MicroTypeEnum.PRACTICE}
+            data={
+              {
+                id: "1",
+                name: "practice",
+                progress: 50,
+                type: MicroTypeEnum.PRACTICE
+              } as IMicroData
+            }
           />
           <Micro
-            id="1"
-            title="testlongggggggggggggg"
-            progress={50}
-            type={MicroTypeEnum.TEST}
+            data={
+              {
+                id: "1",
+                name: "testlongggggggggggggggggg",
+                progress: 50,
+                type: MicroTypeEnum.TEST
+              } as IMicroData
+            }
           />
         </div>
         <div className="flex flex-col gap-4">
           <p className="text-white"> Completed </p>
           <Micro
-            id="1"
-            title="video"
-            progress={100}
-            type={MicroTypeEnum.VIDEO}
+            data={
+              {
+                id: "1",
+                name: "video",
+                progress: 100,
+                type: MicroTypeEnum.VIDEO
+              } as IMicroData
+            }
           />
           <Micro
-            id="1"
-            title="practice"
-            progress={100}
-            type={MicroTypeEnum.PRACTICE}
+            data={
+              {
+                id: "1",
+                name: "practice",
+                progress: 100,
+                type: MicroTypeEnum.PRACTICE
+              } as IMicroData
+            }
           />
-          <Micro id="1" title="test" progress={100} type={MicroTypeEnum.TEST} />
+          <Micro
+            data={
+              {
+                id: "1",
+                name: "test",
+                progress: 100,
+                type: MicroTypeEnum.TEST
+              } as IMicroData
+            }
+          />
         </div>
       </div>
-      <div className="bg-grayMain flex flex-row gap-4 pl-4">
+      <div className="bg-grayLight flex flex-row gap-4 pl-4">
         <Group
           id="G1"
           title="Basic Libraryyyy11112222212333455555577"
           micros={[
             {
               id: "1",
-              title: "video 11",
+              name: "video11",
               progress: 50,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "2",
-              title: "video22",
+              name: "video22",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "3",
-              title: "practice",
+              name: "practice",
               progress: 70,
-              type: MicroTypeEnum.PRACTICE,
-              isGroup: true
+              type: MicroTypeEnum.PRACTICE
             }
           ]}
           type={GroupTypeEnum.Ordered}
@@ -150,38 +217,33 @@ export default function TontanComponent() {
           micros={[
             {
               id: "1",
-              title: "video 1111111",
+              name: "video 1111111",
               progress: 50,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "2",
-              title: "video222222222222222222222222222",
+              name: "video222222222222222222222222222",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "3",
-              title: "practice",
+              name: "practice",
               progress: 70,
-              type: MicroTypeEnum.PRACTICE,
-              isGroup: true
+              type: MicroTypeEnum.PRACTICE
             },
             {
               id: "4",
-              title: "practice 1",
+              name: "practice 1",
               progress: 80,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "5",
-              title: "practice 2",
+              name: "practice 2",
               progress: 80,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             }
           ]}
           type={GroupTypeEnum.Ordered}
@@ -192,161 +254,141 @@ export default function TontanComponent() {
           micros={[
             {
               id: "1",
-              title: "video 1111111",
+              name: "video 1111111",
               progress: 50,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "2",
-              title: "video22222222223114",
+              name: "video22222222223114",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "3",
-              title: "practice",
+              name: "practice",
               progress: 70,
-              type: MicroTypeEnum.PRACTICE,
-              isGroup: true
+              type: MicroTypeEnum.PRACTICE
             }
           ]}
           type={GroupTypeEnum.Ordered}
         />
       </div>
-      <div className="bg-grayMain flex flex-column gap-4 pl-4">
+      <div className="bg-grayLight flex flex-column gap-4 pl-4">
         <Group
           id="G4"
           title="Basic Library"
           micros={[
             {
               id: "1",
-              title: "video 11111111",
+              name: "video 11111111",
               progress: 50,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "2",
-              title: "video222222222",
+              name: "video222222222",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "3",
-              title: "practice",
+              name: "practice",
               progress: 100,
-              type: MicroTypeEnum.PRACTICE,
-              isGroup: true
+              type: MicroTypeEnum.PRACTICE
             }
           ]}
           type={GroupTypeEnum.Unordered}
         />
       </div>
-      <div className="bg-grayMain flex flex-column gap-4 pl-4">
+      <div className="bg-grayLight flex flex-column gap-4 pl-4">
         <Group
           id="G5"
           title="Basic LibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyy"
           micros={[
             {
               id: "1",
-              title: "video 11111111",
+              name: "video 11111111",
               progress: 50,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "2",
-              title: "video222222222222222222222222",
+              name: "video222222222222222222222222",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "3",
-              title: "practice",
+              name: "practice",
               progress: 100,
-              type: MicroTypeEnum.PRACTICE,
-              isGroup: true
+              type: MicroTypeEnum.PRACTICE
             }
           ]}
           type={GroupTypeEnum.Unordered}
         />
       </div>
-      <div className="bg-grayMain flex flex-column gap-4 pl-4">
+      <div className="bg-grayLight flex flex-column gap-4 pl-4">
         <Group
           id="G6"
           title="Basic LibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyyLibraryyyyyyyyyyyyyy"
           micros={[
             {
               id: "1",
-              title: "video11111111111111111111111111111111",
+              name: "video11111111111111111111111111111111",
               progress: 50,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "2",
-              title: "video222222222222222222222222",
+              name: "video222222222222222222222222",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "3",
-              title: "practice33333333333333333333333",
+              name: "practice33333333333333333333333",
               progress: 100,
-              type: MicroTypeEnum.PRACTICE,
-              isGroup: true
+              type: MicroTypeEnum.PRACTICE
             }
           ]}
           type={GroupTypeEnum.Unordered}
         />
       </div>
-      <div className="bg-grayMain flex flex-column gap-4 pl-4">
+      <div className="bg-grayLight flex flex-column gap-4 pl-4">
         <Group
           id="G7"
           title="Basic Library (LONG)"
           micros={[
             {
               id: "1",
-              title: "video11111111111111111111111111111111",
+              name: "video11111111111111111111111111111111",
               progress: 50,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "2",
-              title: "video222222222222222222222222",
+              name: "video222222222222222222222222",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "3",
-              title: "practice33333333333333333333333",
+              name: "practice33333333333333333333333",
               progress: 100,
-              type: MicroTypeEnum.PRACTICE,
-
-              isGroup: true
+              type: MicroTypeEnum.PRACTICE
             },
             {
               id: "4",
-              title: "video",
+              name: "video",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             },
             {
               id: "5",
-              title: "video 1234",
+              name: "video 1234",
               progress: 100,
-              type: MicroTypeEnum.VIDEO,
-
-              isGroup: true
+              type: MicroTypeEnum.VIDEO
             }
           ]}
           type={GroupTypeEnum.Unordered}
@@ -457,11 +499,6 @@ export default function TontanComponent() {
           title="Software Architecture"
           imageURL="https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg"
         />
-      </div>
-      <div className="bg-white flex flex-row gap-4 p-4">
-        <NavToolTip mainText="Hover Journey" subText="Journey" />
-        <NavToolTip mainText="Hover Recently" subText="Recently" />
-        <NavToolTip mainText="Hover Search" subText="Search" />
       </div>
       <div className="bg-progressLight flex flex-row gap-4 p-4">
         <TabIcon type={TabIconTypeEnum.library} mode={TabIconModeEnum.FILLED} />

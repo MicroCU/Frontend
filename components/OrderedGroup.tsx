@@ -1,7 +1,11 @@
+"use client";
 import { GroupTypeEnum } from "@/types/enum";
 import GroupScrollArea from "./GroupScrollArea";
 import Micro from "./Micro";
 import { IMicroData } from "@/types/type";
+import OverflowTooltip from "./OverflowTooltip";
+import { useRef } from "react";
+import { useOverflowDetection } from "@/hooks/Overflow";
 
 export interface IOrderedGroupProps {
   id: string;
@@ -18,16 +22,28 @@ export default function OrderedGroup({
   maxMicroComponentWidth,
   isScrollable
 }: IOrderedGroupProps) {
+  const containerOverflowRef = useRef<HTMLDivElement>(null);
+  const isOverflow = useOverflowDetection(
+    containerOverflowRef,
+    title,
+    maxMicroComponentWidth
+  );
+
   return (
     <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
-      <div
-        className="pl-4 pr-4 w-fit"
-        style={{ maxWidth: maxMicroComponentWidth }}
-      >
-        <p className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis">
-          {title}
-        </p>
-      </div>
+      <OverflowTooltip text={title} isOverflowing={isOverflow}>
+        <div
+          className="pl-4 pr-4 w-fit"
+          style={{ maxWidth: maxMicroComponentWidth }}
+        >
+          <p
+            className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis"
+            ref={containerOverflowRef}
+          >
+            {title}
+          </p>
+        </div>
+      </OverflowTooltip>
       <GroupScrollArea
         type={GroupTypeEnum.Ordered}
         microLength={micros.length}
