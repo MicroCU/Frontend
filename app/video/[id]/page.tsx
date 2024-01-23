@@ -11,7 +11,7 @@ interface VideoPageProps {
   };
 }
 
-interface VideoState {
+export interface VideoState {
   playing: boolean;
   muted: boolean;
   volume: number;
@@ -219,22 +219,17 @@ const VideoPage = ({ params }: VideoPageProps) => {
         <VideoControlLayer
           controlRef={controlRef}
           onPlayPause={playPauseHandler}
-          playing={playing}
-          played={played}
           onSeek={seekHandler}
           onSeekMouseUp={seekMouseUpHandler}
           onVolumeChangeHandler={volumeChangeHandler}
           onVolumeSeekUp={volumeSeekUpHandler}
-          muted={muted}
           onMute={muteHandler}
-          volume={volume}
           duration={formatDuration}
           currentTime={formatCurrentTime}
           fullscreenHandler={handleFullScreenToggle}
           isFullScreen={isFullScreen}
-          speed={speed}
           speedHandler={speedHandler}
-          buffer={buffer}
+          videoState={videoState}
         />
       </div>
     )

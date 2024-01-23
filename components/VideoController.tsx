@@ -15,44 +15,37 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from "./ui/dropdown-menu";
+import { VideoState } from "@/app/video/[id]/page";
 
 interface VideoControllerProps {
   onPlayPause: () => void;
-  playing: boolean;
-  played: number;
   onSeek: (value: number[]) => void;
   onSeekMouseUp: (value: number[]) => void;
   onVolumeChangeHandler: (value: number[]) => void;
   onVolumeSeekUp: (value: number[]) => void;
-  muted: boolean;
   onMute: () => void;
-  volume: number;
   duration: string;
   currentTime: string;
   fullscreenHandler: () => void;
   isFullScreen: boolean;
-  speed: number;
   speedHandler: (value: string) => void;
+  videoState: VideoState;
   className?: string;
 }
 
 const VideoController = ({
   onPlayPause,
-  playing,
-  played,
   onSeek,
   onSeekMouseUp,
   onVolumeChangeHandler,
   onVolumeSeekUp,
-  muted,
   onMute,
-  volume,
   duration,
   currentTime,
   fullscreenHandler,
   isFullScreen,
-  speed,
   speedHandler,
+  videoState: { playing, played, muted, volume, speed },
   className
 }: VideoControllerProps) => {
   return (
