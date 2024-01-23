@@ -7,6 +7,7 @@ import {
   onBoardNoGoalQuestion
 } from "@/constants/onboard";
 import { OnBoardMode } from "@/types/enum";
+
 import { useState } from "react";
 
 const OnBoardPage = () => {

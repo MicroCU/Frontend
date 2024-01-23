@@ -23,3 +23,8 @@ export interface IGroupData {
 export interface IMockDirectedGraphData {
   groups: IGroupData[];
 }
+
+export type User = {
+  id: string;
+  name: string;
+};
