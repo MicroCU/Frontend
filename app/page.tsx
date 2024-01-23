@@ -23,8 +23,10 @@ const mockTags: TagProps[] = [
 ];
 
 const GraphPage = () => {
-  const { data } = useSession();
+  const sess = useSession();
 
+  if (sess.status === "unauthenticated")
+    window.location.href = "http://localhost:3000/auth";
   return (
     <div className="flex min-h-screen bg-grayLight">
       <NavBar />
@@ -36,7 +38,7 @@ const GraphPage = () => {
         >
           auth
         </Button>
-        <div>My name is {data?.user.name}</div>
+        <div>My name is {sess.data?.user.name}</div>
         <SelectedPathModal title="Python" description={descp} tags={mockTags} />
       </div>
     </div>
