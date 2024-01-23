@@ -30,11 +30,15 @@ import JourneyModalItems, {
 } from "@/components/JourneyModalItems";
 import CheckListIcon from "@/components/CheckListIcon";
 import { GroupTypeEnum, MicroTypeEnum } from "@/types/enum";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function TontanComponent() {
   return (
     <>
-      <div className=" bg-black flex flex-row gap-4 pl-4">
+      <div className="bg-grayLight flex flex-row gap-4 pl-4">
+        <LanguageSwitcher />
+      </div>
+      <div className="bg-black flex flex-row gap-4 pl-4">
         <div className="flex flex-col gap-4">
           <p className="text-white"> Not start </p>
           <Micro

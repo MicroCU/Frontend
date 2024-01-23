@@ -1,5 +1,6 @@
 "use client";
 
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import OnBoardModal from "@/components/OnBoardModal";
 import {
   Answer,
@@ -40,7 +41,8 @@ const OnBoardContent = ({
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-primary to-danger">
       <h1 className="absolute top-0 left-0 bg-white">
-        {JSON.stringify(answer)}
+        {/* {JSON.stringify(answer)} */}
+        <LanguageSwitcher />
       </h1>
       {page === 0 && (
         <OnBoardModal

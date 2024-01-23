@@ -1,6 +1,6 @@
 import { getDictionary } from "@/get-dictionary";
-import { Locale } from "@/i18n-config";
 import OnBoardContent from "./onboard";
+import { Locale } from "@/i18n-config";
 
 export default async function IndexPage({
   params: { lang }

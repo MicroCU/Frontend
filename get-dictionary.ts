@@ -8,9 +8,11 @@ const dictionaries = {
 
 export const getDictionary = async (locale: Locale) => {
   switch (locale) {
-    case "en-US":
+    case "en":
       return await dictionaries.enUS();
-    case "th-TH":
+    case "th":
       return await dictionaries.thTH();
+    default:
+      return await dictionaries.enUS();
   }
 }
