@@ -36,7 +36,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
     played: 0,
     seeking: false,
     buffer: true,
-    speed: 1,
+    speed: 1
   });
 
   const { playing, muted, volume, played, seeking, buffer, speed } = videoState;
@@ -84,7 +84,6 @@ const VideoPage = ({ params }: VideoPageProps) => {
 
   const progressHandler = (state: OnProgressProps) => {
     if (controlRef.current) {
-      console.log(count);
       if (count > 2) {
         controlRef.current.style.visibility = "hidden";
       } else if (controlRef.current.style.visibility === "visible") {
@@ -137,7 +136,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
 
   const speedHandler = (value: string) => {
     setVideoState({ ...videoState, speed: Number(value) });
-  }
+  };
 
   const handleFullScreenToggle = () => {
     if (document.fullscreenElement) {
@@ -155,7 +154,15 @@ const VideoPage = ({ params }: VideoPageProps) => {
     if (controlRef.current) {
       controlRef.current.style.visibility = "visible";
     }
-  }
+  };
+
+  const bufferStartHandler = () => {
+    setVideoState({ ...videoState, buffer: true });
+  };
+
+  const bufferEndHandler = () => {
+    setVideoState({ ...videoState, buffer: false });
+  };
 
   const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === " " || event.key === "Spacebar") {
@@ -195,7 +202,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
         <ReactPlayer
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
-          url="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+          url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
           // url="https://www.youtube.com/watch?v=X-pAMO2TSyo"
           width="100%"
           height="100%"
@@ -206,6 +213,8 @@ const VideoPage = ({ params }: VideoPageProps) => {
           onProgress={progressHandler}
           playbackRate={speed}
           onEnded={endingHandler}
+          onBuffer={bufferStartHandler}
+          onBufferEnd={bufferEndHandler}
         />
         <VideoControlLayer
           controlRef={controlRef}
@@ -225,6 +234,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
           isFullScreen={isFullScreen}
           speed={speed}
           speedHandler={speedHandler}
+          buffer={buffer}
         />
       </div>
     )

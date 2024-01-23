@@ -1,6 +1,7 @@
 import VideoNav from "./VideoNav";
 import { MutableRefObject } from "react";
 import VideoController from "./VideoController";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface VideoControlLayerProps {
   onPlayPause: () => void;
@@ -20,6 +21,7 @@ interface VideoControlLayerProps {
   isFullScreen: boolean;
   speed: number;
   speedHandler: (value: string) => void;
+  buffer: boolean;
 }
 
 const VideoControlLayer = ({
@@ -39,7 +41,8 @@ const VideoControlLayer = ({
   fullscreenHandler,
   isFullScreen,
   speed,
-  speedHandler
+  speedHandler,
+  buffer
 }: VideoControlLayerProps) => {
   return (
     <div
@@ -47,9 +50,15 @@ const VideoControlLayer = ({
       style={{ visibility: "visible" }}
       className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full"
     >
-      <VideoNav videoName={"Example"} />
-      <div className="h-full" onClick={onPlayPause}></div>
+      <VideoNav videoName={"Example"} className="bg-gradient-to-b from-black" />
+      <div
+        className="h-full flex justify-center items-center"
+        onClick={onPlayPause}
+      >
+        {buffer && playing && <LoadingSpinner />}
+      </div>
       <VideoController
+        className="bg-gradient-to-t from-black"
         onPlayPause={onPlayPause}
         playing={playing}
         played={played}

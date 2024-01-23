@@ -33,6 +33,7 @@ interface VideoControllerProps {
   isFullScreen: boolean;
   speed: number;
   speedHandler: (value: string) => void;
+  className?: string;
 }
 
 const VideoController = ({
@@ -51,10 +52,11 @@ const VideoController = ({
   fullscreenHandler,
   isFullScreen,
   speed,
-  speedHandler
+  speedHandler,
+  className
 }: VideoControllerProps) => {
   return (
-    <div className="px-4">
+    <div className={`px-4 ${className}`}>
       <Slider
         className="cursor-pointer"
         variant="video"
@@ -70,7 +72,6 @@ const VideoController = ({
           <div className="cursor-pointer" onClick={onPlayPause}>
             {playing ? <Pause color="white" /> : <Play color="white" />}
           </div>
-          <SkipForward color="white" />
           <div className="cursor-pointer" onClick={onMute}>
             {muted ? <VolumeX color="white" /> : <Volume2 color="white" />}
           </div>
@@ -84,7 +85,7 @@ const VideoController = ({
             onValueChange={onVolumeChangeHandler}
             onValueCommit={onVolumeSeekUp}
           />
-          <p className="text-white Medium16">
+          <p className="text-white Medium16 cursor-default">
             {currentTime} / {duration}
           </p>
         </div>
