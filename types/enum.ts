@@ -4,13 +4,7 @@ export const enum Page {
   Search = "search"
 }
 
-export enum GroupTypeEnum {
-  Single = "Single",
-  Ordered = "Ordered",
-  Unordered = "Unordered"
-}
-
-export enum MicroTypeEnum {
+export enum MicroType {
   VIDEO = "VIDEO",
   PRACTICE = "PRACTICE",
   TEST = "TEST"
