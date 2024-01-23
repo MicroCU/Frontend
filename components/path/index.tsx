@@ -7,10 +7,11 @@ import {
   calculateForce,
   centerForce,
   edgeForce,
-  fixCrossEdge,
+  fixCrossEdgeBackTrack,
   repulsionForcePrimary
 } from "@/app/path/[id]/force";
 import { GroupTypeEnum } from "@/types/enum";
+import { useState } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -38,8 +39,9 @@ export default function DirectedGraph({
   initialNodes: CustomDataNode[];
   initialEdges: CustomDataEdge[];
 }) {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [level, setLevel] = useState(0);
 
   const applyForce = (...f: ForceFunction[]) => {
     calculateForce(nodes as CustomDataNode[], edges as CustomDataEdge[], f);
@@ -115,7 +117,10 @@ export default function DirectedGraph({
         </Button>
         <Button
           onClick={() => {
-            fixCrossEdge(nodes as CustomDataNode[], edges as CustomDataEdge[]);
+            fixCrossEdgeBackTrack(
+              nodes as CustomDataNode[],
+              edges as CustomDataEdge[]
+            );
             setNodes([...nodes]);
           }}
         >
@@ -124,61 +129,81 @@ export default function DirectedGraph({
         <Button
           onClick={() => {
             let level = 0;
+            const focusNode: CustomDataNode[] = [];
+            const focusEdge: CustomDataEdge[] = [];
+            while (focusNode.length !== nodes.length) {
+              focusNode.push(
+                ...(nodes as CustomDataNode[]).filter(
+                  (node) => node.data.level === level
+                  // (node) => node.data.level <= level
+                )
+              );
+              focusEdge.push(
+                ...edges.filter((edge) => {
+                  return (
+                    focusNode.map((node) => node.id).includes(edge.source) &&
+                    focusNode.map((node) => node.id).includes(edge.target)
+                  );
+                })
+              );
 
-            while (nodes.length < 2) {
-            // while (nodes.length !== initialNodes.length) {
               let isCross = true;
               while (isCross) {
-                nodes.push(
-                  ...initialNodes.filter((node) => node.data.level === level)
-                );
-                edges.push(
-                  ...initialEdges.filter((edge) => {
-                    return (
-                      nodes.map((node) => node.id).includes(edge.source) &&
-                      nodes.map((node) => node.id).includes(edge.target)
-                    );
-                  })
-                );
-
                 let minVelocity = 100;
                 let minCount = 0;
-                while (minCount < 5) {
+                while (minCount < 10) {
                   const { force, velocity } = calculateForce(
-                    nodes as CustomDataNode[],
-                    edges as CustomDataEdge[],
+                    focusNode as CustomDataNode[],
+                    focusEdge as CustomDataEdge[],
                     [attractionForce, repulsionForcePrimary, centerForce]
                   );
+                  minVelocity <= velocity ? minCount++ : (minCount = 0);
                   minVelocity = Math.min(minVelocity, velocity);
-                  minVelocity === velocity ? (minCount = 0) : minCount++;
-                  minVelocity < 1 && (minCount = 5);
+                  if (minVelocity <= 1) break;
                 }
 
-                while (minVelocity > 5) {
+                minVelocity = 100;
+                minCount = 0;
+                while (minCount < 10) {
                   const { force, velocity } = calculateForce(
-                    nodes as CustomDataNode[],
-                    edges as CustomDataEdge[],
+                    focusNode as CustomDataNode[],
+                    focusEdge as CustomDataEdge[],
                     [edgeForce]
                   );
+                  minVelocity <= velocity ? minCount++ : (minCount = 0);
                   minVelocity = Math.min(minVelocity, velocity);
-                  minVelocity === velocity ? (minCount = 0) : minCount++;
-                  minVelocity < 1 && (minCount = 5);
+                  if (minVelocity <= 1) break;
                 }
 
                 isCross = false;
                 while (
-                  fixCrossEdge(
-                    nodes as CustomDataNode[],
-                    edges as CustomDataEdge[]
+                  fixCrossEdgeBackTrack(
+                    focusNode as CustomDataNode[],
+                    focusEdge as CustomDataEdge[]
                   )
                 ) {
                   isCross = true;
                 }
               }
               level++;
-              setNodes([...nodes]);
-              setEdges([...edges]);
             }
+            let minVelocity = 100;
+            let minCount = 0;
+            while (minCount < 10) {
+              const { force, velocity } = calculateForce(
+                nodes as CustomDataNode[],
+                edges as CustomDataEdge[],
+                [attractionForce, repulsionForcePrimary, centerForce]
+              );
+              minVelocity <= velocity ? minCount++ : (minCount = 0);
+              minVelocity = Math.min(minVelocity, velocity);
+              if (minVelocity <= 1) break;
+              console.log(minVelocity, minCount);
+            }
+
+            // setLevel((l) => l + 1);
+            setNodes([...nodes]);
+            console.log(focusNode, focusEdge, level);
           }}
         >
           Auto

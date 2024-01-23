@@ -1,4 +1,8 @@
-import { CustomDataEdge, CustomDataNode, hasCrossEdge as numCrossEdge } from "./api";
+import {
+  CustomDataEdge,
+  CustomDataNode,
+  hasCrossEdge as numCrossEdge
+} from "./api";
 
 export type ForceFunction =
   | ((nodes: CustomDataNode[]) => void)
@@ -56,7 +60,6 @@ export function calculateForce(
   //   "velocity mag": velocityMagnitudes,
   //   "velocity avg": velocityMagnitudes / nodes.length
   // });
-
   return {
     force: forceMagnitudes / nodes.length,
     velocity: velocityMagnitudes / nodes.length
@@ -107,8 +110,10 @@ export function fixCrossEdge(nodes: CustomDataNode[], edges: CustomDataEdge[]) {
       const targetA = nodes.find((node) => node.id === edgeA.target);
       const targetB = nodes.find((node) => node.id === edgeB.target);
 
-      const tempX = targetA!.position.x + targetA!.width! / 2 - targetB!.width! / 2;
-      const tempY = targetA!.position.y + targetA!.height! / 2 - targetB!.height! / 2;
+      const tempX =
+        targetA!.position.x + targetA!.width! / 2 - targetB!.width! / 2;
+      const tempY =
+        targetA!.position.y + targetA!.height! / 2 - targetB!.height! / 2;
       targetA!.position.x =
         targetB!.position.x + targetB!.width! / 2 - targetA!.width! / 2;
       targetA!.position.y =
@@ -120,8 +125,10 @@ export function fixCrossEdge(nodes: CustomDataNode[], edges: CustomDataEdge[]) {
       if (nCross.length < cross.length) {
         return true;
       } else {
-        const tempX = targetA!.position.x + targetA!.width! / 2 - targetB!.width! / 2;
-        const tempY = targetA!.position.y + targetA!.height! / 2 - targetB!.height! / 2;
+        const tempX =
+          targetA!.position.x + targetA!.width! / 2 - targetB!.width! / 2;
+        const tempY =
+          targetA!.position.y + targetA!.height! / 2 - targetB!.height! / 2;
         targetA!.position.x =
           targetB!.position.x + targetB!.width! / 2 - targetA!.width! / 2;
         targetA!.position.y =
@@ -139,8 +146,10 @@ export function fixCrossEdge(nodes: CustomDataNode[], edges: CustomDataEdge[]) {
       const sourceA = nodes.find((node) => node.id === edgeA.source);
       const sourceB = nodes.find((node) => node.id === edgeB.source);
 
-      const tempX = sourceA!.position.x + sourceA!.width! / 2 - sourceB!.width! / 2;
-      const tempY = sourceA!.position.y + sourceA!.height! / 2 - sourceB!.height! / 2;
+      const tempX =
+        sourceA!.position.x + sourceA!.width! / 2 - sourceB!.width! / 2;
+      const tempY =
+        sourceA!.position.y + sourceA!.height! / 2 - sourceB!.height! / 2;
       sourceA!.position.x =
         sourceB!.position.x + sourceB!.width! / 2 - sourceA!.width! / 2;
       sourceA!.position.y =
@@ -153,8 +162,10 @@ export function fixCrossEdge(nodes: CustomDataNode[], edges: CustomDataEdge[]) {
       if (nCross.length < cross.length) {
         return true;
       } else {
-        const tempX = sourceA!.position.x + sourceA!.width! / 2 - sourceB!.width! / 2;
-        const tempY = sourceA!.position.y + sourceA!.height! / 2 - sourceB!.height! / 2;
+        const tempX =
+          sourceA!.position.x + sourceA!.width! / 2 - sourceB!.width! / 2;
+        const tempY =
+          sourceA!.position.y + sourceA!.height! / 2 - sourceB!.height! / 2;
         sourceA!.position.x =
           sourceB!.position.x + sourceB!.width! / 2 - sourceA!.width! / 2;
         sourceA!.position.y =
@@ -164,83 +175,94 @@ export function fixCrossEdge(nodes: CustomDataNode[], edges: CustomDataEdge[]) {
       }
     }
   }
-
 
   return false;
 }
 
-export function fixCrossEdgeBackTrack(nodes: CustomDataNode[], edges: CustomDataEdge[]) {
+export function swapPosition(na: CustomDataNode, nb: CustomDataNode) {
+  const tempX = na!.position.x + na!.width! / 2 - nb!.width! / 2;
+  const tempY = na!.position.y + na!.height! / 2 - nb!.height! / 2;
+  na!.position.x = nb!.position.x + nb!.width! / 2 - na!.width! / 2;
+  na!.position.y = nb!.position.y + nb!.height! / 2 - na!.height! / 2;
+  nb!.position.x = tempX;
+  nb!.position.y = tempY;
+}
+
+export function fixCrossEdgeBackTrack(
+  nodes: CustomDataNode[],
+  edges: CustomDataEdge[]
+) {
   const cross = numCrossEdge(nodes, edges);
   if (cross.length === 0) return false;
 
-  const backTrack = []
+  const backTrack: {
+    nCross: CustomDataEdge[];
+    swap: { a: CustomDataNode; b: CustomDataNode }[];
+  }[] = [];
 
   for (let i = 0; i < cross.length; i = i + 2) {
     for (let j = 1; j < cross.length; j = j + 2) {
       const edgeA = cross[i];
       const edgeB = cross[j];
 
-      const targetA = nodes.find((node) => node.id === edgeA.target);
-      const targetB = nodes.find((node) => node.id === edgeB.target);
+      const ta = nodes.find((node) => node.id === edgeA.target)!;
+      const tb = nodes.find((node) => node.id === edgeB.target)!;
 
-      const tempX = targetA!.position.x + targetA!.width! / 2 - targetB!.width! / 2;
-      const tempY = targetA!.position.y + targetA!.height! / 2 - targetB!.height! / 2;
-      targetA!.position.x =
-        targetB!.position.x + targetB!.width! / 2 - targetA!.width! / 2;
-      targetA!.position.y =
-        targetB!.position.y + targetB!.height! / 2 - targetA!.height! / 2;
-      targetB!.position.x = tempX;
-      targetB!.position.y = tempY;
+      swapPosition(ta, tb);
+      backTrack.push({
+        nCross: numCrossEdge(nodes, edges),
+        swap: [{ a: ta, b: tb }]
+      });
+      swapPosition(ta, tb);
 
-      const nCross = numCrossEdge(nodes, edges);
-      if (nCross.length < cross.length) {
-        return true;
-      } else {
-        const tempX = targetA!.position.x + targetA!.width! / 2 - targetB!.width! / 2;
-        const tempY = targetA!.position.y + targetA!.height! / 2 - targetB!.height! / 2;
-        targetA!.position.x =
-          targetB!.position.x + targetB!.width! / 2 - targetA!.width! / 2;
-        targetA!.position.y =
-          targetB!.position.y + targetB!.height! / 2 - targetA!.height! / 2;
-        targetB!.position.x = tempX;
-        targetB!.position.y = tempY;
-      }
-    }
-  }
-  for (let i = 0; i < cross.length; i = i + 2) {
-    for (let j = 1; j < cross.length; j = j + 2) {
-      const edgeA = cross[i];
-      const edgeB = cross[j];
+      const sa = nodes.find((node) => node.id === edgeA.source)!;
+      const sb = nodes.find((node) => node.id === edgeB.source)!;
 
-      const sourceA = nodes.find((node) => node.id === edgeA.source);
-      const sourceB = nodes.find((node) => node.id === edgeB.source);
-
-      const tempX = sourceA!.position.x + sourceA!.width! / 2 - sourceB!.width! / 2;
-      const tempY = sourceA!.position.y + sourceA!.height! / 2 - sourceB!.height! / 2;
-      sourceA!.position.x =
-        sourceB!.position.x + sourceB!.width! / 2 - sourceA!.width! / 2;
-      sourceA!.position.y =
-        sourceB!.position.y + sourceB!.height! / 2 - sourceA!.height! / 2;
-      sourceB!.position.x = tempX;
-      sourceB!.position.y = tempY;
-
-      const nCross = numCrossEdge(nodes, edges);
-
-      if (nCross.length < cross.length) {
-        return true;
-      } else {
-        const tempX = sourceA!.position.x + sourceA!.width! / 2 - sourceB!.width! / 2;
-        const tempY = sourceA!.position.y + sourceA!.height! / 2 - sourceB!.height! / 2;
-        sourceA!.position.x =
-          sourceB!.position.x + sourceB!.width! / 2 - sourceA!.width! / 2;
-        sourceA!.position.y =
-          sourceB!.position.y + sourceB!.height! / 2 - sourceA!.height! / 2;
-        sourceB!.position.x = tempX;
-        sourceB!.position.y = tempY;
-      }
+      swapPosition(sa, sb);
+      backTrack.push({
+        nCross: numCrossEdge(nodes, edges),
+        swap: [{ a: sa, b: sb }]
+      });
+      swapPosition(sa, sb);
     }
   }
 
+
+  while (backTrack.length > 0) {
+    backTrack.sort((a, b) => a.nCross.length - b.nCross.length);
+    let { nCross, swap } = backTrack.shift()!;
+    swap.forEach(({ a, b }) => swapPosition(a, b));
+    if (nCross.length === 0) return true;
+    nCross = numCrossEdge(nodes, edges);
+
+    for (let i = 0; i < nCross.length; i = i + 2) {
+      for (let j = 1; j < nCross.length; j = j + 2) {
+        const edgeA = nCross[i];
+        const edgeB = nCross[j];
+
+        const ta = nodes.find((node) => node.id === edgeA.target)!;
+        const tb = nodes.find((node) => node.id === edgeB.target)!;
+
+        swapPosition(ta, tb);
+        backTrack.push({
+          nCross: numCrossEdge(nodes, edges),
+          swap: [...swap, { a: ta, b: tb }]
+        });
+        swapPosition(ta, tb);
+
+        const sa = nodes.find((node) => node.id === edgeA.source)!;
+        const sb = nodes.find((node) => node.id === edgeB.source)!;
+
+        swapPosition(sa, sb);
+        backTrack.push({
+          nCross: numCrossEdge(nodes, edges),
+          swap: [...swap, { a: sa, b: sb }]
+        });
+        swapPosition(sa, sb);
+      }
+    }
+    swap.forEach(({ a, b }) => swapPosition(a, b));
+  }
 
   return false;
 }
