@@ -2,9 +2,15 @@ import "server-only";
 import type { Locale } from "./i18n-config";
 
 const dictionaries = {
-  en: () => import("./dictionaries/en.json").then((module) => module.default),
-  th: () => import("./dictionaries/th.json").then((module) => module.default),
+  enUS: () => import("./dictionaries/en-US.json").then((module) => module.default),
+  thTH: () => import("./dictionaries/th-TH.json").then((module) => module.default),
 };
 
-export const getDictionary = async (locale: Locale) =>
-  dictionaries[locale]?.() ?? dictionaries.en();
+export const getDictionary = async (locale: Locale) => {
+  switch (locale) {
+    case "en-US":
+      return await dictionaries.enUS();
+    case "th-TH":
+      return await dictionaries.thTH();
+  }
+}

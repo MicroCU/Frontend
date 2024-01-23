@@ -4,7 +4,7 @@ import { useState } from "react";
 import { type getDictionary } from "../../../get-dictionary";
 
 export default function Counter({
-  dictionary,
+  dictionary
 }: {
   dictionary: Awaited<ReturnType<typeof getDictionary>>["counter"];
 }) {

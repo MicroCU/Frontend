@@ -7,12 +7,14 @@ import Checkbox from "./CheckBox";
 import { Answer } from "@/constants/onboard";
 import { useEffect } from "react";
 import { OnBoardMode } from "@/types/enum";
+import { getDictionary } from "@/get-dictionary";
 
 type OnBoardModalProps =
   | {
       variant: "welcome";
       addAnswer: (title: string, answer: string) => void;
       onClick: () => void;
+      dictionary: Awaited<ReturnType<typeof getDictionary>>["onboard"];
     }
   | {
       variant: "finish";
@@ -47,25 +49,31 @@ const OnBoardModal = (props: OnBoardModalProps) => {
   const ModalBody = () => {
     switch (props.variant) {
       case "welcome":
+        const dictionary = props.dictionary;
         return (
           <>
             <div>
-              <h1 className="text-grayMedium Bold24">Welcome,</h1>
+              <h1 className="text-grayMedium Bold24">
+                {dictionary["welcome"]},
+              </h1>
               <h1 className="text-grayMain Bold32">
-                Are there any courses you&apos;d like to take?
+                {dictionary["introduction"]["question"]}
               </h1>
             </div>
             <div className="space-y-6">
               <OnBoardBtn
-                text="Sure! can’t wait anymore"
+                text={dictionary["introduction"]["haveGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.GOAL);
                   props.onClick();
                 }}
               />
-              <h1 className="text-grayMedium Bold24 text-center">Or</h1>
+              <h1 className="text-grayMedium Bold24 text-center">
+                {" "}
+                {dictionary["introduction"]["optionWord"]}{" "}
+              </h1>
               <OnBoardBtn
-                text="Nah, I don’t have anything in my mind."
+                text={dictionary["introduction"]["noGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.NOGOAL);
                   props.onClick();

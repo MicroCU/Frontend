@@ -1,0 +1,18 @@
+{
+  "server-component": {
+    "welcome": "ยินดีต้อนรับ"
+  },
+  "counter": {
+    "increment": "เพิ่มขึ้น",
+    "decrement": "ลดลง"
+  },
+  "onboard": {
+    "welcome": "ยินดีต้อนรับ",
+    "introduction": {
+      "question": "คุณมีคอร์สที่อยากเรียนในใจหรือไม่ ?",
+      "optionWord": "หรือ",
+      "haveGoal": "มีแน่นอน! รอไม่ไหวแล้ว",
+      "noGoal": "อืม.. ยังไม่มีเลย"
+    }
+  }
+}

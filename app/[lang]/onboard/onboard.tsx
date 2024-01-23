@@ -6,10 +6,15 @@ import {
   onBoardGoalQuestion,
   onBoardNoGoalQuestion
 } from "@/constants/onboard";
+import { getDictionary } from "@/get-dictionary";
 import { OnBoardMode } from "@/types/enum";
 import { useState } from "react";
 
-const OnBoardPage = () => {
+const OnBoardContent = ({
+  dictionary
+}: {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>["onboard"];
+}) => {
   // TODO: use ContextProvider for sharing state (page, answer)
   // TODO: extract logic to custom hook
 
@@ -42,6 +47,7 @@ const OnBoardPage = () => {
           variant="welcome"
           onClick={nextPage}
           addAnswer={AddAnswer}
+          dictionary={dictionary}
         />
       )}
       {question.map((q, index) => {
@@ -77,4 +83,4 @@ const OnBoardPage = () => {
   );
 };
 
-export default OnBoardPage;
+export default OnBoardContent;

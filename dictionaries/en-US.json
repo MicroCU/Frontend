@@ -1,0 +1,18 @@
+{
+  "server-component": {
+    "welcome": "Welcome"
+  },
+  "counter": {
+    "increment": "Increment",
+    "decrement": "Decrement"
+  },
+  "onboard": {
+    "welcome": "Welcome",
+    "introduction": {
+      "question": "Are there any courses you'd like to take?",
+      "optionWord": "or",
+      "haveGoal": "Sure! can't wait anymore",
+      "noGoal": "Nah, I don't have anything in my mind."
+    }
+  }
+}
