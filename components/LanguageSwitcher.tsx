@@ -3,8 +3,10 @@ import { Locale, i18n } from "@/i18n-config";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
+import { useSetDarkModeContext } from "@/context/Language";
 
 export default function LanguageSwitcher() {
+  const setLangMode = useSetDarkModeContext();
   const pathName = usePathname();
   const redirectedPathName = (locale: Locale) => {
     if (!pathName) return "/";
@@ -25,6 +27,9 @@ export default function LanguageSwitcher() {
                   ? "text-primary"
                   : "text-black"
               } px-2`}
+              onClick={() => {
+                setLangMode(localeName);
+              }}
             >
               {getSettingLanguageName(localeName)}
             </Link>

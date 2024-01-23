@@ -7,8 +7,10 @@ import {
   onBoardGoalQuestion,
   onBoardNoGoalQuestion
 } from "@/constants/onboard";
+import { useLangModeContext } from "@/context/Language";
 import { getDictionary } from "@/get-dictionary";
 import { OnBoardMode } from "@/types/enum";
+import Link from "next/link";
 import { useState } from "react";
 
 const OnBoardContent = ({
@@ -18,6 +20,7 @@ const OnBoardContent = ({
 }) => {
   // TODO: use ContextProvider for sharing state (page, answer)
   // TODO: extract logic to custom hook
+  const langMode = useLangModeContext();
 
   const [page, setPage] = useState<number>(0);
   const [answer, setAnswer] = useState<Answer>({});
@@ -43,6 +46,8 @@ const OnBoardContent = ({
       <h1 className="absolute top-0 left-0 bg-white">
         {/* {JSON.stringify(answer)} */}
         <LanguageSwitcher />
+        <br></br>
+        <Link href={"/" + langMode + "/example"}> go to example page </Link>
       </h1>
       {page === 0 && (
         <OnBoardModal

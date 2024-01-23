@@ -1,13 +1,16 @@
 import { getDictionary } from "@/get-dictionary";
-import OnBoardContent from "./onboard";
 import { Locale } from "@/i18n-config";
 
-export default async function Onboard({
+export default async function Example({
   params: { lang }
 }: {
   params: { lang: Locale };
 }) {
   const dictionary = await getDictionary(lang);
 
-  return <OnBoardContent dictionary={dictionary.onboard} />;
+  return (
+    <div>
+      <p> {dictionary["onboard"]["welcome"]} </p>
+    </div>
+  );
 }
