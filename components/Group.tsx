@@ -4,6 +4,7 @@ import { IMicroProps } from "./Micro";
 import { useEffect, useRef, useState } from "react";
 import UnorderedGroup from "./UnorderedGroup";
 import OrderedGroup from "./OrderedGroup";
+import { MicroData } from "@/app/path/[id]/api";
 
 export interface IGroupProps {
   id: string;
@@ -19,7 +20,13 @@ export default function Group({
   micros,
   type,
   isScrollable
-}: IGroupProps) {
+}: {
+  id: string;
+  title: string;
+  micros: MicroData[];
+  type: GroupTypeEnum;
+  isScrollable?: boolean;
+}) {
   const [microComponentWidth, setMicroComponentWidth] = useState(0);
   const groupRef = useRef<HTMLDivElement>(null);
 

@@ -1,7 +1,7 @@
-import { Handle, Position } from "reactflow";
 import Micro from "@/components/Micro";
-import { groupMember } from "../../../app/path/[id]/node-edges";
 import { MicroTypeEnum } from "@/types/enum";
+import { Handle, Position } from "reactflow";
+import { groupMember } from "../../../app/path/[id]/node-edges";
 import DegreWrapperSingle from "./DegreWrapperSingle";
 
 export default function SingleNode({

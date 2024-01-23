@@ -1,37 +1,28 @@
+import { MicroData } from "@/app/path/[id]/api";
 import { MicroTypeEnum } from "@/types/enum";
 
-export interface IMicroProps {
-  id: string;
-  title: string;
-  progress: number; // 0 - 100
-  type: MicroTypeEnum;
-  isGroup?: boolean;
-  className?: string;
-}
-
 export default function Micro({
-  id,
-  title,
-  progress,
-  type,
-  isGroup = true,
-  className
-}: IMicroProps) {
+  data,
+  isGroup
+}: {
+  data: MicroData;
+  isGroup: boolean;
+}) {
   const { backgroundColor, textColor, borderRadius } = customStyle(
-    type,
-    progress,
+    data.type,
+    data.progress,
     isGroup
   );
 
   return (
     <div
-      className={`${className} ${
-        type === MicroTypeEnum.TEST &&
-        progress === 100 &&
+      className={`${
+        data.type === MicroTypeEnum.TEST &&
+        data.progress === 100 &&
         "border-3 p-4 rounded-2xl w-fit bg-progressLight"
       } ${
-        type === MicroTypeEnum.TEST &&
-        progress !== 100 &&
+        data.type === MicroTypeEnum.TEST &&
+        data.progress !== 100 &&
         "border-3 p-4 rounded-2xl w-fit bg-primaryLight"
       }`}
     >
@@ -41,15 +32,17 @@ export default function Micro({
             ${borderRadius} ${textColor} Bold16 flex items-center justify-center`}
         >
           <div className="overflow-hidden whitespace-nowrap overflow-ellipsis">
-            {title}
+            {data.title}
           </div>
         </div>
-        {progress > 0 && progress <= 100 && type === MicroTypeEnum.VIDEO && (
-          <div
-            className="absolute bottom-0 left-0 h-1 bg-primary"
-            style={{ width: progress + "%" }}
-          ></div>
-        )}
+        {data.progress > 0 &&
+          data.progress <= 100 &&
+          data.type === MicroTypeEnum.VIDEO && (
+            <div
+              className="absolute bottom-0 left-0 h-1 bg-primary"
+              style={{ width: data.progress + "%" }}
+            ></div>
+          )}
       </div>
     </div>
   );

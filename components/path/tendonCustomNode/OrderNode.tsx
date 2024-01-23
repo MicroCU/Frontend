@@ -1,13 +1,16 @@
 import { GroupData } from "@/app/path/[id]/api";
-import Micro from "@/components/Micro";
+import OrderedGroup from "@/components/OrderedGroup";
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
 
-function SingleNode({
+function OrderNode({
+  id,
   data,
   isConnectable
 }: {
+  id: string;
   data: GroupData;
+  type: string;
   isConnectable: boolean;
 }) {
   return (
@@ -17,14 +20,15 @@ function SingleNode({
         position={Position.Top}
         isConnectable={isConnectable}
       />
-      <Micro data={data.micros[0]} isGroup={false} />
+      <OrderedGroup id={id} data={data} isScrollable={false} />
       <Handle
         type="source"
         position={Position.Bottom}
+        id="b"
         isConnectable={isConnectable}
       />
     </>
   );
 }
 
-export default memo(SingleNode);
+export default memo(OrderNode);

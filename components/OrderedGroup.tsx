@@ -1,48 +1,32 @@
+import { GroupData, MicroData } from "@/app/path/[id]/api";
 import { GroupTypeEnum } from "@/types/enum";
 import GroupScrollArea from "./GroupScrollArea";
-import Micro, { IMicroProps } from "./Micro";
-
-export interface IOrderedGroupProps {
-  id: string;
-  title: string;
-  micros: IMicroProps[];
-  maxMicroComponentWidth: number;
-  isScrollable?: boolean;
-}
+import Micro from "./Micro";
 
 export default function OrderedGroup({
   id,
-  title,
-  micros,
-  maxMicroComponentWidth,
+  data,
   isScrollable
-}: IOrderedGroupProps) {
+}: {
+  id: string;
+  data: GroupData;
+  isScrollable: boolean;
+}) {
   return (
     <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pt-4 pb-4">
-      <div
-        className="pl-4 pr-4 w-fit"
-        style={{ maxWidth: maxMicroComponentWidth }}
-      >
+      <div className="pl-4 pr-4 w-fit">
         <p className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis">
-          {title}
+          {data.name}
         </p>
       </div>
       <GroupScrollArea
         type={GroupTypeEnum.Ordered}
-        microLength={micros.length}
+        microLength={data.micros.length}
         isScrollable={isScrollable}
       >
         <div className="flex flex-col w-fit h-fit justify-center content-center gap-y-4 pl-4 pr-4">
-          {micros.map((micro, index) => (
-            <Micro
-              id={micro.id}
-              title={micro.title}
-              progress={micro.progress}
-              type={micro.type}
-              isGroup={micro.isGroup}
-              key={micro.id}
-              className="mx-auto"
-            />
+          {data.micros.map((micro) => (
+            <Micro data={micro} isGroup={true} key={micro.id} />
           ))}
         </div>
       </GroupScrollArea>
