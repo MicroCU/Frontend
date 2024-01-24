@@ -1,41 +1,51 @@
-export const nodes = [
+import { NodeStatusEnum } from '@/types/enum';
+import { NodeData } from '@/types/type';
+import { Node } from 'reactflow';
+
+export const nodes: Node<NodeData>[] = [
     {
         id: '1',
-        type: 'circleNode',
+        type: "circleNode",
         data: {
-            label: 'Node 1',
+            name: 'Node 1',
+            status: NodeStatusEnum.STILL_LEARNING,
+
         },
         position: { x: 250, y: 0 },
     },
     {
         id: '2',
-        type: 'circleNode',
+        type: "circleNode",
         data: {
-            label: 'Node 2',
+            name: 'Node 2',
+            status: NodeStatusEnum.PASSED_TEST,
         },
         position: { x: 100, y: 100 },
     },
     {
         id: '3',
-        type: 'circleNode',
+        type: "circleNode",
         data: {
-            label: 'Node 3',
+            name: 'Node 3',
+            status: NodeStatusEnum.NOT_VISITED,
         },
         position: { x: 400, y: 100 },
     },
     {
         id: '4',
-        type: 'circleNode',
+        type: "circleNode",
         data: {
-            label: 'Node 4',
+            name: 'Node 4',
+            status: NodeStatusEnum.STILL_LEARNING,
         },
         position: { x: 0, y: 200 },
     },
     {
         id: '5',
-        type: 'circleNode',
+        type: "circleNode",
         data: {
-            label: 'Node 5',
+            name: 'Node 5',
+            status: NodeStatusEnum.NOT_VISITED,
         },
         position: { x: 400, y: 200 },
     },

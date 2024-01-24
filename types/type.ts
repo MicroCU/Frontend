@@ -1,4 +1,4 @@
-import { MicroType } from "./enum";
+import { MicroType, NodeStatusEnum } from "./enum";
 
 export type TagProps = {
   imageURL: string;
@@ -10,4 +10,9 @@ export interface MicroData {
   name: string;
   progress: number;
   type: MicroType;
+}
+
+export interface NodeData {
+  name: string;
+  status: NodeStatusEnum
 }

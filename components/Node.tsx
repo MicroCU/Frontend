@@ -1,9 +1,4 @@
-export enum NodeStatusEnum {
-  CURRENT_PREVIEW = 1,
-  STILL_LEARNING = 2,
-  PASSED_TEST = 3,
-  NOT_VISITED = 4
-}
+import { NodeStatusEnum } from "@/types/enum";
 
 export interface INodeProps {
   status: NodeStatusEnum;
