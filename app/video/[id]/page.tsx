@@ -42,6 +42,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
   const { playing, muted, volume, played, seeking, buffer, speed } = videoState;
 
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   const currentTime = videoPlayerRef.current
     ? videoPlayerRef.current.getCurrentTime()
@@ -86,8 +87,10 @@ const VideoPage = ({ params }: VideoPageProps) => {
     if (controlRef.current) {
       if (count > 2) {
         controlRef.current.style.visibility = "hidden";
+        setIsHidden(true);
       } else if (controlRef.current.style.visibility === "visible") {
         count += 1;
+        setIsHidden(false);
       }
     }
 
@@ -130,6 +133,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
   const mouseMoveHandler = () => {
     if (controlRef.current) {
       controlRef.current.style.visibility = "visible";
+      setIsHidden(false);
     }
     count = 0;
   };
@@ -153,6 +157,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
     setVideoState({ ...videoState, playing: false });
     if (controlRef.current) {
       controlRef.current.style.visibility = "visible";
+      setIsHidden(false);
     }
   };
 
@@ -194,7 +199,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
     isClient && (
       <div
         className={`relative bg-black flex flex-col justify-center items-center w-full h-screen ${
-          controlRef.current?.style.visibility === "hidden" && "cursor-none"
+          isHidden && "cursor-none"
         }`}
         onMouseMove={mouseMoveHandler}
         onClick={mouseMoveHandler}
@@ -229,6 +234,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
           fullscreenHandler={handleFullScreenToggle}
           isFullScreen={isFullScreen}
           speedHandler={speedHandler}
+          isHidden={isHidden}
           videoState={videoState}
         />
       </div>

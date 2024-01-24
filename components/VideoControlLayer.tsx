@@ -1,8 +1,9 @@
 import VideoNav from "./VideoNav";
-import { MutableRefObject } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 import VideoController from "./VideoController";
 import LoadingSpinner from "./LoadingSpinner";
 import { VideoState } from "@/app/video/[id]/page";
+import VideoTab from "./VideoTab";
 
 interface VideoControlLayerProps {
   onPlayPause: () => void;
@@ -17,6 +18,7 @@ interface VideoControlLayerProps {
   fullscreenHandler: () => void;
   isFullScreen: boolean;
   speedHandler: (value: string) => void;
+  isHidden: boolean;
   videoState: VideoState;
 }
 
@@ -33,20 +35,95 @@ const VideoControlLayer = ({
   fullscreenHandler,
   isFullScreen,
   speedHandler,
+  isHidden,
   videoState
 }: VideoControlLayerProps) => {
+  const platlistData = [
+    {
+      videoName: "example",
+      imageURL: "",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      imageURL: "",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      imageURL: "",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      imageURL: "",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      imageURL: "",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      imageURL: "",
+      link: "/go"
+    },
+  ];
+
+  const fileData = [
+    {
+      fileName: "example",
+      fileUrl: "https://filesamples.com/samples/code/c/sample3.c"
+    }
+  ];
+
+  const [isPlaylistSelected, setIsPlaylistSelected] = useState<boolean>(false);
+  const [isFileSelected, setIsFileSelected] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isPlaylistSelected) {
+      setIsFileSelected(false);
+    }
+  }, [isPlaylistSelected]);
+
+  useEffect(() => {
+    if (isFileSelected) {
+      setIsPlaylistSelected(false);
+    }
+  }, [isFileSelected]);
+
   return (
     <div
       ref={controlRef}
       style={{ visibility: "visible" }}
       className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full"
     >
-      <VideoNav videoName={"Example"} className="bg-gradient-to-b from-black" />
+      <VideoNav
+        videoName={"Example"}
+        isPlaylistSelected={isPlaylistSelected}
+        setIsPlaylistSelected={setIsPlaylistSelected}
+        isFileSelected={isFileSelected}
+        setIsFileSelected={setIsFileSelected}
+        className="bg-gradient-to-b from-black"
+      />
       <div
-        className="h-full flex justify-center items-center"
+        className="h-full overflow-hidden flex justify-center items-center relative"
         onClick={onPlayPause}
       >
         {videoState.buffer && videoState.playing && <LoadingSpinner />}
+        <VideoTab.VideoPlaylistTab
+          data={platlistData}
+          className={`absolute top-0 ${
+            isPlaylistSelected && !isHidden ? "right-0" : "right-[-400px]"
+          } h-[97%]`}
+        />
+        <VideoTab.VideoFileTab
+          data={fileData}
+          className={`absolute top-0 ${
+            isFileSelected && !isHidden ? "right-0" : "right-[-400px]"
+          } h-[97%]`}
+        />
       </div>
       <VideoController
         className="bg-gradient-to-t from-black"
