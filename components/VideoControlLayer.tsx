@@ -4,6 +4,7 @@ import VideoController from "./VideoController";
 import LoadingSpinner from "./LoadingSpinner";
 import { VideoState } from "@/app/video/[id]/page";
 import VideoTab from "./VideoTab";
+import VideoChoice from "./VideoChoice";
 
 interface VideoControlLayerProps {
   onPlayPause: () => void;
@@ -68,13 +69,32 @@ const VideoControlLayer = ({
       videoName: "example",
       imageURL: "",
       link: "/go"
-    },
+    }
   ];
 
   const fileData = [
     {
       fileName: "example",
       fileUrl: "https://filesamples.com/samples/code/c/sample3.c"
+    }
+  ];
+
+  const choiceData = [
+    {
+      videoName: "example",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      link: "/go"
+    },
+    {
+      videoName: "example",
+      link: "/go"
     }
   ];
 
@@ -124,6 +144,13 @@ const VideoControlLayer = ({
             isFileSelected && !isHidden ? "right-0" : "right-[-400px]"
           } h-[97%]`}
         />
+        {videoState.ended && (
+          <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
+            {choiceData.map((item) => (
+              <VideoChoice videoName={item.videoName} link={item.link} />
+            ))}
+          </div>
+        )}
       </div>
       <VideoController
         className="bg-gradient-to-t from-black"

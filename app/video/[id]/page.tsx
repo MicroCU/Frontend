@@ -19,6 +19,7 @@ export interface VideoState {
   seeking: boolean;
   buffer: boolean;
   speed: number;
+  ended: boolean;
 }
 
 let count = 0;
@@ -36,10 +37,11 @@ const VideoPage = ({ params }: VideoPageProps) => {
     played: 0,
     seeking: false,
     buffer: true,
-    speed: 1
+    speed: 1,
+    ended: false
   });
 
-  const { playing, muted, volume, played, seeking, buffer, speed } = videoState;
+  const { playing, muted, volume, seeking, speed, ended } = videoState;
 
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -53,7 +55,6 @@ const VideoPage = ({ params }: VideoPageProps) => {
     : 0.0;
 
   const formatTime = (time: number) => {
-    //formarting duration of video
     if (isNaN(time)) {
       return "00:00";
     }
@@ -72,7 +73,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
   const formatDuration = formatTime(duration);
 
   const playPauseHandler = () => {
-    setVideoState({ ...videoState, playing: !videoState.playing });
+    setVideoState({ ...videoState, playing: !videoState.playing, ended: false});
   };
 
   const rewindHandler = () => {
@@ -84,7 +85,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
   };
 
   const progressHandler = (state: OnProgressProps) => {
-    if (controlRef.current) {
+    if (controlRef.current && !ended) {
       if (count > 2) {
         controlRef.current.style.visibility = "hidden";
         setIsHidden(true);
@@ -154,7 +155,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
   };
 
   const endingHandler = () => {
-    setVideoState({ ...videoState, playing: false });
+    setVideoState({ ...videoState, playing: false, ended: true});
     if (controlRef.current) {
       controlRef.current.style.visibility = "visible";
       setIsHidden(false);
