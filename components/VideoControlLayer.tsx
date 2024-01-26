@@ -7,6 +7,7 @@ import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
 
 interface VideoControlLayerProps {
+  videoName: string;
   onPlayPause: () => void;
   onSeek: (value: number[]) => void;
   onSeekMouseUp: (value: number[]) => void;
@@ -24,6 +25,7 @@ interface VideoControlLayerProps {
 }
 
 const VideoControlLayer = ({
+  videoName,
   onPlayPause,
   onSeek,
   onSeekMouseUp,
@@ -82,7 +84,7 @@ const VideoControlLayer = ({
   const choiceData = [
     {
       videoName: "example",
-      link: "/go"
+      link: "/video/2"
     },
     {
       videoName: "example",
@@ -120,7 +122,7 @@ const VideoControlLayer = ({
       className="absolute top-0 left-0 flex-col z-10 flex justify-between w-full h-full"
     >
       <VideoNav
-        videoName={"Example"}
+        videoName={videoName}
         isPlaylistSelected={isPlaylistSelected}
         setIsPlaylistSelected={setIsPlaylistSelected}
         isFileSelected={isFileSelected}

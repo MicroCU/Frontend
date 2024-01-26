@@ -23,6 +23,7 @@ export interface VideoState {
 }
 
 let count = 0;
+let videoName = "Example";
 
 const VideoPage = ({ params }: VideoPageProps) => {
   const [isClient, setIsClient] = useState(false);
@@ -73,7 +74,11 @@ const VideoPage = ({ params }: VideoPageProps) => {
   const formatDuration = formatTime(duration);
 
   const playPauseHandler = () => {
-    setVideoState({ ...videoState, playing: !videoState.playing, ended: false});
+    setVideoState({
+      ...videoState,
+      playing: !videoState.playing,
+      ended: false
+    });
   };
 
   const rewindHandler = () => {
@@ -155,7 +160,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
   };
 
   const endingHandler = () => {
-    setVideoState({ ...videoState, playing: false, ended: true});
+    setVideoState({ ...videoState, playing: false, ended: true });
     if (controlRef.current) {
       controlRef.current.style.visibility = "visible";
       setIsHidden(false);
@@ -223,6 +228,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
           onBufferEnd={bufferEndHandler}
         />
         <VideoControlLayer
+          videoName={videoName}
           controlRef={controlRef}
           onPlayPause={playPauseHandler}
           onSeek={seekHandler}
