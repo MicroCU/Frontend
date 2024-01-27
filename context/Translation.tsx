@@ -1,5 +1,5 @@
 "use client";
-import { getDictionary } from "@/get-dictionary";
+import { getDictionary } from "@/lib/get-dictionary";
 import { useLangLocal } from "@/hooks/Language";
 import { i18n, Locale } from "@/i18n-config";
 import {
