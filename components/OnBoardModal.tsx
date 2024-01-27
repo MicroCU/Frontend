@@ -9,7 +9,6 @@ import { Answer } from "@/constants/onboard";
 import { useEffect } from "react";
 import { OnBoardMode } from "@/types/enum";
 import { useDictionaryContext } from "@/context/Dictionary";
-import { useLangContext } from "@/context/Language";
 
 type OnBoardModalProps =
   | {
@@ -47,7 +46,6 @@ type OnBoardModalProps =
     };
 
 const OnBoardModal = (props: OnBoardModalProps) => {
-  const lang = useLangContext();
   const dictionary = useDictionaryContext();
   const ModalBody = () => {
     switch (props.variant) {
@@ -56,7 +54,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
           <>
             <div>
               <h1 className="text-grayMedium Bold24">
-                {dictionary["onboard.welcome.title"]},
+                {dictionary["onboard.welcome.title"]}
               </h1>
               <h1 className="text-grayMain Bold32">
                 {dictionary["onboard.introduction.question"]}
@@ -94,9 +92,12 @@ const OnBoardModal = (props: OnBoardModalProps) => {
             <div className="space-y-8 flex flex-col items-center p-[40px] ">
               <CheckCircle className="text-success w-20 h-20" />
               <div className="space-y-4">
-                <h1 className="Bold32 text-grayMain text-center">All Set!</h1>
+                <h1 className="Bold32 text-grayMain text-center">
+                  {" "}
+                  {dictionary["onboard.finish.title"]}{" "}
+                </h1>
                 <h1 className="Bold16 text-grayMedium text-center">
-                  Enjoy your Learning
+                  {dictionary["onboard.finish.subtitle"]}
                 </h1>
               </div>
               <Button
@@ -106,7 +107,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
                   // window.location.href = Route.LANDING;
                 }}
               >
-                Go to Path
+                {dictionary["onboard.finish.button"]}
               </Button>
             </div>
           </>
