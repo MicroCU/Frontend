@@ -18,7 +18,7 @@ export interface JourneyItemsProps {
   journeys?: IJourneyItem[];
   width?: number;
   className?: string;
-  type: JourneyItemsType;
+  type?: JourneyItemsType;
 }
 
 export default function JourneyItems({
