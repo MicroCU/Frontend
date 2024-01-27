@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "./ui/button";
 import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { Page } from "@/types/enum";
@@ -6,6 +7,7 @@ import JourneyModalItems, {
   IPath,
   JourneyModalType
 } from "./JourneyModalItems";
+import { useDictionaryContext } from "@/context/Dictionary";
 
 const mockPath: IPath[] = [
   {
@@ -38,17 +40,24 @@ const mockPath: IPath[] = [
 ];
 
 const NormalModal = () => {
+  const dictionary = useDictionaryContext();
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="container">Switch to Normal Mode</Button>
+        <Button variant="container">{dictionary["home.switch.button"]}</Button>
       </DialogTrigger>
       <DialogContent className="w-[748px]">
         <Tabs defaultValue={Page.Journey} className="flex-1">
           <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
-            <TabsTrigger value="journey">Journey</TabsTrigger>
-            <TabsTrigger value="recently">Recently</TabsTrigger>
-            <TabsTrigger value="search">Search</TabsTrigger>
+            <TabsTrigger value="journey">
+              {dictionary["home.tabs.journey"]}
+            </TabsTrigger>
+            <TabsTrigger value="recently">
+              {dictionary["home.tabs.recently"]}
+            </TabsTrigger>
+            <TabsTrigger value="search">
+              {dictionary["home.tabs.search"]}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value={Page.Journey}>
             <div className="space-y-6 max-h-[720px] overflow-y-auto">

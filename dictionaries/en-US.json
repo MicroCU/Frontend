@@ -6,5 +6,10 @@
   "onboard.introduction.noGoal": "Nah, I don't have anything in my mind.",
   "onboard.finish.title": "All Set!",
   "onboard.finish.subtitle": "Enjoy your Learning",
-  "onboard.finish.button": "Go to path"
+  "onboard.finish.button": "Go to path",
+  "home.tabs.journey": "Journey",
+  "home.tabs.recently": "Recently",
+  "home.tabs.search": "Search",
+  "home.switch.button": "Switch to Normal Mode",
+  "home.SelectedPathModal.button": "Go to path"
 }

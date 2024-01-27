@@ -1,8 +1,10 @@
+"use client";
 import { Page } from "@/types/enum";
 import NavHeader from "./NavHeader";
 import NormalModal from "./NormalModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import JourneyItems, { IJourneyItem } from "./JourneyItems";
+import { useDictionaryContext } from "@/context/Dictionary";
 
 const mockJourneys: IJourneyItem[] = [
   {
@@ -10,11 +12,11 @@ const mockJourneys: IJourneyItem[] = [
     name: "Journey 1",
     paths: [
       {
-        id: "1",
+        id: "1-1",
         name: "Path 1"
       },
       {
-        id: "2",
+        id: "1-2",
         name: "Path 2"
       }
     ]
@@ -24,11 +26,11 @@ const mockJourneys: IJourneyItem[] = [
     name: "Journey 2",
     paths: [
       {
-        id: "1",
+        id: "2-1",
         name: "Path 1"
       },
       {
-        id: "2",
+        id: "2-2",
         name: "Path 2"
       }
     ]
@@ -36,14 +38,21 @@ const mockJourneys: IJourneyItem[] = [
 ];
 
 const NavBar = () => {
+  const dictionary = useDictionaryContext();
   return (
     <div className="space-y-6 p-6 bg-white shadow-md h-screen w-fit flex flex-col">
       <NavHeader />
       <Tabs defaultValue={Page.Journey} className="flex-1">
         <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
-          <TabsTrigger value="journey">Journey</TabsTrigger>
-          <TabsTrigger value="recently">Recently</TabsTrigger>
-          <TabsTrigger value="search">Search</TabsTrigger>
+          <TabsTrigger value="journey">
+            {dictionary["home.tabs.journey"]}
+          </TabsTrigger>
+          <TabsTrigger value="recently">
+            {dictionary["home.tabs.recently"]}
+          </TabsTrigger>
+          <TabsTrigger value="search">
+            {dictionary["home.tabs.search"]}
+          </TabsTrigger>
         </TabsList>
         <TabsContent value={Page.Journey}>
           <JourneyItems journeys={mockJourneys} className="flex-1" />
