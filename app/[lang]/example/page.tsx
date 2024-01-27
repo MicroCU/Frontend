@@ -1,3 +1,4 @@
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { getDictionary } from "@/get-dictionary";
 import { Locale } from "@/i18n-config";
 
@@ -10,7 +11,8 @@ export default async function Example({
 
   return (
     <div>
-      <p> {dictionary["onboard"]["welcome"]} </p>
+      <LanguageSwitcher />
+      <p> {dictionary["onboard.welcome.title"]} </p>
     </div>
   );
 }

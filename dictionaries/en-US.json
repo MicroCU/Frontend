@@ -1,11 +1,7 @@
 {
-  "onboard": {
-    "welcome": "Welcome",
-    "introduction": {
-      "question": "Are there any courses you'd like to take?",
-      "optionWord": "or",
-      "haveGoal": "Sure! can't wait anymore",
-      "noGoal": "Nah, I don't have anything in my mind."
-    }
-  }
+  "onboard.welcome.title": "Welcome",
+  "onboard.introduction.question": "Are there any courses you'd like to take?",
+  "onboard.introduction.optionWord": "or",
+  "onboard.introduction.haveGoal": "Sure! can't wait anymore",
+  "onboard.introduction.noGoal": "Nah, I don't have anything in my mind."
 }

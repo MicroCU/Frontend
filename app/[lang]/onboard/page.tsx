@@ -9,5 +9,5 @@ export default async function Onboard({
 }) {
   const dictionary = await getDictionary(lang);
 
-  return <OnBoardContent dictionary={dictionary.onboard} />;
+  return <OnBoardContent dictionary={dictionary} />;
 }

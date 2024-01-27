@@ -1,11 +1,7 @@
 {
-  "onboard": {
-    "welcome": "ยินดีต้อนรับ",
-    "introduction": {
-      "question": "คุณมีคอร์สที่อยากเรียนในใจหรือไม่ ?",
-      "optionWord": "หรือ",
-      "haveGoal": "มีแน่นอน! รอไม่ไหวแล้ว",
-      "noGoal": "อืม.. ยังไม่มีเลย"
-    }
-  }
+  "onboard.welcome.title": "ยินดีต้อนรับ",
+  "onboard.introduction.question": "คุณมีคอร์สที่อยากเรียนในใจหรือไม่?",
+  "onboard.introduction.optionWord": "หรือ",
+  "onboard.introduction.haveGoal": "มีแน่นอน! รอไม่ไหวแล้ว",
+  "onboard.introduction.noGoal": "อืม.. ยังไม่มีเลย"
 }

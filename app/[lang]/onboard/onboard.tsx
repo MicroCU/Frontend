@@ -16,7 +16,7 @@ import { useState } from "react";
 const OnBoardContent = ({
   dictionary
 }: {
-  dictionary: Awaited<ReturnType<typeof getDictionary>>["onboard"];
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
 }) => {
   // TODO: use ContextProvider for sharing state (page, answer)
   // TODO: extract logic to custom hook
@@ -44,7 +44,7 @@ const OnBoardContent = ({
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-primary to-danger">
       <h1 className="absolute top-0 left-0 bg-white">
-        {/* {JSON.stringify(answer)} */}
+        {JSON.stringify(answer)}
         <LanguageSwitcher />
         <br></br>
         <Link href={"/" + langMode + "/example"}> go to example page </Link>

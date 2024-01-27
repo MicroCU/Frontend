@@ -14,7 +14,7 @@ type OnBoardModalProps =
       variant: "welcome";
       addAnswer: (title: string, answer: string) => void;
       onClick: () => void;
-      dictionary: Awaited<ReturnType<typeof getDictionary>>["onboard"];
+      dictionary: Awaited<ReturnType<typeof getDictionary>>;
     }
   | {
       variant: "finish";
@@ -54,15 +54,15 @@ const OnBoardModal = (props: OnBoardModalProps) => {
           <>
             <div>
               <h1 className="text-grayMedium Bold24">
-                {dictionary["welcome"]},
+                {dictionary["onboard.welcome.title"]},
               </h1>
               <h1 className="text-grayMain Bold32">
-                {dictionary["introduction"]["question"]}
+                {dictionary["onboard.introduction.question"]}
               </h1>
             </div>
             <div className="space-y-6">
               <OnBoardBtn
-                text={dictionary["introduction"]["haveGoal"]}
+                text={dictionary["onboard.introduction.haveGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.GOAL);
                   props.onClick();
@@ -70,10 +70,10 @@ const OnBoardModal = (props: OnBoardModalProps) => {
               />
               <h1 className="text-grayMedium Bold24 text-center">
                 {" "}
-                {dictionary["introduction"]["optionWord"]}{" "}
+                {dictionary["onboard.introduction.optionWord"]}{" "}
               </h1>
               <OnBoardBtn
-                text={dictionary["introduction"]["noGoal"]}
+                text={dictionary["onboard.introduction.noGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.NOGOAL);
                   props.onClick();
