@@ -1,13 +1,9 @@
+"use client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { getDictionary } from "@/get-dictionary";
-import { Locale } from "@/i18n-config";
+import { useDictionaryContext } from "@/context/Dictionary";
 
-export default async function Example({
-  params: { lang }
-}: {
-  params: { lang: Locale };
-}) {
-  const dictionary = await getDictionary(lang);
+export default function Example() {
+  const dictionary = useDictionaryContext();
 
   return (
     <div>

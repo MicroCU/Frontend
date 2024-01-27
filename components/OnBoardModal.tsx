@@ -1,3 +1,4 @@
+"use client";
 import { CheckCircle } from "lucide-react";
 import LinearProgressBar from "./LinearProgressBar";
 import OnBoardBtn from "./OnBoardBtn";
@@ -7,14 +8,14 @@ import Checkbox from "./CheckBox";
 import { Answer } from "@/constants/onboard";
 import { useEffect } from "react";
 import { OnBoardMode } from "@/types/enum";
-import { getDictionary } from "@/get-dictionary";
+import { useDictionaryContext } from "@/context/Dictionary";
+import { useLangContext } from "@/context/Language";
 
 type OnBoardModalProps =
   | {
       variant: "welcome";
       addAnswer: (title: string, answer: string) => void;
       onClick: () => void;
-      dictionary: Awaited<ReturnType<typeof getDictionary>>;
     }
   | {
       variant: "finish";
@@ -46,10 +47,11 @@ type OnBoardModalProps =
     };
 
 const OnBoardModal = (props: OnBoardModalProps) => {
+  const lang = useLangContext();
+  const dictionary = useDictionaryContext();
   const ModalBody = () => {
     switch (props.variant) {
       case "welcome":
-        const dictionary = props.dictionary;
         return (
           <>
             <div>

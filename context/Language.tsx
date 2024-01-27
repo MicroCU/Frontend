@@ -1,34 +1,38 @@
 "use client";
-import { useLang } from "@/hooks/Language";
+import { useLangLocal } from "@/hooks/Language";
 import { i18n, Locale } from "@/i18n-config";
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
-  useContext
+  useContext,
+  useEffect
 } from "react";
 
-const LangModeContext = createContext<Locale>(i18n.defaultLocale);
-const SetLangModeContext = createContext<Dispatch<SetStateAction<Locale>>>(
+const LangContext = createContext<Locale>(i18n.defaultLocale);
+const SetLangContext = createContext<Dispatch<SetStateAction<Locale>>>(
   () => {}
 );
 
-export function useLangModeContext() {
-  return useContext(LangModeContext);
+export function useLangContext() {
+  return useContext(LangContext);
 }
 
-export function useSetDarkModeContext() {
-  return useContext(SetLangModeContext);
+export function useSetLangContext() {
+  return useContext(SetLangContext);
 }
 
-export function LangModeContextProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useLang();
+export function LangContextProvider({ children }: { children: ReactNode }) {
+  const [lang, setLang] = useLangLocal();
+  useEffect(() => {
+    setLang(lang);
+  }, [lang]);
   return (
-    <LangModeContext.Provider value={lang}>
-      <SetLangModeContext.Provider value={setLang}>
+    <LangContext.Provider value={lang}>
+      <SetLangContext.Provider value={setLang}>
         {children}
-      </SetLangModeContext.Provider>
-    </LangModeContext.Provider>
+      </SetLangContext.Provider>
+    </LangContext.Provider>
   );
 }
