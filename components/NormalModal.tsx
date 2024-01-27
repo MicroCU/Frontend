@@ -7,7 +7,7 @@ import JourneyModalItems, {
   IPath,
   JourneyModalType
 } from "./JourneyModalItems";
-import { useDictionaryContext } from "@/context/Dictionary";
+import { useTranslation } from "@/context/Translation";
 
 const mockPath: IPath[] = [
   {
@@ -40,24 +40,22 @@ const mockPath: IPath[] = [
 ];
 
 const NormalModal = () => {
-  const dictionary = useDictionaryContext();
+  const { dict } = useTranslation();
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="container">{dictionary["home.switch.button"]}</Button>
+        <Button variant="container">{dict["home.switch.button"]}</Button>
       </DialogTrigger>
       <DialogContent className="w-[748px]">
         <Tabs defaultValue={Page.Journey} className="flex-1">
           <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
             <TabsTrigger value="journey">
-              {dictionary["home.tabs.journey"]}
+              {dict["home.tabs.journey"]}
             </TabsTrigger>
             <TabsTrigger value="recently">
-              {dictionary["home.tabs.recently"]}
+              {dict["home.tabs.recently"]}
             </TabsTrigger>
-            <TabsTrigger value="search">
-              {dictionary["home.tabs.search"]}
-            </TabsTrigger>
+            <TabsTrigger value="search">{dict["home.tabs.search"]}</TabsTrigger>
           </TabsList>
           <TabsContent value={Page.Journey}>
             <div className="space-y-6 max-h-[720px] overflow-y-auto">

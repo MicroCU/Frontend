@@ -6,14 +6,13 @@ import {
   onBoardGoalQuestion,
   onBoardNoGoalQuestion
 } from "@/constants/onboard";
-import { useLangContext } from "@/context/Language";
+import { useTranslation } from "@/context/Translation";
 import { OnBoardMode } from "@/types/enum";
 import Link from "next/link";
 import { useState } from "react";
 
 const OnBoardContent = () => {
-  const langMode = useLangContext();
-
+  const { lang } = useTranslation();
   const [page, setPage] = useState<number>(0);
   const [answer, setAnswer] = useState<Answer>({});
 
@@ -39,7 +38,7 @@ const OnBoardContent = () => {
         {JSON.stringify(answer)}
         <LanguageSwitcher />
         <br></br>
-        <Link href={"/" + langMode + "/example"}> go to example page </Link>
+        <Link href={"/" + lang + "/example"}> go to example page </Link>
       </h1>
       {page === 0 && (
         <OnBoardModal

@@ -1,14 +1,14 @@
 "use client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useDictionaryContext } from "@/context/Dictionary";
+import { useTranslation } from "@/context/Translation";
 
 export default function Example() {
-  const dictionary = useDictionaryContext();
+  const { dict } = useTranslation();
 
   return (
     <div>
       <LanguageSwitcher />
-      <p> {dictionary["onboard.welcome.title"]} </p>
+      <p> {dict["onboard.welcome.title"]} </p>
     </div>
   );
 }

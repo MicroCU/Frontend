@@ -8,7 +8,7 @@ import Checkbox from "./CheckBox";
 import { Answer } from "@/constants/onboard";
 import { useEffect } from "react";
 import { OnBoardMode } from "@/types/enum";
-import { useDictionaryContext } from "@/context/Dictionary";
+import { useTranslation } from "@/context/Translation";
 
 type OnBoardModalProps =
   | {
@@ -46,7 +46,7 @@ type OnBoardModalProps =
     };
 
 const OnBoardModal = (props: OnBoardModalProps) => {
-  const dictionary = useDictionaryContext();
+  const { dict } = useTranslation();
   const ModalBody = () => {
     switch (props.variant) {
       case "welcome":
@@ -54,15 +54,15 @@ const OnBoardModal = (props: OnBoardModalProps) => {
           <>
             <div>
               <h1 className="text-grayMedium Bold24">
-                {dictionary["onboard.welcome.title"]}
+                {dict["onboard.welcome.title"]}
               </h1>
               <h1 className="text-grayMain Bold32">
-                {dictionary["onboard.introduction.question"]}
+                {dict["onboard.introduction.question"]}
               </h1>
             </div>
             <div className="space-y-6">
               <OnBoardBtn
-                text={dictionary["onboard.introduction.haveGoal"]}
+                text={dict["onboard.introduction.haveGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.GOAL);
                   props.onClick();
@@ -70,10 +70,10 @@ const OnBoardModal = (props: OnBoardModalProps) => {
               />
               <h1 className="text-grayMedium Bold24 text-center">
                 {" "}
-                {dictionary["onboard.introduction.optionWord"]}{" "}
+                {dict["onboard.introduction.optionWord"]}{" "}
               </h1>
               <OnBoardBtn
-                text={dictionary["onboard.introduction.noGoal"]}
+                text={dict["onboard.introduction.noGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.NOGOAL);
                   props.onClick();
@@ -94,10 +94,10 @@ const OnBoardModal = (props: OnBoardModalProps) => {
               <div className="space-y-4">
                 <h1 className="Bold32 text-grayMain text-center">
                   {" "}
-                  {dictionary["onboard.finish.title"]}{" "}
+                  {dict["onboard.finish.title"]}{" "}
                 </h1>
                 <h1 className="Bold16 text-grayMedium text-center">
-                  {dictionary["onboard.finish.subtitle"]}
+                  {dict["onboard.finish.subtitle"]}
                 </h1>
               </div>
               <Button
@@ -107,7 +107,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
                   // window.location.href = Route.LANDING;
                 }}
               >
-                {dictionary["onboard.finish.button"]}
+                {dict["onboard.finish.button"]}
               </Button>
             </div>
           </>

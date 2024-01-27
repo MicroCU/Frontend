@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import { LangContextProvider } from "@/context/Language";
-import { DictionaryContextProvider } from "@/context/Dictionary";
+import { TranslationContextProvider } from "@/context/Translation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LangContextProvider>
-          <DictionaryContextProvider>{children}</DictionaryContextProvider>
-        </LangContextProvider>
+        <TranslationContextProvider>{children}</TranslationContextProvider>
         <Toaster />
       </body>
     </html>
