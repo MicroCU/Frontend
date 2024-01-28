@@ -42,7 +42,7 @@ export const authorize = async ({ isChulaIT }: { isChulaIT?: boolean }) => {
   redirect(MCV_OAUTH_URL + "?" + query.toString());
 };
 
-export const accessToken = async (oauthToken: string) => {
+export const getAccessToken = async (oauthToken: string) => {
   const res = await fetch(MCV_ACCESS_TOKEN_URL, {
     method: "POST",
     headers: {
@@ -64,7 +64,7 @@ export const accessToken = async (oauthToken: string) => {
   return tokens;
 };
 
-export const refreshToken = async () => {
+export const getRefreshToken = async () => {
   const refreshToken = cookies().get("refresh_token");
 
   if (!refreshToken || !refreshToken.value) throw new Error("No refresh token");
@@ -89,6 +89,7 @@ export const refreshToken = async () => {
 };
 
 export const getUserInfo = async () => {
+  checkAccessToken();
   const accessToken = cookies().get("access_token");
 
   if (!accessToken || !accessToken.value) throw new Error("No access token");
@@ -108,4 +109,23 @@ export const logout = () => {
   cookies().delete("access_token");
   cookies().delete("refresh_token");
   redirect(MCV_LOGOUT_URL);
+};
+
+export const checkAccessToken = async () => {
+  const accessToken = cookies().get("access_token");
+  const refreshToken = cookies().get("refresh_token");
+  console.log(accessToken, refreshToken);
+
+  // if (!refreshToken) {
+  //   redirect(process.env.HOST + "/th/auth");
+  // }
+
+  // if (!accessToken) {
+  //   const res = await getRefreshToken();
+  //   if (res.status !== 200) {
+  //     redirect(process.env.HOST + "/th/auth");
+  //   }
+  // }
+
+  return;
 };

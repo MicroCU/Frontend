@@ -1,4 +1,4 @@
-import { accessToken } from "@/action/mcv";
+import { getAccessToken } from "@/action/mcv";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
@@ -10,6 +10,6 @@ export async function GET(req: NextRequest) {
     return new Response("Missing code", { status: 400 });
   }
 
-  await accessToken(code);
+  await getAccessToken(code);
   redirect(process.env.HOST! + "/th");
 }

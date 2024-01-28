@@ -5,6 +5,7 @@ import NormalModal from "./NormalModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import JourneyItems, { IJourneyItem } from "./JourneyItems";
 import { useTranslation } from "@/context/Translation";
+import { useAuth } from "@/context/Auth";
 
 const mockJourneys: IJourneyItem[] = [
   {
@@ -39,25 +40,31 @@ const mockJourneys: IJourneyItem[] = [
 
 const NavBar = () => {
   const { dict } = useTranslation();
+  const { user } = useAuth();
   return (
-    <div className="space-y-6 p-6 bg-white shadow-md h-screen w-fit flex flex-col">
-      <NavHeader />
-      <Tabs defaultValue={Page.Journey} className="flex-1">
-        <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
-          <TabsTrigger value="journey">{dict["home.tabs.journey"]}</TabsTrigger>
-          <TabsTrigger value="recently">
-            {dict["home.tabs.recently"]}
-          </TabsTrigger>
-          <TabsTrigger value="search">{dict["home.tabs.search"]}</TabsTrigger>
-        </TabsList>
-        <TabsContent value={Page.Journey}>
-          <JourneyItems journeys={mockJourneys} className="flex-1" />
-        </TabsContent>
-        <TabsContent value={Page.Recently}></TabsContent>
-        <TabsContent value={Page.Search}></TabsContent>
-      </Tabs>
-      <NormalModal />
-    </div>
+    <>
+      <div className="space-y-6 p-6 bg-white shadow-md h-screen w-fit flex flex-col">
+        <NavHeader />
+        <h1>{user?.name}</h1>
+        <Tabs defaultValue={Page.Journey} className="flex-1">
+          <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
+            <TabsTrigger value="journey">
+              {dict["home.tabs.journey"]}
+            </TabsTrigger>
+            <TabsTrigger value="recently">
+              {dict["home.tabs.recently"]}
+            </TabsTrigger>
+            <TabsTrigger value="search">{dict["home.tabs.search"]}</TabsTrigger>
+          </TabsList>
+          <TabsContent value={Page.Journey}>
+            <JourneyItems journeys={mockJourneys} className="flex-1" />
+          </TabsContent>
+          <TabsContent value={Page.Recently}></TabsContent>
+          <TabsContent value={Page.Search}></TabsContent>
+        </Tabs>
+        <NormalModal />
+      </div>
+    </>
   );
 };
 export default NavBar;

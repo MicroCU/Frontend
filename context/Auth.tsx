@@ -1,10 +1,15 @@
+"use client";
+
+import { checkAccessToken, getUserInfo } from "@/action/mcv";
 import { User } from "@/types/type";
+
 import {
   Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState
 } from "react";
 
@@ -27,6 +32,16 @@ export const useAuth = () => {
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
+
+  useEffect(() => {
+    checkAccessToken();
+    getUserInfo().then((u) => {
+      setUser({
+        id: u.user.id,
+        name: u.user.firstname_en + " " + u.user.lastname_en
+      });
+    });
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
