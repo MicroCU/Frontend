@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import LoginPanel from "./login";
+import LoginPanel from "./LoginPanel";
 import Link from "next/link";
 
 export const metadata: Metadata = {
