@@ -26,7 +26,7 @@ const GraphPage = () => {
   const sess = useSession();
 
   if (sess.status === "unauthenticated")
-    window.location.href = "http://localhost:3000/auth";
+    window.location.href = "http://localhost:3000/th/auth";
   return (
     <div className="flex min-h-screen bg-grayLight">
       <NavBar />

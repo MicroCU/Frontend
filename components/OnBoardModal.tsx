@@ -1,3 +1,4 @@
+"use client";
 import { CheckCircle } from "lucide-react";
 import LinearProgressBar from "./LinearProgressBar";
 import OnBoardBtn from "./OnBoardBtn";
@@ -7,6 +8,7 @@ import Checkbox from "./CheckBox";
 import { Answer } from "@/constants/onboard";
 import { useEffect } from "react";
 import { OnBoardMode } from "@/types/enum";
+import { useTranslation } from "@/context/Translation";
 
 type OnBoardModalProps =
   | {
@@ -44,28 +46,34 @@ type OnBoardModalProps =
     };
 
 const OnBoardModal = (props: OnBoardModalProps) => {
+  const { dict } = useTranslation();
   const ModalBody = () => {
     switch (props.variant) {
       case "welcome":
         return (
           <>
             <div>
-              <h1 className="text-grayMedium Bold24">Welcome,</h1>
+              <h1 className="text-grayMedium Bold24">
+                {dict["onboard.welcome.title"]}
+              </h1>
               <h1 className="text-grayMain Bold32">
-                Are there any courses you&apos;d like to take?
+                {dict["onboard.introduction.question"]}
               </h1>
             </div>
             <div className="space-y-6">
               <OnBoardBtn
-                text="Sure! can’t wait anymore"
+                text={dict["onboard.introduction.haveGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.GOAL);
                   props.onClick();
                 }}
               />
-              <h1 className="text-grayMedium Bold24 text-center">Or</h1>
+              <h1 className="text-grayMedium Bold24 text-center">
+                {" "}
+                {dict["onboard.introduction.optionWord"]}{" "}
+              </h1>
               <OnBoardBtn
-                text="Nah, I don’t have anything in my mind."
+                text={dict["onboard.introduction.noGoal"]}
                 onClick={() => {
                   props.addAnswer("welcome", OnBoardMode.NOGOAL);
                   props.onClick();
@@ -84,9 +92,12 @@ const OnBoardModal = (props: OnBoardModalProps) => {
             <div className="space-y-8 flex flex-col items-center p-[40px] ">
               <CheckCircle className="text-success w-20 h-20" />
               <div className="space-y-4">
-                <h1 className="Bold32 text-grayMain text-center">All Set!</h1>
+                <h1 className="Bold32 text-grayMain text-center">
+                  {" "}
+                  {dict["onboard.finish.title"]}{" "}
+                </h1>
                 <h1 className="Bold16 text-grayMedium text-center">
-                  Enjoy your Learning
+                  {dict["onboard.finish.subtitle"]}
                 </h1>
               </div>
               <Button
@@ -96,7 +107,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
                   // window.location.href = Route.LANDING;
                 }}
               >
-                Go to Path
+                {dict["onboard.finish.button"]}
               </Button>
             </div>
           </>
