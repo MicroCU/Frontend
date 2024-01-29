@@ -1,7 +1,7 @@
 "use client";
 import { Page } from "@/types/enum";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import JourneyItems, { IJourneyItem } from "./JourneyItems";
+import JourneyItems, { JourneyItem } from "./JourneyItems";
 import NavHeader from "./NavHeader";
 import NormalModal from "./NormalModal";
 import { Dispatch, SetStateAction } from "react";
@@ -9,7 +9,7 @@ import { useTranslation } from "@/context/Translation";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  journeys: IJourneyItem[];
+  journeys: JourneyItem[];
 }
 
 export default function NavBarOpenMode({

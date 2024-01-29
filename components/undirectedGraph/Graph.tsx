@@ -12,22 +12,28 @@ import ReactFlow, {
   useEdgesState,
   useReactFlow,
   Node,
-  Controls
+  Controls,
+  Edge
 } from "reactflow";
 
-import { nodes as initialNodes, edges as initialEdges } from "./nodes-edges";
 import "reactflow/dist/style.css";
 import CircleNode from "./CircleNode";
-import { BriefPathInfo, NodeData } from "@/types/type";
-import { NodeStatusEnum } from "@/types/enum";
+import { BriefPathInfo, UndirectedGraphNodeData } from "@/types/type";
+import { PathStatus } from "@/types/enum";
 
 interface IOverviewFlowProps {
   setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
+  initialNodes: Node<UndirectedGraphNodeData>[];
+  initialEdges: Edge[];
 }
 
-export default function OverviewFlow({ setSelectedPath }: IOverviewFlowProps) {
+export default function OverviewFlow({
+  setSelectedPath,
+  initialNodes,
+  initialEdges
+}: IOverviewFlowProps) {
   const [nodes, setNodes, onNodesChange] =
-    useNodesState<NodeData>(initialNodes);
+    useNodesState<UndirectedGraphNodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodeTypes = useMemo(() => ({ circleNode: CircleNode }), []);
   const reactFlow = useReactFlow();
@@ -41,7 +47,7 @@ export default function OverviewFlow({ setSelectedPath }: IOverviewFlowProps) {
               ...node,
               data: {
                 ...node.data,
-                status: NodeStatusEnum.CURRENT_PREVIEW
+                status: PathStatus.CURRENT_PREVIEW
               }
             };
           } else {
@@ -65,7 +71,10 @@ export default function OverviewFlow({ setSelectedPath }: IOverviewFlowProps) {
       onEdgesChange={onEdgesChange}
       nodeTypes={nodeTypes}
       fitView
-      onNodeClick={(event: ReactMouseEvent, node: Node<NodeData>) => {
+      onNodeClick={(
+        event: ReactMouseEvent,
+        node: Node<UndirectedGraphNodeData>
+      ) => {
         const { x, y } = node.position;
         setCenterView(x, y, node.id);
         setSelectedPath(node.data.pathInfo);

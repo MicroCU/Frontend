@@ -1,4 +1,4 @@
-import { MicroType, NodeStatusEnum } from "./enum";
+import { MicroType, PathStatus } from "./enum";
 
 export type TagProps = {
   imageURL: string;
@@ -13,12 +13,21 @@ export interface MicroData {
 }
 
 export interface BriefPathInfo {
+  id: string
   title: string;
   description: string;
   tags: TagProps[];
+  status: PathStatus
 }
 
-export interface NodeData {
-  status: NodeStatusEnum
+export interface UndirectedGraphNodeData {
+  status: PathStatus
   pathInfo: BriefPathInfo
+}
+
+export interface JourneyData {
+  id: string;
+  name: string;
+  progress: number;
+  paths: BriefPathInfo[];
 }

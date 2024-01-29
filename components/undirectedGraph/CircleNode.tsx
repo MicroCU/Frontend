@@ -1,5 +1,5 @@
 import Node from "@/components/Node";
-import { NodeData } from "@/types/type";
+import { UndirectedGraphNodeData } from "@/types/type";
 import { Handle, Position } from "reactflow";
 
 export default function CircleNode({
@@ -8,7 +8,7 @@ export default function CircleNode({
   type
 }: {
   id: string;
-  data: NodeData;
+  data: UndirectedGraphNodeData;
   type: string;
 }) {
   return (

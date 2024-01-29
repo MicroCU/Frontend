@@ -9,7 +9,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { cn } from "@/lib/utils";
 
-export interface IPathItems {
+export interface PathItems {
   id: string;
   name: string;
 }
@@ -17,7 +17,7 @@ export interface IPathItems {
 export interface JourneyItemProps {
   id: string;
   name: string;
-  paths: IPathItems[];
+  paths: PathItems[];
   selectedPath: string | null;
   setSelectedPath: Dispatch<SetStateAction<string | null>>;
   width?: number;

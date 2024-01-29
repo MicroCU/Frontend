@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import JourneyItem, { IPathItems } from "./JourneyItem";
+import JourneyItem, { PathItems } from "./JourneyItem";
 import JourneyItemsLoading from "./JourneyItemsLoading";
 
-export interface IJourneyItem {
+export interface JourneyItem {
   id: string;
   name: string;
-  paths: IPathItems[];
+  paths: PathItems[];
 }
 
 export enum JourneyItemsType {
@@ -15,7 +15,7 @@ export enum JourneyItemsType {
 }
 
 export interface JourneyItemsProps {
-  journeys?: IJourneyItem[];
+  journeys?: JourneyItem[];
   width?: number;
   className?: string;
   type?: JourneyItemsType;

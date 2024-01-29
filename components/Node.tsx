@@ -1,11 +1,11 @@
-import { NodeStatusEnum } from "@/types/enum";
+import { PathStatus } from "@/types/enum";
 
 export interface INodeProps {
-  status: NodeStatusEnum;
+  status: PathStatus;
 }
 
 export default function Node({ status }: INodeProps) {
-  if (status === NodeStatusEnum.CURRENT_PREVIEW) {
+  if (status === PathStatus.CURRENT_PREVIEW) {
     return (
       <div className="relative p-2">
         <div className="bg-primary w-12 h-12 rounded-full glow-selected-node"></div>
@@ -15,9 +15,9 @@ export default function Node({ status }: INodeProps) {
     return (
       <div
         className={`w-6 h-6 rounded-full ${
-          status === NodeStatusEnum.STILL_LEARNING
+          status === PathStatus.STILL_LEARNING
             ? "bg-progress"
-            : status === NodeStatusEnum.PASSED_TEST
+            : status === PathStatus.PASSED_TEST
             ? "bg-grayMedium"
             : "bg-graySmall"
         }`}
