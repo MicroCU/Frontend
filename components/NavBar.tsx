@@ -36,7 +36,7 @@ const mockJourneys: IJourneyItem[] = [
 ];
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   if (isOpen) {
     return <NavBarOpenMode setIsOpen={setIsOpen} journeys={mockJourneys} />;
   } else {

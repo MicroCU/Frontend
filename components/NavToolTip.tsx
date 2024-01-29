@@ -13,7 +13,7 @@ export interface NavToolTipProps {
 export default function NavToolTip({ children, tooltipText }: NavToolTipProps) {
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={0}>
+      <Tooltip delayDuration={100}>
         <TooltipTrigger> {children} </TooltipTrigger>
         <TooltipContent side="right">
           <p> {tooltipText} </p>
