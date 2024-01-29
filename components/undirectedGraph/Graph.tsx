@@ -12,7 +12,8 @@ import ReactFlow, {
   useReactFlow,
   Node,
   Controls,
-  Edge
+  Edge,
+  BackgroundVariant
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -40,10 +41,10 @@ export default function OverviewFlow({
     }),
     []
   );
+  const currentNodeRadius = 24;
   const reactFlow = useReactFlow();
   const setCenterView = useCallback(
     (selectedNode: Node<UndirectedGraphNodeData>) => {
-      const nodeRadius = 24;
       setNodes(
         initialNodes.map((node) => {
           if (node.id === selectedNode.id) {
@@ -63,8 +64,8 @@ export default function OverviewFlow({
       );
 
       reactFlow.setCenter(
-        selectedNode.position.x + nodeRadius,
-        selectedNode.position.y + nodeRadius
+        selectedNode.position.x + currentNodeRadius,
+        selectedNode.position.y + currentNodeRadius
       );
     },
     [reactFlow]
@@ -75,6 +76,9 @@ export default function OverviewFlow({
       nodes.find((node) => node.data.pathInfo.id === selectedPath?.id) ?? null;
     if (selectedPath && selectedNode) {
       setCenterView(selectedNode);
+    }
+    if (selectedPath === null) {
+      setNodes(initialNodes);
     }
   }, [selectedPath]);
 
@@ -92,12 +96,8 @@ export default function OverviewFlow({
       ) => {
         setSelectedPath(node.data.pathInfo);
       }}
-      onMoveStart={() => {
-        setSelectedPath(null);
-        setNodes(initialNodes);
-      }}
     >
-      <Background color="#aaa" gap={16} />
+      <Background variant={BackgroundVariant.Dots} color="#aaa" gap={16} />
       <Controls position="bottom-right" />
     </ReactFlow>
   );

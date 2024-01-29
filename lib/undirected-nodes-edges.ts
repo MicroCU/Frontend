@@ -37,7 +37,8 @@ export function generateInitialNodeEdge(homeData: HomePageData) {
                 position: {
                     x: mockPosition.x,
                     y: mockPosition.y
-                }
+                },
+                draggable: false
             })
         })
     })
