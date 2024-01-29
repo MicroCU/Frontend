@@ -4,7 +4,7 @@ import { JourneyData } from "@/types/type";
 export const MockHomeData: JourneyData[] = [
     {
         id: "j1",
-        name: "Juior Programmer",
+        name: "Junior Programmer",
         progress: 60,
         paths: [
             {
@@ -143,4 +143,22 @@ export function getPathDetailFromId(pathId: string) {
         }
     }
     return null;
+}
+
+export function isPathInJourney(pathId: string | undefined, journeyId: string) {
+    if (!pathId) {
+        return false;
+    }
+    for (let i = 0; i < MockHomeData.length; i++) {
+        const journey = MockHomeData[i];
+        if (journey.id === journeyId) {
+            for (let j = 0; j < journey.paths.length; j++) {
+                const path = journey.paths[j];
+                if (path.id === pathId) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }

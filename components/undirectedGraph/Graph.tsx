@@ -40,11 +40,8 @@ export default function OverviewFlow({
     (selectedNode: Node<UndirectedGraphNodeData>) => {
       const nodeRadius = 24;
       setNodes(
-        nodes.map((node) => {
-          if (
-            node.id === selectedNode.id ||
-            node.data.pathInfo.id === selectedPath?.id
-          ) {
+        initialNodes.map((node) => {
+          if (node.id === selectedNode.id) {
             return {
               ...node,
               data: {
@@ -69,10 +66,10 @@ export default function OverviewFlow({
   );
 
   useEffect(() => {
-    let selectedPathNode =
+    let selectedNode =
       nodes.find((node) => node.data.pathInfo.id === selectedPath?.id) ?? null;
-    if (selectedPath && selectedPathNode) {
-      setCenterView(selectedPathNode);
+    if (selectedPath && selectedNode) {
+      setCenterView(selectedNode);
     }
   }, [selectedPath]);
 
@@ -88,11 +85,11 @@ export default function OverviewFlow({
         event: ReactMouseEvent,
         node: Node<UndirectedGraphNodeData>
       ) => {
-        setCenterView(node);
         setSelectedPath(node.data.pathInfo);
       }}
       onMoveStart={() => {
         setSelectedPath(null);
+        setNodes(initialNodes);
       }}
     >
       <Background color="#aaa" gap={16} />

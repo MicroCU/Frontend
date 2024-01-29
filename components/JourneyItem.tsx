@@ -6,10 +6,10 @@ import {
 } from "@/components/ui/collapsible";
 import PathItems from "./PathItems";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useSelectedPath } from "@/context/SelectedPath";
-import { getPathDetailFromId } from "@/mock/home_data";
+import { getPathDetailFromId, isPathInJourney } from "@/mock/home_data";
 
 export interface PathItems {
   id: string;
@@ -29,8 +29,13 @@ export default function JourneyItem({
   paths,
   width
 }: JourneyItemProps) {
-  const [open, setOpen] = useState<boolean>(false);
   const { selectedPath, setSelectedPath } = useSelectedPath();
+  const [open, setOpen] = useState<boolean>(false);
+  useEffect(() => {
+    if (selectedPath && isPathInJourney(selectedPath.id, id)) {
+      setOpen(true);
+    }
+  }, [selectedPath]);
   return (
     <Collapsible open={open} onOpenChange={setOpen} style={{ maxWidth: width }}>
       <CollapsibleTrigger className="text-black Bold16 uppercase">
