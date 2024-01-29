@@ -130,35 +130,157 @@ export const MockHomeData: JourneyData[] = [
             },
         ],
     },
+    {
+        id: "j3",
+        name: "Junior Mathematician",
+        progress: 10,
+        paths: [
+            {
+                id: "3-p1",
+                title: "Matrix",
+                description:
+                    "In mathematics, a matrix (plural matrices) is a rectangular array or table of numbers, symbols, or expressions, arranged in rows and columns. For example, the dimension of the matrix below is 2 × 3 (read 'two by three'), because there are two rows and three columns.",
+                tags: [
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Math",
+                    },
+                ],
+                status: PathStatus.NOT_VISITED
+            },
+            {
+                id: "3-p2",
+                title: "Linear Algebra",
+                description:
+                    "Linear algebra is the branch of mathematics concerning linear equations such as linear functions such as and their representations through matrices and vector spaces.",
+                tags: [
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Math",
+                    },
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Data Science",
+                    },
+                ],
+                status: PathStatus.PASSED_TEST
+            },
+            {
+                id: "3-p3",
+                title: "Graph Theory",
+                description:
+                    "In mathematics, graph theory is the study of graphs, which are mathematical structures used to model pairwise relations between objects. A graph in this context is made up of vertices (also called nodes or points) which are connected by edges (also called links or lines).",
+                tags: [
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Math",
+                    },
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Advanced",
+                    },
+                ],
+                status: PathStatus.STILL_LEARNING
+            },
+        ],
+    },
+    {
+        id: "j4",
+        name: "Data Scientist",
+        progress: 80,
+        paths: [
+            {
+                id: "4-p1",
+                title: "Image Processing",
+                description:
+                    "Image processing is a method to perform some operations on an image, in order to get an enhanced image or to extract some useful information from it. It is a type of signal processing in which input is an image and output may be image or characteristics/features associated with that image. Nowadays, image processing is among rapidly growing technologies. It forms core research area within engineering and computer science disciplines too. Image processing basically includes the following three steps.",
+                tags: [
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Software",
+                    },
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Math",
+                    },
+                ],
+                status: PathStatus.NOT_VISITED
+            },
+            {
+                id: "4-p2",
+                title: "Power BI",
+                description:
+                    "Power BI is a business analytics service by Microsoft. It aims to provide interactive visualizations and business intelligence capabilities with an interface simple enough for end users to create their own reports and dashboards.",
+                tags: [
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Tools",
+                    },
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Math",
+                    },
+                ],
+                status: PathStatus.STILL_LEARNING
+            },
+            {
+                id: "4-p3",
+                title: "Probability",
+                description:
+                    "Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur, or how likely it is that a proposition is true. The probability of an event is a number between 0 and 1, where, roughly speaking, 0 indicates impossibility of the event and 1 indicates certainty.",
+                tags: [
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Math",
+                    },
+                    {
+                        imageURL:
+                            "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
+                        title: "Basic",
+                    },
+                ],
+                status: PathStatus.PASSED_TEST
+            },
+        ],
+    },
 ]
 
 export function getPathDetailFromId(pathId: string) {
-    for (let i = 0; i < MockHomeData.length; i++) {
-        const journey = MockHomeData[i];
-        for (let j = 0; j < journey.paths.length; j++) {
-            const path = journey.paths[j];
+    let result = null;
+    MockHomeData.forEach((journey) => {
+        journey.paths.forEach((path) => {
             if (path.id === pathId) {
-                return path;
+                result = path;
             }
-        }
-    }
-    return null;
+        });
+    });
+
+    return result;
 }
 
 export function isPathInJourney(pathId: string | undefined, journeyId: string) {
     if (!pathId) {
         return false;
     }
-    for (let i = 0; i < MockHomeData.length; i++) {
-        const journey = MockHomeData[i];
+    let pathFound = false;
+    MockHomeData.forEach((journey) => {
         if (journey.id === journeyId) {
-            for (let j = 0; j < journey.paths.length; j++) {
-                const path = journey.paths[j];
+            journey.paths.forEach((path) => {
                 if (path.id === pathId) {
-                    return true;
+                    pathFound = true;
                 }
-            }
+            });
         }
-    }
-    return false;
+    });
+    return pathFound;
 }

@@ -10,6 +10,13 @@ function getMockPosition(pathId: string) {
     positionMap.set("2-p2", { x: 550, y: 200 });
     positionMap.set("2-p3", { x: 400, y: 300 });
 
+    positionMap.set("3-p1", { x: 700, y: 100 });
+    positionMap.set("3-p2", { x: 700, y: 200 });
+    positionMap.set("3-p3", { x: 900, y: 200 });
+    positionMap.set("4-p1", { x: 700, y: 300 });
+    positionMap.set("4-p2", { x: 900, y: 300 });
+    positionMap.set("4-p3", { x: 1100, y: 300 });
+
     return positionMap.get(pathId)!;
 }
 
@@ -42,4 +49,11 @@ export const mockEdges = [
     { id: 'e4', source: '1-p3', target: '2-p2', type: 'straight' },
     { id: 'e5', source: '2-p1', target: '2-p3', type: 'straight' },
     { id: 'e6', source: '2-p2', target: '2-p3', type: 'straight' },
+
+    { id: 'e7', source: '1-p3', target: '3-p1', type: 'straight' },
+    { id: 'e8', source: '3-p1', target: '3-p2', type: 'straight' },
+    { id: 'e9', source: '3-p1', target: '3-p3', type: 'straight' },
+    { id: 'e10', source: '3-p2', target: '4-p1', type: 'straight' },
+    { id: 'e11', source: '3-p2', target: '4-p2', type: 'straight' },
+    { id: 'e12', source: '3-p2', target: '4-p3', type: 'straight' },
 ];
