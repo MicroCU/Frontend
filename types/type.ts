@@ -12,7 +12,13 @@ export interface MicroData {
   type: MicroType;
 }
 
+export interface BriefPathInfo {
+  title: string;
+  description: string;
+  tags: TagProps[];
+}
+
 export interface NodeData {
-  name: string;
   status: NodeStatusEnum
+  pathInfo: BriefPathInfo
 }

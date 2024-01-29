@@ -15,7 +15,7 @@ export default function CircleNode({
     <>
       <Handle type="target" position={Position.Top} />
       <Node status={data.status} />
-      <Handle type="source" position={Position.Bottom} id="a" />
+      <Handle type="source" position={Position.Bottom} />
     </>
   );
 }

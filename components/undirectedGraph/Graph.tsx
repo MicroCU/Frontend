@@ -2,23 +2,30 @@
 import React, {
   useCallback,
   MouseEvent as ReactMouseEvent,
-  useMemo
+  useMemo,
+  Dispatch,
+  SetStateAction
 } from "react";
 import ReactFlow, {
   Background,
   useNodesState,
   useEdgesState,
   useReactFlow,
-  Node
+  Node,
+  Controls
 } from "reactflow";
 
 import { nodes as initialNodes, edges as initialEdges } from "./nodes-edges";
 import "reactflow/dist/style.css";
 import CircleNode from "./CircleNode";
-import { NodeData } from "@/types/type";
+import { BriefPathInfo, NodeData } from "@/types/type";
 import { NodeStatusEnum } from "@/types/enum";
 
-const OverviewFlow = () => {
+interface IOverviewFlowProps {
+  setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
+}
+
+export default function OverviewFlow({ setSelectedPath }: IOverviewFlowProps) {
   const [nodes, setNodes, onNodesChange] =
     useNodesState<NodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -58,14 +65,14 @@ const OverviewFlow = () => {
       onEdgesChange={onEdgesChange}
       nodeTypes={nodeTypes}
       fitView
-      onNodeClick={(event: ReactMouseEvent, node: Node) => {
+      onNodeClick={(event: ReactMouseEvent, node: Node<NodeData>) => {
         const { x, y } = node.position;
         setCenterView(x, y, node.id);
+        setSelectedPath(node.data.pathInfo);
       }}
     >
       <Background color="#aaa" gap={16} />
+      <Controls position="bottom-right" />
     </ReactFlow>
   );
-};
-
-export default OverviewFlow;
+}
