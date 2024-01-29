@@ -1,6 +1,9 @@
+"use client";
 import NavBar from "@/components/NavBar";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import { TagProps } from "@/types/type";
+import OverviewFlow from "../../components/undirectedGraph/Graph";
+import { ReactFlowProvider } from "reactflow";
 
 const descp =
   "Python is an easy to learn, powerful programming language. It has efficient high-level data structures Python is an easy to learn, powerful programming language. It has efficient high-level data structures";
@@ -21,9 +24,14 @@ const mockTags: TagProps[] = [
 const GraphPage = () => {
   return (
     <div className="flex min-h-screen bg-grayLight">
-      <NavBar />
-      <div className="flex items-center">
-        <SelectedPathModal title="Python" description={descp} tags={mockTags} />
+      <div className="z-50">
+        <NavBar />
+      </div>
+      <div className="flex items-center z-40 w-full">
+        {/* <SelectedPathModal title="Python" description={descp} tags={mockTags} /> */}
+        <ReactFlowProvider>
+          <OverviewFlow />
+        </ReactFlowProvider>
       </div>
     </div>
   );
