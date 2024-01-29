@@ -4,7 +4,7 @@ import OverviewFlow from "../../components/undirectedGraph/Graph";
 import { ReactFlowProvider } from "reactflow";
 import { useState } from "react";
 import SelectedPathModal from "@/components/SelectedPathModal";
-import { BriefPathInfo, JourneyData } from "@/types/type";
+import { JourneyData } from "@/types/type";
 import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
 import { CheckListItemStatus } from "@/types/enum";
@@ -12,10 +12,11 @@ import { ICheckListItem } from "@/components/CheckListItem";
 import { MockHomeData } from "@/mock/home_data";
 import { generateNode, mockEdges } from "@/lib/undirected-nodes-edges";
 import { JourneyItem } from "@/components/JourneyItems";
+import { useSelectedPath } from "@/context/SelectedPath";
 
 const GraphPage = () => {
   const mockJourneyData = MockHomeData;
-  const [selectedPath, setSelectedPath] = useState<BriefPathInfo | null>(null);
+  const { selectedPath } = useSelectedPath();
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
   return (
     <div className="flex min-h-screen bg-grayLight">
@@ -25,7 +26,6 @@ const GraphPage = () => {
       <div className="flex items-center z-30 w-full">
         <ReactFlowProvider>
           <OverviewFlow
-            setSelectedPath={setSelectedPath}
             initialNodes={generateNode(mockJourneyData)}
             initialEdges={mockEdges}
           />
@@ -33,11 +33,7 @@ const GraphPage = () => {
       </div>
       {selectedPath && (
         <div className="absolute top-20 right-20 z-40">
-          <SelectedPathModal
-            title={selectedPath.title}
-            description={selectedPath.description}
-            tags={selectedPath.tags}
-          />
+          <SelectedPathModal />
         </div>
       )}
       <div

@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
 import JourneyItem, { PathItems } from "./JourneyItem";
 import JourneyItemsLoading from "./JourneyItemsLoading";
+import { JourneyData } from "@/types/type";
 
 export interface JourneyItem {
   id: string;
@@ -27,7 +27,6 @@ export default function JourneyItems({
   width,
   type
 }: JourneyItemsProps) {
-  const [selectedPath, setSelectedPath] = useState<string | null>(null);
   return (
     <div
       className={`${className} flex flex-col gap-y-6`}
@@ -35,15 +34,27 @@ export default function JourneyItems({
     >
       {journeys &&
         journeys.map((journey) => (
-          <JourneyItem
-            {...journey}
-            key={journey.id}
-            selectedPath={selectedPath}
-            setSelectedPath={setSelectedPath}
-            width={width}
-          />
+          <JourneyItem {...journey} key={journey.id} width={width} />
         ))}
       {type === JourneyItemsType.Loading && <JourneyItemsLoading />}
     </div>
   );
+}
+
+function transformDataToNavBarData(mockJourneyData: JourneyData[]) {
+  const navBarData: JourneyItem[] = [];
+  mockJourneyData.forEach((journeyData) => {
+    const paths = journeyData.paths.map((path) => {
+      return {
+        id: path.id,
+        name: path.title
+      };
+    });
+    navBarData.push({
+      id: journeyData.id,
+      name: journeyData.name,
+      paths: paths
+    });
+  });
+  return navBarData;
 }

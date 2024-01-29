@@ -1,4 +1,3 @@
-import { CheckListItemStatus } from "@/types/enum";
 import { RadialProgress } from "./RadialProgress";
 
 export interface ICheckListItem {

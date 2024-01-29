@@ -6,8 +6,10 @@ import {
 } from "@/components/ui/collapsible";
 import PathItems from "./PathItems";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useSelectedPath } from "@/context/SelectedPath";
+import { getPathDetailFromId } from "@/mock/home_data";
 
 export interface PathItems {
   id: string;
@@ -18,8 +20,6 @@ export interface JourneyItemProps {
   id: string;
   name: string;
   paths: PathItems[];
-  selectedPath: string | null;
-  setSelectedPath: Dispatch<SetStateAction<string | null>>;
   width?: number;
 }
 
@@ -27,11 +27,10 @@ export default function JourneyItem({
   id,
   name,
   paths,
-  selectedPath,
-  setSelectedPath,
   width
 }: JourneyItemProps) {
   const [open, setOpen] = useState<boolean>(false);
+  const { selectedPath, setSelectedPath } = useSelectedPath();
   return (
     <Collapsible open={open} onOpenChange={setOpen} style={{ maxWidth: width }}>
       <CollapsibleTrigger className="text-black Bold16 uppercase">
@@ -54,11 +53,14 @@ export default function JourneyItem({
           <div
             key={path.id}
             onClick={() => {
-              setSelectedPath(path.id);
+              setSelectedPath(getPathDetailFromId(path.id));
             }}
             className={cn("ml-5", index !== paths.length - 1 ? "my-2" : "")}
           >
-            <PathItems name={path.name} isSelected={selectedPath === path.id} />
+            <PathItems
+              name={path.name}
+              isSelected={selectedPath?.id === path.id}
+            />
           </div>
         ))}
       </CollapsibleContent>

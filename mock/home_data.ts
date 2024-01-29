@@ -131,3 +131,16 @@ export const MockHomeData: JourneyData[] = [
         ],
     },
 ]
+
+export function getPathDetailFromId(pathId: string) {
+    for (let i = 0; i < MockHomeData.length; i++) {
+        const journey = MockHomeData[i];
+        for (let j = 0; j < journey.paths.length; j++) {
+            const path = journey.paths[j];
+            if (path.id === pathId) {
+                return path;
+            }
+        }
+    }
+    return null;
+}

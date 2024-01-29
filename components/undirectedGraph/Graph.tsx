@@ -3,8 +3,7 @@ import React, {
   useCallback,
   MouseEvent as ReactMouseEvent,
   useMemo,
-  Dispatch,
-  SetStateAction
+  useEffect
 } from "react";
 import ReactFlow, {
   Background,
@@ -18,31 +17,34 @@ import ReactFlow, {
 
 import "reactflow/dist/style.css";
 import CircleNode from "./CircleNode";
-import { BriefPathInfo, UndirectedGraphNodeData } from "@/types/type";
+import { UndirectedGraphNodeData } from "@/types/type";
 import { PathStatus } from "@/types/enum";
+import { useSelectedPath } from "@/context/SelectedPath";
 
 interface IOverviewFlowProps {
-  setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
   initialNodes: Node<UndirectedGraphNodeData>[];
   initialEdges: Edge[];
 }
 
 export default function OverviewFlow({
-  setSelectedPath,
   initialNodes,
   initialEdges
 }: IOverviewFlowProps) {
+  const { selectedPath, setSelectedPath } = useSelectedPath();
   const [nodes, setNodes, onNodesChange] =
     useNodesState<UndirectedGraphNodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodeTypes = useMemo(() => ({ circleNode: CircleNode }), []);
   const reactFlow = useReactFlow();
-  const nodeRadius = 24;
   const setCenterView = useCallback(
-    (x: number, y: number, id: string) => {
+    (selectedNode: Node<UndirectedGraphNodeData>) => {
+      const nodeRadius = 24;
       setNodes(
         nodes.map((node) => {
-          if (node.id === id) {
+          if (
+            node.id === selectedNode.id ||
+            node.data.pathInfo.id === selectedPath?.id
+          ) {
             return {
               ...node,
               data: {
@@ -58,10 +60,21 @@ export default function OverviewFlow({
         })
       );
 
-      reactFlow.setCenter(x + nodeRadius, y + nodeRadius);
+      reactFlow.setCenter(
+        selectedNode.position.x + nodeRadius,
+        selectedNode.position.y + nodeRadius
+      );
     },
     [reactFlow]
   );
+
+  useEffect(() => {
+    let selectedPathNode =
+      nodes.find((node) => node.data.pathInfo.id === selectedPath?.id) ?? null;
+    if (selectedPath && selectedPathNode) {
+      setCenterView(selectedPathNode);
+    }
+  }, [selectedPath]);
 
   return (
     <ReactFlow
@@ -75,8 +88,7 @@ export default function OverviewFlow({
         event: ReactMouseEvent,
         node: Node<UndirectedGraphNodeData>
       ) => {
-        const { x, y } = node.position;
-        setCenterView(x, y, node.id);
+        setCenterView(node);
         setSelectedPath(node.data.pathInfo);
       }}
       onMoveStart={() => {
