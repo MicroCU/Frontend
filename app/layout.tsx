@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { TranslationContextProvider } from "@/context/Translation";
-import { SelectedPathContextProvider } from "@/context/SelectedPath";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TranslationContextProvider>
-          <SelectedPathContextProvider>{children}</SelectedPathContextProvider>
-        </TranslationContextProvider>
+        <TranslationContextProvider>{children}</TranslationContextProvider>
         <Toaster />
       </body>
     </html>

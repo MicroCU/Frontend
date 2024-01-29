@@ -22,7 +22,7 @@ export default function NavBarOpenMode({
     <ScrollArea className="h-screen w-fit">
       <div className="space-y-6 p-6 bg-white shadow-md min-h-screen flex flex-col">
         <NavHeader setIsOpen={setIsOpen} />
-        <Tabs defaultValue={Page.Journey} className="flex-1">
+        <Tabs defaultValue={Page.Journey} className="flex-1 max-w-72">
           <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
             <TabsTrigger value="journey">
               {dict["home.tabs.journey"]}

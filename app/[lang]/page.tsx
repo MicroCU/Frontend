@@ -12,52 +12,51 @@ import { ICheckListItem } from "@/components/CheckListItem";
 import { MockHomeData } from "@/mock/home_data";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
 import { JourneyItem } from "@/components/JourneyItems";
-import { useSelectedPath } from "@/context/SelectedPath";
+import { SelectedPathContextProvider } from "@/context/SelectedPath";
 
 const GraphPage = () => {
   const mockJourneyData = MockHomeData;
-  const { selectedPath } = useSelectedPath();
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
   const { initialNodes, initialEdges } =
     generateInitialNodeEdge(mockJourneyData);
   return (
-    <div className="flex min-h-screen bg-grayLight">
-      <div className="z-50">
-        <NavBar
-          journeys={transformDataToNavBarData(mockJourneyData.journeys)}
-        />
-      </div>
-      <div className="flex items-center z-30 w-full">
-        <ReactFlowProvider>
-          <OverviewFlow
-            initialNodes={initialNodes}
-            initialEdges={initialEdges}
+    <SelectedPathContextProvider>
+      <div className="flex min-h-screen bg-grayLight">
+        <div className="z-50">
+          <NavBar
+            journeys={transformDataToNavBarData(mockJourneyData.journeys)}
           />
-        </ReactFlowProvider>
-      </div>
-      {selectedPath && (
+        </div>
+        <div className="flex items-center z-30 w-full">
+          <ReactFlowProvider>
+            <OverviewFlow
+              initialNodes={initialNodes}
+              initialEdges={initialEdges}
+            />
+          </ReactFlowProvider>
+        </div>
         <div className="absolute top-20 right-20 z-40">
           <SelectedPathModal />
         </div>
-      )}
-      <div
-        className="absolute top-5 right-5 z-40"
-        onClick={() => {
-          setIsViewCheckList(!isViewCheckList);
-        }}
-      >
-        {isViewCheckList ? (
-          <CheckList
-            checkListItems={transformDataToCheckListData(
-              mockJourneyData.journeys
-            )}
-            status={CheckListItemStatus.SHOWN}
-          />
-        ) : (
-          <CheckListIcon />
-        )}
+        <div
+          className="absolute top-5 right-5 z-40"
+          onClick={() => {
+            setIsViewCheckList(!isViewCheckList);
+          }}
+        >
+          {isViewCheckList ? (
+            <CheckList
+              checkListItems={transformDataToCheckListData(
+                mockJourneyData.journeys
+              )}
+              status={CheckListItemStatus.SHOWN}
+            />
+          ) : (
+            <CheckListIcon />
+          )}
+        </div>
       </div>
-    </div>
+    </SelectedPathContextProvider>
   );
 };
 

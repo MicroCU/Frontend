@@ -152,14 +152,14 @@ export const MockHomeData: HomePageData = {
         },
         {
             id: "j3",
-            name: "Junior Mathematician",
+            name: "Junior Mathematician 10101010101010101010102",
             progress: 10,
             paths: {
                 total: 3,
                 data: [
                     {
                         id: "3-p1",
-                        name: "Matrix",
+                        name: "Matrix very very important!!!!!!!!!!!!!!",
                         description:
                             "In mathematics, a matrix (plural matrices) is a rectangular array or table of numbers, symbols, or expressions, arranged in rows and columns. For example, the dimension of the matrix below is 2 × 3 (read 'two by three'), because there are two rows and three columns.",
                         tags: [
