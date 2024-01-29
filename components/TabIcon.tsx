@@ -1,46 +1,45 @@
-import { TabIconTypeEnum, TabIconModeEnum } from "@/types/enum";
+"use client";
+import { TabIconType } from "@/types/enum";
 import { LibraryBig, Search, History } from "lucide-react";
+import { useState } from "react";
+import NavToolTip from "./NavToolTip";
 
 export interface ITabIcon {
-  type: TabIconTypeEnum;
-  mode: TabIconModeEnum;
+  type: TabIconType;
   className?: string;
 }
 
-export default function TabIcon({ type, mode, className }: ITabIcon) {
+export default function TabIcon({ type, className }: ITabIcon) {
+  const [isHovered, setIsHovered] = useState(false);
   return (
-    <div
-      className={`w-8 h-8 rounded flex justify-center items-center ${
-        mode === TabIconModeEnum.FILLED ? "bg-grayMain" : ""
-      } ${className}`}
-    >
-      {type === TabIconTypeEnum.library ? (
-        <LibraryBig
-          className={`${
-            mode === TabIconModeEnum.FILLED
-              ? "stroke-grayLight"
-              : "stroke-grayMain"
-          }`}
-        />
-      ) : type === TabIconTypeEnum.search ? (
-        <Search
-          size={28}
-          strokeWidth={2}
-          className={`${
-            mode === TabIconModeEnum.FILLED
-              ? "stroke-grayLight"
-              : "stroke-grayMain"
-          }`}
-        />
-      ) : (
-        <History
-          className={`${
-            mode === TabIconModeEnum.FILLED
-              ? "stroke-grayLight"
-              : "stroke-grayMain"
-          }`}
-        />
-      )}
-    </div>
+    <NavToolTip tooltipText={type}>
+      <div
+        className={`w-8 h-8 rounded flex justify-center items-center ${
+          isHovered ? "bg-grayMain" : ""
+        } ${className}`}
+      >
+        {type === TabIconType.library ? (
+          <LibraryBig
+            className={`${isHovered ? "stroke-grayLight" : "stroke-grayMain"}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
+        ) : type === TabIconType.search ? (
+          <Search
+            size={28}
+            strokeWidth={2}
+            className={`${isHovered ? "stroke-grayLight" : "stroke-grayMain"}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
+        ) : (
+          <History
+            className={`${isHovered ? "stroke-grayLight" : "stroke-grayMain"}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
+        )}
+      </div>
+    </NavToolTip>
   );
 }

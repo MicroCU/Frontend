@@ -16,7 +16,7 @@ const mockPath: IPath[] = [
     description: "Description 1",
     categories: [
       {
-        id: "1",
+        id: "1-1",
         name: "Category 1",
         imageURL:
           "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
@@ -24,13 +24,13 @@ const mockPath: IPath[] = [
     ]
   },
   {
-    id: "1",
-    name: "Path 1",
+    id: "2",
+    name: "Path 2",
     description:
       "Description 1 Description 1 Description 1Description 1Description 1Description 1Description 1Description 1Description 1Description 1",
     categories: [
       {
-        id: "1",
+        id: "2-1",
         name: "Category 1",
         imageURL:
           "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"

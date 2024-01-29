@@ -1,4 +1,4 @@
-import { TabIconTypeEnum, TabIconModeEnum } from "@/types/enum";
+import { TabIconType } from "@/types/enum";
 import { ArrowRight } from "lucide-react";
 import TabIcon from "./TabIcon";
 import { Dispatch, SetStateAction } from "react";
@@ -15,9 +15,9 @@ export default function NavBarCloseMode({ setIsOpen }: NavBarCloseModeProps) {
         onClick={() => setIsOpen(true)}
         size={24}
       />
-      <TabIcon type={TabIconTypeEnum.library} mode={TabIconModeEnum.OUTLINE} />
-      <TabIcon type={TabIconTypeEnum.history} mode={TabIconModeEnum.OUTLINE} />
-      <TabIcon type={TabIconTypeEnum.search} mode={TabIconModeEnum.OUTLINE} />
+      <TabIcon type={TabIconType.library} />
+      <TabIcon type={TabIconType.history} />
+      <TabIcon type={TabIconType.search} />
     </div>
   );
 }

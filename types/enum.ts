@@ -15,13 +15,8 @@ export enum OnBoardMode {
   GOAL = "GOAL"
 }
 
-export enum TabIconModeEnum {
-  OUTLINE = "outline",
-  FILLED = "filled"
-}
-
-export enum TabIconTypeEnum {
-  library = "library",
-  search = "search",
-  history = "history"
+export enum TabIconType {
+  library = "Journey",
+  search = "Search",
+  history = "Recently"
 }

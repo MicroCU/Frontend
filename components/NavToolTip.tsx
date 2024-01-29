@@ -4,18 +4,19 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip";
+import { ReactNode } from "react";
 
 export interface NavToolTipProps {
-  mainText: string;
-  subText: string;
+  children: ReactNode;
+  tooltipText: string;
 }
-export default function NavToolTip({ mainText, subText }: NavToolTipProps) {
+export default function NavToolTip({ children, tooltipText }: NavToolTipProps) {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
-        <TooltipTrigger> {mainText} </TooltipTrigger>
+        <TooltipTrigger> {children} </TooltipTrigger>
         <TooltipContent side="right">
-          <p> {subText} </p>
+          <p> {tooltipText} </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
