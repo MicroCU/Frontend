@@ -26,3 +26,9 @@ export enum NodeStatusEnum {
   PASSED_TEST = "PASSED_TEST",
   NOT_VISITED = "NOT_VISITED",
 }
+
+export enum CheckListItemStatus {
+  LOADING = "LOADING",
+  SHOWN = "SHOWN",
+  COMPLETED = "COMPLETED"
+}

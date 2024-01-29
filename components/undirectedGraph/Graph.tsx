@@ -70,6 +70,9 @@ export default function OverviewFlow({ setSelectedPath }: IOverviewFlowProps) {
         setCenterView(x, y, node.id);
         setSelectedPath(node.data.pathInfo);
       }}
+      onMoveStart={() => {
+        setSelectedPath(null);
+      }}
     >
       <Background color="#aaa" gap={16} />
       <Controls position="bottom-right" />

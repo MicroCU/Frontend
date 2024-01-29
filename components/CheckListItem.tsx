@@ -1,16 +1,10 @@
+import { CheckListItemStatus } from "@/types/enum";
 import { RadialProgress } from "./RadialProgress";
-
-export enum CheckListItemStatusEnum {
-  LOADING = "LOADING",
-  SHOWN = "SHOWN",
-  COMPLETED = "COMPLETED"
-}
 
 export interface ICheckListItem {
   journey: string;
   paths: string[];
   progress: number;
-  status: CheckListItemStatusEnum;
 }
 
 export function CheckListItem({ journey, paths, progress }: ICheckListItem) {

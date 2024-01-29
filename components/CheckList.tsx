@@ -1,14 +1,11 @@
 import { ListTodo } from "lucide-react";
-import {
-  CheckListItem,
-  CheckListItemStatusEnum,
-  ICheckListItem
-} from "./CheckListItem";
+import { CheckListItem, ICheckListItem } from "./CheckListItem";
 import CheckListItemLoading from "./CheckListItemLoading";
+import { CheckListItemStatus } from "@/types/enum";
 
 export interface ICheckListProps {
   checkListItems: ICheckListItem[];
-  status: CheckListItemStatusEnum;
+  status: CheckListItemStatus;
   className?: string;
 }
 
@@ -25,11 +22,11 @@ export default function CheckList({
         <ListTodo size={24} className="stroke-primary" />
         <p className="Bold24 text-primary"> Checklist </p>
       </div>
-      {status === CheckListItemStatusEnum.COMPLETED ? (
+      {status === CheckListItemStatus.COMPLETED ? (
         <div className="w-[200px] h-full flex justify-center items-center">
           <p className="Reg12"> All Journeys are accomplished </p>
         </div>
-      ) : status === CheckListItemStatusEnum.LOADING ? (
+      ) : status === CheckListItemStatus.LOADING ? (
         <CheckListItemLoading />
       ) : (
         checkListItems.map((checkListItem, index) => (
@@ -38,7 +35,6 @@ export default function CheckList({
             journey={checkListItem.journey}
             paths={checkListItem.paths}
             progress={checkListItem.progress}
-            status={status}
           />
         ))
       )}
