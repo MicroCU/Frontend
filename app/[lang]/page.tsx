@@ -10,7 +10,7 @@ import CheckList from "@/components/CheckList";
 import { CheckListItemStatus } from "@/types/enum";
 import { ICheckListItem } from "@/components/CheckListItem";
 import { MockHomeData } from "@/mock/home_data";
-import { generateNode, mockEdges } from "@/lib/undirected-nodes-edges";
+import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
 import { JourneyItem } from "@/components/JourneyItems";
 import { useSelectedPath } from "@/context/SelectedPath";
 
@@ -18,16 +18,20 @@ const GraphPage = () => {
   const mockJourneyData = MockHomeData;
   const { selectedPath } = useSelectedPath();
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
+  const { initialNodes, initialEdges } =
+    generateInitialNodeEdge(mockJourneyData);
   return (
     <div className="flex min-h-screen bg-grayLight">
       <div className="z-50">
-        <NavBar journeys={transformDataToNavBarData(mockJourneyData)} />
+        <NavBar
+          journeys={transformDataToNavBarData(mockJourneyData.journeys)}
+        />
       </div>
       <div className="flex items-center z-30 w-full">
         <ReactFlowProvider>
           <OverviewFlow
-            initialNodes={generateNode(mockJourneyData)}
-            initialEdges={mockEdges}
+            initialNodes={initialNodes}
+            initialEdges={initialEdges}
           />
         </ReactFlowProvider>
       </div>
@@ -44,7 +48,9 @@ const GraphPage = () => {
       >
         {isViewCheckList ? (
           <CheckList
-            checkListItems={transformDataToCheckListData(mockJourneyData)}
+            checkListItems={transformDataToCheckListData(
+              mockJourneyData.journeys
+            )}
             status={CheckListItemStatus.SHOWN}
           />
         ) : (
@@ -60,7 +66,7 @@ export default GraphPage;
 function transformDataToCheckListData(mockJourneyData: JourneyData[]) {
   const checkListItems: ICheckListItem[] = [];
   mockJourneyData.forEach((journeyData) => {
-    const paths = journeyData.paths.map((path) => path.title);
+    const paths = journeyData.paths.data.map((path) => path.name);
     const progress = journeyData.progress;
     checkListItems.push({
       journey: journeyData.name,
@@ -74,10 +80,10 @@ function transformDataToCheckListData(mockJourneyData: JourneyData[]) {
 function transformDataToNavBarData(mockJourneyData: JourneyData[]) {
   const navBarData: JourneyItem[] = [];
   mockJourneyData.forEach((journeyData) => {
-    const paths = journeyData.paths.map((path) => {
+    const paths = journeyData.paths.data.map((path) => {
       return {
         id: path.id,
-        name: path.title
+        name: path.name
       };
     });
     navBarData.push({

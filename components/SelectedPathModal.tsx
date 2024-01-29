@@ -1,5 +1,5 @@
 "use client";
-import { TagProps } from "@/types/type";
+import { TagData } from "@/types/type";
 import { Button } from "./ui/button";
 import Tag from "./Tag";
 import { useTranslation } from "@/context/Translation";
@@ -12,12 +12,10 @@ const SelectedPathModal = () => {
   return (
     <div className="w-[400px] bg-white p-6 rounded-[8px] space-y-6 border-2 border-primary shadow-xl">
       <div className="space-y-3">
-        <h1 className="Bold32 text-primary">{selectedPath.title}</h1>
+        <h1 className="Bold32 text-primary">{selectedPath.name}</h1>
         <div className="flex gap-3">
           {selectedPath.tags.map((tag, index) => {
-            return (
-              <Tag imageURL={tag.imageURL} title={tag.title} key={index} />
-            );
+            return <Tag imageURL={tag.icon} title={tag.name} key={index} />;
           })}
         </div>
       </div>

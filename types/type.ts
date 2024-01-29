@@ -1,8 +1,9 @@
 import { MicroType, PathStatus } from "./enum";
 
-export type TagProps = {
-  imageURL: string;
-  title: string;
+export type TagData = {
+  id: string;
+  name: string;
+  icon: string;
 };
 
 export interface MicroData {
@@ -14,9 +15,10 @@ export interface MicroData {
 
 export interface BriefPathInfo {
   id: string
-  title: string;
+  name: string;
   description: string;
-  tags: TagProps[];
+  tags: TagData[];
+  picture?: string;
   status: PathStatus
 }
 
@@ -29,5 +31,17 @@ export interface JourneyData {
   id: string;
   name: string;
   progress: number;
-  paths: BriefPathInfo[];
+  paths: {
+    total: number;
+    data: BriefPathInfo[];
+  }
+}
+
+export interface HomePageData {
+  total: number;
+  journeys: JourneyData[];
+  relationships: {
+    id: string;
+    neighbor: string[]
+  }[];
 }

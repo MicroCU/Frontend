@@ -18,11 +18,11 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import CircleNode from "./CircleNode";
 import { UndirectedGraphNodeData } from "@/types/type";
-import { PathStatus } from "@/types/enum";
+import { PathStatus, UndirectedNodeType } from "@/types/enum";
 import { useSelectedPath } from "@/context/SelectedPath";
 
 interface IOverviewFlowProps {
-  initialNodes: Node<UndirectedGraphNodeData>[];
+  initialNodes: Node<UndirectedGraphNodeData, UndirectedNodeType>[];
   initialEdges: Edge[];
 }
 
@@ -34,7 +34,12 @@ export default function OverviewFlow({
   const [nodes, setNodes, onNodesChange] =
     useNodesState<UndirectedGraphNodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const nodeTypes = useMemo(() => ({ circleNode: CircleNode }), []);
+  const nodeTypes = useMemo(
+    () => ({
+      circularNode: CircleNode
+    }),
+    []
+  );
   const reactFlow = useReactFlow();
   const setCenterView = useCallback(
     (selectedNode: Node<UndirectedGraphNodeData>) => {

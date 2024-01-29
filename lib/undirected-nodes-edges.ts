@@ -1,5 +1,6 @@
-import { JourneyData, UndirectedGraphNodeData } from '@/types/type';
-import { Node } from 'reactflow';
+import { UndirectedNodeType } from '@/types/enum';
+import { HomePageData, UndirectedGraphNodeData } from '@/types/type';
+import { Node, Edge } from 'reactflow';
 
 function getMockPosition(pathId: string) {
     const positionMap = new Map<string, { x: number, y: number }>();
@@ -20,14 +21,15 @@ function getMockPosition(pathId: string) {
     return positionMap.get(pathId)!;
 }
 
-export function generateNode(data: JourneyData[]) {
-    const nodes: Node<UndirectedGraphNodeData>[] = [];
-    data.forEach((journey, index) => {
-        journey.paths.forEach((path, index) => {
+export function generateInitialNodeEdge(homeData: HomePageData) {
+    const nodes: Node<UndirectedGraphNodeData, UndirectedNodeType>[] = [];
+    const edges: Edge<any>[] = [];
+    homeData.journeys.forEach((journey, index) => {
+        journey.paths.data.forEach((path, index) => {
             const mockPosition = getMockPosition(path.id);
             nodes.push({
                 id: path.id,
-                type: "circleNode",
+                type: UndirectedNodeType.CircularNode,
                 data: {
                     status: path.status,
                     pathInfo: path
@@ -39,21 +41,30 @@ export function generateNode(data: JourneyData[]) {
             })
         })
     })
-    return nodes;
+
+    let isExisted: string[][] = [];
+    homeData.relationships.forEach((relationship, index) => {
+        relationship.neighbor.forEach((neighborId, index) => {
+            if (!isEdgeExisted(isExisted, [relationship.id, neighborId].sort())) {
+                edges.push({
+                    id: `${neighborId}-${relationship.id}`,
+                    source: neighborId,
+                    target: relationship.id,
+                    type: 'straight'
+                })
+                isExisted.push([relationship.id, neighborId].sort());
+            }
+        })
+    })
+
+    return {
+        initialNodes: nodes,
+        initialEdges: edges
+    }
 }
 
-export const mockEdges = [
-    { id: 'e1', source: '1-p1', target: '1-p2', type: 'straight' },
-    { id: 'e2', source: '1-p1', target: '1-p3', type: 'straight' },
-    { id: 'e3', source: '1-p3', target: '2-p1', type: 'straight' },
-    { id: 'e4', source: '1-p3', target: '2-p2', type: 'straight' },
-    { id: 'e5', source: '2-p1', target: '2-p3', type: 'straight' },
-    { id: 'e6', source: '2-p2', target: '2-p3', type: 'straight' },
-
-    { id: 'e7', source: '1-p3', target: '3-p1', type: 'straight' },
-    { id: 'e8', source: '3-p1', target: '3-p2', type: 'straight' },
-    { id: 'e9', source: '3-p1', target: '3-p3', type: 'straight' },
-    { id: 'e10', source: '3-p2', target: '4-p1', type: 'straight' },
-    { id: 'e11', source: '3-p2', target: '4-p2', type: 'straight' },
-    { id: 'e12', source: '3-p2', target: '4-p3', type: 'straight' },
-];
+function isEdgeExisted(isExisted: string[][], target: string[]) {
+    return isExisted.some((item) => {
+        return item[0] === target[0] && item[1] === target[1];
+    })
+}

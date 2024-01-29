@@ -32,3 +32,7 @@ export enum CheckListItemStatus {
   SHOWN = "SHOWN",
   COMPLETED = "COMPLETED"
 }
+
+export enum UndirectedNodeType {
+  CircularNode = "circularNode",
+}
