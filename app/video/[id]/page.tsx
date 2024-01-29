@@ -1,7 +1,7 @@
 "use client";
 
 import VideoControlLayer from "@/components/VideoControlLayer";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
 
@@ -23,7 +23,12 @@ export interface VideoState {
 }
 
 let count = 0;
+
+//mock
 let videoName = "Example";
+let videoUrl =
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+let progress = 0.2;
 
 const VideoPage = ({ params }: VideoPageProps) => {
   const [isClient, setIsClient] = useState(false);
@@ -35,7 +40,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
     playing: false,
     muted: false,
     volume: 1,
-    played: 0,
+    played: progress, //continue from previous
     seeking: false,
     buffer: true,
     speed: 1,
@@ -46,6 +51,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
 
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   const currentTime = videoPlayerRef.current
     ? videoPlayerRef.current.getCurrentTime()
@@ -175,9 +181,16 @@ const VideoPage = ({ params }: VideoPageProps) => {
     setVideoState({ ...videoState, buffer: false });
   };
 
+  const onVideoReady = useCallback(() => {
+    if (!isVideoReady) {
+      videoPlayerRef.current?.seekTo(progress);
+      setIsVideoReady(true);
+    }
+  }, [isVideoReady]);
+
   const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === " " || event.key === "Spacebar") {
-      event.preventDefault(); // Prevent scrolling the page when using the space bar
+      event.preventDefault();
       playPauseHandler();
       mouseMoveHandler();
     }
@@ -213,8 +226,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
         <ReactPlayer
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
-          url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-          // url="https://www.youtube.com/watch?v=X-pAMO2TSyo"
+          url={videoUrl}
           width="100%"
           height="100%"
           playing={playing}
@@ -226,6 +238,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
           onEnded={endingHandler}
           onBuffer={bufferStartHandler}
           onBufferEnd={bufferEndHandler}
+          onReady={onVideoReady}
         />
         <VideoControlLayer
           videoName={videoName}
