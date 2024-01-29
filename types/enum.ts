@@ -14,3 +14,14 @@ export enum OnBoardMode {
   NOGOAL = "NOGOAL",
   GOAL = "GOAL"
 }
+
+export enum TabIconModeEnum {
+  OUTLINE = "outline",
+  FILLED = "filled"
+}
+
+export enum TabIconTypeEnum {
+  library = "library",
+  search = "search",
+  history = "history"
+}

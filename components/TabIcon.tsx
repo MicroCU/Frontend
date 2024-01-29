@@ -1,15 +1,5 @@
+import { TabIconTypeEnum, TabIconModeEnum } from "@/types/enum";
 import { LibraryBig, Search, History } from "lucide-react";
-
-export enum TabIconModeEnum {
-  OUTLINE = "outline",
-  FILLED = "filled"
-}
-
-export enum TabIconTypeEnum {
-  library = "library",
-  search = "search",
-  history = "history"
-}
 
 export interface ITabIcon {
   type: TabIconTypeEnum;
