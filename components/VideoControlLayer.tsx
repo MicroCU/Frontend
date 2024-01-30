@@ -44,12 +44,12 @@ const VideoControlLayer = ({
   const platlistData = [
     {
       videoName: "example",
-      imageURL: "",
+      imageURL: "https://static.javatpoint.com/definition/images/computer-definition.png",
       link: "/go"
     },
     {
       videoName: "example",
-      imageURL: "",
+      imageURL: "https://static.javatpoint.com/definition/images/computer-definition.png",
       link: "/go"
     },
     {
@@ -136,7 +136,7 @@ const VideoControlLayer = ({
         {videoState.buffer && videoState.playing && <LoadingSpinner />}
         <VideoTab.VideoPlaylistTab
           data={platlistData}
-          className={`absolute top-0 ${
+          className={`top-0 ${
             isPlaylistSelected && !isHidden ? "right-0" : "right-[-400px]"
           } h-[97%]`}
         />

@@ -26,9 +26,9 @@ let count = 0;
 
 //mock
 let videoName = "Example";
-let videoUrl =
-  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
-let progress = 0.2;
+let videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+// let videoUrl = "https://www.youtube.com/watch?v=ohpHY8m54Hc";
+let progress = 0.5;
 
 const VideoPage = ({ params }: VideoPageProps) => {
   const [isClient, setIsClient] = useState(false);
@@ -71,7 +71,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
     const minutes = date.getUTCMinutes();
     const seconds = date.getUTCSeconds().toString().padStart(2, "0");
     if (hours) {
-      return `${hours}:${minutes.toString().padStart(2, "0")} `;
+      return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds} `;
     } else return `${minutes}:${seconds}`;
   };
 
