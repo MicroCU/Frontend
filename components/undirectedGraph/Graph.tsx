@@ -13,7 +13,9 @@ import ReactFlow, {
   Node,
   Controls,
   Edge,
-  BackgroundVariant
+  BackgroundVariant,
+  getNodesBounds,
+  getViewportForBounds
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -100,6 +102,7 @@ export default function OverviewFlow({
       setCenterView(selectedNode);
     }
     if (selectedPath === null) {
+      // When click close the path description modal
       setNodes(
         nodes.map((node) => {
           if (node.id === prevCurrent?.id) {
@@ -132,7 +135,23 @@ export default function OverviewFlow({
     );
     setNodes(initialNodes);
     setEdges(initialEdges);
-  }, [selectedTab, searchKeyword]);
+
+    // set new viewport
+    if (initialNodes.length === 0) return;
+    const bounds = getNodesBounds(initialNodes);
+    const { x, y, zoom } = getViewportForBounds(
+      bounds,
+      bounds.width,
+      bounds.height,
+      0,
+      1
+    );
+    reactFlow.setViewport({
+      zoom: zoom,
+      x: x,
+      y: bounds.height / 2
+    });
+  }, [selectedTab, searchKeyword, reactFlow]);
 
   return (
     <ReactFlow
