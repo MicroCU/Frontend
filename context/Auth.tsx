@@ -1,8 +1,9 @@
 "use client";
 
-import { checkAccessToken, getUserInfo } from "@/action/mcv";
+import { getUserInfo } from "@/action/mcv";
+import { AuthError } from "@/constants/error";
+import { useLocalStorage } from "@/hooks/LocalStorage";
 import { User } from "@/types/type";
-
 import {
   Dispatch,
   ReactNode,
@@ -30,17 +31,33 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+export const NoAuthPath = ["/th/auth", "/en/auth"];
+
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useLocalStorage<User | undefined>("user", undefined);
+
+  const handleUpdateUser = async () => {
+    if (NoAuthPath.includes(window.location.pathname)) return;
+    if (user) return;
+
+    try {
+      console.log("update user");
+      const user = await getUserInfo();
+      setUser({
+        id: user.user.id,
+        name: user.user.firstname_en + " " + user.user.lastname_en
+      });
+    } catch (err) {
+      if (err instanceof Error && err.message === AuthError.ERR_ACCESS_TOKEN) {
+        // middleware handle this
+      } else {
+        console.log(err);
+      }
+    }
+  };
 
   useEffect(() => {
-    // checkAccessToken();
-    // getUserInfo().then((u) => {
-    //   setUser({
-    //     id: u.user.id,
-    //     name: u.user.firstname_en + " " + u.user.lastname_en
-    //   });
-    // });
+    handleUpdateUser();
   }, []);
 
   return (

@@ -40,12 +40,10 @@ const mockJourneys: IJourneyItem[] = [
 
 const NavBar = () => {
   const { dict } = useTranslation();
-  const { user } = useAuth();
   return (
     <>
       <div className="space-y-6 p-6 bg-white shadow-md h-screen w-fit flex flex-col">
         <NavHeader />
-        <h1>{user?.name}</h1>
         <Tabs defaultValue={Page.Journey} className="flex-1">
           <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
             <TabsTrigger value="journey">

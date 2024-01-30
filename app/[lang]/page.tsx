@@ -25,14 +25,6 @@ const GraphPage = () => {
     <div className="flex min-h-screen bg-grayLight">
       <NavBar />
       <div className="flex items-center">
-        {/* <Button
-          onClick={() => {
-            window.location.href = "http://localhost:3000/th/auth";
-          }}
-        >
-          auth
-        </Button> */}
-        {/* <div>My name is {sess.data?.user.name}</div> */}
         <SelectedPathModal title="Python" description={descp} tags={mockTags} />
       </div>
     </div>

@@ -20,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthContextProvider>
-          <TranslationContextProvider>
+        <TranslationContextProvider>
+          <AuthContextProvider>
             {children}
             <Toaster />
-          </TranslationContextProvider>
-        </AuthContextProvider>
+          </AuthContextProvider>
+        </TranslationContextProvider>
         <Toaster />
       </body>
     </html>

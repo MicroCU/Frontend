@@ -1,4 +1,5 @@
 import { getAccessToken } from "@/action/mcv";
+import { concatLocale } from "@/lib/locale";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
@@ -11,5 +12,5 @@ export async function GET(req: NextRequest) {
   }
 
   await getAccessToken(code);
-  redirect(process.env.HOST! + "/th");
+  redirect(concatLocale("/", req).toString());
 }

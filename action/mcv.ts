@@ -2,14 +2,9 @@
 
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { AuthError } from "@/constants/error";
 
-const MCV_OAUTH_URL = "https://www.mycourseville.com/api/oauth/authorize";
-const MCV_ACCESS_TOKEN_URL =
-  "https://www.mycourseville.com/api/oauth/access_token";
 const MCV_REDIRECT_URL = process.env.HOST + "/api/auth/callback/mcv";
-const MCV_USER_INFO_URL =
-  "https://www.mycourseville.com/api/v1/public/users/me";
-const MCV_LOGOUT_URL = "https://www.mycourseville.com/api/logout";
 
 type MCVAccessTokenResponse = {
   access_token: string;
@@ -39,11 +34,11 @@ export const authorize = async ({ isChulaIT }: { isChulaIT?: boolean }) => {
     scope: "public",
     login_page: isChulaIT ? "itchula" : ""
   });
-  redirect(MCV_OAUTH_URL + "?" + query.toString());
+  redirect(process.env.MCV_OAUTH_URL + "?" + query.toString());
 };
 
 export const getAccessToken = async (oauthToken: string) => {
-  const res = await fetch(MCV_ACCESS_TOKEN_URL, {
+  const res = await fetch(process.env.MCV_ACCESS_TOKEN_URL!, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -72,10 +67,10 @@ export const getRefreshToken = async () => {
   const refreshToken = cookies().get("refresh_token");
 
   if (!refreshToken) {
-    throw new Error("No refresh token");
+    throw new Error(AuthError.ERR_REFRESH_TOKEN);
   }
 
-  const res = await fetch(MCV_ACCESS_TOKEN_URL, {
+  const res = await fetch(process.env.MCV_ACCESS_TOKEN_URL!, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -95,14 +90,13 @@ export const getRefreshToken = async () => {
 };
 
 export const getUserInfo = async () => {
-  checkAccessToken();
   const accessToken = cookies().get("access_token");
 
   if (!accessToken) {
-    throw new Error("No access token");
+    throw new Error(AuthError.ERR_ACCESS_TOKEN);
   }
 
-  const res = await fetch(MCV_USER_INFO_URL, {
+  const res = await fetch(process.env.MCV_USER_INFO_URL!, {
     headers: {
       Authorization: `Bearer ${accessToken.value}`
     }
@@ -116,24 +110,5 @@ export const getUserInfo = async () => {
 export const logout = () => {
   cookies().delete("access_token");
   cookies().delete("refresh_token");
-  redirect(MCV_LOGOUT_URL);
-};
-
-export const checkAccessToken = async () => {
-  // const accessToken = cookies().get("access_token");
-  // const refreshToken = cookies().get("refresh_token");
-  // console.log(accessToken, refreshToken);
-
-  // if (!refreshToken) {
-  //   redirect(process.env.HOST + "/th/auth");
-  // }
-
-  // if (!accessToken) {
-  //   const res = await getRefreshToken();
-  //   if (res.status !== 200) {
-  //     redirect(process.env.HOST + "/th/auth");
-  //   }
-  // }
-
-  return;
+  redirect(process.env.MCV_LOGOUT_URL!);
 };
