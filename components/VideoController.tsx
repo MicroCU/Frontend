@@ -15,7 +15,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from "./ui/dropdown-menu";
-import { VideoState } from "@/app/video/[id]/page";
+import { VideoState } from "@/app/[lang]/video/[id]/page";
 
 interface VideoControllerProps {
   onPlayPause: () => void;

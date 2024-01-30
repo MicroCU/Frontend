@@ -40,7 +40,7 @@ const VideoPage = ({ params }: VideoPageProps) => {
     playing: false,
     muted: false,
     volume: 1,
-    played: progress, //continue from previous
+    played: progress,
     seeking: false,
     buffer: true,
     speed: 1,

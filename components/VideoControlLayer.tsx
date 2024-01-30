@@ -2,7 +2,7 @@ import VideoNav from "./VideoNav";
 import { MutableRefObject, useEffect, useState } from "react";
 import VideoController from "./VideoController";
 import LoadingSpinner from "./LoadingSpinner";
-import { VideoState } from "@/app/video/[id]/page";
+import { VideoState } from "@/app/[lang]/video/[id]/page";
 import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
 
