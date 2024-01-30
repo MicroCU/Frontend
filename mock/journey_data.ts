@@ -343,32 +343,21 @@ export const MockHomeData: HomePageData = {
     ]
 }
 
-export function getPathDetailFromId(pathId: string) {
-    let result = null;
-    MockHomeData.journeys.forEach((journey) => {
-        journey.paths.data.forEach((path) => {
-            if (path.id === pathId) {
-                result = path;
-            }
-        });
-    });
+export function getMockJourneyPosition(pathId: string) {
+    const positionMap = new Map<string, { x: number, y: number }>();
+    positionMap.set("1-p1", { x: 250, y: 0 });
+    positionMap.set("1-p2", { x: 100, y: 100 });
+    positionMap.set("1-p3", { x: 400, y: 100 });
+    positionMap.set("2-p1", { x: 250, y: 200 });
+    positionMap.set("2-p2", { x: 550, y: 200 });
+    positionMap.set("2-p3", { x: 400, y: 300 });
 
-    return result;
-}
+    positionMap.set("3-p1", { x: 700, y: 100 });
+    positionMap.set("3-p2", { x: 700, y: 200 });
+    positionMap.set("3-p3", { x: 900, y: 200 });
+    positionMap.set("4-p1", { x: 700, y: 300 });
+    positionMap.set("4-p2", { x: 900, y: 300 });
+    positionMap.set("4-p3", { x: 1100, y: 300 });
 
-export function isPathInJourney(pathId: string | undefined, journeyId: string) {
-    if (!pathId) {
-        return false;
-    }
-    let pathFound = false;
-    MockHomeData.journeys.forEach((journey) => {
-        if (journey.id === journeyId) {
-            journey.paths.data.forEach((path) => {
-                if (path.id === pathId) {
-                    pathFound = true;
-                }
-            });
-        }
-    });
-    return pathFound;
+    return positionMap.get(pathId)!;
 }

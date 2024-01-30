@@ -45,3 +45,12 @@ export interface HomePageData {
     neighbor: string[]
   }[];
 }
+
+export interface SearchPageData {
+  total: number;
+  data: BriefPathInfo[];
+  relationships: {
+    id: string;
+    neighbor: string[]
+  }[];
+}

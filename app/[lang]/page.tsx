@@ -2,26 +2,20 @@
 import NavBar from "@/components/NavBar";
 import OverviewFlow from "../../components/undirectedGraph/Graph";
 import { ReactFlowProvider } from "reactflow";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
-import { CheckListItemStatus } from "@/types/enum";
-import { MockHomeData } from "@/mock/home_data";
+import { CheckListItemStatus, MenuTab } from "@/types/enum";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
 import { SelectedPathContextProvider } from "@/context/SelectedPath";
-import { useJourney } from "@/context/Journeys";
 
 const Home = () => {
-  const mockJourneyData = MockHomeData;
-  const { setJourneys } = useJourney();
-  useEffect(() => {
-    setJourneys(mockJourneyData.journeys);
-  }, [mockJourneyData.journeys]);
-
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
-  const { initialNodes, initialEdges } =
-    generateInitialNodeEdge(mockJourneyData);
+  const { initialNodes, initialEdges } = generateInitialNodeEdge(
+    MenuTab.journey
+  );
+
   return (
     <SelectedPathContextProvider>
       <div className="flex min-h-screen bg-grayLight">

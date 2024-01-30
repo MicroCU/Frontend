@@ -9,8 +9,9 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useSelectedPath } from "@/context/SelectedPath";
-import { getPathDetailFromId, isPathInJourney } from "@/mock/home_data";
 import { JourneyData } from "@/types/type";
+import { getPathDetailFromId, isPathInJourney } from "@/mock/common";
+import { MenuTab } from "@/types/enum";
 
 export default function JourneyItem({ id, name, paths }: JourneyData) {
   const { selectedPath, setSelectedPath } = useSelectedPath();
@@ -39,7 +40,7 @@ export default function JourneyItem({ id, name, paths }: JourneyData) {
           <div
             key={path.id}
             onClick={() => {
-              setSelectedPath(getPathDetailFromId(path.id));
+              setSelectedPath(getPathDetailFromId(path.id, MenuTab.journey));
             }}
             className={cn(
               "ml-5",

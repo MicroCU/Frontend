@@ -1,32 +1,80 @@
-import { UndirectedNodeType } from '@/types/enum';
-import { HomePageData, UndirectedGraphNodeData } from '@/types/type';
+import { MockHomeData, getMockJourneyPosition } from '@/mock/journey_data';
+import { getMockSearchPosition, getSearchResult } from '@/mock/search_data';
+import { MenuTab, UndirectedNodeType } from '@/types/enum';
+import { UndirectedGraphNodeData } from '@/types/type';
 import { Node, Edge } from 'reactflow';
 
-function getMockPosition(pathId: string) {
-    const positionMap = new Map<string, { x: number, y: number }>();
-    positionMap.set("1-p1", { x: 250, y: 0 });
-    positionMap.set("1-p2", { x: 100, y: 100 });
-    positionMap.set("1-p3", { x: 400, y: 100 });
-    positionMap.set("2-p1", { x: 250, y: 200 });
-    positionMap.set("2-p2", { x: 550, y: 200 });
-    positionMap.set("2-p3", { x: 400, y: 300 });
-
-    positionMap.set("3-p1", { x: 700, y: 100 });
-    positionMap.set("3-p2", { x: 700, y: 200 });
-    positionMap.set("3-p3", { x: 900, y: 200 });
-    positionMap.set("4-p1", { x: 700, y: 300 });
-    positionMap.set("4-p2", { x: 900, y: 300 });
-    positionMap.set("4-p3", { x: 1100, y: 300 });
-
-    return positionMap.get(pathId)!;
+export function generateInitialNodeEdge(type: MenuTab, searchText?: string) {
+    if (type === MenuTab.journey) {
+        return generateInitialNodeEdgeForJourney();
+    } else if (type === MenuTab.search) {
+        return generateInitialNodeEdgeForSearch(searchText);
+    } else if (type === MenuTab.recently) {
+        // TODO: implement recently
+        return {
+            initialNodes: [],
+            initialEdges: []
+        }
+    } else {
+        return generateInitialNodeEdgeForJourney();
+    }
 }
 
-export function generateInitialNodeEdge(homeData: HomePageData) {
+function generateInitialNodeEdgeForSearch(searchText: string | undefined) {
+    if (!searchText) {
+        return {
+            initialNodes: [],
+            initialEdges: []
+        }
+    }
+
+    let resp = getSearchResult(searchText);
     const nodes: Node<UndirectedGraphNodeData, UndirectedNodeType>[] = [];
     const edges: Edge<any>[] = [];
-    homeData.journeys.forEach((journey, index) => {
+    resp.data.forEach((path, index) => {
+        const mockPosition = getMockSearchPosition(path.id);
+        nodes.push({
+            id: path.id,
+            type: UndirectedNodeType.CircularNode,
+            data: {
+                status: path.status,
+                pathInfo: path
+            },
+            position: {
+                x: mockPosition.x,
+                y: mockPosition.y
+            },
+            draggable: false
+        })
+    })
+
+    let isExisted: string[][] = [];
+    resp.relationships.forEach((relationship, index) => {
+        relationship.neighbor.forEach((neighborId, index) => {
+            if (!isEdgeExisted(isExisted, [relationship.id, neighborId].sort())) {
+                edges.push({
+                    id: `${neighborId}-${relationship.id}`,
+                    source: neighborId,
+                    target: relationship.id,
+                    type: 'straight'
+                })
+
+                isExisted.push([relationship.id, neighborId].sort());
+            }
+        })
+    })
+    return {
+        initialNodes: nodes,
+        initialEdges: edges
+    }
+}
+
+function generateInitialNodeEdgeForJourney() {
+    const nodes: Node<UndirectedGraphNodeData, UndirectedNodeType>[] = [];
+    const edges: Edge<any>[] = [];
+    MockHomeData.journeys.forEach((journey, index) => {
         journey.paths.data.forEach((path, index) => {
-            const mockPosition = getMockPosition(path.id);
+            const mockPosition = getMockJourneyPosition(path.id);
             nodes.push({
                 id: path.id,
                 type: UndirectedNodeType.CircularNode,
@@ -44,7 +92,7 @@ export function generateInitialNodeEdge(homeData: HomePageData) {
     })
 
     let isExisted: string[][] = [];
-    homeData.relationships.forEach((relationship, index) => {
+    MockHomeData.relationships.forEach((relationship, index) => {
         relationship.neighbor.forEach((neighborId, index) => {
             if (!isEdgeExisted(isExisted, [relationship.id, neighborId].sort())) {
                 edges.push({

@@ -21,6 +21,8 @@ import CircleNode from "./CircleNode";
 import { UndirectedGraphNodeData } from "@/types/type";
 import { PathStatus, UndirectedNodeType } from "@/types/enum";
 import { useSelectedPath } from "@/context/SelectedPath";
+import { useJourney } from "@/context/Journeys";
+import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
 
 interface IOverviewFlowProps {
   initialNodes: Node<UndirectedGraphNodeData, UndirectedNodeType>[];
@@ -41,18 +43,33 @@ export default function OverviewFlow({
     }),
     []
   );
+
+  // Center view to selected node
   const currentNodeRadius = 24;
+  const [prevCurrent, setPrevCurrent] = React.useState<{
+    id: string;
+    status: PathStatus;
+  } | null>(null);
+
   const reactFlow = useReactFlow();
   const setCenterView = useCallback(
     (selectedNode: Node<UndirectedGraphNodeData>) => {
       setNodes(
-        initialNodes.map((node) => {
+        nodes.map((node) => {
           if (node.id === selectedNode.id) {
             return {
               ...node,
               data: {
                 ...node.data,
                 status: PathStatus.CURRENT_PREVIEW
+              }
+            };
+          } else if (node.id === prevCurrent?.id) {
+            return {
+              ...node,
+              data: {
+                ...node.data,
+                status: prevCurrent.status
               }
             };
           } else {
@@ -67,8 +84,13 @@ export default function OverviewFlow({
         selectedNode.position.x + currentNodeRadius,
         selectedNode.position.y + currentNodeRadius
       );
+
+      setPrevCurrent({
+        id: selectedNode.id,
+        status: selectedNode.data.status
+      });
     },
-    [reactFlow]
+    [reactFlow, nodes]
   );
 
   useEffect(() => {
@@ -78,9 +100,39 @@ export default function OverviewFlow({
       setCenterView(selectedNode);
     }
     if (selectedPath === null) {
-      setNodes(initialNodes);
+      setNodes(
+        nodes.map((node) => {
+          if (node.id === prevCurrent?.id) {
+            return {
+              ...node,
+              data: {
+                ...node.data,
+                status: prevCurrent.status
+              }
+            };
+          } else {
+            return {
+              ...node
+            };
+          }
+        })
+      );
     }
   }, [selectedPath]);
+
+  // Change node when click on other tab
+  const { selectedTab, searchKeyword } = useJourney();
+  useEffect(() => {
+    setNodes([]);
+    setEdges([]);
+    setSelectedPath(null);
+    let { initialNodes, initialEdges } = generateInitialNodeEdge(
+      selectedTab,
+      searchKeyword
+    );
+    setNodes(initialNodes);
+    setEdges(initialEdges);
+  }, [selectedTab, searchKeyword]);
 
   return (
     <ReactFlow
