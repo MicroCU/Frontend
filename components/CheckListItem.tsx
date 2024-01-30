@@ -1,12 +1,16 @@
 import { RadialProgress } from "./RadialProgress";
 
 export interface ICheckListItem {
-  journey: string;
+  journeyName: string;
   paths: string[];
   progress: number;
 }
 
-export function CheckListItem({ journey, paths, progress }: ICheckListItem) {
+export function CheckListItem({
+  journeyName,
+  paths,
+  progress
+}: ICheckListItem) {
   return (
     <div className="max-w-[250px] flex flex-row gap-x-5 justify-center items-start">
       <div className="w-2/5">
@@ -14,8 +18,7 @@ export function CheckListItem({ journey, paths, progress }: ICheckListItem) {
       </div>
       <div className="flex flex-col gap-y-2 justify-center items-start w-3/5">
         <p className="Bold16 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
-          {" "}
-          {journey}{" "}
+          {journeyName}
         </p>
         <div className="w-full pl-2">
           {paths.map((path, index) => (

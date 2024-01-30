@@ -1,12 +1,7 @@
 import Tag from "./Tag";
 import { Text } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-
-interface ICategory {
-  id: string;
-  name: string;
-  imageURL: string;
-}
+import { BriefPathInfo } from "@/types/type";
 
 export enum PathCardType {
   "Loading" = "loading",
@@ -14,18 +9,11 @@ export enum PathCardType {
 }
 
 export interface PathCardProps {
-  name?: string;
-  description?: string;
-  categories?: ICategory[];
+  path: BriefPathInfo;
   type: PathCardType;
 }
 
-export default function PathCard({
-  name,
-  description,
-  categories,
-  type
-}: PathCardProps) {
+export default function PathCard({ path, type }: PathCardProps) {
   return (
     <div className="flex flex-row justify-between items-center w-full">
       <div className="flex flex-col gap-y-2 w-10/12">
@@ -40,13 +28,15 @@ export default function PathCard({
           </>
         ) : (
           <>
-            <p className="Bold16 text-black"> {name} </p>
-            <p className="Reg12 text-grayMain line-clamp-2"> {description} </p>
+            <p className="Bold16 text-black"> {path.name} </p>
+            <p className="Reg12 text-grayMain line-clamp-2">
+              {path.description}
+            </p>
             <div className="flex flex-row gap-x-2">
-              {categories?.map((category) => (
+              {path.tags?.map((category) => (
                 <Tag
                   title={category.name}
-                  imageURL={category.imageURL}
+                  imageURL={category.icon}
                   key={category.id}
                 />
               ))}

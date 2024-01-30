@@ -1,11 +1,11 @@
 "use client";
-import { TabIconType } from "@/types/enum";
+import { MenuTab } from "@/types/enum";
 import { LibraryBig, Search, History } from "lucide-react";
 import { useState } from "react";
 import NavToolTip from "./NavToolTip";
 
 export interface ITabIcon {
-  type: TabIconType;
+  type: MenuTab;
   className?: string;
 }
 
@@ -18,13 +18,13 @@ export default function TabIcon({ type, className }: ITabIcon) {
           isHovered ? "bg-grayMain" : ""
         } ${className}`}
       >
-        {type === TabIconType.library ? (
+        {type === MenuTab.journey ? (
           <LibraryBig
             className={`${isHovered ? "stroke-grayLight" : "stroke-grayMain"}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           />
-        ) : type === TabIconType.search ? (
+        ) : type === MenuTab.search ? (
           <Search
             size={28}
             strokeWidth={2}

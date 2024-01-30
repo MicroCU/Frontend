@@ -1,12 +1,7 @@
 "use client";
-import JourneyItem, { PathItems } from "./JourneyItem";
+import { useJourney } from "@/context/Journeys";
+import JourneyItem from "./JourneyItem";
 import JourneyItemsLoading from "./JourneyItemsLoading";
-
-export interface JourneyItem {
-  id: string;
-  name: string;
-  paths: PathItems[];
-}
 
 export enum JourneyItemsType {
   "Loading" = "loading",
@@ -14,16 +9,12 @@ export enum JourneyItemsType {
 }
 
 export interface JourneyItemsProps {
-  journeys?: JourneyItem[];
   className?: string;
   type?: JourneyItemsType;
 }
 
-export default function JourneyItems({
-  journeys,
-  className,
-  type
-}: JourneyItemsProps) {
+export default function JourneyItems({ className, type }: JourneyItemsProps) {
+  const { journeys } = useJourney();
   return (
     <div className={`${className} flex flex-col gap-y-6 max-w-72`}>
       {journeys &&

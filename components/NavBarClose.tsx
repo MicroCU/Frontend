@@ -1,4 +1,4 @@
-import { TabIconType } from "@/types/enum";
+import { MenuTab } from "@/types/enum";
 import { ArrowRight } from "lucide-react";
 import TabIcon from "./TabIcon";
 import { Dispatch, SetStateAction } from "react";
@@ -15,9 +15,9 @@ export default function NavBarCloseMode({ setIsOpen }: NavBarCloseModeProps) {
         onClick={() => setIsOpen(true)}
         size={24}
       />
-      <TabIcon type={TabIconType.library} />
-      <TabIcon type={TabIconType.history} />
-      <TabIcon type={TabIconType.search} />
+      <TabIcon type={MenuTab.journey} />
+      <TabIcon type={MenuTab.recently} />
+      <TabIcon type={MenuTab.search} />
     </div>
   );
 }

@@ -1,10 +1,16 @@
 "use client";
 import { BriefPathInfo } from "@/types/type";
-import { createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState
+} from "react";
 
 interface SelectedPathContextType {
   selectedPath: BriefPathInfo | null;
-  setSelectedPath: (path: BriefPathInfo | null) => void;
+  setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
 }
 
 const SelectedPathContext = createContext<SelectedPathContextType>({

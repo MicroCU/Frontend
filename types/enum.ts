@@ -1,9 +1,3 @@
-export const enum Page {
-  Journey = "journey",
-  Recently = "recently",
-  Search = "search"
-}
-
 export enum MicroType {
   VIDEO = "VIDEO",
   PRACTICE = "PRACTICE",
@@ -15,10 +9,10 @@ export enum OnBoardMode {
   GOAL = "GOAL"
 }
 
-export enum TabIconType {
-  library = "Journey",
+export enum MenuTab {
+  journey = "Journey",
   search = "Search",
-  history = "Recently"
+  recently = "Recently"
 }
 export enum PathStatus {
   CURRENT_PREVIEW = "CURRENT_PREVIEW",

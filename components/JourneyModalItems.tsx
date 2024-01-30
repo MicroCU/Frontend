@@ -1,35 +1,19 @@
+import { JourneyData } from "@/types/type";
 import JourneyModalItemsLoading from "./JourneyModalItemsLoading";
 import PathCard, { PathCardType } from "./PathCard";
-
-export interface ICategory {
-  id: string;
-  name: string;
-  imageURL: string;
-}
-
-export interface IPath {
-  id?: string;
-  name?: string;
-  description?: string;
-  categories?: ICategory[];
-}
 
 export enum JourneyModalType {
   "Loading" = "loading",
   "Shown" = "shown"
 }
 
-export interface JourneyModalItemsProps {
-  id?: string;
-  name?: string;
-  paths?: IPath[];
+interface JourneyModalItemsProps {
+  journey: JourneyData;
   type: JourneyModalType;
 }
 
 export default function JourneyModalItems({
-  id,
-  name,
-  paths,
+  journey,
   type
 }: JourneyModalItemsProps) {
   if (type === JourneyModalType.Loading) {
@@ -38,18 +22,11 @@ export default function JourneyModalItems({
 
   return (
     <div>
-      <p className="Bold24 text-black uppercase mb-4"> {name} </p>
+      <p className="Bold24 text-black uppercase mb-4"> {journey.name} </p>
       <div className="flex flex-col gap-y-4 border-l-4 pl-6 ml-6 border-grayMain">
-        {paths &&
-          paths.map((path) => (
-            <PathCard
-              key={path.id}
-              name={path.name}
-              description={path.description}
-              categories={path.categories}
-              type={PathCardType.Shown}
-            />
-          ))}
+        {journey.paths.data.map((path) => (
+          <PathCard key={path.id} path={path} type={PathCardType.Shown} />
+        ))}
       </div>
     </div>
   );

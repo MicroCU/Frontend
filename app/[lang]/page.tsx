@@ -2,30 +2,31 @@
 import NavBar from "@/components/NavBar";
 import OverviewFlow from "../../components/undirectedGraph/Graph";
 import { ReactFlowProvider } from "reactflow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectedPathModal from "@/components/SelectedPathModal";
-import { JourneyData } from "@/types/type";
 import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
 import { CheckListItemStatus } from "@/types/enum";
-import { ICheckListItem } from "@/components/CheckListItem";
 import { MockHomeData } from "@/mock/home_data";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
-import { JourneyItem } from "@/components/JourneyItems";
 import { SelectedPathContextProvider } from "@/context/SelectedPath";
+import { useJourney } from "@/context/Journeys";
 
-const GraphPage = () => {
+const Home = () => {
   const mockJourneyData = MockHomeData;
+  const { setJourneys } = useJourney();
+  useEffect(() => {
+    setJourneys(mockJourneyData.journeys);
+  }, [mockJourneyData.journeys]);
+
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
   const { initialNodes, initialEdges } =
     generateInitialNodeEdge(mockJourneyData);
   return (
     <SelectedPathContextProvider>
       <div className="flex min-h-screen bg-grayLight">
-        <div className="z-50">
-          <NavBar
-            journeys={transformDataToNavBarData(mockJourneyData.journeys)}
-          />
+        <div className="z-40">
+          <NavBar />
         </div>
         <div className="flex items-center z-30 w-full">
           <ReactFlowProvider>
@@ -45,12 +46,7 @@ const GraphPage = () => {
           }}
         >
           {isViewCheckList ? (
-            <CheckList
-              checkListItems={transformDataToCheckListData(
-                mockJourneyData.journeys
-              )}
-              status={CheckListItemStatus.SHOWN}
-            />
+            <CheckList status={CheckListItemStatus.SHOWN} />
           ) : (
             <CheckListIcon />
           )}
@@ -60,36 +56,4 @@ const GraphPage = () => {
   );
 };
 
-export default GraphPage;
-
-function transformDataToCheckListData(mockJourneyData: JourneyData[]) {
-  const checkListItems: ICheckListItem[] = [];
-  mockJourneyData.forEach((journeyData) => {
-    const paths = journeyData.paths.data.map((path) => path.name);
-    const progress = journeyData.progress;
-    checkListItems.push({
-      journey: journeyData.name,
-      paths,
-      progress
-    });
-  });
-  return checkListItems;
-}
-
-function transformDataToNavBarData(mockJourneyData: JourneyData[]) {
-  const navBarData: JourneyItem[] = [];
-  mockJourneyData.forEach((journeyData) => {
-    const paths = journeyData.paths.data.map((path) => {
-      return {
-        id: path.id,
-        name: path.name
-      };
-    });
-    navBarData.push({
-      id: journeyData.id,
-      name: journeyData.name,
-      paths: paths
-    });
-  });
-  return navBarData;
-}
+export default Home;

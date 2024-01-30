@@ -1,20 +1,18 @@
+"use client";
 import { ListTodo } from "lucide-react";
-import { CheckListItem, ICheckListItem } from "./CheckListItem";
+import { CheckListItem } from "./CheckListItem";
 import CheckListItemLoading from "./CheckListItemLoading";
 import { CheckListItemStatus } from "@/types/enum";
 import { ScrollArea } from "./ui/scroll-area";
+import { useJourney } from "@/context/Journeys";
 
 export interface ICheckListProps {
-  checkListItems: ICheckListItem[];
   status: CheckListItemStatus;
   className?: string;
 }
 
-export default function CheckList({
-  checkListItems,
-  status,
-  className
-}: ICheckListProps) {
+export default function CheckList({ status, className }: ICheckListProps) {
+  const { journeys } = useJourney();
   return (
     <ScrollArea className="h-96 w-fit rounded-lg">
       <div
@@ -31,12 +29,13 @@ export default function CheckList({
         ) : status === CheckListItemStatus.LOADING ? (
           <CheckListItemLoading />
         ) : (
-          checkListItems.map((checkListItem, index) => (
+          journeys &&
+          journeys.map((journey, index) => (
             <CheckListItem
               key={index}
-              journey={checkListItem.journey}
-              paths={checkListItem.paths}
-              progress={checkListItem.progress}
+              journeyName={journey.name}
+              paths={journey.paths.data.map((path) => path.name)}
+              progress={journey.progress}
             />
           ))
         )}

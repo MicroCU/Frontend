@@ -10,19 +10,9 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useSelectedPath } from "@/context/SelectedPath";
 import { getPathDetailFromId, isPathInJourney } from "@/mock/home_data";
+import { JourneyData } from "@/types/type";
 
-export interface PathItems {
-  id: string;
-  name: string;
-}
-
-export interface JourneyItemProps {
-  id: string;
-  name: string;
-  paths: PathItems[];
-}
-
-export default function JourneyItem({ id, name, paths }: JourneyItemProps) {
+export default function JourneyItem({ id, name, paths }: JourneyData) {
   const { selectedPath, setSelectedPath } = useSelectedPath();
   const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
@@ -45,13 +35,16 @@ export default function JourneyItem({ id, name, paths }: JourneyItemProps) {
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent>
-        {paths.map((path, index) => (
+        {paths.data.map((path, index) => (
           <div
             key={path.id}
             onClick={() => {
               setSelectedPath(getPathDetailFromId(path.id));
             }}
-            className={cn("ml-5", index !== paths.length - 1 ? "my-2" : "")}
+            className={cn(
+              "ml-5",
+              index !== paths.data.length - 1 ? "my-2" : ""
+            )}
           >
             <PathItems
               name={path.name}
