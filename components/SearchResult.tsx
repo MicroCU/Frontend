@@ -1,13 +1,11 @@
 "use client";
 import { useJourney } from "@/context/Journeys";
 import PathItems from "./PathItems";
-import { useSelectedPath } from "@/context/SelectedPath";
 import { getPathDetailFromId } from "@/mock/common";
 import { MenuTab } from "@/types/enum";
 
 export default function SearchResult() {
-  const { journeys } = useJourney();
-  const { selectedPath, setSelectedPath } = useSelectedPath();
+  const { journeys, selectedPath, setSelectedPath } = useJourney();
   return (
     <div className="pt-3">
       {journeys &&

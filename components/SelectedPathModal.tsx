@@ -2,12 +2,12 @@
 import { Button } from "./ui/button";
 import Tag from "./Tag";
 import { useTranslation } from "@/context/Translation";
-import { useSelectedPath } from "@/context/SelectedPath";
 import { XCircle } from "lucide-react";
+import { useJourney } from "@/context/Journeys";
 
 const SelectedPathModal = () => {
   const { dict } = useTranslation();
-  const { selectedPath, setSelectedPath } = useSelectedPath();
+  const { selectedPath, setSelectedPath } = useJourney();
   if (!selectedPath) return null;
   return (
     <div>

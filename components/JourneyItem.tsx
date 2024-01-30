@@ -8,13 +8,13 @@ import PathItems from "./PathItems";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { useSelectedPath } from "@/context/SelectedPath";
 import { JourneyData } from "@/types/type";
 import { getPathDetailFromId, isPathInJourney } from "@/mock/common";
 import { MenuTab } from "@/types/enum";
+import { useJourney } from "@/context/Journeys";
 
 export default function JourneyItem({ id, name, paths }: JourneyData) {
-  const { selectedPath, setSelectedPath } = useSelectedPath();
+  const { selectedPath, setSelectedPath } = useJourney();
   const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
     if (selectedPath && isPathInJourney(selectedPath.id, id)) {

@@ -8,7 +8,7 @@ import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
 import { CheckListItemStatus, MenuTab } from "@/types/enum";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
-import { SelectedPathContextProvider } from "@/context/SelectedPath";
+import { JourneyContextProvider } from "@/context/Journeys";
 
 const Home = () => {
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const Home = () => {
   );
 
   return (
-    <SelectedPathContextProvider>
+    <JourneyContextProvider>
       <div className="flex min-h-screen bg-grayLight">
         <div className="z-40">
           <NavBar />
@@ -46,7 +46,7 @@ const Home = () => {
           )}
         </div>
       </div>
-    </SelectedPathContextProvider>
+    </JourneyContextProvider>
   );
 };
 

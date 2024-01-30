@@ -22,7 +22,6 @@ import "reactflow/dist/style.css";
 import CircleNode from "./CircleNode";
 import { UndirectedGraphNodeData } from "@/types/type";
 import { PathStatus, UndirectedNodeType } from "@/types/enum";
-import { useSelectedPath } from "@/context/SelectedPath";
 import { useJourney } from "@/context/Journeys";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
 
@@ -35,7 +34,8 @@ export default function OverviewFlow({
   initialNodes,
   initialEdges
 }: IOverviewFlowProps) {
-  const { selectedPath, setSelectedPath } = useSelectedPath();
+  const { selectedPath, setSelectedPath, selectedTab, searchKeyword } =
+    useJourney();
   const [nodes, setNodes, onNodesChange] =
     useNodesState<UndirectedGraphNodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -124,7 +124,6 @@ export default function OverviewFlow({
   }, [selectedPath]);
 
   // Change node when click on other tab
-  const { selectedTab, searchKeyword } = useJourney();
   useEffect(() => {
     setNodes([]);
     setEdges([]);
