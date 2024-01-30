@@ -11,8 +11,8 @@ export default function Example() {
       <LanguageSwitcher />
       <p> {dict["onboard.welcome.title"]} </p>
       <div>
-        <p> {user?.id || "Not found ID"}</p>
-        <p> {user?.name || "Not found Name"}</p>
+        <p> {user ? user.id : "Not found ID"}</p>
+        <p> {user ? user.name : "Not found Name"}</p>
       </div>
     </div>
   );

@@ -10,17 +10,16 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
-  useState
+  useEffect
 } from "react";
 
 type AuthContextProps = {
-  user: User | undefined;
-  setUser: Dispatch<SetStateAction<User | undefined>>;
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
 };
 
 const AuthContext = createContext<AuthContextProps>({
-  user: undefined,
+  user: null,
   setUser: () => {}
 });
 
@@ -34,7 +33,7 @@ export const useAuth = () => {
 export const NoAuthPath = ["/th/auth", "/en/auth"];
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useLocalStorage<User | undefined>("user", undefined);
+  const [user, setUser] = useLocalStorage<User | null>("user", null);
 
   const handleUpdateUser = async () => {
     if (NoAuthPath.includes(window.location.pathname)) return;
@@ -58,6 +57,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     handleUpdateUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
