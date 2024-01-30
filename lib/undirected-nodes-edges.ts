@@ -44,7 +44,9 @@ function generateInitialNodeEdgeForSearch(searchText: string | undefined) {
                 x: mockPosition.x,
                 y: mockPosition.y
             },
-            draggable: false
+            draggable: false,
+            width: 24,
+            height: 24
         })
     })
 
@@ -86,7 +88,9 @@ function generateInitialNodeEdgeForJourney() {
                     x: mockPosition.x,
                     y: mockPosition.y
                 },
-                draggable: false
+                draggable: false,
+                width: 24,
+                height: 24
             })
         })
     })

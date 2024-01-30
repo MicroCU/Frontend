@@ -137,7 +137,7 @@ export default function OverviewFlow({
     setEdges(initialEdges);
 
     // set new viewport
-    if (initialNodes.length === 0) return;
+    if (initialNodes === null || initialNodes.length === 0) return;
     const bounds = getNodesBounds(initialNodes);
     const { x, y, zoom } = getViewportForBounds(
       bounds,
@@ -146,6 +146,7 @@ export default function OverviewFlow({
       0,
       1
     );
+
     reactFlow.setViewport({
       zoom: zoom,
       x: x,

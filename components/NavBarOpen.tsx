@@ -3,13 +3,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import JourneyItems from "./JourneyItems";
 import NavHeader from "./NavHeader";
 import NormalModal from "./NormalModal";
-import { Dispatch, SetStateAction, use, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "@/context/Translation";
 import { ScrollArea } from "./ui/scroll-area";
 import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
 import { useJourney } from "@/context/Journeys";
 import { MockHomeData } from "@/mock/journey_data";
+import SearchResult from "./SearchResult";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -17,7 +18,7 @@ interface NavBarOpenModeProps {
 
 export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
-  const { setJourneys, setSelectedTab } = useJourney();
+  const { setJourneys, setSelectedTab, setSearchKeyword } = useJourney();
   useEffect(() => {
     const mockJourneyData = MockHomeData; // Because defult is journey mode
     setJourneys(mockJourneyData.journeys);
@@ -33,6 +34,8 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
+                setJourneys(MockHomeData.journeys);
+                setSearchKeyword("");
               }}
             >
               {dict["home.tabs.journey"]}
@@ -41,6 +44,8 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
+                setJourneys([]);
+                setSearchKeyword("");
               }}
             >
               {dict["home.tabs.recently"]}
@@ -49,6 +54,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
+                setJourneys([]);
               }}
             >
               {dict["home.tabs.search"]}
@@ -60,6 +66,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsContent value={MenuTab.recently}>{/* TODO */}</TabsContent>
           <TabsContent value={MenuTab.search}>
             <SearchInput />
+            <SearchResult />
           </TabsContent>
         </Tabs>
         <NormalModal />
