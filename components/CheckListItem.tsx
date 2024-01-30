@@ -11,6 +11,9 @@ export function CheckListItem({
   paths,
   progress
 }: ICheckListItem) {
+  if (progress === 0) {
+    return <></>;
+  }
   return (
     <div className="max-w-[250px] flex flex-row gap-x-5 justify-center items-start">
       <div className="w-2/5">

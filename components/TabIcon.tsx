@@ -12,7 +12,7 @@ export interface ITabIcon {
 export default function TabIcon({ type, className }: ITabIcon) {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <NavToolTip tooltipText={type}>
+    <NavToolTip tooltipType={type}>
       <div
         className={`w-8 h-8 rounded flex justify-center items-center ${
           isHovered ? "bg-grayMain" : ""

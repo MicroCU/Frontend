@@ -11,5 +11,7 @@
   "home.tabs.recently": "เร็วๆนี้",
   "home.tabs.search": "ค้นหา",
   "home.switch.button": "เปลี่ยนไปโหมดปกติ",
-  "home.SelectedPathModal.button": "ไปที่ path"
+  "home.SelectedPathModal.button": "ไปที่ path",
+  "home.checklist.title": "ความก้าวหน้า",
+  "home.checklist.complete": "คุณเรียนครบทุก Journeys แล้ว"
 }
