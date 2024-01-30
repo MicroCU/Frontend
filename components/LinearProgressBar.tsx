@@ -8,13 +8,19 @@ type LinearProgressBarProps = {
 const LinearProgressBar = ({ currSteps, maxSteps }: LinearProgressBarProps) => {
   return (
     <ul className="relative flex flex-row w-full">
-      {Array(maxSteps)
+      {Array(maxSteps - 1)
         .fill(0)
         .map((_, index) => {
           return (
             <Stepper key={index} currSteps={currSteps} placement={index} />
           );
         })}
+      <span
+        className={cn(
+          "w-8 h-8 flex justify-center items-center flex-shrink-0 rounded-full bg-graySmall",
+          currSteps === maxSteps ? "bg-primary" : ""
+        )}
+      ></span>
     </ul>
   );
 };
@@ -27,7 +33,7 @@ type StepperProps = {
 
 const Stepper = ({ currSteps, placement }: StepperProps) => {
   return (
-    <li className="shrink basis-0 flex-1 group ">
+    <li className="shrink basis-0 flex-1 group">
       <div className="w-full inline-flex items-center align-middle">
         <span
           className={cn(

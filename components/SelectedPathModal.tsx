@@ -1,6 +1,8 @@
+"use client";
 import { TagProps } from "@/types/type";
 import { Button } from "./ui/button";
 import Tag from "./Tag";
+import { useTranslation } from "@/context/Translation";
 
 type SelectedPathModalProps = {
   title: string;
@@ -13,6 +15,7 @@ const SelectedPathModal = ({
   description,
   tags
 }: SelectedPathModalProps) => {
+  const { dict } = useTranslation();
   return (
     <div className="w-[400px] bg-white p-6 rounded-[8px] space-y-6 border-2 border-primary shadow-xl">
       <div className="space-y-3">
@@ -27,7 +30,9 @@ const SelectedPathModal = ({
       </div>
       <h1 className="Reg16 text-grayMedium line-clamp-3">{description}</h1>
       <div className="flex justify-end">
-        <Button className="w-fit">Go to path</Button>
+        <Button className="w-fit">
+          {dict["home.SelectedPathModal.button"]}
+        </Button>
       </div>
     </div>
   );

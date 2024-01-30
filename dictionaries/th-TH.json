@@ -1,0 +1,15 @@
+{
+  "onboard.welcome.title": "ยินดีต้อนรับ",
+  "onboard.introduction.question": "คุณมีคอร์สที่อยากเรียนในใจหรือไม่?",
+  "onboard.introduction.optionWord": "หรือ",
+  "onboard.introduction.haveGoal": "มีแน่นอน! รอไม่ไหวแล้ว",
+  "onboard.introduction.noGoal": "อืม.. ยังไม่มีเลย",
+  "onboard.finish.title": "ระบบได้บันทึกคำตอบไว้แล้ว!",
+  "onboard.finish.subtitle": "ขอให้สนุกกับการเรียน",
+  "onboard.finish.button": "ไปที่ path",
+  "home.tabs.journey": "Journey",
+  "home.tabs.recently": "เร็วๆนี้",
+  "home.tabs.search": "ค้นหา",
+  "home.switch.button": "เปลี่ยนไปโหมดปกติ",
+  "home.SelectedPathModal.button": "ไปที่ path"
+}
