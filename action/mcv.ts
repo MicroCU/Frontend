@@ -59,15 +59,21 @@ export const getAccessToken = async (oauthToken: string) => {
 
   const tokens: MCVAccessTokenResponse = await res.json();
   console.log(tokens);
-  cookies().set("access_token", tokens.access_token);
-  cookies().set("refresh_token", tokens.refresh_token);
+  cookies().set("access_token", tokens.access_token, {
+    expires: new Date(Date.now() + tokens.expires_in * 1000)
+  });
+  cookies().set("refresh_token", tokens.refresh_token, {
+    httpOnly: true
+  });
   return tokens;
 };
 
 export const getRefreshToken = async () => {
   const refreshToken = cookies().get("refresh_token");
 
-  if (!refreshToken || !refreshToken.value) throw new Error("No refresh token");
+  if (!refreshToken) {
+    throw new Error("No refresh token");
+  }
 
   const res = await fetch(MCV_ACCESS_TOKEN_URL, {
     method: "POST",
@@ -92,7 +98,9 @@ export const getUserInfo = async () => {
   checkAccessToken();
   const accessToken = cookies().get("access_token");
 
-  if (!accessToken || !accessToken.value) throw new Error("No access token");
+  if (!accessToken) {
+    throw new Error("No access token");
+  }
 
   const res = await fetch(MCV_USER_INFO_URL, {
     headers: {
@@ -112,9 +120,9 @@ export const logout = () => {
 };
 
 export const checkAccessToken = async () => {
-  const accessToken = cookies().get("access_token");
-  const refreshToken = cookies().get("refresh_token");
-  console.log(accessToken, refreshToken);
+  // const accessToken = cookies().get("access_token");
+  // const refreshToken = cookies().get("refresh_token");
+  // console.log(accessToken, refreshToken);
 
   // if (!refreshToken) {
   //   redirect(process.env.HOST + "/th/auth");

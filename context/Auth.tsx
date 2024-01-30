@@ -34,13 +34,13 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
 
   useEffect(() => {
-    checkAccessToken();
-    getUserInfo().then((u) => {
-      setUser({
-        id: u.user.id,
-        name: u.user.firstname_en + " " + u.user.lastname_en
-      });
-    });
+    // checkAccessToken();
+    // getUserInfo().then((u) => {
+    //   setUser({
+    //     id: u.user.id,
+    //     name: u.user.firstname_en + " " + u.user.lastname_en
+    //   });
+    // });
   }, []);
 
   return (
