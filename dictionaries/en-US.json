@@ -13,5 +13,6 @@
   "home.switch.button": "Switch to Normal Mode",
   "home.SelectedPathModal.button": "Go to path",
   "home.checklist.title": "Checklist",
-  "home.checklist.complete": "All Journeys are accomplished"
+  "home.checklist.complete": "All Journeys are accomplished",
+  "home.searchbar.placeholder": "Search for paths"
 }

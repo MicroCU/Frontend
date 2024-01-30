@@ -21,7 +21,7 @@ export default function JourneyItem({ id, name, paths }: JourneyData) {
     }
   }, [selectedPath]);
   return (
-    <Collapsible open={open} onOpenChange={setOpen} className="max-w-72">
+    <Collapsible open={open} onOpenChange={setOpen} className="max-w-60">
       <CollapsibleTrigger className="text-black Bold16 uppercase">
         <div className="flex flex-row gap-x-4 justify-start text-start items-center">
           <div>
@@ -31,7 +31,7 @@ export default function JourneyItem({ id, name, paths }: JourneyData) {
               <ChevronRight className="h-4 w-4" strokeWidth={3} size={16} />
             )}
           </div>
-          <span className="break-words max-w-64">{name}</span>
+          <span className="break-words max-w-60">{name}</span>
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent>

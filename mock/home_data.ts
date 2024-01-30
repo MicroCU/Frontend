@@ -152,7 +152,7 @@ export const MockHomeData: HomePageData = {
         },
         {
             id: "j3",
-            name: "Junior Mathematician 10101010101010101010102",
+            name: "Junior Mathematician 1010101010101010101010 long long long",
             progress: 10,
             paths: {
                 total: 3,
