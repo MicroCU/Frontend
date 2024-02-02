@@ -10,7 +10,8 @@ import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
 import { useJourney } from "@/context/Journeys";
 import { MockHomeData } from "@/mock/journey_data";
-import SearchResult from "./SearchResult";
+import { convertRecentlyToJourney } from "@/mock/recently_data";
+import PathList from "./PathList";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -20,7 +21,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
   const { setJourneys, setSelectedTab, setSearchKeyword } = useJourney();
   useEffect(() => {
-    const mockJourneyData = MockHomeData; // Because defult is journey mode
+    const mockJourneyData = MockHomeData; // Defult is journey mode
     setJourneys(mockJourneyData.journeys);
   }, []);
 
@@ -44,7 +45,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
-                setJourneys([]);
+                setJourneys(convertRecentlyToJourney());
                 setSearchKeyword("");
               }}
             >
@@ -63,10 +64,12 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsContent value={MenuTab.journey}>
             <JourneyItems className="flex-1" />
           </TabsContent>
-          <TabsContent value={MenuTab.recently}>{/* TODO */}</TabsContent>
+          <TabsContent value={MenuTab.recently}>
+            <PathList resultType={MenuTab.recently} />
+          </TabsContent>
           <TabsContent value={MenuTab.search}>
             <SearchInput />
-            <SearchResult />
+            <PathList resultType={MenuTab.search} />
           </TabsContent>
         </Tabs>
         <NormalModal />

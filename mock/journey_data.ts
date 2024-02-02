@@ -1,7 +1,7 @@
 import { PathStatus } from "@/types/enum";
 import { HomePageData } from "@/types/type";
 
-export const MockHomeData: HomePageData = {
+export const MockHomeData: HomePageData = { // Mock API Response
     total: 4,
     journeys: [
         {

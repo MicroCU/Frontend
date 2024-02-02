@@ -1,5 +1,5 @@
 import { PathStatus } from "@/types/enum";
-import { BriefPathInfo, SearchPageData } from "@/types/type";
+import { BriefPathInfo, JourneyData, SearchPageData } from "@/types/type";
 
 export const mockDBForSearch: BriefPathInfo[] = [
     {
@@ -97,7 +97,7 @@ export const mockDBForSearch: BriefPathInfo[] = [
 ]
 
 // WORD FOR SEARCH is "Basic", "Bio" (Other words will return empty array)
-export function getSearchResult(searchText: string): SearchPageData {
+export function getSearchResult(searchText: string): SearchPageData {  // Mock API Response
     let response: SearchPageData = {
         total: 0,
         data: [],
@@ -164,4 +164,16 @@ export function getMockSearchPosition(pathId: string) {
     positionMap.set("search-4", { x: 250, y: 200 });
     positionMap.set("search-5", { x: 400, y: 200 });
     return positionMap.get(pathId)!;
+}
+
+export function convertSearchToJourney(searchText: string) {
+    let resp = getSearchResult(searchText)
+    let journeys: JourneyData
+    journeys = {
+        id: "search",
+        name: "Search",
+        progress: 0,
+        paths: resp,
+    }
+    return [journeys]
 }

@@ -54,3 +54,12 @@ export interface SearchPageData {
     neighbor: string[]
   }[];
 }
+
+export interface RecentlyPageData {
+  total: number;
+  paths: BriefPathInfo[];
+  relationships: {
+    id: string;
+    neighbor: string[]
+  }[];
+}

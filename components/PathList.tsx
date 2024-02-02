@@ -4,7 +4,7 @@ import PathItems from "./PathItems";
 import { getPathDetailFromId } from "@/mock/common";
 import { MenuTab } from "@/types/enum";
 
-export default function SearchResult() {
+export default function PathList({ resultType } : {resultType: MenuTab}) {
   const { journeys, selectedPath, setSelectedPath } = useJourney();
   return (
     <div className="pt-3">
@@ -14,7 +14,7 @@ export default function SearchResult() {
           <div
             key={path.id}
             onClick={() => {
-              setSelectedPath(getPathDetailFromId(path.id, MenuTab.search));
+              setSelectedPath(getPathDetailFromId(path.id, resultType));
             }}
           >
             <PathItems

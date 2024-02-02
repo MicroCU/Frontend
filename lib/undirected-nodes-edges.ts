@@ -1,4 +1,5 @@
 import { MockHomeData, getMockJourneyPosition } from '@/mock/journey_data';
+import { getMockRecentlyPosition, getRecentlyResult } from '@/mock/recently_data';
 import { getMockSearchPosition, getSearchResult } from '@/mock/search_data';
 import { MenuTab, UndirectedNodeType } from '@/types/enum';
 import { UndirectedGraphNodeData } from '@/types/type';
@@ -10,13 +11,53 @@ export function generateInitialNodeEdge(type: MenuTab, searchText?: string) {
     } else if (type === MenuTab.search) {
         return generateInitialNodeEdgeForSearch(searchText);
     } else if (type === MenuTab.recently) {
-        // TODO: implement recently
-        return {
-            initialNodes: [],
-            initialEdges: []
-        }
+        return generateInitialNodeEdgeForRecently();
     } else {
         return generateInitialNodeEdgeForJourney();
+    }
+}
+
+function generateInitialNodeEdgeForRecently() {
+    let resp = getRecentlyResult();
+    const nodes: Node<UndirectedGraphNodeData, UndirectedNodeType>[] = [];
+    const edges: Edge<any>[] = [];
+    resp.paths.forEach((path, index) => {
+        const mockPosition = getMockRecentlyPosition(path.id);
+        nodes.push({
+            id: path.id,
+            type: UndirectedNodeType.CircularNode,
+            data: {
+                status: path.status,
+                pathInfo: path
+            },
+            position: {
+                x: mockPosition.x,
+                y: mockPosition.y
+            },
+            draggable: false,
+            width: 24,
+            height: 24
+        })
+    })
+
+    let isExisted: string[][] = [];
+    resp.relationships.forEach((relationship, index) => {
+        relationship.neighbor.forEach((neighborId, index) => {
+            if (!isEdgeExisted(isExisted, [relationship.id, neighborId].sort())) {
+                edges.push({
+                    id: `${neighborId}-${relationship.id}`,
+                    source: neighborId,
+                    target: relationship.id,
+                    type: 'straight'
+                })
+
+                isExisted.push([relationship.id, neighborId].sort());
+            }
+        })
+    })
+    return {
+        initialNodes: nodes,
+        initialEdges: edges
     }
 }
 

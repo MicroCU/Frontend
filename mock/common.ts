@@ -1,6 +1,7 @@
 import { MenuTab } from "@/types/enum";
 import { MockHomeData } from "./journey_data";
 import { mockDBForSearch } from "./search_data";
+import { mockDBForRecently } from "./recently_data";
 
 export function getPathDetailFromId(pathId: string, type: MenuTab) {
     let result = null;
@@ -19,7 +20,11 @@ export function getPathDetailFromId(pathId: string, type: MenuTab) {
             }
         });
     } else if (type === MenuTab.recently) {
-        // TODO: implement recently
+        mockDBForRecently.forEach((path) => {
+            if (path.id === pathId) {
+                result = path;
+            }
+        });
     }
 
     return result;

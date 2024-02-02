@@ -1,8 +1,7 @@
 "use client";
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
-import { getSearchResult } from "@/mock/search_data";
-import { JourneyData } from "@/types/type";
+import { convertSearchToJourney } from "@/mock/search_data";
 import { Search } from "lucide-react";
 
 export interface ISearchInput {
@@ -24,14 +23,7 @@ export default function SearchInput({ className, defaultValue }: ISearchInput) {
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchKeyword(e.target.value);
-          let resp = getSearchResult(e.target.value);
-          let serachJournry: JourneyData = {
-            id: "search-journey",
-            name: "Search Result",
-            progress: 0,
-            paths: resp
-          };
-          setJourneys([serachJournry]);
+          setJourneys(convertSearchToJourney(e.target.value));
         }}
       />
     </div>
