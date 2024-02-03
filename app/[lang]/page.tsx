@@ -5,13 +5,13 @@ import SelectedPathModal from "@/components/SelectedPathModal";
 import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
 import { CheckListItemStatus } from "@/types/enum";
-import { JourneyContextProvider } from "@/context/Journeys";
+import { JourneyGraphContextProvider } from "@/context/JourneysGraph";
 import Flow from "@/components/undirectedGraph/Flow";
 
 const Home = () => {
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
   return (
-    <JourneyContextProvider>
+    <JourneyGraphContextProvider>
       <div className="flex min-h-screen bg-grayLight">
         <div className="z-40">
           <NavBar />
@@ -35,7 +35,7 @@ const Home = () => {
           )}
         </div>
       </div>
-    </JourneyContextProvider>
+    </JourneyGraphContextProvider>
   );
 };
 

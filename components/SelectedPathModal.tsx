@@ -3,11 +3,11 @@ import { Button } from "./ui/button";
 import Tag from "./Tag";
 import { useTranslation } from "@/context/Translation";
 import { XCircle } from "lucide-react";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 
 const SelectedPathModal = () => {
   const { dict } = useTranslation();
-  const { selectedPath, setSelectedPath } = useJourney();
+  const { selectedPath, setSelectedPath } = useJourneyGraph();
   if (!selectedPath) return null;
   return (
     <div>

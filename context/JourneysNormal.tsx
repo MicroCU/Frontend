@@ -1,6 +1,6 @@
 "use client";
 import { MenuTab } from "@/types/enum";
-import { BriefPathInfo, JourneyStoreData } from "@/types/type";
+import { JourneyData } from "@/types/type";
 import {
   Dispatch,
   SetStateAction,
@@ -9,55 +9,48 @@ import {
   useState
 } from "react";
 
-interface JourneyContextType {
+interface JourneyNormalContextType {
   selectedTab: MenuTab;
   setSelectedTab: Dispatch<SetStateAction<MenuTab>>;
   searchKeyword: string;
   setSearchKeyword: Dispatch<SetStateAction<string>>;
-  selectedPath: BriefPathInfo | null;
-  setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
-  journeys: JourneyStoreData | null;
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
+  journeys: JourneyData[] | null;
+  setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>;
 }
 
-const JourneyContext = createContext<JourneyContextType>({
+const JourneyNormalContext = createContext<JourneyNormalContextType>({
   selectedTab: MenuTab.journey,
   setSelectedTab: () => {},
   searchKeyword: "",
   setSearchKeyword: () => {},
-  selectedPath: null,
-  setSelectedPath: () => {},
   journeys: null,
   setJourneys: () => {}
 });
 
-export function useJourney() {
-  return useContext(JourneyContext);
+export function useJourneyNormal() {
+  return useContext(JourneyNormalContext);
 }
 
-export function JourneyContextProvider({
+export function JourneyNormalContextProvider({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const [journeys, setJourneys] = useState<JourneyStoreData | null>(null);
+  const [journeys, setJourneys] = useState<JourneyData[] | null>(null);
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [selectedPath, setSelectedPath] = useState<BriefPathInfo | null>(null);
   return (
-    <JourneyContext.Provider
+    <JourneyNormalContext.Provider
       value={{
         journeys,
         setJourneys,
         selectedTab,
         setSelectedTab,
-        selectedPath,
-        setSelectedPath,
         searchKeyword,
         setSearchKeyword
       }}
     >
       {children}
-    </JourneyContext.Provider>
+    </JourneyNormalContext.Provider>
   );
 }

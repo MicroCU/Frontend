@@ -8,7 +8,7 @@ import { useTranslation } from "@/context/Translation";
 import { ScrollArea } from "./ui/scroll-area";
 import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 import { MockHomeData } from "@/mock/journey_data";
 import { convertRecentlyToJourney } from "@/mock/recently_data";
 import PathList from "./PathList";
@@ -19,7 +19,7 @@ interface NavBarOpenModeProps {
 
 export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
-  const { setJourneys, setSelectedTab, setSearchKeyword } = useJourney();
+  const { setJourneys, setSelectedTab, setSearchKeyword } = useJourneyGraph();
   useEffect(() => {
     setJourneys({
       data: MockHomeData.journeys,

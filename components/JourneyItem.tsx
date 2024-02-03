@@ -10,10 +10,10 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { JourneyData } from "@/types/type";
 import { getPathDetailFromId, isPathInJourney } from "@/mock/common";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 
 export default function JourneyItem({ id, name, paths }: JourneyData) {
-  const { journeys, selectedPath, setSelectedPath } = useJourney();
+  const { journeys, selectedPath, setSelectedPath } = useJourneyGraph();
   const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
     if (selectedPath && isPathInJourney(selectedPath.id, id, journeys)) {
