@@ -34,8 +34,14 @@ export default function PathCard({ path, type }: PathCardProps) {
         </div>
       </div>
       {path.picture ? (
-        <div className="relative flex flex-col justify-center items-center w-[200px] h-[120px]">
-          <Image src={path.picture} alt={path.name} fill />
+        <div className="relative flex flex-col justify-center items-center w-[200px] h-[120px] overflow-hidden">
+          <Image
+            src={path.picture}
+            alt={path.name}
+            width={200}
+            height={120}
+            style={{ objectFit: "cover" }}
+          />
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center w-[200px] h-[120px] bg-graySmall">

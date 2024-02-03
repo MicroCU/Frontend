@@ -14,7 +14,8 @@ const mockDBForRecently: BriefPathInfo[] = [
                 name: "Language",
             },
         ],
-        status: PathStatus.STILL_LEARNING
+        status: PathStatus.STILL_LEARNING,
+        picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
     },
     {
         id: "recently-2",
