@@ -14,8 +14,7 @@ import ReactFlow, {
   Controls,
   Edge,
   BackgroundVariant,
-  getNodesBounds,
-  getViewportForBounds
+  getNodesBounds
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -137,19 +136,7 @@ export default function OverviewFlow({
     // set new viewport
     if (initialNodes === null || initialNodes.length === 0) return;
     const bounds = getNodesBounds(initialNodes);
-    const { x, y, zoom } = getViewportForBounds(
-      bounds,
-      bounds.width,
-      bounds.height,
-      0,
-      1
-    );
-
-    reactFlow.setViewport({
-      zoom: zoom,
-      x: x,
-      y: bounds.height / 2
-    });
+    reactFlow.fitBounds(bounds);
   }, [selectedTab, journeys, reactFlow]);
 
   return (

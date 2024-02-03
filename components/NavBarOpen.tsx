@@ -70,11 +70,11 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             <JourneyItems className="flex-1" />
           </TabsContent>
           <TabsContent value={MenuTab.recently}>
-            <PathList resultType={MenuTab.recently} />
+            <PathList />
           </TabsContent>
           <TabsContent value={MenuTab.search}>
             <SearchInput />
-            <PathList resultType={MenuTab.search} />
+            <PathList />
           </TabsContent>
         </Tabs>
         <NormalModal />
