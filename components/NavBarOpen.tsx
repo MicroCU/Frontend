@@ -12,6 +12,7 @@ import { useJourneyGraph } from "@/context/JourneysGraph";
 import { MockHomeData } from "@/mock/journey_data";
 import { convertRecentlyToJourney } from "@/mock/recently_data";
 import PathList from "./PathList";
+import { JourneyNormalContextProvider } from "@/context/JourneysNormal";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -77,7 +78,9 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             <PathList />
           </TabsContent>
         </Tabs>
-        <NormalModal />
+        <JourneyNormalContextProvider>
+          <NormalModal />
+        </JourneyNormalContextProvider>
       </div>
     </ScrollArea>
   );

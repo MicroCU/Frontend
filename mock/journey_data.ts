@@ -30,7 +30,8 @@ export const MockHomeData: HomePageData = { // Mock API Response
                                 name: "Programming Language",
                             },
                         ],
-                        status: PathStatus.NOT_VISITED
+                        status: PathStatus.NOT_VISITED,
+                        picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2100301.png",
                     },
                     {
                         id: "1-p2",
@@ -51,7 +52,8 @@ export const MockHomeData: HomePageData = { // Mock API Response
                                 name: "Basic",
                             },
                         ],
-                        status: PathStatus.PASSED_TEST
+                        status: PathStatus.PASSED_TEST,
+                        picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110352.png"
                     },
                     {
                         id: "1-p3",

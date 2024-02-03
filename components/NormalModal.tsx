@@ -4,12 +4,18 @@ import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import JourneyModalItems, { JourneyModalType } from "./JourneyModalItems";
 import { useTranslation } from "@/context/Translation";
-import { useJourney } from "@/context/Journeys";
 import { MenuTab } from "@/types/enum";
+import { useJourneyNormal } from "@/context/JourneysNormal";
+import { MockHomeData } from "@/mock/journey_data";
+import { useEffect } from "react";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
-  const { journeys } = useJourney();
+  const { journeys, setJourneys } = useJourneyNormal();
+  useEffect(() => {
+    setJourneys(MockHomeData.journeys);
+  }, []);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,7 +37,7 @@ const NormalModal = () => {
           <TabsContent value={MenuTab.journey}>
             <div className="space-y-6 max-h-[720px] overflow-y-auto">
               {journeys &&
-                journeys.data.map((journey) => (
+                journeys.map((journey) => (
                   <JourneyModalItems
                     key={journey.id}
                     journey={journey}
