@@ -343,7 +343,7 @@ export const MockHomeData: HomePageData = { // Mock API Response
     ]
 }
 
-export function getMockJourneyPosition(pathId: string) {
+export function getMockJourneyPosition(pathId: string) {  // Mock Tendon's Algorithm
     const positionMap = new Map<string, { x: number, y: number }>();
     positionMap.set("1-p1", { x: 250, y: 0 });
     positionMap.set("1-p2", { x: 100, y: 100 });

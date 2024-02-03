@@ -1,6 +1,6 @@
 "use client";
 import { MenuTab } from "@/types/enum";
-import { BriefPathInfo, JourneyData } from "@/types/type";
+import { BriefPathInfo, JourneyStoreData } from "@/types/type";
 import {
   Dispatch,
   SetStateAction,
@@ -16,8 +16,8 @@ interface JourneyContextType {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   selectedPath: BriefPathInfo | null;
   setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
-  journeys: JourneyData[] | null;
-  setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>;
+  journeys: JourneyStoreData | null;
+  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
 }
 
 const JourneyContext = createContext<JourneyContextType>({
@@ -40,7 +40,7 @@ export function JourneyContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [journeys, setJourneys] = useState<JourneyData[] | null>(null);
+  const [journeys, setJourneys] = useState<JourneyStoreData | null>(null);
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [selectedPath, setSelectedPath] = useState<BriefPathInfo | null>(null);

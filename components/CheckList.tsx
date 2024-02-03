@@ -51,7 +51,7 @@ export default function CheckList({ status, className }: ICheckListProps) {
           <CheckListItemLoading />
         ) : (
           journeys &&
-          journeys.map((journey, index) => (
+          journeys.data.map((journey, index) => (
             <CheckListItem
               key={index}
               journeyName={journey.name}

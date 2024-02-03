@@ -1,21 +1,15 @@
 "use client";
 import NavBar from "@/components/NavBar";
-import OverviewFlow from "../../components/undirectedGraph/Graph";
-import { ReactFlowProvider } from "reactflow";
 import { useState } from "react";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
-import { CheckListItemStatus, MenuTab } from "@/types/enum";
-import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
+import { CheckListItemStatus } from "@/types/enum";
 import { JourneyContextProvider } from "@/context/Journeys";
+import Flow from "@/components/undirectedGraph/Flow";
 
 const Home = () => {
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
-  const { initialNodes, initialEdges } = generateInitialNodeEdge(
-    MenuTab.journey
-  );
-
   return (
     <JourneyContextProvider>
       <div className="flex min-h-screen bg-grayLight">
@@ -23,12 +17,7 @@ const Home = () => {
           <NavBar />
         </div>
         <div className="flex items-center z-30 w-full">
-          <ReactFlowProvider>
-            <OverviewFlow
-              initialNodes={initialNodes}
-              initialEdges={initialEdges}
-            />
-          </ReactFlowProvider>
+          <Flow />
         </div>
         <div className="absolute top-20 right-20 z-40">
           <SelectedPathModal />

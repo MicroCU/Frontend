@@ -1,7 +1,7 @@
 import { PathStatus } from "@/types/enum";
-import { BriefPathInfo, JourneyData, RecentlyPageData } from "@/types/type";
+import { BriefPathInfo, JourneyStoreData, RecentlyPageData } from "@/types/type";
 
-export const mockDBForRecently: BriefPathInfo[] = [
+const mockDBForRecently: BriefPathInfo[] = [
     {
         id: "recently-1",
         name: "Basic Grammar",
@@ -75,7 +75,7 @@ export const mockDBForRecently: BriefPathInfo[] = [
 export function getRecentlyResult(): RecentlyPageData {  // Mock API Response
     let response: RecentlyPageData = {
         total: 4,
-        paths: mockDBForRecently,
+        data: mockDBForRecently,
         relationships: [
             {
                 id: "recently-1",
@@ -98,7 +98,7 @@ export function getRecentlyResult(): RecentlyPageData {  // Mock API Response
     return response
 }
 
-export function getMockRecentlyPosition(pathId: string) {
+export function getMockRecentlyPosition(pathId: string) { // Mock Tendon's Algorithm
     const positionMap = new Map<string, { x: number, y: number }>();
     positionMap.set("recently-1", { x: 250, y: 0 });
     positionMap.set("recently-2", { x: 100, y: 100 });
@@ -109,15 +109,16 @@ export function getMockRecentlyPosition(pathId: string) {
 
 export function convertRecentlyToJourney() {
     let resp = getRecentlyResult()
-    let journeys: JourneyData
-    journeys = {
+    let journeys: JourneyStoreData = {} as JourneyStoreData
+    journeys.data = [{
         id: "recently",
         name: "Recently",
         progress: 0,
         paths: {
             total: resp.total,
-            data: resp.paths
-        }
-    }
-    return [journeys]
+            data: resp.data
+        },
+    }]
+    journeys.relationships = resp.relationships
+    return journeys
 }

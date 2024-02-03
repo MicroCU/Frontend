@@ -1,7 +1,7 @@
 import { PathStatus } from "@/types/enum";
-import { BriefPathInfo, JourneyData, SearchPageData } from "@/types/type";
+import { BriefPathInfo, JourneyStoreData, SearchPageData } from "@/types/type";
 
-export const mockDBForSearch: BriefPathInfo[] = [
+const mockDBForSearch: BriefPathInfo[] = [
     {
         id: "search-1",
         name: "Basic Biology",
@@ -156,7 +156,7 @@ export function getSearchResult(searchText: string): SearchPageData {  // Mock A
     return response
 }
 
-export function getMockSearchPosition(pathId: string) {
+export function getMockSearchPosition(pathId: string) {  // Mock Tendon's Algorithm
     const positionMap = new Map<string, { x: number, y: number }>();
     positionMap.set("search-1", { x: 250, y: 0 });
     positionMap.set("search-2", { x: 250, y: 100 });
@@ -168,12 +168,16 @@ export function getMockSearchPosition(pathId: string) {
 
 export function convertSearchToJourney(searchText: string) {
     let resp = getSearchResult(searchText)
-    let journeys: JourneyData
-    journeys = {
-        id: "search",
-        name: "Search",
+    let journeys: JourneyStoreData = {} as JourneyStoreData
+    journeys.data = [{
+        id: "recently",
+        name: "Recently",
         progress: 0,
-        paths: resp,
-    }
-    return [journeys]
+        paths: {
+            total: resp.total,
+            data: resp.data
+        },
+    }]
+    journeys.relationships = resp.relationships
+    return journeys
 }

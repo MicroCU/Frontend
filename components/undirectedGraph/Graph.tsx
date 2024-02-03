@@ -34,8 +34,7 @@ export default function OverviewFlow({
   initialNodes,
   initialEdges
 }: IOverviewFlowProps) {
-  const { selectedPath, setSelectedPath, selectedTab, searchKeyword } =
-    useJourney();
+  const { selectedPath, setSelectedPath, selectedTab, journeys } = useJourney();
   const [nodes, setNodes, onNodesChange] =
     useNodesState<UndirectedGraphNodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -129,8 +128,8 @@ export default function OverviewFlow({
     setEdges([]);
     setSelectedPath(null);
     let { initialNodes, initialEdges } = generateInitialNodeEdge(
-      selectedTab,
-      searchKeyword
+      journeys,
+      selectedTab
     );
     setNodes(initialNodes);
     setEdges(initialEdges);
@@ -151,7 +150,7 @@ export default function OverviewFlow({
       x: x,
       y: bounds.height / 2
     });
-  }, [selectedTab, searchKeyword, reactFlow]);
+  }, [selectedTab, journeys, reactFlow]);
 
   return (
     <ReactFlow

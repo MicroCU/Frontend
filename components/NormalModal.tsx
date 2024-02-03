@@ -31,7 +31,7 @@ const NormalModal = () => {
           <TabsContent value={MenuTab.journey}>
             <div className="space-y-6 max-h-[720px] overflow-y-auto">
               {journeys &&
-                journeys.map((journey) => (
+                journeys.data.map((journey) => (
                   <JourneyModalItems
                     key={journey.id}
                     journey={journey}

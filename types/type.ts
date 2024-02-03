@@ -34,7 +34,7 @@ export interface JourneyData {
   paths: {
     total: number;
     data: BriefPathInfo[];
-  }
+  },
 }
 
 export interface HomePageData {
@@ -57,7 +57,15 @@ export interface SearchPageData {
 
 export interface RecentlyPageData {
   total: number;
-  paths: BriefPathInfo[];
+  data: BriefPathInfo[];
+  relationships: {
+    id: string;
+    neighbor: string[]
+  }[];
+}
+
+export interface JourneyStoreData {
+  data: JourneyData[];
   relationships: {
     id: string;
     neighbor: string[]

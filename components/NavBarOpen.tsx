@@ -21,8 +21,10 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
   const { setJourneys, setSelectedTab, setSearchKeyword } = useJourney();
   useEffect(() => {
-    const mockJourneyData = MockHomeData; // Defult is journey mode
-    setJourneys(mockJourneyData.journeys);
+    setJourneys({
+      data: MockHomeData.journeys,
+      relationships: MockHomeData.relationships
+    });
   }, []);
 
   return (
@@ -35,7 +37,10 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
-                setJourneys(MockHomeData.journeys);
+                setJourneys({
+                  data: MockHomeData.journeys,
+                  relationships: MockHomeData.relationships
+                });
                 setSearchKeyword("");
               }}
             >
@@ -55,7 +60,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
-                setJourneys([]);
+                setJourneys(null);
               }}
             >
               {dict["home.tabs.search"]}

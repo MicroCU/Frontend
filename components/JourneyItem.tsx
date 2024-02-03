@@ -10,14 +10,13 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { JourneyData } from "@/types/type";
 import { getPathDetailFromId, isPathInJourney } from "@/mock/common";
-import { MenuTab } from "@/types/enum";
 import { useJourney } from "@/context/Journeys";
 
 export default function JourneyItem({ id, name, paths }: JourneyData) {
-  const { selectedPath, setSelectedPath } = useJourney();
+  const { journeys, selectedPath, setSelectedPath } = useJourney();
   const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
-    if (selectedPath && isPathInJourney(selectedPath.id, id)) {
+    if (selectedPath && isPathInJourney(selectedPath.id, id, journeys)) {
       setOpen(true);
     }
   }, [selectedPath]);
@@ -40,7 +39,7 @@ export default function JourneyItem({ id, name, paths }: JourneyData) {
           <div
             key={path.id}
             onClick={() => {
-              setSelectedPath(getPathDetailFromId(path.id, MenuTab.journey));
+              setSelectedPath(getPathDetailFromId(path.id, journeys));
             }}
             className={cn(
               "ml-5",
