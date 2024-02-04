@@ -9,7 +9,7 @@ import {
   useState
 } from "react";
 
-interface JourneyGraphContextType {
+interface JourneyContextType {
   selectedTab: MenuTab;
   setSelectedTab: Dispatch<SetStateAction<MenuTab>>;
   searchKeyword: string;
@@ -20,7 +20,7 @@ interface JourneyGraphContextType {
   setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
 }
 
-const JourneyGraphContext = createContext<JourneyGraphContextType>({
+const JourneyContext = createContext<JourneyContextType>({
   selectedTab: MenuTab.journey,
   setSelectedTab: () => {},
   searchKeyword: "",
@@ -31,11 +31,11 @@ const JourneyGraphContext = createContext<JourneyGraphContextType>({
   setJourneys: () => {}
 });
 
-export function useJourneyGraph() {
-  return useContext(JourneyGraphContext);
+export function useJourney() {
+  return useContext(JourneyContext);
 }
 
-export function JourneyGraphContextProvider({
+export function JourneyContextProvider({
   children
 }: {
   children: React.ReactNode;
@@ -45,7 +45,7 @@ export function JourneyGraphContextProvider({
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [selectedPath, setSelectedPath] = useState<BriefPathInfo | null>(null);
   return (
-    <JourneyGraphContext.Provider
+    <JourneyContext.Provider
       value={{
         journeys,
         setJourneys,
@@ -58,6 +58,6 @@ export function JourneyGraphContextProvider({
       }}
     >
       {children}
-    </JourneyGraphContext.Provider>
+    </JourneyContext.Provider>
   );
 }

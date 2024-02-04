@@ -5,20 +5,20 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import JourneyModalItems, { JourneyModalType } from "./JourneyModalItems";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
-import { useJourneyNormal } from "@/context/JourneysNormal";
 import { MockHomeData } from "@/mock/journey_data";
 import { useEffect, useState } from "react";
 import PathCard, { PathCardType } from "./PathCard";
 import { convertRecentlyToJourney } from "@/mock/recently_data";
 import { JourneyData } from "@/types/type";
-import SearchInput from "./SearchInput";
+import SearchInputNormal from "./SearchInputNormal";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
-  // const { journeys, setJourneys } = useJourneyNormal();
-  const [journeys, setJourneys] = useState<JourneyData[] | null>(null);
+  const [journeysNormal, setJourneysNormal] = useState<JourneyData[] | null>(
+    null
+  );
   useEffect(() => {
-    setJourneys(MockHomeData.journeys);
+    setJourneysNormal(MockHomeData.journeys);
   }, []);
   return (
     <Dialog>
@@ -31,7 +31,7 @@ const NormalModal = () => {
             <TabsTrigger
               value={MenuTab.journey}
               onClick={() => {
-                setJourneys(MockHomeData.journeys);
+                setJourneysNormal(MockHomeData.journeys);
               }}
             >
               {dict["home.tabs.journey"]}
@@ -39,19 +39,24 @@ const NormalModal = () => {
             <TabsTrigger
               value={MenuTab.recently}
               onClick={() => {
-                setJourneys(convertRecentlyToJourney().data);
+                setJourneysNormal(convertRecentlyToJourney().data);
               }}
             >
               {dict["home.tabs.recently"]}
             </TabsTrigger>
-            <TabsTrigger value={MenuTab.search}>
+            <TabsTrigger
+              value={MenuTab.search}
+              onClick={() => {
+                setJourneysNormal(null);
+              }}
+            >
               {dict["home.tabs.search"]}
             </TabsTrigger>
           </TabsList>
           <TabsContent value={MenuTab.journey}>
             <div className="space-y-6 max-h-[690px] overflow-y-auto">
-              {journeys &&
-                journeys.map((journey) => (
+              {journeysNormal &&
+                journeysNormal.map((journey) => (
                   <JourneyModalItems
                     key={journey.id}
                     journey={journey}
@@ -62,9 +67,9 @@ const NormalModal = () => {
           </TabsContent>
           <TabsContent value={MenuTab.recently}>
             <div className="space-y-6 max-h-[690px] overflow-y-auto">
-              {journeys &&
-                journeys.length > 0 &&
-                journeys[0].paths.data.map((path) => (
+              {journeysNormal &&
+                journeysNormal.length > 0 &&
+                journeysNormal[0].paths.data.map((path) => (
                   <div key={path.id}>
                     <PathCard path={path} type={PathCardType.Shown} />
                   </div>
@@ -72,7 +77,16 @@ const NormalModal = () => {
             </div>
           </TabsContent>
           <TabsContent value={MenuTab.search}>
-            {/* <SearchInput /> */}
+            <SearchInputNormal setJourneys={setJourneysNormal} />
+            <div className="space-y-6 max-h-[625px] overflow-y-auto">
+              {journeysNormal &&
+                journeysNormal.length > 0 &&
+                journeysNormal[0].paths.data.map((path) => (
+                  <div key={path.id}>
+                    <PathCard path={path} type={PathCardType.Shown} />
+                  </div>
+                ))}
+            </div>
           </TabsContent>
         </Tabs>
       </DialogContent>

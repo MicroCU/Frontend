@@ -1,5 +1,5 @@
 "use client";
-import { useJourneyGraph } from "@/context/JourneysGraph";
+import { useJourney } from "@/context/Journeys";
 import JourneyItem from "./JourneyItem";
 import JourneyItemsLoading from "./JourneyItemsLoading";
 
@@ -14,7 +14,7 @@ export interface JourneyItemsProps {
 }
 
 export default function JourneyItems({ className, type }: JourneyItemsProps) {
-  const { journeys } = useJourneyGraph();
+  const { journeys } = useJourney();
   return (
     <div className={`${className} flex flex-col gap-y-6`}>
       {journeys &&

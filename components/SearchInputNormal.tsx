@@ -1,20 +1,23 @@
 "use client";
-import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
 import { convertSearchToJourney } from "@/mock/search_data";
+import { JourneyData } from "@/types/type";
 import { Search } from "lucide-react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export interface SearchInputProps {
+export interface SearchInputNormalProps {
   className?: string;
   defaultValue?: string;
+  setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>;
 }
 
-export default function SearchInput({
+export default function SearchInputNormal({
   className,
-  defaultValue
-}: SearchInputProps) {
+  defaultValue,
+  setJourneys
+}: SearchInputNormalProps) {
   const { dict } = useTranslation();
-  const { setSearchKeyword, setJourneys } = useJourney();
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
     <div
       className={`flex flex-row gap-x-4 px-3 py-2 mt-3 mb-6 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
@@ -26,7 +29,7 @@ export default function SearchInput({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchKeyword(e.target.value);
-          setJourneys(convertSearchToJourney(e.target.value));
+          setJourneys(convertSearchToJourney(e.target.value).data);
         }}
       />
     </div>

@@ -1,10 +1,10 @@
 "use client";
-import { useJourneyGraph } from "@/context/JourneysGraph";
+import { useJourney } from "@/context/Journeys";
 import PathItems from "./PathItems";
 import { getPathDetailFromId } from "@/mock/common";
 
 export default function PathList() {
-  const { journeys, selectedPath, setSelectedPath } = useJourneyGraph();
+  const { journeys, selectedPath, setSelectedPath } = useJourney();
   return (
     <div>
       {journeys &&

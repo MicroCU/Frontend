@@ -4,7 +4,7 @@ import { CheckListItem } from "./CheckListItem";
 import CheckListItemLoading from "./CheckListItemLoading";
 import { CheckListItemStatus } from "@/types/enum";
 import { ScrollArea } from "./ui/scroll-area";
-import { useJourneyGraph } from "@/context/JourneysGraph";
+import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,7 @@ export interface ICheckListProps {
 }
 
 export default function CheckList({ status, className }: ICheckListProps) {
-  const { journeys } = useJourneyGraph();
+  const { journeys } = useJourney();
   const { dict } = useTranslation();
 
   const containerRef = useRef<HTMLDivElement>(null);

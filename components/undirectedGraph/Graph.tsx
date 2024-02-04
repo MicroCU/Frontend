@@ -21,7 +21,7 @@ import "reactflow/dist/style.css";
 import CircleNode from "./CircleNode";
 import { UndirectedGraphNodeData } from "@/types/type";
 import { PathStatus, UndirectedNodeType } from "@/types/enum";
-import { useJourneyGraph } from "@/context/JourneysGraph";
+import { useJourney } from "@/context/Journeys";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
 
 interface IOverviewFlowProps {
@@ -33,8 +33,7 @@ export default function OverviewFlow({
   initialNodes,
   initialEdges
 }: IOverviewFlowProps) {
-  const { selectedPath, setSelectedPath, selectedTab, journeys } =
-    useJourneyGraph();
+  const { selectedPath, setSelectedPath, selectedTab, journeys } = useJourney();
   const [nodes, setNodes, onNodesChange] =
     useNodesState<UndirectedGraphNodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);

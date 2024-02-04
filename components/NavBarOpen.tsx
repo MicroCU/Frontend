@@ -8,11 +8,10 @@ import { useTranslation } from "@/context/Translation";
 import { ScrollArea } from "./ui/scroll-area";
 import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
-import { useJourneyGraph } from "@/context/JourneysGraph";
+import { useJourney } from "@/context/Journeys";
 import { MockHomeData } from "@/mock/journey_data";
 import { convertRecentlyToJourney } from "@/mock/recently_data";
 import PathList from "./PathList";
-import { JourneyNormalContextProvider } from "@/context/JourneysNormal";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -20,7 +19,7 @@ interface NavBarOpenModeProps {
 
 export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
-  const { setJourneys, setSelectedTab, setSearchKeyword } = useJourneyGraph();
+  const { setJourneys, setSelectedTab, setSearchKeyword } = useJourney();
   useEffect(() => {
     setJourneys({
       data: MockHomeData.journeys,
@@ -78,9 +77,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             <PathList />
           </TabsContent>
         </Tabs>
-        <JourneyNormalContextProvider>
-          <NormalModal />
-        </JourneyNormalContextProvider>
+        <NormalModal />
       </div>
     </ScrollArea>
   );
