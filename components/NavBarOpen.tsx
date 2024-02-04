@@ -19,7 +19,8 @@ interface NavBarOpenModeProps {
 
 export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
-  const { setJourneys, setSelectedTab, setSearchKeyword } = useJourney();
+  const { setJourneys, selectedTab, setSelectedTab, setSearchKeyword } =
+    useJourney();
   useEffect(() => {
     setJourneys({
       data: MockHomeData.journeys,
@@ -31,8 +32,11 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
     <ScrollArea className="h-screen w-72">
       <div className="space-y-6 p-6 bg-white shadow-md min-h-screen flex flex-col">
         <NavHeader setIsOpen={setIsOpen} />
-        <Tabs defaultValue={MenuTab.journey} className="flex-1 w-60">
-          <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-6">
+        <Tabs
+          defaultValue={MenuTab.journey}
+          className="flex-1 flex flex-col w-60"
+        >
+          <TabsList className="grid w-full grid-cols-3 bg-grayLight">
             <TabsTrigger
               value={MenuTab.journey}
               onClick={() => {
@@ -67,12 +71,24 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value={MenuTab.journey}>
-            <JourneyItems className="flex-1" />
+            <JourneyItems className="flex-1 mt-6" />
           </TabsContent>
-          <TabsContent value={MenuTab.recently}>
+          <TabsContent
+            value={MenuTab.recently}
+            className={`${
+              selectedTab === MenuTab.recently
+                ? "flex flex-col flex-1 mt-6"
+                : ""
+            }`}
+          >
             <PathList />
           </TabsContent>
-          <TabsContent value={MenuTab.search}>
+          <TabsContent
+            value={MenuTab.search}
+            className={`${
+              selectedTab === MenuTab.search ? "flex flex-col flex-1" : ""
+            }`}
+          >
             <SearchInput />
             <PathList />
           </TabsContent>

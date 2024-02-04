@@ -14,5 +14,7 @@
   "home.SelectedPathModal.button": "ไปที่ path",
   "home.checklist.title": "ความก้าวหน้า",
   "home.checklist.complete": "คุณเรียนครบทุก Journeys แล้ว",
-  "home.searchbar.placeholder": "ค้นหาสิ่งที่คุณต้องการ"
+  "home.searchbar.placeholder": "ค้นหาสิ่งที่คุณต้องการ",
+  "home.searchbar.noresult": "ไม่พบผลลัพธ์",
+  "home.recently.noresult": "ไม่มี path ที่เรียนเร็วๆนี้"
 }

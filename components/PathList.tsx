@@ -2,9 +2,21 @@
 import { useJourney } from "@/context/Journeys";
 import PathItems from "./PathItems";
 import { getPathDetailFromId } from "@/mock/common";
+import NoResult from "./NoResult";
 
 export default function PathList() {
-  const { journeys, selectedPath, setSelectedPath } = useJourney();
+  const { journeys, selectedPath, setSelectedPath, selectedTab } = useJourney();
+  if (
+    journeys &&
+    journeys.data.length > 0 &&
+    journeys.data[0].paths.data.length === 0
+  ) {
+    return (
+      <div className="flex-1 flex flex-col justify-center">
+        <NoResult type={selectedTab} />{" "}
+      </div>
+    );
+  }
   return (
     <div>
       {journeys &&

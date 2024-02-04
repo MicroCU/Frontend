@@ -26,7 +26,11 @@ export default function SearchInput({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchKeyword(e.target.value);
-          setJourneys(convertSearchToJourney(e.target.value));
+          if (e.target.value === "") {
+            setJourneys(null);
+          } else {
+            setJourneys(convertSearchToJourney(e.target.value));
+          }
         }}
       />
     </div>
