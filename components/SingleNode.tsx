@@ -10,7 +10,6 @@ function SingleNode({
   data: Group;
   isConnectable: boolean;
 }) {
-  console.log("data", data);
   return (
     <>
       <Handle
