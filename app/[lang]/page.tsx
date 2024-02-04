@@ -4,7 +4,6 @@ import { useState } from "react";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
-import { CheckListItemStatus } from "@/types/enum";
 import { JourneyContextProvider } from "@/context/Journeys";
 import Flow from "@/components/undirectedGraph/Flow";
 
@@ -28,11 +27,7 @@ const Home = () => {
             setIsViewCheckList(!isViewCheckList);
           }}
         >
-          {isViewCheckList ? (
-            <CheckList status={CheckListItemStatus.SHOWN} />
-          ) : (
-            <CheckListIcon />
-          )}
+          {isViewCheckList ? <CheckList /> : <CheckListIcon />}
         </div>
       </div>
     </JourneyContextProvider>

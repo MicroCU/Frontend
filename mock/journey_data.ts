@@ -1,7 +1,7 @@
 import { PathStatus } from "@/types/enum";
 import { HomePageData } from "@/types/type";
 
-export const MockHomeData: HomePageData = { // Mock API Response
+const MockHomeData: HomePageData = {
     total: 4,
     journeys: [
         {
@@ -343,6 +343,14 @@ export const MockHomeData: HomePageData = { // Mock API Response
             neighbor: ["3-p2"]
         },
     ]
+}
+
+export function getHomeResult(): Promise<HomePageData> { // Mock API call
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(MockHomeData);
+        }, 3000);
+    });
 }
 
 export function getMockJourneyPosition(pathId: string) {  // Mock Tendon's Algorithm

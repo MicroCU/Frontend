@@ -2,19 +2,18 @@
 import { ListTodo } from "lucide-react";
 import { CheckListItem } from "./CheckListItem";
 import CheckListItemLoading from "./CheckListItemLoading";
-import { CheckListItemStatus } from "@/types/enum";
 import { ScrollArea } from "./ui/scroll-area";
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { JourneyStoreData } from "@/types/type";
 
-export interface CheckListProps {
-  status: CheckListItemStatus;
+export interface ICheckListProps {
   className?: string;
 }
 
-export default function CheckList({ status, className }: CheckListProps) {
+export default function CheckList({ className }: ICheckListProps) {
   const { journeys } = useJourney();
   const { dict } = useTranslation();
 
@@ -43,11 +42,11 @@ export default function CheckList({ status, className }: CheckListProps) {
           <ListTodo size={24} className="stroke-primary" />
           <p className="Bold24 text-primary">{dict["home.checklist.title"]}</p>
         </div>
-        {status === CheckListItemStatus.COMPLETED ? (
+        {journeys && checkIfAllCompleted(journeys) ? (
           <div className="w-[200px] h-full flex justify-center items-center">
             <p className="Reg12"> {dict["home.checklist.complete"]} </p>
           </div>
-        ) : status === CheckListItemStatus.LOADING ? (
+        ) : !journeys ? (
           <CheckListItemLoading />
         ) : (
           journeys &&
@@ -63,4 +62,8 @@ export default function CheckList({ status, className }: CheckListProps) {
       </div>
     </ScrollArea>
   );
+}
+
+function checkIfAllCompleted(journeys: JourneyStoreData) {
+  return journeys.data.every((journey) => journey.progress === 100);
 }

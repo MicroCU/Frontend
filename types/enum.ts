@@ -1,8 +1,3 @@
-export const enum Page {
-  Journey = "journey",
-  Recently = "recently",
-  Search = "search"
-}
 export enum MicroType {
   VIDEO = "VIDEO",
   PRACTICE = "PRACTICE",
@@ -24,12 +19,6 @@ export enum PathStatus {
   STILL_LEARNING = "STILL_LEARNING",
   PASSED_TEST = "PASSED_TEST",
   NOT_VISITED = "NOT_VISITED",
-}
-
-export enum CheckListItemStatus {
-  LOADING = "LOADING",
-  SHOWN = "SHOWN",
-  COMPLETED = "COMPLETED"
 }
 
 export enum UndirectedNodeType {

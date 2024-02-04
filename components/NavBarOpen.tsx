@@ -9,9 +9,10 @@ import { ScrollArea } from "./ui/scroll-area";
 import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
 import { useJourney } from "@/context/Journeys";
-import { MockHomeData } from "@/mock/journey_data";
 import { convertRecentlyToJourney } from "@/mock/recently_data";
 import PathList from "./PathList";
+import { fetchJourneyGraph } from "@/mock/api";
+import { convertSearchToJourney } from "@/mock/search_data";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -22,10 +23,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { setJourneys, selectedTab, setSelectedTab, setSearchKeyword } =
     useJourney();
   useEffect(() => {
-    setJourneys({
-      data: MockHomeData.journeys,
-      relationships: MockHomeData.relationships
-    });
+    fetchJourneyGraph(setJourneys);
   }, []);
 
   return (
@@ -41,11 +39,8 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
-                setJourneys({
-                  data: MockHomeData.journeys,
-                  relationships: MockHomeData.relationships
-                });
                 setSearchKeyword("");
+                fetchJourneyGraph(setJourneys);
               }}
             >
               {dict["home.tabs.journey"]}
@@ -64,7 +59,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
-                setJourneys(null);
+                setJourneys(convertSearchToJourney(""));
               }}
             >
               {dict["home.tabs.search"]}

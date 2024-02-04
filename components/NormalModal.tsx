@@ -4,13 +4,13 @@ import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
-import { MockHomeData } from "@/mock/journey_data";
 import { useEffect, useState } from "react";
 import { convertRecentlyToJourney } from "@/mock/recently_data";
 import { JourneyData } from "@/types/type";
 import JourneyModalCollection from "./JourneyModalCollection";
 import PathCardRecentlyCollection from "./PathCardCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
+import { fetchJourneyNormal } from "@/mock/api";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
@@ -19,8 +19,9 @@ const NormalModal = () => {
   );
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
   useEffect(() => {
-    setJourneysNormal(MockHomeData.journeys);
+    fetchJourneyNormal(setJourneysNormal);
   }, []);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -36,7 +37,7 @@ const NormalModal = () => {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
-                setJourneysNormal(MockHomeData.journeys);
+                fetchJourneyNormal(setJourneysNormal);
               }}
             >
               {dict["home.tabs.journey"]}
