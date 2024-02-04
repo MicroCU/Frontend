@@ -4,12 +4,6 @@ export const enum Page {
   Search = "search"
 }
 
-export enum MicroType {
-  VIDEO = "VIDEO",
-  PRACTICE = "PRACTICE",
-  TEST = "TEST"
-}
-
 export enum OnBoardMode {
   NOGOAL = "NOGOAL",
   GOAL = "GOAL"
