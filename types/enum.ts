@@ -1,3 +1,8 @@
+export const enum Page {
+  Journey = "journey",
+  Recently = "recently",
+  Search = "search"
+}
 export enum MicroType {
   VIDEO = "VIDEO",
   PRACTICE = "PRACTICE",

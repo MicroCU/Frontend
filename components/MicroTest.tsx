@@ -1,24 +1,24 @@
 "use client";
-import { MicroData } from "@/types/type";
-import { useRef } from "react";
 import { useOverflowDetection } from "@/hooks/Overflow";
+import { Micro } from "@/types/path";
+import { useRef } from "react";
 import OverflowTooltip from "./OverflowTooltip";
 
 interface MicroTestProps {
-  data: MicroData;
+  data: Micro;
   className?: string;
 }
 
 export default function MicroTest({ data, className }: MicroTestProps) {
   const containerOverflowRef = useRef<HTMLDivElement>(null);
-  const isOverflow = useOverflowDetection(containerOverflowRef, data.name);
+  const isOverflow = useOverflowDetection(containerOverflowRef, data.title);
   return (
     <div
       className={`border-3 p-4 rounded-2xl w-fit ${
         data.progress > 0 ? "bg-progressLight" : "bg-primaryLight"
       } ${className}`}
     >
-      <OverflowTooltip text={data.name} isOverflowing={isOverflow}>
+      <OverflowTooltip text={data.title} isOverflowing={isOverflow}>
         <div
           className={`${
             data.progress > 0 ? "bg-progress" : "bg-primary"
@@ -28,7 +28,7 @@ export default function MicroTest({ data, className }: MicroTestProps) {
             className="overflow-hidden whitespace-nowrap overflow-ellipsis"
             ref={containerOverflowRef}
           >
-            {data.name}
+            {data.title}
           </p>
         </div>
       </OverflowTooltip>

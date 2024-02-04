@@ -1,14 +1,15 @@
-import { MicroType } from "@/types/enum";
-import { MicroData } from "@/types/type";
-import MicroVideo from "./MicroVideo";
+import { Micro, MicroType } from "@/types/path";
 import MicroPractice from "./MicroPractice";
 import MicroTest from "./MicroTest";
+import MicroVideo from "./MicroVideo";
 
 export interface MicroProps {
-  data: MicroData;
+  data: Micro;
   isGroup?: boolean;
   className?: string;
 }
+
+
 
 export default function Micro({ data, isGroup = true, className }: MicroProps) {
   return (
