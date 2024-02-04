@@ -4,12 +4,12 @@ import { LibraryBig, Search, History } from "lucide-react";
 import { useState } from "react";
 import NavToolTip from "./NavToolTip";
 
-export interface ITabIcon {
+export interface TabIcon {
   type: MenuTab;
   className?: string;
 }
 
-export default function TabIcon({ type, className }: ITabIcon) {
+export default function TabIcon({ type, className }: TabIcon) {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <NavToolTip tooltipType={type}>

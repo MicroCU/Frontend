@@ -1,10 +1,10 @@
 import { PathStatus } from "@/types/enum";
 
-export interface INodeProps {
+export interface NodeProps {
   status: PathStatus;
 }
 
-export default function Node({ status }: INodeProps) {
+export default function Node({ status }: NodeProps) {
   if (status === PathStatus.CURRENT_PREVIEW) {
     return (
       <div className="relative p-2">

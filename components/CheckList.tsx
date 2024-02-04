@@ -9,12 +9,12 @@ import { useTranslation } from "@/context/Translation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-export interface ICheckListProps {
+export interface CheckListProps {
   status: CheckListItemStatus;
   className?: string;
 }
 
-export default function CheckList({ status, className }: ICheckListProps) {
+export default function CheckList({ status, className }: CheckListProps) {
   const { journeys } = useJourney();
   const { dict } = useTranslation();
 
