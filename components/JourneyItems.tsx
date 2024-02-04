@@ -1,7 +1,7 @@
 "use client";
 import { useJourney } from "@/context/Journeys";
 import JourneyItem from "./JourneyItem";
-import JourneyItemsLoading from "./JourneyItemsLoading";
+import ListItemsLoading from "./ListLoading";
 
 export interface JourneyItemsProps {
   className?: string;
@@ -12,7 +12,7 @@ export default function JourneyItems({ className }: JourneyItemsProps) {
   if (!journeys) {
     return (
       <div className={`${className} flex flex-col gap-y-6 mt-6`}>
-        <JourneyItemsLoading />
+        <ListItemsLoading />
       </div>
     );
   }

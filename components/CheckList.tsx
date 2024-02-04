@@ -8,13 +8,14 @@ import { useTranslation } from "@/context/Translation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { JourneyStoreData } from "@/types/type";
+import { MenuTab } from "@/types/enum";
 
 export interface ICheckListProps {
   className?: string;
 }
 
 export default function CheckList({ className }: ICheckListProps) {
-  const { journeys } = useJourney();
+  const { journeys, selectedTab, searchKeyword } = useJourney();
   const { dict } = useTranslation();
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -46,7 +47,10 @@ export default function CheckList({ className }: ICheckListProps) {
           <div className="w-[200px] h-full flex justify-center items-center">
             <p className="Reg12"> {dict["home.checklist.complete"]} </p>
           </div>
-        ) : !journeys ? (
+        ) : (!journeys && selectedTab != MenuTab.search) ||
+          (!journeys &&
+            selectedTab == MenuTab.search &&
+            searchKeyword != "") ? (
           <CheckListItemLoading />
         ) : (
           journeys &&

@@ -9,10 +9,8 @@ import { ScrollArea } from "./ui/scroll-area";
 import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
 import { useJourney } from "@/context/Journeys";
-import { convertRecentlyToJourney } from "@/mock/recently_data";
 import PathList from "./PathList";
-import { fetchJourneyGraph } from "@/mock/api";
-import { convertSearchToJourney } from "@/mock/search_data";
+import { fetchJourneyGraph, fetchRecentlyGraph } from "@/mock/api";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -49,7 +47,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
-                setJourneys(convertRecentlyToJourney());
+                fetchRecentlyGraph(setJourneys);
                 setSearchKeyword("");
               }}
             >
@@ -59,7 +57,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
-                setJourneys(convertSearchToJourney(""));
+                setJourneys(null);
               }}
             >
               {dict["home.tabs.search"]}

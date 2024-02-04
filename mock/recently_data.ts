@@ -73,7 +73,7 @@ const mockDBForRecently: BriefPathInfo[] = [
     },
 ]
 
-export function getRecentlyResult(): RecentlyPageData {  // Mock API Response
+export function getRecentlyResult(): Promise<RecentlyPageData> {  // Mock API Response
     let response: RecentlyPageData = {
         total: 4,
         data: mockDBForRecently,
@@ -96,7 +96,11 @@ export function getRecentlyResult(): RecentlyPageData {  // Mock API Response
             },
         ]
     }
-    return response
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(response);
+        }, 2000);
+    });
 }
 
 export function getMockRecentlyPosition(pathId: string) { // Mock Tendon's Algorithm
@@ -108,8 +112,7 @@ export function getMockRecentlyPosition(pathId: string) { // Mock Tendon's Algor
     return positionMap.get(pathId)!;
 }
 
-export function convertRecentlyToJourney() {
-    let resp = getRecentlyResult()
+export function convertRecentlyToJourney(resp: RecentlyPageData) {
     let journeys: JourneyStoreData = {} as JourneyStoreData
     journeys.data = [{
         id: "recently",

@@ -97,7 +97,7 @@ const mockDBForSearch: BriefPathInfo[] = [
 ]
 
 // WORD FOR SEARCH is "Basic", "Bio" (Other words will return empty array)
-export function getSearchResult(searchText: string): SearchPageData {  // Mock API Response
+export function getSearchResult(searchText: string): Promise<SearchPageData> {  // Mock API Response
     let response: SearchPageData = {
         total: 0,
         data: [],
@@ -153,7 +153,11 @@ export function getSearchResult(searchText: string): SearchPageData {  // Mock A
             ]
         }
     }
-    return response
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(response);
+        }, 1000);
+    });
 }
 
 export function getMockSearchPosition(pathId: string) {  // Mock Tendon's Algorithm
@@ -166,8 +170,7 @@ export function getMockSearchPosition(pathId: string) {  // Mock Tendon's Algori
     return positionMap.get(pathId)!;
 }
 
-export function convertSearchToJourney(searchText: string) {
-    let resp = getSearchResult(searchText)
+export function convertSearchToJourney(resp: SearchPageData) {
     let journeys: JourneyStoreData = {} as JourneyStoreData
     journeys.data = [{
         id: "recently",

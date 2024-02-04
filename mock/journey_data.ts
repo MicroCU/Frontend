@@ -349,7 +349,7 @@ export function getHomeResult(): Promise<HomePageData> { // Mock API call
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(MockHomeData);
-        }, 3000);
+        }, 2000);
     });
 }
 

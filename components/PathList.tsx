@@ -3,9 +3,27 @@ import { useJourney } from "@/context/Journeys";
 import PathItems from "./PathItems";
 import { getPathDetailFromId } from "@/mock/common";
 import NoResult from "./NoResult";
+import ListItemsLoading from "./ListLoading";
+import { Menu } from "lucide-react";
+import { MenuTab } from "@/types/enum";
 
 export default function PathList() {
-  const { journeys, selectedPath, setSelectedPath, selectedTab } = useJourney();
+  const {
+    journeys,
+    selectedPath,
+    setSelectedPath,
+    selectedTab,
+    searchKeyword
+  } = useJourney();
+  if (
+    (!journeys && selectedTab != MenuTab.search) ||
+    (!journeys && selectedTab == MenuTab.search && searchKeyword != "")
+  )
+    return (
+      <div className="flex flex-col gap-y-6 mt-6">
+        <ListItemsLoading />
+      </div>
+    );
   if (
     journeys &&
     journeys.data.length > 0 &&

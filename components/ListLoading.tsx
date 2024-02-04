@@ -1,6 +1,6 @@
 import { Skeleton } from "./ui/skeleton";
 
-export default function JourneyItemsLoading() {
+export default function ListItemsLoading() {
   return (
     <>
       <Skeleton className="h-8 w-full bg-grayLight" />

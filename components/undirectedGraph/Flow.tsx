@@ -12,7 +12,10 @@ export default function Flow() {
     journeys,
     selectedTab
   );
-  if (!journeys) {
+  if (
+    (!journeys && selectedTab != MenuTab.search) ||
+    (!journeys && selectedTab == MenuTab.search && searchKeyword != "")
+  ) {
     return (
       <div className="flex flex-1 justify-center items-center">
         <LoadingGraph />

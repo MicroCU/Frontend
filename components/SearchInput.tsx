@@ -1,6 +1,7 @@
 "use client";
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
+import { fetchSearchGraph } from "@/mock/api";
 import { convertSearchToJourney } from "@/mock/search_data";
 import { Search } from "lucide-react";
 
@@ -26,7 +27,11 @@ export default function SearchInput({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchKeyword(e.target.value);
-          setJourneys(convertSearchToJourney(e.target.value));
+          if (e.target.value === "") {
+            setJourneys(null);
+          } else {
+            fetchSearchGraph(setJourneys, e.target.value);
+          }
         }}
       />
     </div>
