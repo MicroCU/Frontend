@@ -5,12 +5,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { useEffect, useState } from "react";
-import { convertRecentlyToJourney } from "@/mock/recently_data";
 import { JourneyData } from "@/types/type";
 import JourneyModalCollection from "./JourneyModalCollection";
 import PathCardRecentlyCollection from "./PathCardCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
-import { fetchJourneyNormal } from "@/mock/api";
+import { fetchJourneyNormal, fetchRecentlyNormal } from "@/mock/api";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
@@ -46,7 +45,7 @@ const NormalModal = () => {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
-                setJourneysNormal(convertRecentlyToJourney().data);
+                fetchRecentlyNormal(setJourneysNormal);
               }}
             >
               {dict["home.tabs.recently"]}

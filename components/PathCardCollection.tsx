@@ -1,7 +1,8 @@
 import { MenuTab } from "@/types/enum";
 import { JourneyData } from "@/types/type";
 import NoResult from "./NoResult";
-import PathCard, { PathCardType } from "./PathCard";
+import PathCard from "./PathCard";
+import PathCardLoading from "./PathCardLoading";
 
 interface PathCardRecentlyCollectionProps {
   journeysNormal: JourneyData[] | null;
@@ -10,6 +11,18 @@ interface PathCardRecentlyCollectionProps {
 export default function PathCardRecentlyCollection({
   journeysNormal
 }: PathCardRecentlyCollectionProps) {
+  if (!journeysNormal) {
+    const loadingItems = Array.from({ length: 4 });
+    return (
+      <>
+        {loadingItems.map((_, index) => (
+          <div key={index} className="py-3">
+            <PathCardLoading />
+          </div>
+        ))}
+      </>
+    );
+  }
   return (
     <>
       <div
@@ -20,7 +33,7 @@ export default function PathCardRecentlyCollection({
           journeysNormal.length > 0 &&
           journeysNormal[0].paths.data.map((path) => (
             <div key={path.id}>
-              <PathCard path={path} type={PathCardType.Shown} />
+              <PathCard path={path} />
             </div>
           ))}
       </div>

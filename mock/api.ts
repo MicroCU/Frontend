@@ -38,12 +38,35 @@ export async function fetchRecentlyGraph(setRecently: Dispatch<SetStateAction<Jo
     }
 }
 
-export async function fetchSearchGraph(setRecently: Dispatch<SetStateAction<JourneyStoreData | null>>, serachText: string) {
+export async function fetchRecentlyNormal(setRecently: Dispatch<SetStateAction<JourneyData[] | null>>) {
     setRecently(null);
+    try {
+        const result = await getRecentlyResult();
+        const journey = convertRecentlyToJourney(result);
+        setRecently(journey.data);
+    } catch (error) {
+        console.error("error: ", error); // TODO: Handle as Toast
+    }
+}
+
+
+export async function fetchSearchGraph(setSearch: Dispatch<SetStateAction<JourneyStoreData | null>>, serachText: string) {
+    setSearch(null);
     try {
         const result = await getSearchResult(serachText);
         const journey = convertSearchToJourney(result);
-        setRecently(journey);
+        setSearch(journey);
+    } catch (error) {
+        console.error("error: ", error); // TODO: Handle as Toast
+    }
+}
+
+export async function fetchSearchNormal(setSearch: Dispatch<SetStateAction<JourneyData[] | null>>, serachText: string) {
+    setSearch(null);
+    try {
+        const result = await getSearchResult(serachText);
+        const journey = convertSearchToJourney(result);
+        setSearch(journey.data);
     } catch (error) {
         console.error("error: ", error); // TODO: Handle as Toast
     }

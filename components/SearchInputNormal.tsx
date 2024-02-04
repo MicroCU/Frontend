@@ -1,23 +1,25 @@
 "use client";
 import { useTranslation } from "@/context/Translation";
-import { convertSearchToJourney } from "@/mock/search_data";
+import { fetchSearchNormal } from "@/mock/api";
 import { JourneyData } from "@/types/type";
 import { Search } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 export interface SearchInputNormalProps {
   className?: string;
   defaultValue?: string;
   setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>;
+  setSearchValue: Dispatch<SetStateAction<string>>;
 }
 
 export default function SearchInputNormal({
   className,
   defaultValue,
-  setJourneys
+  setJourneys,
+  setSearchValue
 }: SearchInputNormalProps) {
   const { dict } = useTranslation();
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
+
   return (
     <div
       className={`flex flex-row gap-x-4 px-3 py-2 mt-3 mb-6 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
@@ -28,8 +30,12 @@ export default function SearchInputNormal({
         placeholder={dict["home.searchbar.placeholder"]}
         defaultValue={defaultValue}
         onChange={(e) => {
-          setSearchKeyword(e.target.value);
-          setJourneys(convertSearchToJourney(e.target.value).data);
+          setSearchValue(e.target.value);
+          if (e.target.value === "") {
+            setJourneys(null);
+          } else {
+            fetchSearchNormal(setJourneys, e.target.value);
+          }
         }}
       />
     </div>

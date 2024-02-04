@@ -1,23 +1,13 @@
 import Tag from "./Tag";
 import { Text } from "lucide-react";
 import { BriefPathInfo } from "@/types/type";
-import PathCardLoading from "./PathCardLoading";
 import Image from "next/image";
-
-export enum PathCardType {
-  "Loading" = "loading",
-  "Shown" = "shown"
-}
 
 export interface PathCardProps {
   path: BriefPathInfo;
-  type: PathCardType;
 }
 
-export default function PathCard({ path, type }: PathCardProps) {
-  if (type === PathCardType.Loading) {
-    return <PathCardLoading />;
-  }
+export default function PathCard({ path }: PathCardProps) {
   return (
     <div className="flex flex-row justify-between items-center w-full">
       <div className="flex flex-col gap-y-2 w-10/12">
