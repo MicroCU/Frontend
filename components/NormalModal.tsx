@@ -2,16 +2,15 @@
 import { Button } from "./ui/button";
 import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
-import JourneyModalItems, { JourneyModalType } from "./JourneyModalItems";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { MockHomeData } from "@/mock/journey_data";
 import { useEffect, useState } from "react";
-import PathCard, { PathCardType } from "./PathCard";
 import { convertRecentlyToJourney } from "@/mock/recently_data";
 import { JourneyData } from "@/types/type";
-import SearchInputNormal from "./SearchInputNormal";
-import NoResult from "./NoResult";
+import JourneyModalCollection from "./JourneyModalCollection";
+import PathCardRecentlyCollection from "./PathCardCollection";
+import PathCardSearchCollection from "./PathCardSearchCollection";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
@@ -27,7 +26,10 @@ const NormalModal = () => {
       <DialogTrigger asChild>
         <Button variant="container">{dict["home.switch.button"]}</Button>
       </DialogTrigger>
-      <DialogContent className="w-[800px] h-[800px]">
+      <DialogContent
+        className="w-[800px]"
+        style={{ height: "calc(100vh - 50px)" }}
+      >
         <Tabs defaultValue={MenuTab.journey} className="flex flex-col">
           <TabsList className="grid w-full grid-cols-3 bg-grayLight">
             <TabsTrigger
@@ -59,16 +61,7 @@ const NormalModal = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value={MenuTab.journey}>
-            <div className="space-y-6 max-h-[690px] overflow-y-auto mt-6">
-              {journeysNormal &&
-                journeysNormal.map((journey) => (
-                  <JourneyModalItems
-                    key={journey.id}
-                    journey={journey}
-                    type={JourneyModalType.Shown}
-                  />
-                ))}
-            </div>
+            <JourneyModalCollection journeysNormal={journeysNormal} />
           </TabsContent>
           <TabsContent
             value={MenuTab.recently}
@@ -78,18 +71,7 @@ const NormalModal = () => {
                 : ""
             }`}
           >
-            <div className="space-y-6 max-h-[690px] overflow-y-auto">
-              {journeysNormal &&
-                journeysNormal.length > 0 &&
-                journeysNormal[0].paths.data.map((path) => (
-                  <div key={path.id}>
-                    <PathCard path={path} type={PathCardType.Shown} />
-                  </div>
-                ))}
-            </div>
-            {journeysNormal && journeysNormal[0].paths.data.length === 0 && (
-              <NoResult type={MenuTab.recently} />
-            )}
+            <PathCardRecentlyCollection journeysNormal={journeysNormal} />
           </TabsContent>
           <TabsContent
             value={MenuTab.search}
@@ -97,19 +79,10 @@ const NormalModal = () => {
               selectedTab === MenuTab.search ? "flex flex-col flex-1" : ""
             }`}
           >
-            <SearchInputNormal setJourneys={setJourneysNormal} />
-            <div className="space-y-6 max-h-[625px] overflow-y-auto">
-              {journeysNormal &&
-                journeysNormal.length > 0 &&
-                journeysNormal[0].paths.data.map((path) => (
-                  <div key={path.id}>
-                    <PathCard path={path} type={PathCardType.Shown} />
-                  </div>
-                ))}
-            </div>
-            {journeysNormal && journeysNormal[0].paths.data.length === 0 && (
-              <NoResult type={MenuTab.search} />
-            )}
+            <PathCardSearchCollection
+              setJourneysNormal={setJourneysNormal}
+              journeysNormal={journeysNormal}
+            />
           </TabsContent>
         </Tabs>
       </DialogContent>

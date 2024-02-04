@@ -17,7 +17,7 @@ export default function SearchInput({
   const { setSearchKeyword, setJourneys } = useJourney();
   return (
     <div
-      className={`flex flex-row gap-x-4 px-3 py-2 mt-3 mb-6 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
+      className={`flex flex-row gap-x-4 px-3 py-2 mt-3 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
     >
       <Search size={14} strokeWidth={2} className="stroke-grayMain" />
       <input

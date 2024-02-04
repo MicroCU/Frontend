@@ -71,14 +71,12 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value={MenuTab.journey}>
-            <JourneyItems className="flex-1 mt-6" />
+            <JourneyItems className="flex-1" />
           </TabsContent>
           <TabsContent
             value={MenuTab.recently}
             className={`${
-              selectedTab === MenuTab.recently
-                ? "flex flex-col flex-1 mt-6"
-                : ""
+              selectedTab === MenuTab.recently ? "flex flex-col flex-1" : ""
             }`}
           >
             <PathList />

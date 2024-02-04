@@ -16,7 +16,7 @@ export interface JourneyItemsProps {
 export default function JourneyItems({ className, type }: JourneyItemsProps) {
   const { journeys } = useJourney();
   return (
-    <div className={`${className} flex flex-col gap-y-6`}>
+    <div className={`${className} flex flex-col gap-y-6 mt-6`}>
       {journeys &&
         journeys.data.map((journey) => (
           <JourneyItem {...journey} key={journey.id} />

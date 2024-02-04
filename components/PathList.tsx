@@ -12,13 +12,13 @@ export default function PathList() {
     journeys.data[0].paths.data.length === 0
   ) {
     return (
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-center mt-6">
         <NoResult type={selectedTab} />{" "}
       </div>
     );
   }
   return (
-    <div>
+    <div className="mt-6">
       {journeys &&
         journeys.data.length > 0 &&
         journeys.data[0].paths.data.map((path) => (
