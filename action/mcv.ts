@@ -13,6 +13,8 @@ type MCVAccessTokenResponse = {
   refresh_token: string;
 };
 
+type MCVRefreshTokenResponse = MCVAccessTokenResponse;
+
 type MCVUserInfoResponse = {
   status: string;
   user: {
@@ -83,9 +85,14 @@ export const getRefreshToken = async () => {
     })
   });
 
-  const tokens = await res.json();
+  const tokens: MCVRefreshTokenResponse = await res.json();
   console.log(tokens);
-  // cookies().set("access_token", tokens.access_token);
+  cookies().set("access_token", tokens.access_token, {
+    expires: new Date(Date.now() + tokens.expires_in * 1000)
+  });
+  cookies().set("refresh_token", tokens.refresh_token, {
+    httpOnly: true
+  });
   return tokens;
 };
 
