@@ -8,3 +8,14 @@ export enum OnBoardMode {
   NOGOAL = "NOGOAL",
   GOAL = "GOAL"
 }
+
+export enum GroupType {
+  Ordered = "ordered",
+  Unordered = "unordered"
+}
+
+export enum MicroType {
+  Video = "video",
+  Practice = "practice",
+  Test = "test"
+}

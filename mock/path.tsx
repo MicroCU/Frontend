@@ -1,4 +1,4 @@
-import { GroupType, MicroType, Path } from "@/types/path";
+import { GroupType, MicroType, Path } from "../types/path";
 
 export const mockData: Path[] = [
   {
