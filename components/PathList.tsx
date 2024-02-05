@@ -4,7 +4,6 @@ import PathItems from "./PathItems";
 import { getPathDetailFromId } from "@/mock/common";
 import NoResult from "./NoResult";
 import ListItemsLoading from "./ListLoading";
-import { Menu } from "lucide-react";
 import { MenuTab } from "@/types/enum";
 
 export default function PathList() {
@@ -20,23 +19,30 @@ export default function PathList() {
     (!journeys && selectedTab == MenuTab.search && searchKeyword != "")
   )
     return (
-      <div className="flex flex-col gap-y-6 mt-6">
+      <div className="flex flex-col gap-y-6">
         <ListItemsLoading />
       </div>
     );
+
+  const dynamicHeight =
+    selectedTab === MenuTab.search
+      ? "calc(100vh - 280px)"
+      : "calc(100vh - 220px)";
+
   if (
     journeys &&
     journeys.data.length > 0 &&
     journeys.data[0].paths.data.length === 0
   ) {
     return (
-      <div className="flex-1 flex flex-col justify-center">
+      <div style={{ height: dynamicHeight }}>
         <NoResult type={selectedTab} />{" "}
       </div>
     );
   }
+
   return (
-    <div className="mt-6">
+    <div>
       {journeys &&
         journeys.data.length > 0 &&
         journeys.data[0].paths.data.map((path) => (

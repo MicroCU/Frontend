@@ -11,13 +11,13 @@ export default function JourneyItems({ className }: JourneyItemsProps) {
   const { journeys } = useJourney();
   if (!journeys) {
     return (
-      <div className={`${className} flex flex-col gap-y-6 mt-6`}>
+      <div className={`${className} flex flex-col gap-y-6`}>
         <ListItemsLoading />
       </div>
     );
   }
   return (
-    <div className={`${className} flex flex-col gap-y-6 mt-6`}>
+    <div className={`${className} flex flex-col gap-y-6`}>
       {journeys &&
         journeys.data.map((journey) => (
           <JourneyItem {...journey} key={journey.id} />

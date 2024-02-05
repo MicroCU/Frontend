@@ -50,7 +50,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
         defaultValue={MenuTab.journey}
         className="flex-1 flex flex-col w-60"
       >
-        <TabsList className="grid w-full grid-cols-3 bg-grayLight">
+        <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-5">
           <TabsTrigger
             value={MenuTab.journey}
             onClick={() => {
@@ -83,29 +83,15 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
         </TabsList>
         <ScrollArea
           className="w-full"
-          style={{ height: "calc(100vh - 200px)" }}
+          style={{ height: "calc(100vh - 220px)" }}
         >
           <TabsContent value={MenuTab.journey}>
             <JourneyItems className="flex-1" />
           </TabsContent>
-          <TabsContent
-            value={MenuTab.recently}
-            className={`${
-              selectedTab === MenuTab.recently ? "flex flex-col flex-1" : ""
-            }`}
-          >
-            <PathList />
-            <PathList />
-            <PathList />
-            <PathList />
+          <TabsContent value={MenuTab.recently}>
             <PathList />
           </TabsContent>
-          <TabsContent
-            value={MenuTab.search}
-            className={`${
-              selectedTab === MenuTab.search ? "flex flex-col flex-1" : ""
-            }`}
-          >
+          <TabsContent value={MenuTab.search}>
             <SearchInput />
             <PathList />
           </TabsContent>
