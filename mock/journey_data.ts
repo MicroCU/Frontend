@@ -1,5 +1,5 @@
 import { PathStatus } from "@/types/enum";
-import { HomePageData } from "@/types/type";
+import { APIResponse, HomePageData } from "@/types/type";
 
 const MockHomeData: HomePageData = {
     total: 4,
@@ -345,10 +345,13 @@ const MockHomeData: HomePageData = {
     ]
 }
 
-export function getHomeResult(): Promise<HomePageData> { // Mock API call
+export function getHomeResult(): Promise<APIResponse> { // Mock API call
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(MockHomeData);
+            resolve({
+                status: 200,
+                data: MockHomeData,
+            });
         }, 2000);
     });
 }

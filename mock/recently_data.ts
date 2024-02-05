@@ -1,5 +1,5 @@
 import { PathStatus } from "@/types/enum";
-import { BriefPathInfo, JourneyStoreData, RecentlyPageData } from "@/types/type";
+import { APIResponse, BriefPathInfo, JourneyStoreData, RecentlyPageData } from "@/types/type";
 
 const mockDBForRecently: BriefPathInfo[] = [
     {
@@ -73,7 +73,7 @@ const mockDBForRecently: BriefPathInfo[] = [
     },
 ]
 
-export function getRecentlyResult(): Promise<RecentlyPageData> {  // Mock API Response
+export function getRecentlyResult(): Promise<APIResponse> {  // Mock API Response
     let response: RecentlyPageData = {
         total: 4,
         data: mockDBForRecently,
@@ -98,7 +98,10 @@ export function getRecentlyResult(): Promise<RecentlyPageData> {  // Mock API Re
     }
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(response);
+            resolve({
+                status: 200,
+                data: response,
+            });
         }, 2000);
     });
 }

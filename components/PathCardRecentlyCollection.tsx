@@ -26,7 +26,7 @@ export default function PathCardRecentlyCollection({
   return (
     <>
       <div
-        className="space-y-6 overflow-y-auto"
+        className="space-y-6 overflow-y-auto mt-4"
         style={{ maxHeight: "calc(100vh - 160px)" }}
       >
         {journeysNormal &&

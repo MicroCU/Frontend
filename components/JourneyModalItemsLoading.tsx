@@ -6,7 +6,7 @@ export default function JourneyModalItemsLoading() {
   return (
     <div className="flex flex-col space-y-6">
       {loadingItems.map((_, index) => (
-        <>
+        <div key={index}>
           <Skeleton className="w-3/6 h-[32px] bg-grayLight rounded mb-4" />
           <div className="flex flex-row w-full h-full">
             <Skeleton className="w-[16px] flex-x-1 bg-grayLight rounded" />
@@ -16,7 +16,7 @@ export default function JourneyModalItemsLoading() {
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

@@ -2,7 +2,6 @@
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
 import { fetchSearchGraph } from "@/mock/api";
-import { convertSearchToJourney } from "@/mock/search_data";
 import { Search } from "lucide-react";
 
 export interface SearchInputProps {
@@ -15,7 +14,7 @@ export default function SearchInput({
   defaultValue
 }: SearchInputProps) {
   const { dict } = useTranslation();
-  const { setSearchKeyword, setJourneys } = useJourney();
+  const { setSearchKeyword, setJourneys, setError } = useJourney();
   return (
     <div
       className={`flex flex-row gap-x-4 px-3 py-2 mt-3 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
@@ -30,7 +29,7 @@ export default function SearchInput({
           if (e.target.value === "") {
             setJourneys(null);
           } else {
-            fetchSearchGraph(setJourneys, e.target.value);
+            fetchSearchGraph(setJourneys, e.target.value, setError);
           }
         }}
       />

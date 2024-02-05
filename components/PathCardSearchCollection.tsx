@@ -3,18 +3,20 @@ import { MenuTab } from "@/types/enum";
 import NoResult from "./NoResult";
 import PathCard from "./PathCard";
 import SearchInputNormal from "./SearchInputNormal";
-import { JourneyData } from "@/types/type";
+import { ErrorAPI, JourneyData } from "@/types/type";
 import { Dispatch, SetStateAction, useState } from "react";
 import PathCardLoading from "./PathCardLoading";
 
 interface PathCardSearchCollectionProps {
   setJourneysNormal: Dispatch<SetStateAction<JourneyData[] | null>>;
   journeysNormal: JourneyData[] | null;
+  setError: Dispatch<SetStateAction<ErrorAPI | null>>;
 }
 
 export default function PathCardSearchCollection({
   setJourneysNormal,
-  journeysNormal
+  journeysNormal,
+  setError
 }: PathCardSearchCollectionProps) {
   const loadingItems = Array.from({ length: 4 });
   const [searchValue, setSearchValue] = useState<string>("");
@@ -23,6 +25,7 @@ export default function PathCardSearchCollection({
       <SearchInputNormal
         setJourneys={setJourneysNormal}
         setSearchValue={setSearchValue}
+        setError={setError}
       />
       <div
         className="space-y-6 overflow-y-auto"

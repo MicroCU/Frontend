@@ -71,3 +71,14 @@ export interface JourneyStoreData {
     neighbor: string[]
   }[];
 }
+
+export interface ErrorAPI {
+  status: number
+  message: string
+}
+
+export interface APIResponse {
+  status: number;
+  data?: HomePageData | SearchPageData | RecentlyPageData | JourneyData;
+  message?: string;
+}

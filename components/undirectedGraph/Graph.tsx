@@ -2,7 +2,6 @@
 import React, {
   useCallback,
   MouseEvent as ReactMouseEvent,
-  useMemo,
   useEffect
 } from "react";
 import ReactFlow, {
@@ -29,6 +28,10 @@ interface IOverviewFlowProps {
   initialEdges: Edge[];
 }
 
+const nodeTypes = {
+  circularNode: CircleNode
+};
+
 export default function OverviewFlow({
   initialNodes,
   initialEdges
@@ -37,12 +40,6 @@ export default function OverviewFlow({
   const [nodes, setNodes, onNodesChange] =
     useNodesState<UndirectedGraphNodeData>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const nodeTypes = useMemo(
-    () => ({
-      circularNode: CircleNode
-    }),
-    []
-  );
 
   // Center view to selected node
   const currentNodeRadius = 24;

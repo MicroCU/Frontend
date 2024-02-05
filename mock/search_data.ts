@@ -1,5 +1,5 @@
 import { PathStatus } from "@/types/enum";
-import { BriefPathInfo, JourneyStoreData, SearchPageData } from "@/types/type";
+import { APIResponse, BriefPathInfo, JourneyStoreData, SearchPageData } from "@/types/type";
 
 const mockDBForSearch: BriefPathInfo[] = [
     {
@@ -97,7 +97,7 @@ const mockDBForSearch: BriefPathInfo[] = [
 ]
 
 // WORD FOR SEARCH is "Basic", "Bio" (Other words will return empty array)
-export function getSearchResult(searchText: string): Promise<SearchPageData> {  // Mock API Response
+export function getSearchResult(searchText: string): Promise<APIResponse> {  // Mock API Response
     let response: SearchPageData = {
         total: 0,
         data: [],
@@ -152,11 +152,23 @@ export function getSearchResult(searchText: string): Promise<SearchPageData> {  
                 },
             ]
         }
+    } else if (searchText == "error") {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    status: 500,
+                    message: "Mock error response na",
+                });
+            }, 2000);
+        });
     }
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(response);
-        }, 1000);
+            resolve({
+                status: 200,
+                data: response,
+            });
+        }, 2000);
     });
 }
 

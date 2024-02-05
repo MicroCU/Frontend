@@ -30,7 +30,7 @@ export default function PathList() {
     journeys.data[0].paths.data.length === 0
   ) {
     return (
-      <div className="flex-1 flex flex-col justify-center mt-6">
+      <div className="flex-1 flex flex-col justify-center">
         <NoResult type={selectedTab} />{" "}
       </div>
     );

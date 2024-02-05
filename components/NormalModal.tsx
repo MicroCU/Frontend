@@ -5,21 +5,35 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { useEffect, useState } from "react";
-import { JourneyData } from "@/types/type";
+import { ErrorAPI, JourneyData } from "@/types/type";
 import JourneyModalCollection from "./JourneyModalCollection";
-import PathCardRecentlyCollection from "./PathCardCollection";
+import PathCardRecentlyCollection from "./PathCardRecentlyCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
 import { fetchJourneyNormal, fetchRecentlyNormal } from "@/mock/api";
+import { useToast } from "./ui/use-toast";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
+  const { toast } = useToast();
   const [journeysNormal, setJourneysNormal] = useState<JourneyData[] | null>(
     null
   );
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
+  const [error, setError] = useState<ErrorAPI | null>(null);
   useEffect(() => {
-    fetchJourneyNormal(setJourneysNormal);
+    fetchJourneyNormal(setJourneysNormal, setError);
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: dict["home.general.error"],
+        description: error.message
+      });
+      setError(null);
+    }
+  }, [error]);
 
   return (
     <Dialog>
@@ -36,7 +50,7 @@ const NormalModal = () => {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
-                fetchJourneyNormal(setJourneysNormal);
+                fetchJourneyNormal(setJourneysNormal, setError);
               }}
             >
               {dict["home.tabs.journey"]}
@@ -45,7 +59,7 @@ const NormalModal = () => {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
-                fetchRecentlyNormal(setJourneysNormal);
+                fetchRecentlyNormal(setJourneysNormal, setError);
               }}
             >
               {dict["home.tabs.recently"]}
@@ -82,6 +96,7 @@ const NormalModal = () => {
             <PathCardSearchCollection
               setJourneysNormal={setJourneysNormal}
               journeysNormal={journeysNormal}
+              setError={setError}
             />
           </TabsContent>
         </Tabs>

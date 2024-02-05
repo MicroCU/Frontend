@@ -1,7 +1,7 @@
 "use client";
 import { useTranslation } from "@/context/Translation";
 import { fetchSearchNormal } from "@/mock/api";
-import { JourneyData } from "@/types/type";
+import { ErrorAPI, JourneyData } from "@/types/type";
 import { Search } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 
@@ -10,13 +10,15 @@ export interface SearchInputNormalProps {
   defaultValue?: string;
   setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>;
   setSearchValue: Dispatch<SetStateAction<string>>;
+  setError: Dispatch<SetStateAction<ErrorAPI | null>>;
 }
 
 export default function SearchInputNormal({
   className,
   defaultValue,
   setJourneys,
-  setSearchValue
+  setSearchValue,
+  setError
 }: SearchInputNormalProps) {
   const { dict } = useTranslation();
 
@@ -34,7 +36,7 @@ export default function SearchInputNormal({
           if (e.target.value === "") {
             setJourneys(null);
           } else {
-            fetchSearchNormal(setJourneys, e.target.value);
+            fetchSearchNormal(setJourneys, e.target.value, setError);
           }
         }}
       />

@@ -16,5 +16,6 @@
   "home.checklist.complete": "All Journeys are accomplished",
   "home.searchbar.placeholder": "Search for paths",
   "home.searchbar.noresult": "No results found",
-  "home.recently.noresult": "No recently paths"
+  "home.recently.noresult": "No recently paths",
+  "home.general.error": "Uh oh! Something went wrong"
 }

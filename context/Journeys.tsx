@@ -1,6 +1,6 @@
 "use client";
 import { MenuTab } from "@/types/enum";
-import { BriefPathInfo, JourneyStoreData } from "@/types/type";
+import { BriefPathInfo, ErrorAPI, JourneyStoreData } from "@/types/type";
 import {
   Dispatch,
   SetStateAction,
@@ -18,6 +18,8 @@ interface JourneyContextType {
   setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
   journeys: JourneyStoreData | null;
   setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
+  error: ErrorAPI | null;
+  setError: Dispatch<SetStateAction<ErrorAPI | null>>;
 }
 
 const JourneyContext = createContext<JourneyContextType>({
@@ -28,7 +30,9 @@ const JourneyContext = createContext<JourneyContextType>({
   selectedPath: null,
   setSelectedPath: () => {},
   journeys: null,
-  setJourneys: () => {}
+  setJourneys: () => {},
+  error: null,
+  setError: () => {}
 });
 
 export function useJourney() {
@@ -44,6 +48,7 @@ export function JourneyContextProvider({
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [selectedPath, setSelectedPath] = useState<BriefPathInfo | null>(null);
+  const [error, setError] = useState<ErrorAPI | null>(null);
   return (
     <JourneyContext.Provider
       value={{
@@ -54,7 +59,9 @@ export function JourneyContextProvider({
         selectedPath,
         setSelectedPath,
         searchKeyword,
-        setSearchKeyword
+        setSearchKeyword,
+        error,
+        setError
       }}
     >
       {children}
