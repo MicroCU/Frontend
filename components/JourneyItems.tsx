@@ -19,6 +19,7 @@ export default function JourneyItems({ className }: JourneyItemsProps) {
   return (
     <div className={`${className} flex flex-col gap-y-6`}>
       {journeys &&
+        journeys.data &&
         journeys.data.map((journey) => (
           <JourneyItem {...journey} key={journey.id} />
         ))}

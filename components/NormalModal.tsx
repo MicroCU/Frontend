@@ -52,6 +52,7 @@ const NormalModal = () => {
                 setSelectedTab(MenuTab.journey);
                 fetchJourneyNormal(setJourneysNormal, setError);
               }}
+              disabled={!journeysNormal}
             >
               {dict["home.tabs.journey"]}
             </TabsTrigger>
@@ -61,6 +62,7 @@ const NormalModal = () => {
                 setSelectedTab(MenuTab.recently);
                 fetchRecentlyNormal(setJourneysNormal, setError);
               }}
+              disabled={!journeysNormal}
             >
               {dict["home.tabs.recently"]}
             </TabsTrigger>
@@ -68,8 +70,9 @@ const NormalModal = () => {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
-                setJourneysNormal(null);
+                setJourneysNormal([]);
               }}
+              disabled={!journeysNormal}
             >
               {dict["home.tabs.search"]}
             </TabsTrigger>

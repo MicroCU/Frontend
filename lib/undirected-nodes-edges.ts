@@ -6,7 +6,7 @@ import { JourneyStoreData, UndirectedGraphNodeData } from '@/types/type';
 import { Node, Edge } from 'reactflow';
 
 export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type: MenuTab) {
-    if (!journeys) {
+    if (!journeys || !journeys.data) {
         return {
             initialNodes: [],
             initialEdges: []

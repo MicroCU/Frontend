@@ -48,9 +48,11 @@ export default function PathCardSearchCollection({
             </div>
           ))}
       </div>
-      {journeysNormal && journeysNormal[0].paths.data.length === 0 && (
-        <NoResult type={MenuTab.search} />
-      )}
+      {journeysNormal &&
+        journeysNormal[0] &&
+        journeysNormal[0].paths.data.length === 0 && (
+          <NoResult type={MenuTab.search} />
+        )}
     </>
   );
 }

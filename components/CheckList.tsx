@@ -54,6 +54,7 @@ export default function CheckList({ className }: ICheckListProps) {
           <CheckListItemLoading />
         ) : (
           journeys &&
+          journeys.data &&
           journeys.data.map((journey, index) => (
             <CheckListItem
               key={index}
@@ -69,5 +70,7 @@ export default function CheckList({ className }: ICheckListProps) {
 }
 
 function checkIfAllCompleted(journeys: JourneyStoreData) {
-  return journeys.data.every((journey) => journey.progress === 100);
+  return (
+    journeys.data && journeys.data.every((journey) => journey.progress === 100)
+  );
 }

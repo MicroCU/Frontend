@@ -31,6 +31,7 @@ export default function PathList() {
 
   if (
     journeys &&
+    journeys.data &&
     journeys.data.length > 0 &&
     journeys.data[0].paths.data.length === 0
   ) {
@@ -44,6 +45,7 @@ export default function PathList() {
   return (
     <div>
       {journeys &&
+        journeys.data &&
         journeys.data.length > 0 &&
         journeys.data[0].paths.data.map((path) => (
           <div

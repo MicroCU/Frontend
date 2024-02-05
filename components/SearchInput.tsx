@@ -26,11 +26,7 @@ export default function SearchInput({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchKeyword(e.target.value);
-          if (e.target.value === "") {
-            setJourneys(null);
-          } else {
-            fetchSearchGraph(setJourneys, e.target.value, setError);
-          }
+          fetchSearchGraph(setJourneys, e.target.value, setError);
         }}
       />
     </div>

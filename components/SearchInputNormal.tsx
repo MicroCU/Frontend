@@ -33,11 +33,7 @@ export default function SearchInputNormal({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchValue(e.target.value);
-          if (e.target.value === "") {
-            setJourneys(null);
-          } else {
-            fetchSearchNormal(setJourneys, e.target.value, setError);
-          }
+          fetchSearchNormal(setJourneys, e.target.value, setError);
         }}
       />
     </div>

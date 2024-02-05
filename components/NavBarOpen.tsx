@@ -12,6 +12,7 @@ import { useJourney } from "@/context/Journeys";
 import PathList from "./PathList";
 import { fetchJourneyGraph, fetchRecentlyGraph } from "@/mock/api";
 import { useToast } from "./ui/use-toast";
+import { JourneyStoreData } from "@/types/type";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -21,8 +22,8 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
   const { toast } = useToast();
   const {
+    journeys,
     setJourneys,
-    selectedTab,
     setSelectedTab,
     setSearchKeyword,
     error,
@@ -58,6 +59,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
               setSearchKeyword("");
               fetchJourneyGraph(setJourneys, setError);
             }}
+            disabled={!journeys}
           >
             {dict["home.tabs.journey"]}
           </TabsTrigger>
@@ -65,9 +67,10 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             value={MenuTab.recently}
             onClick={() => {
               setSelectedTab(MenuTab.recently);
-              fetchRecentlyGraph(setJourneys, setError);
               setSearchKeyword("");
+              fetchRecentlyGraph(setJourneys, setError);
             }}
+            disabled={!journeys}
           >
             {dict["home.tabs.recently"]}
           </TabsTrigger>
@@ -75,8 +78,9 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             value={MenuTab.search}
             onClick={() => {
               setSelectedTab(MenuTab.search);
-              setJourneys(null);
+              setJourneys({} as JourneyStoreData);
             }}
+            disabled={!journeys}
           >
             {dict["home.tabs.search"]}
           </TabsTrigger>

@@ -23,6 +23,7 @@ export default function PathCardRecentlyCollection({
       </>
     );
   }
+
   return (
     <>
       <div
@@ -37,9 +38,11 @@ export default function PathCardRecentlyCollection({
             </div>
           ))}
       </div>
-      {journeysNormal && journeysNormal[0].paths.data.length === 0 && (
-        <NoResult type={MenuTab.recently} />
-      )}
+      {journeysNormal &&
+        journeysNormal[0] &&
+        journeysNormal[0].paths.data.length === 0 && (
+          <NoResult type={MenuTab.recently} />
+        )}
     </>
   );
 }
