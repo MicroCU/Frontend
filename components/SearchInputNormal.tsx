@@ -40,7 +40,12 @@ export default function SearchInputNormal({
         placeholder={dict["home.searchbar.placeholder"]}
         defaultValue={defaultValue}
         onChange={(e) => {
-          setSearchValue(e.target.value);
+          setSearchValue(e.target.value.trim());
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            fetchSearch(setJourneys, searchValue, setError);
+          }
         }}
       />
     </div>
