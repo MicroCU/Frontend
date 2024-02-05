@@ -159,7 +159,7 @@ export function getSearchResult(searchText: string): Promise<APIResponse> {  // 
                     status: 500,
                     message: "Mock error response na",
                 });
-            }, 2000);
+            }, 1000);
         });
     }
     return new Promise((resolve) => {
@@ -168,7 +168,7 @@ export function getSearchResult(searchText: string): Promise<APIResponse> {  // 
                 status: 200,
                 data: response,
             });
-        }, 2000);
+        }, 1000);
     });
 }
 

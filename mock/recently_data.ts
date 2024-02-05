@@ -102,7 +102,7 @@ export function getRecentlyResult(): Promise<APIResponse> {  // Mock API Respons
                 status: 200,
                 data: response,
             });
-        }, 2000);
+        }, 1000);
     });
 }
 

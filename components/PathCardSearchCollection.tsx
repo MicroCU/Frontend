@@ -24,6 +24,7 @@ export default function PathCardSearchCollection({
     <>
       <SearchInputNormal
         setJourneys={setJourneysNormal}
+        searchValue={searchValue}
         setSearchValue={setSearchValue}
         setError={setError}
       />

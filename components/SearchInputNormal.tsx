@@ -1,14 +1,16 @@
 "use client";
 import { useTranslation } from "@/context/Translation";
+import { useDebounce } from "@/hooks/Debounce";
 import { fetchSearch } from "@/mock/api";
 import { ErrorAPI, JourneyStoreData } from "@/types/type";
 import { Search } from "lucide-react";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 export interface SearchInputNormalProps {
   className?: string;
   defaultValue?: string;
   setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
+  searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
   setError: Dispatch<SetStateAction<ErrorAPI | null>>;
 }
@@ -17,10 +19,16 @@ export default function SearchInputNormal({
   className,
   defaultValue,
   setJourneys,
+  searchValue,
   setSearchValue,
   setError
 }: SearchInputNormalProps) {
   const { dict } = useTranslation();
+  const debouncedSearch = useDebounce<string>(searchValue, 1000);
+  useEffect(() => {
+    if (!debouncedSearch) return;
+    fetchSearch(setJourneys, debouncedSearch.trim(), setError);
+  }, [debouncedSearch]);
 
   return (
     <div
@@ -33,7 +41,6 @@ export default function SearchInputNormal({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchValue(e.target.value);
-          fetchSearch(setJourneys, e.target.value, setError);
         }}
       />
     </div>

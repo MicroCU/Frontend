@@ -1,8 +1,10 @@
 "use client";
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
+import { useDebounce } from "@/hooks/Debounce";
 import { fetchSearch } from "@/mock/api";
 import { Search } from "lucide-react";
+import { useEffect } from "react";
 
 export interface SearchInputProps {
   className?: string;
@@ -14,7 +16,14 @@ export default function SearchInput({
   defaultValue
 }: SearchInputProps) {
   const { dict } = useTranslation();
-  const { setSearchKeyword, setJourneys, setError } = useJourney();
+  const { searchKeyword, setSearchKeyword, setJourneys, setError } =
+    useJourney();
+  const debouncedSearch = useDebounce<string>(searchKeyword, 1000);
+  useEffect(() => {
+    if (!debouncedSearch) return;
+    fetchSearch(setJourneys, debouncedSearch.trim(), setError);
+  }, [debouncedSearch]);
+
   return (
     <div
       className={`flex flex-row gap-x-4 mb-4 px-3 py-2 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
@@ -26,7 +35,6 @@ export default function SearchInput({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchKeyword(e.target.value);
-          fetchSearch(setJourneys, e.target.value, setError);
         }}
       />
     </div>
