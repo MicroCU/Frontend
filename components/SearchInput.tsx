@@ -1,7 +1,7 @@
 "use client";
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
-import { fetchSearchGraph } from "@/mock/api";
+import { fetchSearch } from "@/mock/api";
 import { Search } from "lucide-react";
 
 export interface SearchInputProps {
@@ -26,7 +26,7 @@ export default function SearchInput({
         defaultValue={defaultValue}
         onChange={(e) => {
           setSearchKeyword(e.target.value);
-          fetchSearchGraph(setJourneys, e.target.value, setError);
+          fetchSearch(setJourneys, e.target.value, setError);
         }}
       />
     </div>

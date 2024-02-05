@@ -10,7 +10,7 @@ import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
 import { useJourney } from "@/context/Journeys";
 import PathList from "./PathList";
-import { fetchJourneyGraph, fetchRecentlyGraph } from "@/mock/api";
+import { fetchJourney, fetchRecently } from "@/mock/api";
 import { useToast } from "./ui/use-toast";
 import { JourneyStoreData } from "@/types/type";
 
@@ -26,11 +26,12 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
     setJourneys,
     setSelectedTab,
     setSearchKeyword,
+    setSelectedPath,
     error,
     setError
   } = useJourney();
   useEffect(() => {
-    fetchJourneyGraph(setJourneys, setError);
+    fetchJourney(setJourneys, setError);
   }, []);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
       <NavHeader setIsOpen={setIsOpen} />
       <Tabs
         defaultValue={MenuTab.journey}
-        className="flex-1 flex flex-col w-60"
+        className="flex-1 flex flex-col w-64"
       >
         <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-5">
           <TabsTrigger
@@ -57,7 +58,8 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             onClick={() => {
               setSelectedTab(MenuTab.journey);
               setSearchKeyword("");
-              fetchJourneyGraph(setJourneys, setError);
+              setSelectedPath(null);
+              fetchJourney(setJourneys, setError);
             }}
             disabled={!journeys}
           >
@@ -68,7 +70,8 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             onClick={() => {
               setSelectedTab(MenuTab.recently);
               setSearchKeyword("");
-              fetchRecentlyGraph(setJourneys, setError);
+              setSelectedPath(null);
+              fetchRecently(setJourneys, setError);
             }}
             disabled={!journeys}
           >
@@ -78,6 +81,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             value={MenuTab.search}
             onClick={() => {
               setSelectedTab(MenuTab.search);
+              setSelectedPath(null);
               setJourneys({} as JourneyStoreData);
             }}
             disabled={!journeys}

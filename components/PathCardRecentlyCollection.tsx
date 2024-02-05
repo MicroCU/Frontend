@@ -1,11 +1,11 @@
 import { MenuTab } from "@/types/enum";
-import { JourneyData } from "@/types/type";
 import NoResult from "./NoResult";
 import PathCard from "./PathCard";
 import PathCardLoading from "./PathCardLoading";
+import { JourneyStoreData } from "@/types/type";
 
 interface PathCardRecentlyCollectionProps {
-  journeysNormal: JourneyData[] | null;
+  journeysNormal: JourneyStoreData | null;
 }
 
 export default function PathCardRecentlyCollection({
@@ -31,16 +31,18 @@ export default function PathCardRecentlyCollection({
         style={{ maxHeight: "calc(100vh - 160px)" }}
       >
         {journeysNormal &&
-          journeysNormal.length > 0 &&
-          journeysNormal[0].paths.data.map((path) => (
+          journeysNormal.data &&
+          journeysNormal.data.length > 0 &&
+          journeysNormal.data[0].paths.data.map((path) => (
             <div key={path.id}>
               <PathCard path={path} />
             </div>
           ))}
       </div>
       {journeysNormal &&
-        journeysNormal[0] &&
-        journeysNormal[0].paths.data.length === 0 && (
+        journeysNormal.data &&
+        journeysNormal.data[0] &&
+        journeysNormal.data[0].paths.data.length === 0 && (
           <NoResult type={MenuTab.recently} />
         )}
     </>

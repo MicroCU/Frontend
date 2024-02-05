@@ -5,23 +5,23 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { useEffect, useState } from "react";
-import { ErrorAPI, JourneyData } from "@/types/type";
+import { ErrorAPI, JourneyStoreData } from "@/types/type";
 import JourneyModalCollection from "./JourneyModalCollection";
 import PathCardRecentlyCollection from "./PathCardRecentlyCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
-import { fetchJourneyNormal, fetchRecentlyNormal } from "@/mock/api";
 import { useToast } from "./ui/use-toast";
+import { fetchJourney, fetchRecently } from "@/mock/api";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
   const { toast } = useToast();
-  const [journeysNormal, setJourneysNormal] = useState<JourneyData[] | null>(
+  const [journeysNormal, setJourneysNormal] = useState<JourneyStoreData | null>(
     null
   );
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
   const [error, setError] = useState<ErrorAPI | null>(null);
   useEffect(() => {
-    fetchJourneyNormal(setJourneysNormal, setError);
+    fetchJourney(setJourneysNormal, setError);
   }, []);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const NormalModal = () => {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
-                fetchJourneyNormal(setJourneysNormal, setError);
+                fetchJourney(setJourneysNormal, setError);
               }}
               disabled={!journeysNormal}
             >
@@ -60,7 +60,7 @@ const NormalModal = () => {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
-                fetchRecentlyNormal(setJourneysNormal, setError);
+                fetchRecently(setJourneysNormal, setError);
               }}
               disabled={!journeysNormal}
             >
@@ -70,7 +70,7 @@ const NormalModal = () => {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
-                setJourneysNormal([]);
+                setJourneysNormal({} as JourneyStoreData);
               }}
               disabled={!journeysNormal}
             >

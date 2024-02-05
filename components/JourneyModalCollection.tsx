@@ -1,9 +1,9 @@
-import { JourneyData } from "@/types/type";
+import { JourneyStoreData } from "@/types/type";
 import JourneyModalItems from "./JourneyModalItems";
 import JourneyModalItemsLoading from "./JourneyModalItemsLoading";
 
 interface JourneyModalItemsProps {
-  journeysNormal: JourneyData[] | null;
+  journeysNormal: JourneyStoreData | null;
 }
 
 export default function JourneyModalCollection({
@@ -22,7 +22,8 @@ export default function JourneyModalCollection({
       style={{ maxHeight: "calc(100vh - 160px)" }}
     >
       {journeysNormal &&
-        journeysNormal.map((journey) => (
+        journeysNormal.data &&
+        journeysNormal.data.map((journey) => (
           <JourneyModalItems key={journey.id} journey={journey} />
         ))}
     </div>
