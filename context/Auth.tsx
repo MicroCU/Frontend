@@ -2,7 +2,6 @@
 
 import { getUserInfo } from "@/action/mcv";
 import { AuthError } from "@/constants/error";
-import { useLocalStorage } from "@/hooks/LocalStorage";
 import { User } from "@/types/type";
 import {
   Dispatch,
@@ -10,7 +9,8 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useEffect
+  useEffect,
+  useState
 } from "react";
 
 type AuthContextProps = {
@@ -31,21 +31,34 @@ export const useAuth = () => {
 };
 
 export const NoAuthPath = ["/th/auth", "/en/auth"];
+const userKey = "user";
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useLocalStorage<User | null>("user", null);
-
+  const [user, setUser] = useState<User | null>(null);
   const handleUpdateUser = async () => {
     if (NoAuthPath.includes(window.location.pathname)) return;
-    if (user) return;
+    const stored = localStorage.getItem(userKey);
+    if (stored) {
+      setUser(JSON.parse(stored) ? JSON.parse(stored) : null);
+      return;
+    }
 
     try {
-      console.log("update user");
-      const user = await getUserInfo();
-      setUser({
-        id: user.user.id,
-        name: user.user.firstname_en + " " + user.user.lastname_en
-      });
+      if (user === null) {
+        console.log("update user");
+        const user = await getUserInfo();
+        setUser({
+          id: user.user.id,
+          name: user.user.firstname_en + " " + user.user.lastname_en
+        });
+        localStorage.setItem(
+          userKey,
+          JSON.stringify({
+            id: user.user.id,
+            name: user.user.firstname_en + " " + user.user.lastname_en
+          })
+        );
+      }
     } catch (err) {
       if (err instanceof Error && err.message === AuthError.ERR_ACCESS_TOKEN) {
         // middleware handle this
