@@ -1,6 +1,5 @@
 "use client";
 import { getDictionary } from "@/lib/get-dictionary";
-import { useLangLocal } from "@/hooks/Language";
 import { i18n, Locale } from "@/i18n-config";
 import {
   createContext,
@@ -11,6 +10,7 @@ import {
   useEffect,
   useState
 } from "react";
+import { usePathname } from "next/navigation";
 
 interface TranslationContextType {
   dict: Record<string, string>;
@@ -28,13 +28,27 @@ export function useTranslation() {
   return useContext(TranslationContext);
 }
 
+const langKey = "lang";
+
 export function TranslationContextProvider({
   children
 }: {
   children: ReactNode;
 }) {
-  const [lang, setLang] = useLangLocal();
+  const pathName = usePathname();
+  const segments = pathName.split("/");
+  const [lang, setLang] = useState<Locale>(
+    (segments[1] as Locale) || i18n.defaultLocale
+  );
   const [dictionary, setDictionary] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const stored = localStorage.getItem(langKey);
+    if (stored) {
+      setLang(stored as Locale);
+    }
+  }, []);
+
   useEffect(() => {
     const fetchDictionary = async () => {
       const newDictionary = await getDictionary(lang);
@@ -42,6 +56,8 @@ export function TranslationContextProvider({
     };
 
     fetchDictionary();
+
+    localStorage.setItem(langKey, lang);
   }, [lang]);
 
   return (

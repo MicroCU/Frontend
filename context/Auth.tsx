@@ -2,7 +2,6 @@
 
 import { getUserInfo } from "@/action/mcv";
 import { AuthError } from "@/constants/error";
-import { useLocalStorage } from "@/hooks/LocalStorage";
 import { User } from "@/types/type";
 import {
   Dispatch,
