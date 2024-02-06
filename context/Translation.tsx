@@ -43,13 +43,6 @@ export function TranslationContextProvider({
   const [dictionary, setDictionary] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const stored = localStorage.getItem(langKey);
-    if (stored) {
-      setLang(stored as Locale);
-    }
-  }, []);
-
-  useEffect(() => {
     const fetchDictionary = async () => {
       const newDictionary = await getDictionary(lang);
       setDictionary(newDictionary);
