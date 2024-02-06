@@ -6,6 +6,7 @@ import { VideoState } from "@/app/[lang]/video/[id]/page";
 import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
 import { cn } from "@/lib/utils";
+import { VideoTabType } from "@/types/enum";
 
 interface VideoControlLayerProps {
   videoName: string;
@@ -103,20 +104,17 @@ const VideoControlLayer = ({
     }
   ];
 
-  const [isPlaylistSelected, setIsPlaylistSelected] = useState<boolean>(false);
-  const [isFileSelected, setIsFileSelected] = useState<boolean>(false);
+  const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
+    VideoTabType.HIDE
+  );
 
-  useEffect(() => {
-    if (isPlaylistSelected) {
-      setIsFileSelected(false);
+  const videoTabHandle = (currentTab: VideoTabType) => {
+    if (currentTab === currentVideoTab) {
+      setCurrentVideoTab(VideoTabType.HIDE);
+    } else {
+      setCurrentVideoTab(currentTab);
     }
-  }, [isPlaylistSelected]);
-
-  useEffect(() => {
-    if (isFileSelected) {
-      setIsPlaylistSelected(false);
-    }
-  }, [isFileSelected]);
+  };
 
   return (
     <div
@@ -126,10 +124,8 @@ const VideoControlLayer = ({
     >
       <VideoNav
         videoName={videoName}
-        isPlaylistSelected={isPlaylistSelected}
-        setIsPlaylistSelected={setIsPlaylistSelected}
-        isFileSelected={isFileSelected}
-        setIsFileSelected={setIsFileSelected}
+        currentTab={currentVideoTab}
+        videoTabHandle={videoTabHandle}
         className="bg-gradient-to-b from-black"
       />
       <div
@@ -141,14 +137,18 @@ const VideoControlLayer = ({
           data={platlistData}
           className={cn(
             "top-0 h-[97%]",
-            isPlaylistSelected && !isHidden ? "right-0" : "right-[-400px]"
+            currentVideoTab == VideoTabType.PLAYLIST && !isHidden
+              ? "right-0"
+              : "right-[-400px]"
           )}
         />
         <VideoTab.VideoFileTab
           data={fileData}
           className={cn(
             "top-0 h-[97%]",
-            isFileSelected && !isHidden ? "right-0" : "right-[-400px]"
+            currentVideoTab == VideoTabType.FILE && !isHidden
+              ? "right-0"
+              : "right-[-400px]"
           )}
         />
         {videoState.ended && (

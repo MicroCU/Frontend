@@ -41,8 +41,9 @@ const VideoPlaylistTab: React.FC<VideoPlaylistTabProps> = ({
         className={`flex flex-col gap-4 `}
         onClick={(e) => e.stopPropagation()}
       >
-        {data.map((item) => (
+        {data.map((item, index) => (
           <PlaylistTabItem
+            key={index}
             videoName={item.videoName}
             imageURL={item.imageURL}
             link={item.link}
@@ -61,8 +62,12 @@ const VideoFileTab: React.FC<VideoFileTabProps> = ({ data, className }) => {
       className={`${className} overflow-auto bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300`}
     >
       <div className={`flex flex-col gap-4 `}>
-        {data.map((item) => (
-          <FileTabItem fileName={item.fileName} fileUrl={item.fileUrl} />
+        {data.map((item, index) => (
+          <FileTabItem
+            key={index}
+            fileName={item.fileName}
+            fileUrl={item.fileUrl}
+          />
         ))}
       </div>
     </ScrollArea>

@@ -14,3 +14,9 @@ export enum OnBoardMode {
   NOGOAL = "NOGOAL",
   GOAL = "GOAL"
 }
+
+export enum VideoTabType {
+  PLAYLIST = "PLAYLIST",
+  FILE = "FILE",
+  HIDE = "HIDE"
+}

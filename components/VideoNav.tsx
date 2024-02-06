@@ -4,22 +4,19 @@ import { Dispatch, SetStateAction, useState } from "react";
 import VideoIcon from "./VideoIcon";
 import VideoTitle from "./VideoTitle";
 import { cn } from "@/lib/utils";
+import { VideoTabType } from "@/types/enum";
 
 interface VideoNavProps {
   videoName: string;
-  isPlaylistSelected: boolean;
-  setIsPlaylistSelected: Dispatch<SetStateAction<boolean>>;
-  isFileSelected: boolean;
-  setIsFileSelected: Dispatch<SetStateAction<boolean>>;
+  currentTab: VideoTabType;
+  videoTabHandle: (currentTab: VideoTabType) => void;
   className?: string;
 }
 
 const VideoNav: React.FC<VideoNavProps> = ({
   videoName,
-  isPlaylistSelected,
-  setIsPlaylistSelected,
-  isFileSelected,
-  setIsFileSelected,
+  currentTab,
+  videoTabHandle,
   className
 }) => {
   return (
@@ -27,14 +24,14 @@ const VideoNav: React.FC<VideoNavProps> = ({
       <VideoTitle videoName={videoName} />
       <div className="flex items-center gap-8">
         <VideoIcon
-          isSelected={isPlaylistSelected}
-          setIsSelected={setIsPlaylistSelected}
-          type="playlist"
+          currentTab={currentTab}
+          videoTabHandle={videoTabHandle}
+          type={VideoTabType.PLAYLIST}
         />
         <VideoIcon
-          isSelected={isFileSelected}
-          setIsSelected={setIsFileSelected}
-          type="file"
+          currentTab={currentTab}
+          videoTabHandle={videoTabHandle}
+          type={VideoTabType.FILE}
         />
       </div>
     </div>
