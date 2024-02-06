@@ -1,9 +1,8 @@
 "use client";
-import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
 import { useDebounce } from "@/hooks/Debounce";
 import { cn } from "@/lib/utils";
-import { fetchSearch } from "@/mock/api";
+import { fetchSearchForNormal } from "@/mock/api";
 import { JourneyStoreData, ErrorAPI, BriefPathInfo } from "@/types/type";
 import { Search } from "lucide-react";
 import { Dispatch, SetStateAction, useEffect } from "react";
@@ -32,7 +31,7 @@ export default function SearchInput({
   useEffect(() => {
     if (!debouncedSearch) return;
     setSelectedPath && setSelectedPath(null);
-    fetchSearch(setJourneys, debouncedSearch.trim(), setError);
+    fetchSearchForNormal(setJourneys, debouncedSearch.trim(), setError);
   }, [debouncedSearch]);
 
   return (
@@ -53,7 +52,7 @@ export default function SearchInput({
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             setSelectedPath && setSelectedPath(null);
-            fetchSearch(setJourneys, searchKeyword, setError);
+            fetchSearchForNormal(setJourneys, searchKeyword, setError);
           }
         }}
       />

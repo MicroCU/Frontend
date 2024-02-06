@@ -4,7 +4,7 @@ import { getHomeResult } from "./journey_data";
 import { convertRecentlyToJourney, getRecentlyResult } from "./recently_data";
 import { convertSearchToJourney, getSearchResult } from "./search_data";
 
-export async function fetchJourney(setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>, setError: Dispatch<SetStateAction<ErrorAPI | null>>) {
+export async function fetchJourneyForNormal(setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>, setError: Dispatch<SetStateAction<ErrorAPI | null>>) {
     setJourneys(null);
     try {
         const resp = await getHomeResult();
@@ -27,7 +27,7 @@ export async function fetchJourney(setJourneys: Dispatch<SetStateAction<JourneyS
     }
 }
 
-export async function fetchRecently(setRecently: Dispatch<SetStateAction<JourneyStoreData | null>>, setError: Dispatch<SetStateAction<ErrorAPI | null>>) {
+export async function fetchRecentlyForNormal(setRecently: Dispatch<SetStateAction<JourneyStoreData | null>>, setError: Dispatch<SetStateAction<ErrorAPI | null>>) {
     setRecently(null);
     try {
         const resp = await getRecentlyResult();
@@ -48,7 +48,7 @@ export async function fetchRecently(setRecently: Dispatch<SetStateAction<Journey
     }
 }
 
-export async function fetchSearch(setSearch: Dispatch<SetStateAction<JourneyStoreData | null>>, serachText: string, setError: Dispatch<SetStateAction<ErrorAPI | null>>) {
+export async function fetchSearchForNormal(setSearch: Dispatch<SetStateAction<JourneyStoreData | null>>, serachText: string, setError: Dispatch<SetStateAction<ErrorAPI | null>>) {
     setSearch(null);
     try {
         const resp = await getSearchResult(serachText);

@@ -3,14 +3,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import JourneyItems from "./JourneyItems";
 import NavHeader from "./NavHeader";
 import NormalModal from "./NormalModal";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "@/context/Translation";
 import { ScrollArea } from "./ui/scroll-area";
 import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
 import { useJourney } from "@/context/Journeys";
 import PathList from "./PathList";
-import { fetchJourney, fetchRecently } from "@/mock/api";
 import { JourneyStoreData } from "@/types/type";
 
 interface NavBarOpenModeProps {
@@ -28,9 +27,6 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
     setSelectedPath,
     setError
   } = useJourney();
-  useEffect(() => {
-    fetchJourney(setJourneys, setError);
-  }, []);
 
   return (
     <div className="space-y-6 p-6 bg-white shadow-md min-h-screen flex flex-col">
@@ -43,10 +39,10 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.journey}
             onClick={() => {
-              setSelectedTab(MenuTab.journey);
+              setJourneys(null);
               setSearchKeyword("");
               setSelectedPath(null);
-              fetchJourney(setJourneys, setError);
+              setSelectedTab(MenuTab.journey);
             }}
             disabled={!journeys}
           >
@@ -55,10 +51,10 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.recently}
             onClick={() => {
-              setSelectedTab(MenuTab.recently);
+              setJourneys(null);
               setSearchKeyword("");
               setSelectedPath(null);
-              fetchRecently(setJourneys, setError);
+              setSelectedTab(MenuTab.recently);
             }}
             disabled={!journeys}
           >
@@ -67,9 +63,10 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.search}
             onClick={() => {
-              setSelectedTab(MenuTab.search);
+              setJourneys(null);
               setSelectedPath(null);
               setJourneys({} as JourneyStoreData);
+              setSelectedTab(MenuTab.search);
             }}
             disabled={!journeys}
           >

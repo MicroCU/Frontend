@@ -10,7 +10,7 @@ import JourneyModalCollection from "./JourneyModalCollection";
 import PathCardRecentlyCollection from "./PathCardRecentlyCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
 import { useToast } from "./ui/use-toast";
-import { fetchJourney, fetchRecently } from "@/mock/api";
+import { fetchJourneyForNormal, fetchRecentlyForNormal } from "@/mock/api";
 import { cn } from "@/lib/utils";
 
 const NormalModal = () => {
@@ -22,7 +22,7 @@ const NormalModal = () => {
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
   const [error, setError] = useState<ErrorAPI | null>(null);
   useEffect(() => {
-    fetchJourney(setJourneysNormal, setError);
+    fetchJourneyForNormal(setJourneysNormal, setError);
   }, []);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const NormalModal = () => {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
-                fetchJourney(setJourneysNormal, setError);
+                fetchJourneyForNormal(setJourneysNormal, setError);
               }}
               disabled={!journeysNormal}
             >
@@ -61,7 +61,7 @@ const NormalModal = () => {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
-                fetchRecently(setJourneysNormal, setError);
+                fetchRecentlyForNormal(setJourneysNormal, setError);
               }}
               disabled={!journeysNormal}
             >

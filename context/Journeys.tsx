@@ -1,7 +1,14 @@
 "use client";
 import { toast } from "@/components/ui/use-toast";
 import { MenuTab } from "@/types/enum";
-import { BriefPathInfo, ErrorAPI, JourneyStoreData } from "@/types/type";
+import {
+  BriefPathInfo,
+  ErrorAPI,
+  HomePageData,
+  JourneyStoreData,
+  RecentlyPageData,
+  SearchPageData
+} from "@/types/type";
 import {
   Dispatch,
   SetStateAction,
@@ -11,6 +18,12 @@ import {
   useState
 } from "react";
 import { useTranslation } from "./Translation";
+import { getHomeResult } from "@/mock/journey_data";
+import {
+  getRecentlyResult,
+  convertRecentlyToJourney
+} from "@/mock/recently_data";
+import { getSearchResult, convertSearchToJourney } from "@/mock/search_data";
 
 interface JourneyContextType {
   selectedTab: MenuTab;
@@ -64,6 +77,16 @@ export function JourneyContextProvider({
     }
   }, [error]);
 
+  useEffect(() => {
+    if (selectedTab === MenuTab.journey) {
+      fetchJourney(setJourneys, setError);
+    } else if (selectedTab === MenuTab.recently) {
+      fetchRecently(setJourneys, setError);
+    } else if (selectedTab === MenuTab.search && searchKeyword != "") {
+      fetchSearch(setJourneys, searchKeyword, setError);
+    }
+  }, [selectedTab, searchKeyword]);
+
   return (
     <JourneyContext.Provider
       value={{
@@ -82,4 +105,76 @@ export function JourneyContextProvider({
       {children}
     </JourneyContext.Provider>
   );
+}
+
+async function fetchJourney(
+  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
+  setError: Dispatch<SetStateAction<ErrorAPI | null>>
+) {
+  try {
+    const resp = await getHomeResult();
+    const status = resp.status;
+    if (status !== 200) {
+      const errMesg = resp.message;
+      setError({
+        status: status,
+        message: errMesg ? errMesg : "Unknown error"
+      });
+      return;
+    }
+    const result = resp.data as HomePageData;
+    setJourneys({
+      data: result.journeys,
+      relationships: result.relationships
+    });
+  } catch (error) {
+    console.error("error: ", error);
+  }
+}
+
+async function fetchRecently(
+  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
+  setError: Dispatch<SetStateAction<ErrorAPI | null>>
+) {
+  try {
+    const resp = await getRecentlyResult();
+    const status = resp.status;
+    if (status !== 200) {
+      const errMesg = resp.message;
+      setError({
+        status: status,
+        message: errMesg ? errMesg : "Unknown error"
+      });
+      return;
+    }
+    const result = resp.data as RecentlyPageData;
+    const journey = convertRecentlyToJourney(result);
+    setJourneys(journey);
+  } catch (error) {
+    console.error("error: ", error);
+  }
+}
+
+async function fetchSearch(
+  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
+  serachText: string,
+  setError: Dispatch<SetStateAction<ErrorAPI | null>>
+) {
+  try {
+    const resp = await getSearchResult(serachText);
+    const status = resp.status;
+    if (status !== 200) {
+      const errMesg = resp.message;
+      setError({
+        status: status,
+        message: errMesg ? errMesg : "Unknown error"
+      });
+      return;
+    }
+    const result = resp.data as SearchPageData;
+    const journey = convertSearchToJourney(result);
+    setJourneys(journey);
+  } catch (error) {
+    console.error("error: ", error);
+  }
 }
