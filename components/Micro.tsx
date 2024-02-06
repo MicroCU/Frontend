@@ -1,7 +1,8 @@
-import { Micro, MicroType } from "@/types/path";
+import { Micro } from "@/types/path";
 import MicroPractice from "./MicroPractice";
 import MicroTest from "./MicroTest";
 import MicroVideo from "./MicroVideo";
+import { MicroType } from "@/types/enum";
 
 export interface MicroProps {
   data: Micro;
@@ -9,16 +10,14 @@ export interface MicroProps {
   className?: string;
 }
 
-
-
 export default function Micro({ data, isGroup = true, className }: MicroProps) {
   return (
     <>
-      {data.type === MicroType.VIDEO ? (
+      {data.type === MicroType.Video ? (
         <MicroVideo data={data} isGroup={isGroup} className={className} />
-      ) : data.type === MicroType.PRACTICE ? (
+      ) : data.type === MicroType.Practice ? (
         <MicroPractice data={data} className={className} />
-      ) : data.type === MicroType.TEST ? (
+      ) : data.type === MicroType.Test ? (
         <MicroTest data={data} className={className} />
       ) : (
         <></>

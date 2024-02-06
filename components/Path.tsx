@@ -1,5 +1,5 @@
 "use client";
-import { GroupType, PathEdge, PathNode } from "@/types/path";
+import { PathEdge, PathNode } from "@/types/path";
 import {
   ForceFunction,
   attractionForce,
@@ -22,11 +22,12 @@ import "reactflow/dist/style.css";
 import OrderedGroup from "./OrderNode";
 import SingleGroup from "./SingleNode";
 import UnorderedGroup from "./UnorderNode";
+import { GroupDisplay } from "@/types/enum";
 
 const nodeTypes = {
-  [GroupType.Single]: SingleGroup,
-  [GroupType.Ordered]: OrderedGroup,
-  [GroupType.Unordered]: UnorderedGroup
+  [GroupDisplay.Single]: SingleGroup,
+  [GroupDisplay.Ordered]: OrderedGroup,
+  [GroupDisplay.Unordered]: UnorderedGroup
 };
 
 export default function DirectedGraph({

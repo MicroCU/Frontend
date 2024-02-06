@@ -27,8 +27,8 @@ export interface MicroData {
   name: string
   progress: number
   type: MicroType
-  video: Videodata
-  documents: DocumentData[]
+  video?: Videodata
+  documents?: DocumentData[]
 }
 
 export interface GroupData {

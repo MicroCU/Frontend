@@ -14,6 +14,12 @@ export enum GroupType {
   Unordered = "unordered"
 }
 
+export enum GroupDisplay {
+  Single = "single",
+  Ordered = "ordered",
+  Unordered = "unordered"
+}
+
 export enum MicroType {
   Video = "video",
   Practice = "practice",

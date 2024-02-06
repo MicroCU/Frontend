@@ -1,22 +1,11 @@
 import { Edge, Node } from "reactflow";
-
-export enum MicroType {
-  VIDEO = "VIDEO",
-  PRACTICE = "PRACTICE",
-  TEST = "TEST"
-}
+import { GroupType, MicroType } from "./enum";
 
 export interface Micro {
   id: string;
   title: string;
   progress: number;
   type: MicroType;
-}
-
-export enum GroupType {
-  Single = "Single",
-  Ordered = "Ordered",
-  Unordered = "Unordered"
 }
 
 export interface Group {

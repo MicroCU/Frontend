@@ -1,8 +1,9 @@
-import { Group, GroupType } from "@/types/path";
+import { Group } from "@/types/path";
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
 import GroupScrollArea from "./GroupScrollArea";
 import Micro from "./Micro";
+import { GroupDisplay } from "@/types/enum";
 
 function UnorderedGroup({
   id,
@@ -21,7 +22,7 @@ function UnorderedGroup({
         </p>
       </div>
       <GroupScrollArea
-        type={GroupType.Unordered}
+        type={GroupDisplay.Unordered}
         microLength={data.micros.length}
         isScrollable={isScrollable}
       >
