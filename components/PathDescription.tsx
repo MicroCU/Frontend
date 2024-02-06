@@ -1,7 +1,7 @@
 import NavigateBtn from "./NavigateBtn";
 import Tag from "./Tag";
 
-export interface PathDescriptionProps {
+export interface IPathDescriptionProps {
   name: string;
   description: string;
   tags: {
@@ -14,7 +14,7 @@ export default function PathDescription({
   name,
   description,
   tags
-}: PathDescriptionProps) {
+}: IPathDescriptionProps) {
   return (
     <div className="flex flex-col gap-y-4 pt-[60px] pb-12 px-20 bg-white effect-default">
       <NavigateBtn />

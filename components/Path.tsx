@@ -1,7 +1,6 @@
 "use client";
 import { PathEdge, PathNode } from "@/types/path";
 import {
-  ForceFunction,
   attractionForce,
   calculateForce,
   centerForce,
@@ -9,14 +8,17 @@ import {
   fixCrossEdgeBackTrack,
   repulsionForcePrimary
 } from "@/utils/path";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
   ConnectionLineType,
+  Controls,
+  getNodesBounds,
   useEdgesState,
   useNodesInitialized,
-  useNodesState
+  useNodesState,
+  useReactFlow
 } from "reactflow";
 import "reactflow/dist/style.css";
 import OrderedGroup from "./OrderNode";
@@ -41,13 +43,8 @@ export default function DirectedGraph({
 }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [level, setLevel] = useState(0);
   const nodesInitialized = useNodesInitialized();
-
-  const applyForce = (...f: ForceFunction[]) => {
-    calculateForce(nodes as PathNode[], edges as PathEdge[], f);
-    setNodes([...nodes]);
-  };
+  const reactFlow = useReactFlow();
 
   useEffect(() => {
     if (nodes[0].height === undefined || nodes[0].width === undefined) return;
@@ -120,8 +117,11 @@ export default function DirectedGraph({
       if (minVelocity <= 1) break;
     }
     setNodes([...nodes]);
+
+    const bounds = getNodesBounds([...nodes]);
+    reactFlow.fitBounds(bounds);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodesInitialized]);
+  }, [nodesInitialized, reactFlow]);
 
   return (
     <>
@@ -132,9 +132,13 @@ export default function DirectedGraph({
         onEdgesChange={onEdgesChange}
         connectionLineType={ConnectionLineType.SmoothStep}
         nodeTypes={nodeTypes}
+        minZoom={0}
+        preventScrolling={false}
+        panOnDrag={true}
         fitView
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
+        <Controls position="top-left" />
       </ReactFlow>
     </>
   );
