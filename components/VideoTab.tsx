@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import FileTabItem from "./FileTabItem";
 import PlaylistTabItem from "./PlaylistTabItem";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -31,7 +32,10 @@ const VideoPlaylistTab: React.FC<VideoPlaylistTabProps> = ({
     <ScrollArea
       style={{ position: "absolute" }}
       onClick={(e) => e.stopPropagation()}
-      className={`${className} overflow-auto bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300`}
+      className={cn(
+        "overflow-auto bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300",
+        className
+      )}
     >
       <div
         className={`flex flex-col gap-4 `}
@@ -56,9 +60,7 @@ const VideoFileTab: React.FC<VideoFileTabProps> = ({ data, className }) => {
       onClick={(e) => e.stopPropagation()}
       className={`${className} overflow-auto bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300`}
     >
-      <div
-        className={`flex flex-col gap-4 `}
-      >
+      <div className={`flex flex-col gap-4 `}>
         {data.map((item) => (
           <FileTabItem fileName={item.fileName} fileUrl={item.fileUrl} />
         ))}

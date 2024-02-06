@@ -5,6 +5,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { VideoState } from "@/app/[lang]/video/[id]/page";
 import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
+import { cn } from "@/lib/utils";
 
 interface VideoControlLayerProps {
   videoName: string;
@@ -44,12 +45,14 @@ const VideoControlLayer = ({
   const platlistData = [
     {
       videoName: "example",
-      imageURL: "https://static.javatpoint.com/definition/images/computer-definition.png",
+      imageURL:
+        "https://static.javatpoint.com/definition/images/computer-definition.png",
       link: "/go"
     },
     {
       videoName: "example",
-      imageURL: "https://static.javatpoint.com/definition/images/computer-definition.png",
+      imageURL:
+        "https://static.javatpoint.com/definition/images/computer-definition.png",
       link: "/go"
     },
     {
@@ -136,15 +139,17 @@ const VideoControlLayer = ({
         {videoState.buffer && videoState.playing && <LoadingSpinner />}
         <VideoTab.VideoPlaylistTab
           data={platlistData}
-          className={`top-0 ${
+          className={cn(
+            "top-0 h-[97%]",
             isPlaylistSelected && !isHidden ? "right-0" : "right-[-400px]"
-          } h-[97%]`}
+          )}
         />
         <VideoTab.VideoFileTab
           data={fileData}
-          className={`absolute top-0 ${
+          className={cn(
+            "top-0 h-[97%]",
             isFileSelected && !isHidden ? "right-0" : "right-[-400px]"
-          } h-[97%]`}
+          )}
         />
         {videoState.ended && (
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">

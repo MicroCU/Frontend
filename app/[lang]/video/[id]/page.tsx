@@ -1,6 +1,7 @@
 "use client";
 
 import VideoControlLayer from "@/components/VideoControlLayer";
+import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
@@ -26,7 +27,8 @@ let count = 0;
 
 //mock
 let videoName = "Example";
-let videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+let videoUrl =
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
 // let videoUrl = "https://www.youtube.com/watch?v=ohpHY8m54Hc";
 let progress = 0.5;
 
@@ -217,9 +219,10 @@ const VideoPage = ({ params }: VideoPageProps) => {
   return (
     isClient && (
       <div
-        className={`relative bg-black flex flex-col justify-center items-center w-full h-screen ${
+        className={cn(
+          "relative bg-black flex flex-col justify-center items-center w-full h-screen",
           isHidden && "cursor-none"
-        }`}
+        )}
         onMouseMove={mouseMoveHandler}
         onClick={mouseMoveHandler}
       >

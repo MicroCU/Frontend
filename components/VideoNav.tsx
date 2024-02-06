@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import VideoIcon from "./VideoIcon";
 import VideoTitle from "./VideoTitle";
+import { cn } from "@/lib/utils";
 
 interface VideoNavProps {
   videoName: string;
@@ -22,7 +23,7 @@ const VideoNav: React.FC<VideoNavProps> = ({
   className
 }) => {
   return (
-    <div className={`${className} flex w-full justify-between p-8 relative`}>
+    <div className={cn("flex w-full justify-between p-8 relative", className)}>
       <VideoTitle videoName={videoName} />
       <div className="flex items-center gap-8">
         <VideoIcon
