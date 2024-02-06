@@ -1,6 +1,7 @@
 import { JourneyStoreData } from "@/types/type";
 import JourneyModalItems from "./JourneyModalItems";
 import JourneyModalItemsLoading from "./JourneyModalItemsLoading";
+import { checkIsDataFieldsValid } from "@/lib/utils";
 
 interface JourneyModalItemsProps {
   journeysNormal: JourneyStoreData | null;
@@ -21,8 +22,7 @@ export default function JourneyModalCollection({
       className="space-y-6 overflow-y-auto mt-6"
       style={{ maxHeight: "calc(100vh - 160px)" }}
     >
-      {journeysNormal &&
-        journeysNormal.data &&
+      {checkIsDataFieldsValid(journeysNormal) &&
         journeysNormal.data.map((journey) => (
           <JourneyModalItems key={journey.id} journey={journey} />
         ))}

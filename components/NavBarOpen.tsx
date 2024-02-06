@@ -23,6 +23,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
     journeys,
     setJourneys,
     setSelectedTab,
+    searchKeyword,
     setSearchKeyword,
     setSelectedPath,
     setError
@@ -86,7 +87,13 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             <PathList />
           </TabsContent>
           <TabsContent value={MenuTab.search}>
-            <SearchInput />
+            <SearchInput
+              searchKeyword={searchKeyword}
+              setSearchKeyword={setSearchKeyword}
+              setJourneys={setJourneys}
+              setError={setError}
+              setSelectedPath={setSelectedPath}
+            />
             <PathList />
           </TabsContent>
         </ScrollArea>

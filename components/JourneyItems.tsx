@@ -2,7 +2,7 @@
 import { useJourney } from "@/context/Journeys";
 import JourneyItem from "./JourneyItem";
 import ListItemsLoading from "./ListLoading";
-import { cn } from "@/lib/utils";
+import { checkIsDataFieldsValid, cn } from "@/lib/utils";
 
 export interface JourneyItemsProps {
   className?: string;
@@ -19,8 +19,7 @@ export default function JourneyItems({ className }: JourneyItemsProps) {
   }
   return (
     <div className={cn("flex flex-col gap-y-6", className)}>
-      {journeys &&
-        journeys.data &&
+      {checkIsDataFieldsValid(journeys) &&
         journeys.data.map((journey) => (
           <JourneyItem {...journey} key={journey.id} />
         ))}

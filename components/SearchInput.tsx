@@ -4,24 +4,34 @@ import { useTranslation } from "@/context/Translation";
 import { useDebounce } from "@/hooks/Debounce";
 import { cn } from "@/lib/utils";
 import { fetchSearch } from "@/mock/api";
+import { JourneyStoreData, ErrorAPI, BriefPathInfo } from "@/types/type";
 import { Search } from "lucide-react";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 export interface SearchInputProps {
   className?: string;
   defaultValue?: string;
+  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
+  searchKeyword: string;
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
+  setError: Dispatch<SetStateAction<ErrorAPI | null>>;
+  setSelectedPath?: Dispatch<SetStateAction<BriefPathInfo | null>>;
 }
 
 export default function SearchInput({
   className,
-  defaultValue
+  defaultValue,
+  setJourneys,
+  searchKeyword,
+  setSearchKeyword,
+  setError,
+  setSelectedPath
 }: SearchInputProps) {
   const { dict } = useTranslation();
-  const { searchKeyword, setSearchKeyword, setJourneys, setError } =
-    useJourney();
   const debouncedSearch = useDebounce<string>(searchKeyword, 1000);
   useEffect(() => {
     if (!debouncedSearch) return;
+    setSelectedPath && setSelectedPath(null);
     fetchSearch(setJourneys, debouncedSearch.trim(), setError);
   }, [debouncedSearch]);
 
@@ -42,6 +52,7 @@ export default function SearchInput({
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
+            setSelectedPath && setSelectedPath(null);
             fetchSearch(setJourneys, searchKeyword, setError);
           }
         }}

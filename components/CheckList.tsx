@@ -6,7 +6,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { checkIsDataFieldsValid, cn } from "@/lib/utils";
 import { JourneyStoreData } from "@/types/type";
 import { MenuTab } from "@/types/enum";
 
@@ -56,9 +56,8 @@ export default function CheckList({ className }: ICheckListProps) {
             searchKeyword != "") ? (
           <CheckListItemLoading />
         ) : (
-          journeys &&
-          journeys.data &&
-          journeys.data.map((journey, index) => (
+          checkIsDataFieldsValid(journeys) &&
+          journeys!.data.map((journey, index) => (
             <CheckListItem
               key={index}
               journeyName={journey.name}

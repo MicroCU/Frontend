@@ -5,6 +5,8 @@ import { getPathDetailFromId } from "@/mock/common";
 import NoResult from "./NoResult";
 import ListItemsLoading from "./ListLoading";
 import { MenuTab } from "@/types/enum";
+import { useEffect, useState } from "react";
+import { checkIsDataFieldsValid } from "@/lib/utils";
 
 export default function PathList() {
   const {
@@ -14,10 +16,14 @@ export default function PathList() {
     selectedTab,
     searchKeyword
   } = useJourney();
-  if (
-    (!journeys && selectedTab != MenuTab.search) ||
-    (!journeys && selectedTab == MenuTab.search && searchKeyword != "")
-  )
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(
+      (!journeys && selectedTab != MenuTab.search) ||
+        (!journeys && selectedTab == MenuTab.search && searchKeyword != "")
+    );
+  }, [journeys, searchKeyword, selectedTab]);
+  if (isLoading)
     return (
       <div className="flex flex-col gap-y-6">
         <ListItemsLoading />
@@ -30,10 +36,8 @@ export default function PathList() {
       : "calc(100vh - 220px)";
 
   if (
-    journeys &&
-    journeys.data &&
-    journeys.data.length > 0 &&
-    journeys.data[0].paths.data.length === 0
+    checkIsDataFieldsValid(journeys) &&
+    journeys!.data[0].paths.data.length === 0
   ) {
     return (
       <div style={{ height: dynamicHeight }}>
@@ -44,10 +48,8 @@ export default function PathList() {
 
   return (
     <div>
-      {journeys &&
-        journeys.data &&
-        journeys.data.length > 0 &&
-        journeys.data[0].paths.data.map((path) => (
+      {checkIsDataFieldsValid(journeys) &&
+        journeys!.data[0].paths.data.map((path) => (
           <div
             className="pb-2"
             key={path.id}
