@@ -2,6 +2,7 @@
 import { useJourney } from "@/context/Journeys";
 import JourneyItem from "./JourneyItem";
 import ListItemsLoading from "./ListLoading";
+import { cn } from "@/lib/utils";
 
 export interface JourneyItemsProps {
   className?: string;
@@ -11,13 +12,13 @@ export default function JourneyItems({ className }: JourneyItemsProps) {
   const { journeys } = useJourney();
   if (!journeys) {
     return (
-      <div className={`${className} flex flex-col gap-y-6`}>
+      <div className={cn("flex flex-col gap-y-6", className)}>
         <ListItemsLoading />
       </div>
     );
   }
   return (
-    <div className={`${className} flex flex-col gap-y-6`}>
+    <div className={cn("flex flex-col gap-y-6", className)}>
       {journeys &&
         journeys.data &&
         journeys.data.map((journey) => (

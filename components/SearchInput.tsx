@@ -2,6 +2,7 @@
 import { useJourney } from "@/context/Journeys";
 import { useTranslation } from "@/context/Translation";
 import { useDebounce } from "@/hooks/Debounce";
+import { cn } from "@/lib/utils";
 import { fetchSearch } from "@/mock/api";
 import { Search } from "lucide-react";
 import { useEffect } from "react";
@@ -26,7 +27,10 @@ export default function SearchInput({
 
   return (
     <div
-      className={`flex flex-row gap-x-4 mb-4 px-3 py-2 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
+      className={cn(
+        "flex flex-row gap-x-4 mb-4 px-3 py-2 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9",
+        className
+      )}
     >
       <Search size={14} strokeWidth={2} className="stroke-grayMain" />
       <input

@@ -3,6 +3,7 @@ import { MenuTab } from "@/types/enum";
 import { LibraryBig, Search, History } from "lucide-react";
 import { useState } from "react";
 import NavToolTip from "./NavToolTip";
+import { cn } from "@/lib/utils";
 
 export interface TabIcon {
   type: MenuTab;
@@ -14,13 +15,15 @@ export default function TabIcon({ type, className }: TabIcon) {
   return (
     <NavToolTip tooltipType={type}>
       <div
-        className={`w-8 h-8 rounded flex justify-center items-center ${
-          isHovered ? "bg-grayMain" : ""
-        } ${className}`}
+        className={cn(
+          "w-8 h-8 rounded flex justify-center items-center",
+          isHovered ? "bg-grayMain" : "",
+          className
+        )}
       >
         {type === MenuTab.journey ? (
           <LibraryBig
-            className={`${isHovered ? "stroke-grayLight" : "stroke-grayMain"}`}
+            className={cn(isHovered ? "stroke-grayLight" : "stroke-grayMain")}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           />
@@ -28,13 +31,13 @@ export default function TabIcon({ type, className }: TabIcon) {
           <Search
             size={28}
             strokeWidth={2}
-            className={`${isHovered ? "stroke-grayLight" : "stroke-grayMain"}`}
+            className={cn(isHovered ? "stroke-grayLight" : "stroke-grayMain")}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           />
         ) : (
           <History
-            className={`${isHovered ? "stroke-grayLight" : "stroke-grayMain"}`}
+            className={cn(isHovered ? "stroke-grayLight" : "stroke-grayMain")}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           />

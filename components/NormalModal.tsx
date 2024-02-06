@@ -11,6 +11,7 @@ import PathCardRecentlyCollection from "./PathCardRecentlyCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
 import { useToast } from "./ui/use-toast";
 import { fetchJourney, fetchRecently } from "@/mock/api";
+import { cn } from "@/lib/utils";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
@@ -82,19 +83,19 @@ const NormalModal = () => {
           </TabsContent>
           <TabsContent
             value={MenuTab.recently}
-            className={`${
+            className={cn(
               selectedTab === MenuTab.recently
                 ? "flex flex-col flex-1 mt-6"
                 : ""
-            }`}
+            )}
           >
             <PathCardRecentlyCollection journeysNormal={journeysNormal} />
           </TabsContent>
           <TabsContent
             value={MenuTab.search}
-            className={`${
+            className={cn(
               selectedTab === MenuTab.search ? "flex flex-col flex-1" : ""
-            }`}
+            )}
           >
             <PathCardSearchCollection
               setJourneysNormal={setJourneysNormal}

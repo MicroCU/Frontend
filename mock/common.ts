@@ -1,32 +1,29 @@
-import { BriefPathInfo, JourneyStoreData } from "@/types/type";
+import { JourneyStoreData } from "@/types/type";
 
 export function getPathDetailFromId(pathId: string, journeys: JourneyStoreData | null) {
-    let result: BriefPathInfo | null = null;
     if (journeys) {
-        journeys.data.forEach((journey) => {
-            journey.paths.data.forEach((path) => {
-                if (path.id === pathId) {
-                    result = path;
-                }
-            });
-        });
+        const foundPath = journeys.data
+            .flatMap((journey) => journey.paths.data)
+            .find((path) => path.id === pathId);
+
+        if (foundPath) {
+            return foundPath;
+        }
     }
-    return result;
+    return null;
 }
 
 export function isPathInJourney(pathId: string | undefined, journeyId: string, journeys: JourneyStoreData | null) {  // Only use for journey tabs
     if (!pathId || !journeys) {
         return false;
     }
-    let pathFound = false;
-    journeys.data.forEach((journey) => {
+
+    const isPathFound = journeys.data.some((journey) => {
         if (journey.id === journeyId) {
-            journey.paths.data.forEach((path) => {
-                if (path.id === pathId) {
-                    pathFound = true;
-                }
-            });
+            return journey.paths.data.some((path) => path.id === pathId);
         }
+        return false;
     });
-    return pathFound;
+
+    return isPathFound;
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useTranslation } from "@/context/Translation";
 import { useDebounce } from "@/hooks/Debounce";
+import { cn } from "@/lib/utils";
 import { fetchSearch } from "@/mock/api";
 import { ErrorAPI, JourneyStoreData } from "@/types/type";
 import { Search } from "lucide-react";
@@ -32,7 +33,10 @@ export default function SearchInputNormal({
 
   return (
     <div
-      className={`flex flex-row gap-x-4 px-3 py-2 mt-3 mb-6 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9 ${className}`}
+      className={cn(
+        "flex flex-row gap-x-4 px-3 py-2 mt-3 mb-6 items-center justify-center bg-white border border-graySmall text-grayMain rounded-md h-9",
+        className
+      )}
     >
       <Search size={14} strokeWidth={2} className="stroke-grayMain" />
       <input

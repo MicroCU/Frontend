@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { Plus, Minus } from "lucide-react";
 
 export interface ZoomProps {
@@ -13,7 +14,10 @@ export default function Zoom({
 }: ZoomProps) {
   return (
     <div
-      className={`flex flex-col gap-y-7 bg-grayLight stroke-grayMedium border-[1px] rounded-lg px-[13px] py-[17px] ${className}`}
+      className={cn(
+        "flex flex-col gap-y-7 bg-grayLight stroke-grayMedium border-[1px] rounded-lg px-[13px] py-[17px]",
+        className
+      )}
     >
       <Plus
         strokeWidth={4}

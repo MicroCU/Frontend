@@ -11,7 +11,6 @@ import SearchInput from "./SearchInput";
 import { useJourney } from "@/context/Journeys";
 import PathList from "./PathList";
 import { fetchJourney, fetchRecently } from "@/mock/api";
-import { useToast } from "./ui/use-toast";
 import { JourneyStoreData } from "@/types/type";
 
 interface NavBarOpenModeProps {
@@ -20,30 +19,17 @@ interface NavBarOpenModeProps {
 
 export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
-  const { toast } = useToast();
   const {
     journeys,
     setJourneys,
     setSelectedTab,
     setSearchKeyword,
     setSelectedPath,
-    error,
     setError
   } = useJourney();
   useEffect(() => {
     fetchJourney(setJourneys, setError);
   }, []);
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        variant: "destructive",
-        title: dict["home.general.error"],
-        description: error.message
-      });
-      setError(null);
-    }
-  }, [error]);
 
   return (
     <div className="space-y-6 p-6 bg-white shadow-md min-h-screen flex flex-col">

@@ -116,16 +116,18 @@ export function getMockRecentlyPosition(pathId: string) { // Mock Tendon's Algor
 }
 
 export function convertRecentlyToJourney(resp: RecentlyPageData) {
-    let journeys: JourneyStoreData = {} as JourneyStoreData
-    journeys.data = [{
-        id: "recently",
-        name: "Recently",
-        progress: 0,
-        paths: {
-            total: resp.total,
-            data: resp.data
-        },
-    }]
-    journeys.relationships = resp.relationships
-    return journeys
+    return {
+        data: [
+            {
+                id: "recently",
+                name: "Recently",
+                progress: 0,
+                paths: {
+                    total: resp.total,
+                    data: resp.data
+                },
+            }
+        ],
+        relationships: resp.relationships
+    }
 }

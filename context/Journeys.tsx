@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "@/components/ui/use-toast";
 import { MenuTab } from "@/types/enum";
 import { BriefPathInfo, ErrorAPI, JourneyStoreData } from "@/types/type";
 import {
@@ -6,8 +7,10 @@ import {
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState
 } from "react";
+import { useTranslation } from "./Translation";
 
 interface JourneyContextType {
   selectedTab: MenuTab;
@@ -49,6 +52,18 @@ export function JourneyContextProvider({
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [selectedPath, setSelectedPath] = useState<BriefPathInfo | null>(null);
   const [error, setError] = useState<ErrorAPI | null>(null);
+  const { dict } = useTranslation();
+  useEffect(() => {
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: dict["home.general.error"],
+        description: error.message
+      });
+      setError(null);
+    }
+  }, [error]);
+
   return (
     <JourneyContext.Provider
       value={{

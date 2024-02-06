@@ -36,7 +36,10 @@ export default function CheckList({ className }: ICheckListProps) {
       )}
     >
       <div
-        className={`flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[250px] overflow-y-auto effect-default ${className}`}
+        className={cn(
+          "flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[250px] overflow-y-auto effect-default",
+          className
+        )}
         ref={containerRef}
       >
         <div className="flex items-center gap-x-1">
