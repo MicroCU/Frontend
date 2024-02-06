@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger
 } from "./ui/dropdown-menu";
 import { VideoState } from "@/app/[lang]/video/[id]/page";
+import { cn } from "@/lib/utils";
 
 interface VideoControllerProps {
   onPlayPause: () => void;
@@ -49,7 +50,7 @@ const VideoController = ({
   className
 }: VideoControllerProps) => {
   return (
-    <div className={`px-4 ${className}`}>
+    <div className={cn("px-4", className)}>
       <Slider
         className="cursor-pointer"
         variant="video"

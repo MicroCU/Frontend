@@ -59,7 +59,10 @@ const VideoFileTab: React.FC<VideoFileTabProps> = ({ data, className }) => {
     <ScrollArea
       style={{ position: "absolute" }}
       onClick={(e) => e.stopPropagation()}
-      className={`${className} overflow-auto bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300`}
+      className={cn(
+        "overflow-auto bg-white rounded-l-[10px] py-4 px-6 w-[368px] transition-right ease-in-out duration-300",
+        className
+      )}
     >
       <div className={`flex flex-col gap-4 `}>
         {data.map((item, index) => (
