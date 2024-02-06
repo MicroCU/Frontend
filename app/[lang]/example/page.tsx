@@ -10,6 +10,7 @@ export default function Example() {
   console.log("[EXAMPLE] user: ", user);
   return (
     <div>
+      <LanguageSwitcher />
       <p> {dict["onboard.welcome.title"]} </p>
       <div>
         <p> {user ? user.id : "Not found ID"}</p>

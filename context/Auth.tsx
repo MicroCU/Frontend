@@ -14,8 +14,8 @@ import {
 } from "react";
 
 type AuthContextProps = {
-  user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
+  user: User | null | undefined;
+  setUser: Dispatch<SetStateAction<User | null | undefined>>;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -33,28 +33,32 @@ export const useAuth = () => {
 export const NoAuthPath = ["/th/auth", "/en/auth"];
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useLocalStorage<User | null>("user", null);
-
-  // console.log("user: ", user);
+  const [user, setUser] = useLocalStorage<User | null | undefined>(
+    "user",
+    null
+  );
+  console.log("user: ", user);
 
   const handleUpdateUser = async () => {
     if (NoAuthPath.includes(window.location.pathname)) return;
     if (user) return;
 
-    // try {
-    //   console.log("update user");
-    //   const user = await getUserInfo();
-    //   setUser({
-    //     id: user.user.id,
-    //     name: user.user.firstname_en + " " + user.user.lastname_en
-    //   });
-    // } catch (err) {
-    //   if (err instanceof Error && err.message === AuthError.ERR_ACCESS_TOKEN) {
-    //     // middleware handle this
-    //   } else {
-    //     console.log(err);
-    //   }
-    // }
+    try {
+      if (user === null) {
+        console.log("update user");
+        const user = await getUserInfo();
+        setUser({
+          id: user.user.id,
+          name: user.user.firstname_en + " " + user.user.lastname_en
+        });
+      }
+    } catch (err) {
+      if (err instanceof Error && err.message === AuthError.ERR_ACCESS_TOKEN) {
+        // middleware handle this
+      } else {
+        console.log(err);
+      }
+    }
   };
 
   useEffect(() => {
