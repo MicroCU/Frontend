@@ -118,7 +118,6 @@ export default function DirectedGraph({
       minVelocity <= velocity ? minCount++ : (minCount = 0);
       minVelocity = Math.min(minVelocity, velocity);
       if (minVelocity <= 1) break;
-      console.log(minVelocity, minCount);
     }
     setNodes([...nodes]);
     // eslint-disable-next-line react-hooks/exhaustive-deps

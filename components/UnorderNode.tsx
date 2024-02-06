@@ -1,37 +1,40 @@
 import { Group } from "@/types/path";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { Handle, Position } from "reactflow";
-import GroupScrollArea from "./GroupScrollArea";
 import Micro from "./Micro";
-import { GroupDisplay } from "@/types/enum";
+import OverflowTooltip from "./OverflowTooltip";
+import { useOverflowDetectionWithMicrosWidth } from "@/hooks/Overflow";
 
-function UnorderedGroup({
-  id,
-  data,
-  isScrollable
-}: {
-  id: string;
-  data: Group;
-  isScrollable: boolean;
-}) {
+function UnorderedGroup({ id, data }: { id: string; data: Group }) {
+  const titleWidthRef = useRef<HTMLDivElement>(null);
+  const microsWidthRef = useRef<HTMLDivElement>(null);
+  const { isOverflow, microsWidth } = useOverflowDetectionWithMicrosWidth(
+    microsWidthRef,
+    titleWidthRef
+  );
   return (
-    <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl pl-4 pr-4">
-      <div className="pt-4 w-full">
-        <p className="uppercase Bold16 text-progress overflow-hidden whitespace-nowrap overflow-ellipsis">
-          {data.name}
-        </p>
-      </div>
-      <GroupScrollArea
-        type={GroupDisplay.Unordered}
-        microLength={data.micros.length}
-        isScrollable={isScrollable}
-      >
-        <div className="flex flex-row bg-white w-fit h-fit justify-center content-center gap-x-4 rounded-2xl pb-4">
-          {data.micros.map((micro) => (
-            <Micro data={micro} isGroup={true} key={micro.id} />
-          ))}
+    <div className="flex flex-col bg-white w-fit h-fit justify-center content-center gap-y-4 rounded-2xl p-4">
+      <OverflowTooltip text={data.name} isOverflowing={isOverflow}>
+        <div
+          className="pl-4 pr-4 w-fit uppercase Bold16 text-progress"
+          style={{ maxWidth: microsWidth + "px" }}
+        >
+          <div
+            className="overflow-hidden whitespace-nowrap overflow-ellipsis"
+            ref={titleWidthRef}
+          >
+            {data.name}
+          </div>
         </div>
-      </GroupScrollArea>
+      </OverflowTooltip>
+      <div
+        className="flex flex-row bg-white w-fit h-fit justify-center content-center gap-x-4 rounded-2xl"
+        ref={microsWidthRef}
+      >
+        {data.micros.map((micro) => (
+          <Micro data={micro} isGroup={true} key={micro.id} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -53,7 +56,7 @@ function UnorderNode({
         position={Position.Top}
         isConnectable={isConnectable}
       />
-      <UnorderedGroup id={id} data={data} isScrollable={false} />
+      <UnorderedGroup id={id} data={data} />
       <Handle
         type="source"
         position={Position.Bottom}

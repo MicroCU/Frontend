@@ -26,9 +26,9 @@ const mockGroupDB: PathData = {
     ],
     groups: [
         {
-            id: '1', name: 'Overview', nexts: ['2', '3'], type: GroupType.Unordered,
+            id: '1', name: 'Overviewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2', nexts: ['2', '3'], type: GroupType.Unordered,
             micros: [
-                { id: '1', name: 'Overview', progress: 0, type: MicroType.Video },
+                { id: '1', name: 'Overviewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2', progress: 0, type: MicroType.Video },
             ]
         },
         {
@@ -110,9 +110,9 @@ const mockGroupDB: PathData = {
             ]
         },
         {
-            id: '90', name: 'Operator *', nexts: ['70'], type: GroupType.Unordered,
+            id: '90', name: 'Operator *******************************', nexts: ['70'], type: GroupType.Unordered,
             micros: [
-                { id: '90', name: 'Operator *', progress: 90, type: MicroType.Practice },
+                { id: '90', name: 'Operator *******************************', progress: 90, type: MicroType.Practice },
             ]
         },
         {
@@ -124,7 +124,7 @@ const mockGroupDB: PathData = {
             ]
         },
         {
-            id: '11', name: 'Lesson * (Long)', nexts: ['12', '13'], type: GroupType.Unordered,
+            id: '11', name: 'Lesson * (Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)', nexts: ['12', '13'], type: GroupType.Unordered,
             micros: [
                 { id: '111', name: 'Lesson 1* longlonglonglonglonglong', progress: 0, type: MicroType.Video },
                 { id: '112', name: 'Lesson 2* longlonglonglonglonglong', progress: 0, type: MicroType.Video },
@@ -134,7 +134,7 @@ const mockGroupDB: PathData = {
             ]
         },
         {
-            id: '12', name: 'Lesson I', nexts: ['14', '15'], type: GroupType.Unordered,
+            id: '12', name: 'Lesson I very very long very very longvery very longvery very long', nexts: ['14', '15'], type: GroupType.Unordered,
             micros: [
                 { id: '121', name: 'Lesson 1 I', progress: 0, type: MicroType.Video },
                 { id: '122', name: 'Lesson 2 I', progress: 0, type: MicroType.Video },
@@ -150,11 +150,9 @@ const mockGroupDB: PathData = {
             ]
         },
         {
-            id: '14', name: 'Lesson III', nexts: [], type: GroupType.Unordered,
+            id: '14', name: 'Lesson IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', nexts: [], type: GroupType.Unordered,
             micros: [
-                { id: '14', name: 'Lesson 1 III', progress: 0, type: MicroType.Test },
-                // { id: '142', name: 'Lesson 2 III', progress: 0, type: MicroNodeType.VIDEO },
-                // { id: '143', name: 'Lesson 3 III', progress: 0, type: MicroNodeType.VIDEO },
+                { id: '14', name: 'Lesson 1 IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', progress: 0, type: MicroType.Test },
             ]
         },
         {

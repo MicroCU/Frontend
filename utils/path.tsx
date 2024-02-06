@@ -1,3 +1,4 @@
+import { GroupDisplay, GroupType } from "@/types/enum";
 import { getMockData } from "../mock/path";
 import { Micro, PathEdge, PathNode } from "@/types/path";
 import { MarkerType } from "reactflow";
@@ -38,8 +39,13 @@ export function getInitialNodesAndEdges(id: number) {
         level: 0
       },
       position: { x: 0, y: 0 },
-      draggable: true,
-      type: group.type
+      draggable: false,
+      type:
+        group.micros.length == 1
+          ? GroupDisplay.Single
+          : group.type == GroupType.Ordered
+          ? GroupDisplay.Ordered
+          : GroupDisplay.Unordered
     });
 
     group.nexts.forEach((nextId) => {

@@ -1,5 +1,5 @@
 import { Edge, Node } from "reactflow";
-import { GroupType, MicroType } from "./enum";
+import { GroupDisplay, GroupType, MicroType } from "./enum";
 
 export interface Micro {
   id: string;
@@ -23,5 +23,5 @@ export interface Path {
   groups: Group[];
 }
 
-export type PathNode = Node<Group, GroupType>;
+export type PathNode = Node<Group, GroupDisplay>;
 export type PathEdge = Edge<undefined>;
