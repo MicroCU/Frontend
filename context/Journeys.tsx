@@ -78,6 +78,7 @@ export function JourneyContextProvider({
   }, [error]);
 
   useEffect(() => {
+    setJourneys(null);
     if (selectedTab === MenuTab.journey) {
       fetchJourney(setJourneys, setError);
     } else if (selectedTab === MenuTab.recently) {

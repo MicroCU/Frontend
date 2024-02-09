@@ -3,10 +3,11 @@ import { MenuTab } from "@/types/enum";
 import NoResult from "./NoResult";
 import PathCard from "./PathCard";
 import { ErrorAPI, JourneyStoreData } from "@/types/type";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PathCardLoading from "./PathCardLoading";
 import SearchInput from "./SearchInput";
 import { checkIsDataFieldsValid } from "@/lib/utils";
+import { fetchSearchForNormal } from "@/mock/api";
 
 interface PathCardSearchCollectionProps {
   setJourneysNormal: Dispatch<SetStateAction<JourneyStoreData | null>>;
@@ -20,6 +21,13 @@ export default function PathCardSearchCollection({
   setError
 }: PathCardSearchCollectionProps) {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+
+  useEffect(() => {
+    if (searchKeyword) {
+      fetchSearchForNormal(setJourneysNormal, searchKeyword, setError);
+    }
+  }, [searchKeyword]);
+
   return (
     <div className="mt-4">
       <SearchInput
