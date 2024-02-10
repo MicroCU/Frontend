@@ -1,16 +1,12 @@
-export enum NodeStatusEnum {
-  CURRENT_PREVIEW = 1,
-  STILL_LEARNING = 2,
-  PASSED_TEST = 3,
-  NOT_VISITED = 4
+import { cn } from "@/lib/utils";
+import { PathStatus } from "@/types/enum";
+
+export interface NodeProps {
+  status: PathStatus;
 }
 
-export interface INodeProps {
-  status: NodeStatusEnum;
-}
-
-export default function Node({ status }: INodeProps) {
-  if (status === NodeStatusEnum.CURRENT_PREVIEW) {
+export default function Node({ status }: NodeProps) {
+  if (status === PathStatus.CURRENT_PREVIEW) {
     return (
       <div className="relative p-2">
         <div className="bg-primary w-12 h-12 rounded-full glow-selected-node"></div>
@@ -19,13 +15,14 @@ export default function Node({ status }: INodeProps) {
   } else {
     return (
       <div
-        className={`w-6 h-6 rounded-full ${
-          status === NodeStatusEnum.STILL_LEARNING
+        className={cn(
+          "w-6 h-6 rounded-full",
+          status === PathStatus.STILL_LEARNING
             ? "bg-progress"
-            : status === NodeStatusEnum.PASSED_TEST
+            : status === PathStatus.PASSED_TEST
             ? "bg-grayMedium"
             : "bg-graySmall"
-        }`}
+        )}
       ></div>
     );
   }

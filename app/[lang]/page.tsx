@@ -1,32 +1,37 @@
+"use client";
 import NavBar from "@/components/NavBar";
+import { useState } from "react";
 import SelectedPathModal from "@/components/SelectedPathModal";
-import { TagProps } from "@/types/type";
+import CheckListIcon from "@/components/CheckListIcon";
+import CheckList from "@/components/CheckList";
+import { JourneyGraphContextProvider } from "@/context/JourneysGraph";
+import Flow from "@/components/undirectedGraph/Flow";
 
-const descp =
-  "Python is an easy to learn, powerful programming language. It has efficient high-level data structures Python is an easy to learn, powerful programming language. It has efficient high-level data structures";
-
-const mockTags: TagProps[] = [
-  {
-    imageURL:
-      "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
-    title: "Programming"
-  },
-  {
-    imageURL:
-      "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png",
-    title: "Python"
-  }
-];
-
-const GraphPage = () => {
+const Home = () => {
+  const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
   return (
-    <div className="flex min-h-screen bg-grayLight">
-      <NavBar />
-      <div className="flex items-center">
-        <SelectedPathModal title="Python" description={descp} tags={mockTags} />
+    <JourneyGraphContextProvider>
+      <div className="flex min-h-screen bg-grayLight">
+        <div className="z-40">
+          <NavBar />
+        </div>
+        <div className="flex items-center z-30 w-full">
+          <Flow />
+        </div>
+        <div className="absolute top-20 right-20 z-40">
+          <SelectedPathModal />
+        </div>
+        <div
+          className="absolute top-5 right-5 z-40"
+          onClick={() => {
+            setIsViewCheckList(!isViewCheckList);
+          }}
+        >
+          {isViewCheckList ? <CheckList /> : <CheckListIcon />}
+        </div>
       </div>
-    </div>
+    </JourneyGraphContextProvider>
   );
 };
 
-export default GraphPage;
+export default Home;

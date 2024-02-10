@@ -9,8 +9,6 @@ export interface MicroProps {
   className?: string;
 }
 
-
-
 export default function Micro({ data, isGroup = true, className }: MicroProps) {
   return (
     <>

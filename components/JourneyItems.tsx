@@ -1,49 +1,28 @@
 "use client";
-import { useState } from "react";
-import JourneyItem, { IPathItems } from "./JourneyItem";
-import JourneyItemsLoading from "./JourneyItemsLoading";
-
-export interface IJourneyItem {
-  id: string;
-  name: string;
-  paths: IPathItems[];
-}
-
-export enum JourneyItemsType {
-  "Loading" = "loading",
-  "Shown" = "shown"
-}
+import { useJourneyGraph } from "@/context/JourneysGraph";
+import JourneyItem from "./JourneyItem";
+import ListItemsLoading from "./ListLoading";
+import { checkIsDataFieldsValid, cn } from "@/lib/utils";
 
 export interface JourneyItemsProps {
-  journeys?: IJourneyItem[];
-  width?: number;
   className?: string;
-  type?: JourneyItemsType;
 }
 
-export default function JourneyItems({
-  journeys,
-  className,
-  width,
-  type
-}: JourneyItemsProps) {
-  const [selectedPath, setSelectedPath] = useState<string | null>(null);
+export default function JourneyItems({ className }: JourneyItemsProps) {
+  const { journeys } = useJourneyGraph();
+  if (!journeys) {
+    return (
+      <div className={cn("flex flex-col gap-y-6", className)}>
+        <ListItemsLoading />
+      </div>
+    );
+  }
   return (
-    <div
-      className={`${className} flex flex-col gap-y-6`}
-      style={{ maxWidth: width }}
-    >
-      {journeys &&
-        journeys.map((journey) => (
-          <JourneyItem
-            {...journey}
-            key={journey.id}
-            selectedPath={selectedPath}
-            setSelectedPath={setSelectedPath}
-            width={width}
-          />
+    <div className={cn("flex flex-col gap-y-6", className)}>
+      {checkIsDataFieldsValid(journeys) &&
+        journeys.data.map((journey) => (
+          <JourneyItem {...journey} key={journey.id} />
         ))}
-      {type === JourneyItemsType.Loading && <JourneyItemsLoading />}
     </div>
   );
 }

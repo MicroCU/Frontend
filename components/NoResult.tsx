@@ -1,27 +1,26 @@
+"use client";
+import { useTranslation } from "@/context/Translation";
+import { MenuTab } from "@/types/enum";
 import { History, SearchX } from "lucide-react";
 
-export enum NoResultTypeEnum {
-  NoRecentlyPaths = "No recently paths",
-  NoResultsFound = "No results found"
+export interface NoResult {
+  type: MenuTab;
 }
 
-export interface INoResult {
-  type: NoResultTypeEnum;
-}
-
-export default function NoResult({ type }: INoResult) {
+export default function NoResult({ type }: NoResult) {
+  const { dict } = useTranslation();
   return (
-    <div className="flex flex-col gap-y-2 justify-center items-center text-grayMain Medium16">
-      {type === NoResultTypeEnum.NoRecentlyPaths && (
+    <div className="flex flex-col h-full gap-y-2 justify-center items-center text-grayMain Medium16">
+      {type === MenuTab.recently && (
         <>
           <History className="stroke-grayMain w-8 h-8" />
-          <p> {type} </p>
+          <p> {dict["home.recently.noresult"]} </p>
         </>
       )}
-      {type === NoResultTypeEnum.NoResultsFound && (
+      {type === MenuTab.search && (
         <>
           <SearchX className="stroke-grayMain w-8 h-8" />
-          <p> {type} </p>
+          <p> {dict["home.searchbar.noresult"]} </p>
         </>
       )}
     </div>
