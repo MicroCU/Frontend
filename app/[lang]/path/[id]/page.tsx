@@ -1,5 +1,6 @@
 "use client";
 import PathDescription from "@/components/PathDescription";
+import PathPageLoading from "@/components/PathPageLoading";
 import DirectedGraph from "@/components/path";
 import { toast } from "@/components/ui/use-toast";
 import { useTranslation } from "@/context/Translation";
@@ -43,7 +44,7 @@ export default function Path({ params }: { params: { id: number } }) {
   }, [error]);
 
   if (!data) {
-    return null;
+    return <PathPageLoading />;
   }
 
   const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
