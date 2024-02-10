@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { PathStatus } from "@/types/enum";
 
 export interface NodeProps {
@@ -14,13 +15,14 @@ export default function Node({ status }: NodeProps) {
   } else {
     return (
       <div
-        className={`w-6 h-6 rounded-full ${
+        className={cn(
+          "w-6 h-6 rounded-full",
           status === PathStatus.STILL_LEARNING
             ? "bg-progress"
             : status === PathStatus.PASSED_TEST
             ? "bg-grayMedium"
             : "bg-graySmall"
-        }`}
+        )}
       ></div>
     );
   }
