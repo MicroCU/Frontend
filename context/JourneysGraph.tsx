@@ -78,12 +78,12 @@ export function JourneyGraphContextProvider({
   }, [error]);
 
   useEffect(() => {
-    setJourneys(null);
     if (selectedTab === MenuTab.journey) {
       fetchJourney(setJourneys, setError);
     } else if (selectedTab === MenuTab.recently) {
       fetchRecently(setJourneys, setError);
     } else if (selectedTab === MenuTab.search && searchKeyword != "") {
+      setJourneys(null);
       fetchSearch(setJourneys, searchKeyword, setError);
     }
   }, [selectedTab, searchKeyword]);

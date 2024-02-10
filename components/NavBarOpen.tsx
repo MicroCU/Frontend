@@ -64,7 +64,6 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.search}
             onClick={() => {
-              setJourneys(null);
               setSelectedPath(null);
               setJourneys({} as JourneyStoreData);
               setSelectedTab(MenuTab.search);

@@ -72,12 +72,14 @@ export function JourneyNormalContextProvider({
   }, [error]);
 
   useEffect(() => {
-    setJourneys(null);
     if (selectedTab === MenuTab.journey) {
+      setJourneys(null);
       fetchJourney(setJourneys, setError);
     } else if (selectedTab === MenuTab.recently) {
+      setJourneys(null);
       fetchRecently(setJourneys, setError);
     } else if (selectedTab === MenuTab.search && searchKeyword != "") {
+      setJourneys(null);
       fetchSearch(setJourneys, searchKeyword, setError);
     }
   }, [selectedTab, searchKeyword]);
