@@ -372,5 +372,5 @@ export function getMockJourneyPosition(pathId: string) {  // Mock Tendon's Algor
     positionMap.set("4-p2", { x: 900, y: 300 });
     positionMap.set("4-p3", { x: 1100, y: 300 });
 
-    return positionMap.get(pathId)!;
+    return positionMap.get(pathId) || null;
 }

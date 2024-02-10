@@ -17,7 +17,7 @@ export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type:
     const edges: Edge<any>[] = [];
     journeys.data.forEach((journey, index) => {
         journey.paths.data.forEach((path, index) => {
-            let mockPosition = { x: 0, y: 0 };
+            let mockPosition: null | { x: number, y: number } = null;
             if (type === MenuTab.journey) {
                 mockPosition = getMockJourneyPosition(path.id);
             } else if (type === MenuTab.search) {
@@ -26,6 +26,12 @@ export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type:
                 mockPosition = getMockRecentlyPosition(path.id);
             } else {
                 mockPosition = getMockJourneyPosition(path.id);
+            }
+            if (mockPosition === null) {
+                return {
+                    initialNodes: [],
+                    initialEdges: []
+                }
             }
 
             nodes.push({

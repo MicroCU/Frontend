@@ -12,7 +12,7 @@ import { useJourneyNormal } from "@/context/JourneysNormal";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
-  const { journeys, selectedTab, setSelectedTab } =
+  const { journeys, selectedTab, setSelectedTab, setJourneys } =
     useJourneyNormal();
 
   return (

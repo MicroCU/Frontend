@@ -11,7 +11,6 @@ import SearchInput from "./SearchInput";
 import { useJourneyGraph } from "@/context/JourneysGraph";
 import PathList from "./PathList";
 import { JourneyNormalContextProvider } from "@/context/JourneysNormal";
-import { JourneyStoreData } from "@/types/type";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -22,7 +21,6 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const {
     journeys,
     selectedTab,
-    setJourneys,
     setSelectedTab,
     setSearchKeyword,
     setSelectedPath
@@ -36,9 +34,6 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.journey}
             onClick={() => {
-              setJourneys(null);
-              setSearchKeyword("");
-              setSelectedPath(null);
               setSelectedTab(MenuTab.journey);
             }}
             disabled={!journeys}
@@ -48,9 +43,6 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.recently}
             onClick={() => {
-              setJourneys(null);
-              setSearchKeyword("");
-              setSelectedPath(null);
               setSelectedTab(MenuTab.recently);
             }}
             disabled={!journeys}
@@ -60,8 +52,6 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.search}
             onClick={() => {
-              setJourneys({} as JourneyStoreData);
-              setSelectedPath(null);
               setSelectedTab(MenuTab.search);
             }}
             disabled={!journeys}

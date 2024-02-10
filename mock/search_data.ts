@@ -1,5 +1,5 @@
 import { PathStatus } from "@/types/enum";
-import { APIResponse, BriefPathInfo, JourneyStoreData, SearchPageData } from "@/types/type";
+import { APIResponse, BriefPathInfo, SearchPageData } from "@/types/type";
 
 const mockDBForSearch: BriefPathInfo[] = [
     {
@@ -179,7 +179,7 @@ export function getMockSearchPosition(pathId: string) {  // Mock Tendon's Algori
     positionMap.set("search-3", { x: 100, y: 200 });
     positionMap.set("search-4", { x: 250, y: 200 });
     positionMap.set("search-5", { x: 400, y: 200 });
-    return positionMap.get(pathId)!;
+    return positionMap.get(pathId) || null;
 }
 
 export function convertSearchToJourney(resp: SearchPageData) {

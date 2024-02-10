@@ -1,5 +1,5 @@
 import { PathStatus } from "@/types/enum";
-import { APIResponse, BriefPathInfo, JourneyStoreData, RecentlyPageData } from "@/types/type";
+import { APIResponse, BriefPathInfo, RecentlyPageData } from "@/types/type";
 
 const mockDBForRecently: BriefPathInfo[] = [
     {
@@ -112,7 +112,7 @@ export function getMockRecentlyPosition(pathId: string) { // Mock Tendon's Algor
     positionMap.set("recently-2", { x: 100, y: 100 });
     positionMap.set("recently-3", { x: 400, y: 100 });
     positionMap.set("recently-4", { x: 250, y: 200 });
-    return positionMap.get(pathId)!;
+    return positionMap.get(pathId) || null;
 }
 
 export function convertRecentlyToJourney(resp: RecentlyPageData) {
