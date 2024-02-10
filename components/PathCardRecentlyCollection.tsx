@@ -2,17 +2,12 @@ import { MenuTab } from "@/types/enum";
 import NoResult from "./NoResult";
 import PathCard from "./PathCard";
 import PathCardLoading from "./PathCardLoading";
-import { JourneyStoreData } from "@/types/type";
-import { checkIsDataFieldsValid } from "@/lib/utils";
+import { useJourneyNormal } from "@/context/JourneysNormal";
 
-interface PathCardRecentlyCollectionProps {
-  journeysNormal: JourneyStoreData | null;
-}
+export default function PathCardRecentlyCollection() {
+  const { journeys } = useJourneyNormal();
 
-export default function PathCardRecentlyCollection({
-  journeysNormal
-}: PathCardRecentlyCollectionProps) {
-  if (!journeysNormal) {
+  if (!journeys) {
     return <PathCardLoading count={4} />;
   }
 
@@ -22,17 +17,16 @@ export default function PathCardRecentlyCollection({
         className="space-y-6 overflow-y-auto"
         style={{ maxHeight: "calc(100vh - 160px)" }}
       >
-        {checkIsDataFieldsValid(journeysNormal) &&
-          journeysNormal.data[0].paths.data.map((path) => (
+        {journeys.length > 0 &&
+          journeys[0].paths.data.map((path) => (
             <div key={path.id}>
               <PathCard path={path} />
             </div>
           ))}
       </div>
-      {checkIsDataFieldsValid(journeysNormal) &&
-        journeysNormal.data[0].paths.data.length === 0 && (
-          <NoResult type={MenuTab.recently} />
-        )}
+      {journeys.length > 0 && journeys[0].paths.data.length === 0 && (
+        <NoResult type={MenuTab.recently} />
+      )}
     </>
   );
 }

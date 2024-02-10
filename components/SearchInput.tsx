@@ -2,27 +2,21 @@
 import { useTranslation } from "@/context/Translation";
 import { useDebounce } from "@/hooks/Debounce";
 import { cn } from "@/lib/utils";
-import { JourneyStoreData, ErrorAPI, BriefPathInfo } from "@/types/type";
+import { BriefPathInfo } from "@/types/type";
 import { Search } from "lucide-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export interface SearchInputProps {
   className?: string;
   defaultValue?: string;
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
-  searchKeyword: string;
   setSearchKeyword: Dispatch<SetStateAction<string>>;
-  setError: Dispatch<SetStateAction<ErrorAPI | null>>;
   setSelectedPath?: Dispatch<SetStateAction<BriefPathInfo | null>>;
 }
 
 export default function SearchInput({
   className,
   defaultValue,
-  setJourneys,
-  searchKeyword,
   setSearchKeyword,
-  setError,
   setSelectedPath
 }: SearchInputProps) {
   const { dict } = useTranslation();

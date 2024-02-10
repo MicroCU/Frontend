@@ -8,9 +8,10 @@ import { useTranslation } from "@/context/Translation";
 import { ScrollArea } from "./ui/scroll-area";
 import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 import PathList from "./PathList";
 import { JourneyStoreData } from "@/types/type";
+import { JourneyNormalContextProvider } from "@/context/JourneysNormal";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +27,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
     setSearchKeyword,
     setSelectedPath,
     setError
-  } = useJourney();
+  } = useJourneyGraph();
 
   return (
     <div className="space-y-6 p-6 bg-white shadow-md min-h-screen flex flex-col">
@@ -51,7 +52,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.recently}
             onClick={() => {
-              setJourneys(null);
+              setJourneys(null); // TODO: Merge this
               setSearchKeyword("");
               setSelectedPath(null);
               setSelectedTab(MenuTab.recently);
@@ -85,17 +86,16 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           </TabsContent>
           <TabsContent value={MenuTab.search}>
             <SearchInput
-              searchKeyword={searchKeyword}
               setSearchKeyword={setSearchKeyword}
-              setJourneys={setJourneys}
-              setError={setError}
               setSelectedPath={setSelectedPath}
             />
             <PathList />
           </TabsContent>
         </ScrollArea>
       </Tabs>
-      <NormalModal />
+      <JourneyNormalContextProvider>
+        <NormalModal />
+      </JourneyNormalContextProvider>
     </div>
   );
 }

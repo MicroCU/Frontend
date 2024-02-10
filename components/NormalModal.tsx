@@ -4,37 +4,16 @@ import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
-import { useEffect, useState } from "react";
-import { ErrorAPI, JourneyStoreData } from "@/types/type";
 import JourneyModalCollection from "./JourneyModalCollection";
 import PathCardRecentlyCollection from "./PathCardRecentlyCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
-import { useToast } from "./ui/use-toast";
-import { fetchJourneyForNormal, fetchRecentlyForNormal } from "@/mock/api";
 import { cn } from "@/lib/utils";
+import { useJourneyNormal } from "@/context/JourneysNormal";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
-  const { toast } = useToast();
-  const [journeysNormal, setJourneysNormal] = useState<JourneyStoreData | null>(
-    null
-  );
-  const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
-  const [error, setError] = useState<ErrorAPI | null>(null);
-  useEffect(() => {
-    fetchJourneyForNormal(setJourneysNormal, setError);
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        variant: "destructive",
-        title: dict["home.general.error"],
-        description: error.message
-      });
-      setError(null);
-    }
-  }, [error]);
+  const { journeys, selectedTab, setSelectedTab, setJourneys } =
+    useJourneyNormal();
 
   return (
     <Dialog>
@@ -51,9 +30,8 @@ const NormalModal = () => {
               value={MenuTab.journey}
               onClick={() => {
                 setSelectedTab(MenuTab.journey);
-                fetchJourneyForNormal(setJourneysNormal, setError);
               }}
-              disabled={!journeysNormal}
+              disabled={!journeys}
             >
               {dict["home.tabs.journey"]}
             </TabsTrigger>
@@ -61,9 +39,8 @@ const NormalModal = () => {
               value={MenuTab.recently}
               onClick={() => {
                 setSelectedTab(MenuTab.recently);
-                fetchRecentlyForNormal(setJourneysNormal, setError);
               }}
-              disabled={!journeysNormal}
+              disabled={!journeys}
             >
               {dict["home.tabs.recently"]}
             </TabsTrigger>
@@ -71,15 +48,15 @@ const NormalModal = () => {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
-                setJourneysNormal({} as JourneyStoreData);
+                setJourneys([]);
               }}
-              disabled={!journeysNormal}
+              disabled={!journeys}
             >
               {dict["home.tabs.search"]}
             </TabsTrigger>
           </TabsList>
           <TabsContent value={MenuTab.journey}>
-            <JourneyModalCollection journeysNormal={journeysNormal} />
+            <JourneyModalCollection />
           </TabsContent>
           <TabsContent
             value={MenuTab.recently}
@@ -89,7 +66,7 @@ const NormalModal = () => {
                 : ""
             )}
           >
-            <PathCardRecentlyCollection journeysNormal={journeysNormal} />
+            <PathCardRecentlyCollection />
           </TabsContent>
           <TabsContent
             value={MenuTab.search}
@@ -97,11 +74,7 @@ const NormalModal = () => {
               selectedTab === MenuTab.search ? "flex flex-col flex-1" : ""
             )}
           >
-            <PathCardSearchCollection
-              setJourneysNormal={setJourneysNormal}
-              journeysNormal={journeysNormal}
-              setError={setError}
-            />
+            <PathCardSearchCollection />
           </TabsContent>
         </Tabs>
       </DialogContent>

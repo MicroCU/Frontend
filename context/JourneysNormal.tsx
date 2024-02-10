@@ -2,10 +2,9 @@
 import { toast } from "@/components/ui/use-toast";
 import { MenuTab } from "@/types/enum";
 import {
-  BriefPathInfo,
   ErrorAPI,
   HomePageData,
-  JourneyStoreData,
+  JourneyData,
   RecentlyPageData,
   SearchPageData
 } from "@/types/type";
@@ -25,45 +24,40 @@ import {
 } from "@/mock/recently_data";
 import { getSearchResult, convertSearchToJourney } from "@/mock/search_data";
 
-interface JourneyContextType {
+interface JourneyNormalContextType {
   selectedTab: MenuTab;
   setSelectedTab: Dispatch<SetStateAction<MenuTab>>;
   searchKeyword: string;
   setSearchKeyword: Dispatch<SetStateAction<string>>;
-  selectedPath: BriefPathInfo | null;
-  setSelectedPath: Dispatch<SetStateAction<BriefPathInfo | null>>;
-  journeys: JourneyStoreData | null;
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>;
+  journeys: JourneyData[] | null;
+  setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>;
   error: ErrorAPI | null;
   setError: Dispatch<SetStateAction<ErrorAPI | null>>;
 }
 
-const JourneyContext = createContext<JourneyContextType>({
+const JourneyNormalContext = createContext<JourneyNormalContextType>({
   selectedTab: MenuTab.journey,
   setSelectedTab: () => {},
   searchKeyword: "",
   setSearchKeyword: () => {},
-  selectedPath: null,
-  setSelectedPath: () => {},
   journeys: null,
   setJourneys: () => {},
   error: null,
   setError: () => {}
 });
 
-export function useJourney() {
-  return useContext(JourneyContext);
+export function useJourneyNormal() {
+  return useContext(JourneyNormalContext);
 }
 
-export function JourneyContextProvider({
+export function JourneyNormalContextProvider({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const [journeys, setJourneys] = useState<JourneyStoreData | null>(null);
+  const [journeys, setJourneys] = useState<JourneyData[] | null>(null);
   const [selectedTab, setSelectedTab] = useState<MenuTab>(MenuTab.journey);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [selectedPath, setSelectedPath] = useState<BriefPathInfo | null>(null);
   const [error, setError] = useState<ErrorAPI | null>(null);
   const { dict } = useTranslation();
   useEffect(() => {
@@ -89,14 +83,12 @@ export function JourneyContextProvider({
   }, [selectedTab, searchKeyword]);
 
   return (
-    <JourneyContext.Provider
+    <JourneyNormalContext.Provider
       value={{
         journeys,
         setJourneys,
         selectedTab,
         setSelectedTab,
-        selectedPath,
-        setSelectedPath,
         searchKeyword,
         setSearchKeyword,
         error,
@@ -104,12 +96,12 @@ export function JourneyContextProvider({
       }}
     >
       {children}
-    </JourneyContext.Provider>
+    </JourneyNormalContext.Provider>
   );
 }
 
 async function fetchJourney(
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
+  setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>,
   setError: Dispatch<SetStateAction<ErrorAPI | null>>
 ) {
   try {
@@ -124,17 +116,14 @@ async function fetchJourney(
       return;
     }
     const result = resp.data as HomePageData;
-    setJourneys({
-      data: result.journeys,
-      relationships: result.relationships
-    });
+    setJourneys(result.journeys);
   } catch (error) {
     console.error("error: ", error);
   }
 }
 
 async function fetchRecently(
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
+  setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>,
   setError: Dispatch<SetStateAction<ErrorAPI | null>>
 ) {
   try {
@@ -150,14 +139,14 @@ async function fetchRecently(
     }
     const result = resp.data as RecentlyPageData;
     const journey = convertRecentlyToJourney(result);
-    setJourneys(journey);
+    setJourneys(journey.data);
   } catch (error) {
     console.error("error: ", error);
   }
 }
 
 async function fetchSearch(
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
+  setJourneys: Dispatch<SetStateAction<JourneyData[] | null>>,
   serachText: string,
   setError: Dispatch<SetStateAction<ErrorAPI | null>>
 ) {
@@ -174,7 +163,7 @@ async function fetchSearch(
     }
     const result = resp.data as SearchPageData;
     const journey = convertSearchToJourney(result);
-    setJourneys(journey);
+    setJourneys(journey.data);
   } catch (error) {
     console.error("error: ", error);
   }

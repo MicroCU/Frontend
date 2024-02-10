@@ -1,5 +1,5 @@
 "use client";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 import JourneyItem from "./JourneyItem";
 import ListItemsLoading from "./ListLoading";
 import { checkIsDataFieldsValid, cn } from "@/lib/utils";
@@ -9,7 +9,7 @@ export interface JourneyItemsProps {
 }
 
 export default function JourneyItems({ className }: JourneyItemsProps) {
-  const { journeys } = useJourney();
+  const { journeys } = useJourneyGraph();
   if (!journeys) {
     return (
       <div className={cn("flex flex-col gap-y-6", className)}>

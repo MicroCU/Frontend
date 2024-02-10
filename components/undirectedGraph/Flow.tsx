@@ -1,13 +1,13 @@
 "use client";
 import { ReactFlowProvider } from "reactflow";
 import OverviewFlow from "./Graph";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
 import LoadingGraph from "../LoadingGraph";
 import { MenuTab } from "@/types/enum";
 
 export default function Flow() {
-  const { journeys, selectedTab, searchKeyword } = useJourney();
+  const { journeys, selectedTab, searchKeyword } = useJourneyGraph();
   const { initialNodes, initialEdges } = generateInitialNodeEdge(
     journeys,
     selectedTab

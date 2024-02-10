@@ -2,56 +2,32 @@
 import { MenuTab } from "@/types/enum";
 import NoResult from "./NoResult";
 import PathCard from "./PathCard";
-import { ErrorAPI, JourneyStoreData } from "@/types/type";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PathCardLoading from "./PathCardLoading";
 import SearchInput from "./SearchInput";
-import { checkIsDataFieldsValid } from "@/lib/utils";
-import { fetchSearchForNormal } from "@/mock/api";
+import { useJourneyNormal } from "@/context/JourneysNormal";
 
-interface PathCardSearchCollectionProps {
-  setJourneysNormal: Dispatch<SetStateAction<JourneyStoreData | null>>;
-  journeysNormal: JourneyStoreData | null;
-  setError: Dispatch<SetStateAction<ErrorAPI | null>>;
-}
-
-export default function PathCardSearchCollection({
-  setJourneysNormal,
-  journeysNormal,
-  setError
-}: PathCardSearchCollectionProps) {
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
-
-  useEffect(() => {
-    if (searchKeyword) {
-      fetchSearchForNormal(setJourneysNormal, searchKeyword, setError);
-    }
-  }, [searchKeyword]);
+export default function PathCardSearchCollection() {
+  const { journeys, searchKeyword, setSearchKeyword } = useJourneyNormal();
 
   return (
     <div className="mt-4">
-      <SearchInput
-        setJourneys={setJourneysNormal}
-        searchKeyword={searchKeyword}
-        setSearchKeyword={setSearchKeyword}
-        setError={setError}
-      />
+      <SearchInput setSearchKeyword={setSearchKeyword} />
       <div
         className="space-y-6 overflow-y-auto"
         style={{ maxHeight: "calc(100vh - 210px)" }}
       >
-        {!journeysNormal && searchKeyword != "" && (
-          <PathCardLoading count={4} />
-        )}
-        {checkIsDataFieldsValid(journeysNormal) &&
-          journeysNormal!.data[0].paths.data.map((path) => (
+        {!journeys && searchKeyword != "" && <PathCardLoading count={4} />}
+        {journeys &&
+          journeys.length > 0 &&
+          journeys[0].paths.data.map((path) => (
             <div key={path.id}>
               <PathCard path={path} />
             </div>
           ))}
       </div>
-      {checkIsDataFieldsValid(journeysNormal) &&
-        journeysNormal!.data[0].paths.data.length === 0 && (
+      {journeys &&
+        journeys.length > 0 &&
+        journeys[0].paths.data.length === 0 && (
           <NoResult type={MenuTab.search} />
         )}
     </div>

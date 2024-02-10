@@ -1,16 +1,11 @@
-import { JourneyStoreData } from "@/types/type";
 import JourneyModalItems from "./JourneyModalItems";
 import JourneyModalItemsLoading from "./JourneyModalItemsLoading";
-import { checkIsDataFieldsValid } from "@/lib/utils";
+import { useJourneyNormal } from "@/context/JourneysNormal";
 
-interface JourneyModalItemsProps {
-  journeysNormal: JourneyStoreData | null;
-}
+export default function JourneyModalCollection() {
+  const { journeys } = useJourneyNormal();
 
-export default function JourneyModalCollection({
-  journeysNormal
-}: JourneyModalItemsProps) {
-  if (journeysNormal == null) {
+  if (journeys == null) {
     return (
       <div className="mt-6" style={{ maxHeight: "calc(100vh - 160px)" }}>
         <JourneyModalItemsLoading />
@@ -22,8 +17,8 @@ export default function JourneyModalCollection({
       className="space-y-6 overflow-y-auto mt-6"
       style={{ maxHeight: "calc(100vh - 160px)" }}
     >
-      {checkIsDataFieldsValid(journeysNormal) &&
-        journeysNormal.data.map((journey) => (
+      {journeys &&
+        journeys.map((journey) => (
           <JourneyModalItems key={journey.id} journey={journey} />
         ))}
     </div>

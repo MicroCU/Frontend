@@ -3,7 +3,7 @@ import { ListTodo } from "lucide-react";
 import { CheckListItem } from "./CheckListItem";
 import CheckListItemLoading from "./CheckListItemLoading";
 import { ScrollArea } from "./ui/scroll-area";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 import { useTranslation } from "@/context/Translation";
 import { useEffect, useRef, useState } from "react";
 import { checkIsDataFieldsValid, cn } from "@/lib/utils";
@@ -15,7 +15,7 @@ export interface ICheckListProps {
 }
 
 export default function CheckList({ className }: ICheckListProps) {
-  const { journeys, selectedTab, searchKeyword } = useJourney();
+  const { journeys, selectedTab, searchKeyword } = useJourneyGraph();
   const { dict } = useTranslation();
 
   const containerRef = useRef<HTMLDivElement>(null);

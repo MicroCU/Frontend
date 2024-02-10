@@ -1,5 +1,5 @@
 "use client";
-import { useJourney } from "@/context/Journeys";
+import { useJourneyGraph } from "@/context/JourneysGraph";
 import PathItems from "./PathItems";
 import { getPathDetailFromId } from "@/mock/common";
 import NoResult from "./NoResult";
@@ -15,7 +15,7 @@ export default function PathList() {
     setSelectedPath,
     selectedTab,
     searchKeyword
-  } = useJourney();
+  } = useJourneyGraph();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(
