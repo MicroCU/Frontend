@@ -10,8 +10,8 @@ import { MenuTab } from "@/types/enum";
 import SearchInput from "./SearchInput";
 import { useJourneyGraph } from "@/context/JourneysGraph";
 import PathList from "./PathList";
-import { JourneyStoreData } from "@/types/type";
 import { JourneyNormalContextProvider } from "@/context/JourneysNormal";
+import { JourneyStoreData } from "@/types/type";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -21,21 +21,17 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
   const { dict } = useTranslation();
   const {
     journeys,
+    selectedTab,
     setJourneys,
     setSelectedTab,
-    searchKeyword,
     setSearchKeyword,
-    setSelectedPath,
-    setError
+    setSelectedPath
   } = useJourneyGraph();
 
   return (
     <div className="space-y-6 p-6 bg-white shadow-md min-h-screen flex flex-col">
       <NavHeader setIsOpen={setIsOpen} />
-      <Tabs
-        defaultValue={MenuTab.journey}
-        className="flex-1 flex flex-col w-64"
-      >
+      <Tabs defaultValue={selectedTab} className="flex-1 flex flex-col w-64">
         <TabsList className="grid w-full grid-cols-3 bg-grayLight mb-5">
           <TabsTrigger
             value={MenuTab.journey}
@@ -52,7 +48,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.recently}
             onClick={() => {
-              setJourneys(null); // TODO: Merge this
+              setJourneys(null);
               setSearchKeyword("");
               setSelectedPath(null);
               setSelectedTab(MenuTab.recently);
@@ -64,8 +60,8 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
           <TabsTrigger
             value={MenuTab.search}
             onClick={() => {
-              setSelectedPath(null);
               setJourneys({} as JourneyStoreData);
+              setSelectedPath(null);
               setSelectedTab(MenuTab.search);
             }}
             disabled={!journeys}

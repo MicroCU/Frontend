@@ -74,13 +74,19 @@ export function JourneyNormalContextProvider({
   useEffect(() => {
     if (selectedTab === MenuTab.journey) {
       setJourneys(null);
+      setSearchKeyword("");
       fetchJourney(setJourneys, setError);
     } else if (selectedTab === MenuTab.recently) {
       setJourneys(null);
+      setSearchKeyword("");
       fetchRecently(setJourneys, setError);
-    } else if (selectedTab === MenuTab.search && searchKeyword != "") {
-      setJourneys(null);
-      fetchSearch(setJourneys, searchKeyword, setError);
+    } else if (selectedTab === MenuTab.search) {
+      if (searchKeyword === "") {
+        setJourneys([]);
+      } else {
+        setJourneys(null);
+        fetchSearch(setJourneys, searchKeyword, setError);
+      }
     }
   }, [selectedTab, searchKeyword]);
 

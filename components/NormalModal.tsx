@@ -12,7 +12,7 @@ import { useJourneyNormal } from "@/context/JourneysNormal";
 
 const NormalModal = () => {
   const { dict } = useTranslation();
-  const { journeys, selectedTab, setSelectedTab, setJourneys } =
+  const { journeys, selectedTab, setSelectedTab } =
     useJourneyNormal();
 
   return (
@@ -24,7 +24,7 @@ const NormalModal = () => {
         className="w-[800px]"
         style={{ height: "calc(100vh - 50px)" }}
       >
-        <Tabs defaultValue={MenuTab.journey} className="flex flex-col">
+        <Tabs defaultValue={selectedTab} className="flex flex-col">
           <TabsList className="grid w-full grid-cols-3 bg-grayLight">
             <TabsTrigger
               value={MenuTab.journey}
@@ -48,7 +48,6 @@ const NormalModal = () => {
               value={MenuTab.search}
               onClick={() => {
                 setSelectedTab(MenuTab.search);
-                setJourneys([]);
               }}
               disabled={!journeys}
             >
