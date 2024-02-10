@@ -11,5 +11,6 @@
   "home.tabs.recently": "เร็วๆนี้",
   "home.tabs.search": "ค้นหา",
   "home.switch.button": "เปลี่ยนไปโหมดปกติ",
-  "home.SelectedPathModal.button": "ไปที่ path"
+  "home.SelectedPathModal.button": "ไปที่ path",
+  "path.general.error": "มีบางอย่างผิดพลาด"
 }

@@ -1,14 +1,13 @@
 import { GroupDisplay, GroupType } from "@/types/enum";
-import { getMockData } from "../mock/path";
 import { Micro, PathEdge, PathNode } from "@/types/path";
 import { MarkerType } from "reactflow";
+import { GroupData } from "@/types/type";
 
-export function getInitialNodesAndEdges(id: number) {
+export function getPathInitialNodesAndEdges(data: GroupData[]) {
   const initialNodes: PathNode[] = [];
   const initialEdges: PathEdge[] = [];
-  const mockData = getMockData();
 
-  mockData.groups.forEach((group) => {
+  data.forEach((group) => {
     const micros: Micro[] = [];
     group.micros.forEach((member) => {
       micros.push({
@@ -20,7 +19,7 @@ export function getInitialNodesAndEdges(id: number) {
     });
 
     const parents: string[] = [];
-    mockData.groups.forEach((g) => {
+    data.forEach((g) => {
       if (g.nexts.includes(group.id)) {
         parents.push(g.id);
       }
