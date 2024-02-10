@@ -24,7 +24,13 @@ const NormalModal = () => {
         className="w-[800px]"
         style={{ height: "calc(100vh - 50px)" }}
       >
-        <Tabs defaultValue={selectedTab} className="flex flex-col">
+        <Tabs
+          defaultValue={selectedTab}
+          className="flex flex-col"
+          onValueChange={() => {
+            setJourneys([]);
+          }}
+        >
           <TabsList className="grid w-full grid-cols-3 bg-grayLight">
             <TabsTrigger
               value={MenuTab.journey}
