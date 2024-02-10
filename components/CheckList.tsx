@@ -1,47 +1,78 @@
+"use client";
 import { ListTodo } from "lucide-react";
-import {
-  CheckListItem,
-  CheckListItemStatusEnum,
-  ICheckListItem
-} from "./CheckListItem";
+import { CheckListItem } from "./CheckListItem";
 import CheckListItemLoading from "./CheckListItemLoading";
+import { ScrollArea } from "./ui/scroll-area";
+import { useJourneyGraph } from "@/context/JourneysGraph";
+import { useTranslation } from "@/context/Translation";
+import { useEffect, useRef, useState } from "react";
+import { checkIsDataFieldsValid, cn } from "@/lib/utils";
+import { JourneyStoreData } from "@/types/type";
+import { MenuTab } from "@/types/enum";
 
 export interface ICheckListProps {
-  checkListItems: ICheckListItem[];
-  status: CheckListItemStatusEnum;
   className?: string;
 }
 
-export default function CheckList({
-  checkListItems,
-  status,
-  className
-}: ICheckListProps) {
+export default function CheckList({ className }: ICheckListProps) {
+  const { journeys, selectedTab, searchKeyword } = useJourneyGraph();
+  const { dict } = useTranslation();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isOverflow, setIsOverflow] = useState(false);
+  useEffect(() => {
+    if (containerRef.current) {
+      const elementHeight = containerRef.current.getBoundingClientRect().height;
+
+      setIsOverflow(elementHeight > 384);
+    }
+  }, [journeys]);
+
   return (
-    <div
-      className={`flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[250px] overflow-y-auto effect-default ${className}`}
-    >
-      <div className="flex items-center gap-x-1">
-        <ListTodo size={24} className="stroke-primary" />
-        <p className="Bold24 text-primary"> Checklist </p>
-      </div>
-      {status === CheckListItemStatusEnum.COMPLETED ? (
-        <div className="w-[200px] h-full flex justify-center items-center">
-          <p className="Reg12"> All Journeys are accomplished </p>
-        </div>
-      ) : status === CheckListItemStatusEnum.LOADING ? (
-        <CheckListItemLoading />
-      ) : (
-        checkListItems.map((checkListItem, index) => (
-          <CheckListItem
-            key={index}
-            journey={checkListItem.journey}
-            paths={checkListItem.paths}
-            progress={checkListItem.progress}
-            status={status}
-          />
-        ))
+    <ScrollArea
+      className={cn(
+        "h-96 w-full rounded-lg",
+        isOverflow ? "effect-default" : ""
       )}
-    </div>
+    >
+      <div
+        className={cn(
+          "flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[250px] overflow-y-auto effect-default",
+          className
+        )}
+        ref={containerRef}
+      >
+        <div className="flex items-center gap-x-1">
+          <ListTodo size={24} className="stroke-primary" />
+          <p className="Bold24 text-primary">{dict["home.checklist.title"]}</p>
+        </div>
+        {journeys && checkIfAllCompleted(journeys) ? (
+          <div className="w-[200px] h-full flex justify-center items-center">
+            <p className="Reg12"> {dict["home.checklist.complete"]} </p>
+          </div>
+        ) : (!journeys && selectedTab != MenuTab.search) ||
+          (!journeys &&
+            selectedTab == MenuTab.search &&
+            searchKeyword != "") ? (
+          <CheckListItemLoading />
+        ) : (
+          checkIsDataFieldsValid(journeys) &&
+          journeys!.data.map((journey, index) => (
+            <CheckListItem
+              key={index}
+              journeyName={journey.name}
+              paths={journey.paths.data.map((path) => path.name)}
+              progress={journey.progress}
+            />
+          ))
+        )}
+      </div>
+    </ScrollArea>
+  );
+}
+
+function checkIfAllCompleted(journeys: JourneyStoreData) {
+  return (
+    journeys.data && journeys.data.every((journey) => journey.progress === 100)
   );
 }

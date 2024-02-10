@@ -1,5 +1,5 @@
 import { GroupType, MicroType } from "@/types/enum";
-import { APIResponse, PathData } from "@/types/type";
+import { PathAPIResponse, PathData } from "@/types/type";
 
 const mockGroupDB: PathData = {
     id: "path-1",
@@ -166,7 +166,7 @@ const mockGroupDB: PathData = {
     ]
 }
 
-function mockPathAPI(id: number): Promise<APIResponse> {
+function mockPathAPI(id: number): Promise<PathAPIResponse> {
     if (id == 5) {
         return new Promise((resolve) => {
             setTimeout(() => {

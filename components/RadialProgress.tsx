@@ -1,4 +1,4 @@
-export interface IRadialProgressProps {
+export interface RadialProgressProps {
   progress: number;
   widthHeight: number;
   status?: "LOADING" | "SHOWN";
@@ -10,7 +10,7 @@ export function RadialProgress({
   widthHeight,
   status,
   className
-}: IRadialProgressProps) {
+}: RadialProgressProps) {
   const strokeWidth = 6;
   const radius = widthHeight / 2 - strokeWidth;
   const circumference = radius * 2 * Math.PI;
