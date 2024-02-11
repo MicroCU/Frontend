@@ -26,9 +26,9 @@ const mockGroupDB: PathData = {
     ],
     groups: [
         {
-            id: '1', name: 'Overviewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2', nexts: ['2', '3'], type: GroupType.Unordered,
+            id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
             micros: [
-                { id: '1', name: 'Overviewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww2', progress: 0, type: MicroType.Video },
+                { id: '1', name: 'Overview of the python to student who dont use it before', progress: 0, type: MicroType.Video },
             ]
         },
         {
@@ -80,7 +80,7 @@ const mockGroupDB: PathData = {
             micros: [
                 { id: '71', name: 'Python Final Test 1', progress: 10, type: MicroType.Video },
                 { id: '72', name: 'Python Final Test 2', progress: 40, type: MicroType.Video },
-                // { id: '73', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
+                { id: '73', name: 'Python Final Test 3', progress: 0, type: MicroType.Test },
             ]
         },
         {
@@ -88,13 +88,13 @@ const mockGroupDB: PathData = {
             micros: [
                 { id: '701', name: 'Python Midterm Test 1', progress: 20, type: MicroType.Video },
                 { id: '702', name: 'Python Final Test 2', progress: 60, type: MicroType.Video },
-                // { id: '703', name: 'Python Final Test 3', progress: 0, type: MicroNodeType.Test },
+                { id: '703', name: 'Python Final Test 3', progress: 0, type: MicroType.Test },
             ]
         },
         {
             id: '8', name: 'Comment 2 Long Long Long Long Long Long Long Long Long', nexts: ['10', '11'], type: GroupType.Ordered,
             micros: [
-                { id: '81', name: 'Comment 2', progress: 20, type: MicroType.Video },
+                { id: '81', name: 'Comment 2 Long Long Long Long Long Long Long Long', progress: 20, type: MicroType.Video },
                 { id: '82', name: 'Comment 3', progress: 40, type: MicroType.Video },
                 { id: '83', name: 'Comment 4', progress: 60, type: MicroType.Video },
                 { id: '84', name: 'Comment 5', progress: 100, type: MicroType.Video },
@@ -110,9 +110,9 @@ const mockGroupDB: PathData = {
             ]
         },
         {
-            id: '90', name: 'Operator *******************************', nexts: ['70'], type: GroupType.Unordered,
+            id: '90', name: 'Operator Funny JingJing', nexts: ['70'], type: GroupType.Unordered,
             micros: [
-                { id: '90', name: 'Operator *******************************', progress: 90, type: MicroType.Practice },
+                { id: '90', name: 'Operator Funny JingJing', progress: 90, type: MicroType.Practice },
             ]
         },
         {
@@ -120,15 +120,15 @@ const mockGroupDB: PathData = {
             micros: [
                 { id: '101', name: 'Lesson 1', progress: 0, type: MicroType.Video },
                 { id: '102', name: 'Lesson 2', progress: 0, type: MicroType.Video },
-                // { id: '103', name: 'Lesson 3', progress: 0, type: MicroType.Video },
+                { id: '103', name: 'Lesson 3', progress: 0, type: MicroType.Video },
             ]
         },
         {
             id: '11', name: 'Lesson * (Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)(Long)', nexts: ['12', '13'], type: GroupType.Unordered,
             micros: [
-                { id: '111', name: 'Lesson 1* longlonglonglonglonglong', progress: 0, type: MicroType.Video },
-                { id: '112', name: 'Lesson 2* longlonglonglonglonglong', progress: 0, type: MicroType.Video },
-                { id: '113', name: 'Lesson 3* longlonglonglonglonglong', progress: 0, type: MicroType.Video },
+                { id: '111', name: 'Lesson 1* longlong longlong longlong', progress: 0, type: MicroType.Video },
+                { id: '112', name: 'Lesson 2* longlong longlong longlong', progress: 0, type: MicroType.Video },
+                { id: '113', name: 'Lesson 3* longlong longlong longlong', progress: 0, type: MicroType.Video },
                 { id: '114', name: 'Lesson 4', progress: 50, type: MicroType.Video },
                 { id: '115', name: 'Lesson 5', progress: 70, type: MicroType.Video },
             ]
@@ -138,7 +138,7 @@ const mockGroupDB: PathData = {
             micros: [
                 { id: '121', name: 'Lesson 1 I', progress: 0, type: MicroType.Video },
                 { id: '122', name: 'Lesson 2 I', progress: 0, type: MicroType.Video },
-                // { id: '123', name: 'Lesson 3 I', progress: 0, type: MicroNodeType.VIDEO },
+                { id: '123', name: 'Lesson 3 I', progress: 0, type: MicroType.VIDEO },
             ]
         },
         {
@@ -150,9 +150,9 @@ const mockGroupDB: PathData = {
             ]
         },
         {
-            id: '14', name: 'Lesson IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', nexts: [], type: GroupType.Unordered,
+            id: '14', name: 'Lesson very very basic for you only', nexts: [], type: GroupType.Unordered,
             micros: [
-                { id: '14', name: 'Lesson 1 IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', progress: 0, type: MicroType.Test },
+                { id: '14', name: 'Lesson very very basic for you only', progress: 0, type: MicroType.Test },
             ]
         },
         {
@@ -188,7 +188,7 @@ function mockPathAPI(id: number): Promise<PathAPIResponse> {
                     path: mockGroupDB
                 }
             });
-        }, 2000);
+        }, 0);
     });
 }
 
