@@ -15,7 +15,7 @@ export default function PathItems({
   return (
     <div
       className={cn(
-        "flex flex-row justify-between items-center px-3 py-2 min-h-[35px]",
+        "flex flex-row justify-between items-center px-3 min-h-[35px]",
         isSelected
           ? "bg-primary text-white rounded-lg Medium16"
           : "Reg16 text-grayMain",

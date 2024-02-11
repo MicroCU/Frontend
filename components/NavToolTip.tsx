@@ -1,21 +1,38 @@
+"use client";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip";
+import { useTranslation } from "@/context/Translation";
+import { MenuTab } from "@/types/enum";
+import { ReactNode } from "react";
 
 export interface NavToolTipProps {
-  mainText: string;
-  subText: string;
+  children: ReactNode;
+  tooltipType: string;
 }
-export default function NavToolTip({ mainText, subText }: NavToolTipProps) {
+export default function NavToolTip({ children, tooltipType }: NavToolTipProps) {
+  const { dict } = useTranslation();
+  let tooltipShowText = "";
+  switch (tooltipType) {
+    case MenuTab.journey:
+      tooltipShowText = dict["home.tabs.journey"];
+      break;
+    case MenuTab.search:
+      tooltipShowText = dict["home.tabs.search"];
+      break;
+    case MenuTab.recently:
+      tooltipShowText = dict["home.tabs.recently"];
+      break;
+  }
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={0}>
-        <TooltipTrigger> {mainText} </TooltipTrigger>
+      <Tooltip delayDuration={100}>
+        <TooltipTrigger> {children} </TooltipTrigger>
         <TooltipContent side="right">
-          <p> {subText} </p>
+          <p> {tooltipShowText} </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
