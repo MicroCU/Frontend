@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Micro } from "@/types/path";
 
 interface MicroVideoProps {
@@ -13,9 +14,11 @@ export default function MicroVideo({
 }: MicroVideoProps) {
   return (
     <div
-      className={`${
-        isGroup ? "bg-grayLight" : "bg-white"
-      } relative w-fit h-fit rounded-lg ${className}`}
+      className={cn(
+        isGroup ? "bg-grayLight" : "bg-white",
+        "relative w-fit h-fit rounded-lg",
+        className
+      )}
     >
       <div className="w-fit h-full px-5 py-3 text-center Bold16 flex items-center justify-center max-w-52">
         <p className="break-words">{data.title}</p>

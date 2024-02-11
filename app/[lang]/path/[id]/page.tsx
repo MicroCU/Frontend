@@ -53,7 +53,7 @@ export default function Path({ params }: { params: { id: number } }) {
 
   return (
     <div className="overflow-y-scroll w-screen">
-      <div className="w-full">
+      <div className="w-full relative z-50">
         <PathDescription
           name={data.name}
           description={data.description}
