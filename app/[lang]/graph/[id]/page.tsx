@@ -1,5 +1,5 @@
 "use client";
-import DirectedGraph from "@/components/path";
+import DirectedGraph from "@/components/DirectedGraph";
 import { ReactFlowProvider } from "reactflow";
 import { getInitialNodesAndEdges } from "./api";
 

@@ -1,7 +1,7 @@
 "use client";
 import PathDescription from "@/components/PathDescription";
 import PathPageLoading from "@/components/PathPageLoading";
-import DirectedGraph from "@/components/path";
+import DirectedGraph from "@/components/DirectedGraph";
 import { toast } from "@/components/ui/use-toast";
 import { useTranslation } from "@/context/Translation";
 import { getMockData } from "@/mock/path_data";

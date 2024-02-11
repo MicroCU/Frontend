@@ -1,10 +1,5 @@
 import { GroupType, MicroType, PathStatus } from "./enum";
 
-export type TagProps = {
-  imageURL: string;
-  title: string;
-};
-
 export type User = {
   id: string;
   name: string;
@@ -93,26 +88,6 @@ export interface APIResponse {
   message?: string;
 }
 
-export interface Videodata {
-  title: string
-  link: string
-  decisionTitle: string
-}
-
-export interface DocumentData {
-  name: string
-  link: string
-}
-
-export interface MicroData {
-  id: string
-  name: string
-  progress: number
-  type: MicroType
-  video?: Videodata
-  documents?: DocumentData[]
-}
-
 export interface GroupData {
   id: string,
   name: string,
@@ -135,4 +110,15 @@ export interface PathAPIResponse {
     path: PathData
   }
   message?: string
+}
+
+export interface Videodata {
+  title: string
+  link: string
+  decisionTitle: string
+}
+
+export interface DocumentData {
+  name: string
+  link: string
 }

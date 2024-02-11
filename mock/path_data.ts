@@ -138,7 +138,7 @@ const mockGroupDB: PathData = {
             micros: [
                 { id: '121', name: 'Lesson 1 I', progress: 0, type: MicroType.Video },
                 { id: '122', name: 'Lesson 2 I', progress: 0, type: MicroType.Video },
-                { id: '123', name: 'Lesson 3 I', progress: 0, type: MicroType.VIDEO },
+                { id: '123', name: 'Lesson 3 I', progress: 0, type: MicroType.Video },
             ]
         },
         {

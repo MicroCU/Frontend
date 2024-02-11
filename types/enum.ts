@@ -1,7 +1,7 @@
 export enum MicroType {
-  VIDEO = "VIDEO",
-  PRACTICE = "PRACTICE",
-  TEST = "TEST"
+  Video = "Video",
+  Practice = "Practice",
+  Test = "Test"
 }
 
 export enum OnBoardMode {
@@ -38,10 +38,4 @@ export enum GroupDisplay {
   Single = "single",
   Ordered = "ordered",
   Unordered = "unordered"
-}
-
-export enum MicroType {
-  Video = "video",
-  Practice = "practice",
-  Test = "test"
 }
