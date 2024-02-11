@@ -1,11 +1,11 @@
 "use client";
-import { MicroData } from "@/types/type";
-import OverflowTooltip from "./OverflowTooltip";
-import { useRef } from "react";
 import { useOverflowDetection } from "@/hooks/Overflow";
+import { Micro } from "@/types/path";
+import { useRef } from "react";
+import OverflowTooltip from "./OverflowTooltip";
 
 interface MicroVideoProps {
-  data: MicroData;
+  data: Micro;
   isGroup: boolean;
   className?: string;
 }
@@ -16,20 +16,20 @@ export default function MicroVideo({
   className
 }: MicroVideoProps) {
   const containerOverflowRef = useRef<HTMLDivElement>(null);
-  const isOverflow = useOverflowDetection(containerOverflowRef, data.name);
+  const isOverflow = useOverflowDetection(containerOverflowRef, data.title);
   return (
     <div
       className={`${
         isGroup ? "bg-grayLight" : "bg-white"
       } relative w-fit h-fit rounded-lg ${className}`}
     >
-      <OverflowTooltip text={data.name} isOverflowing={isOverflow}>
+      <OverflowTooltip text={data.title} isOverflowing={isOverflow}>
         <div className="w-fit h-full px-5 py-3 text-center Bold16 flex items-center justify-center max-w-52">
           <p
             className="overflow-hidden whitespace-nowrap overflow-ellipsis"
             ref={containerOverflowRef}
           >
-            {data.name}
+            {data.title}
           </p>
         </div>
       </OverflowTooltip>
