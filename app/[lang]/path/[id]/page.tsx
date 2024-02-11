@@ -4,7 +4,7 @@ import PathPageLoading from "@/components/PathPageLoading";
 import DirectedGraph from "@/components/path";
 import { toast } from "@/components/ui/use-toast";
 import { useTranslation } from "@/context/Translation";
-import { getMockData } from "@/mock/path";
+import { getMockData } from "@/mock/path_data";
 import { PathData } from "@/types/type";
 import { getPathInitialNodesAndEdges } from "@/utils/path";
 import { useEffect, useRef, useState } from "react";
