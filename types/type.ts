@@ -1,5 +1,15 @@
 import { GroupType, MicroType, PathStatus } from "./enum";
 
+export type TagProps = {
+  imageURL: string;
+  title: string;
+};
+
+export type User = {
+  id: string;
+  name: string;
+};
+
 export type TagData = {
   id: string;
   name: string;
@@ -14,17 +24,17 @@ export interface MicroData {
 }
 
 export interface BriefPathInfo {
-  id: string
+  id: string;
   name: string;
   description: string;
   tags: TagData[];
   picture?: string;
-  status: PathStatus
+  status: PathStatus;
 }
 
 export interface UndirectedGraphNodeData {
-  status: PathStatus
-  pathInfo: BriefPathInfo
+  status: PathStatus;
+  pathInfo: BriefPathInfo;
 }
 
 export interface JourneyData {
@@ -34,7 +44,7 @@ export interface JourneyData {
   paths: {
     total: number;
     data: BriefPathInfo[];
-  },
+  };
 }
 
 export interface HomePageData {
@@ -42,7 +52,7 @@ export interface HomePageData {
   journeys: JourneyData[];
   relationships: {
     id: string;
-    neighbor: string[]
+    neighbor: string[];
   }[];
 }
 
@@ -51,7 +61,7 @@ export interface SearchPageData {
   data: BriefPathInfo[];
   relationships: {
     id: string;
-    neighbor: string[]
+    neighbor: string[];
   }[];
 }
 
@@ -60,7 +70,7 @@ export interface RecentlyPageData {
   data: BriefPathInfo[];
   relationships: {
     id: string;
-    neighbor: string[]
+    neighbor: string[];
   }[];
 }
 
@@ -68,13 +78,13 @@ export interface JourneyStoreData {
   data: JourneyData[];
   relationships: {
     id: string;
-    neighbor: string[]
+    neighbor: string[];
   }[];
 }
 
 export interface ErrorAPI {
-  status: number
-  message: string
+  status: number;
+  message: string;
 }
 
 export interface APIResponse {

@@ -20,7 +20,7 @@ const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
     <div className="flex  gap-4 cursor-pointer" onClick={handleRoute}>
       <div className="bg-primary min-w-[150px] h-[90px]">
         <img
-          src={imageURL}
+          src={imageURL ? imageURL : "/defaultVideoImage.svg"}
           alt="Video Thumbnail"
           className="w-full h-full object-cover"
         />

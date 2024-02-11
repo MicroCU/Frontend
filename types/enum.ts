@@ -9,6 +9,11 @@ export enum OnBoardMode {
   GOAL = "GOAL"
 }
 
+export enum VideoTabType {
+  PLAYLIST = "PLAYLIST",
+  FILE = "FILE",
+  HIDE = "HIDE"
+}
 export enum MenuTab {
   journey = "Journey",
   search = "Search",
