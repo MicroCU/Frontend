@@ -1,58 +1,48 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
 import { i18n } from "./i18n-config";
+import { cookies } from "next/headers";
+import { concatLocale } from "./lib/locale";
+import { NoAuthPath } from "./context/Auth";
+import { refreshAccessToken } from "./action/mcv";
 
-import { match as matchLocale } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
+export function middleware(req: NextRequest) {
+  const pathname = req.nextUrl.pathname;
 
-function getLocale(request: NextRequest): string {
-    const negotiatorHeaders: Record<string, string> = {};
-    request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
+  if (
+    [
+      "/cv-logo.png",
+      "/cu.svg",
+      "/chula.svg",
+      "/next.svg",
+      "/vercel.svg",
+      "/api"
+    ].includes(pathname)
+  )
+    return;
 
-    const locales: string[] = Array.from(i18n.locales);
+  // translation
+  const pathnameIsMissingLocale = i18n.locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  );
+  if (pathnameIsMissingLocale) {
+    return NextResponse.redirect(new URL(concatLocale(pathname, req)));
+  }
 
-    let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-        locales,
-    );
+  // auth
 
-    const locale = matchLocale(languages, locales, i18n.defaultLocale);
+  if (NoAuthPath.includes(pathname)) return;
+  const accessToken = cookies().get("access_token")?.value;
+  const refreshToken = cookies().get("refresh_token")?.value;
+  if (!accessToken) {
+    if (!refreshToken)
+      return NextResponse.redirect(new URL(concatLocale("/auth", req)));
 
-    return locale;
-}
-
-export function middleware(request: NextRequest) {
-    const pathname = request.nextUrl.pathname;
-
-    // Ignore files in `public` manually.
-    if (
-        [
-            '/chula.svg',
-            '/next.svg',
-            '/vercel.svg',
-            '/defaultVideoImage.svg',
-        ].includes(pathname)
-    )
-        return
-
-    const pathnameIsMissingLocale = i18n.locales.every(
-        (locale) =>
-            !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-    );
-
-    if (pathnameIsMissingLocale) {
-        const locale = getLocale(request);
-
-        return NextResponse.redirect(
-            new URL(
-                `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-                request.url,
-            ),
-        );
-    }
+    refreshAccessToken();
+  }
 }
 
 export const config = {
-    // Matcher ignoring `/_next/` and `/api/`
-    matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  // Matcher ignoring `/_next/` and `/api/`
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"]
 };
