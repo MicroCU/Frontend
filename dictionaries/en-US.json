@@ -11,12 +11,13 @@
   "home.tabs.recently": "Recently",
   "home.tabs.search": "Search",
   "home.switch.button": "Switch to Normal Mode",
-  "home.SelectedPathModal.button": "Go to path",
+  "home.selectedPathModal.button": "Go to path",
   "home.checklist.title": "Checklist",
   "home.checklist.complete": "All Journeys are accomplished",
   "home.searchbar.placeholder": "Search for paths",
   "home.searchbar.noresult": "No results found",
   "home.recently.noresult": "No recently paths",
   "home.general.error": "Uh oh! Something went wrong",
-  "path.general.error": "Something went wrong"
+  "path.general.error": "Something went wrong",
+  "path.button.back": "Back"
 }

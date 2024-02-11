@@ -4,9 +4,10 @@ import Tag from "./Tag";
 import { useTranslation } from "@/context/Translation";
 import { XCircle } from "lucide-react";
 import { useJourneyGraph } from "@/context/JourneysGraph";
+import Link from "next/link";
 
 const SelectedPathModal = () => {
-  const { dict } = useTranslation();
+  const { dict, lang } = useTranslation();
   const { selectedPath, setSelectedPath } = useJourneyGraph();
   if (!selectedPath) return null;
   return (
@@ -24,8 +25,10 @@ const SelectedPathModal = () => {
           {selectedPath.description}
         </h1>
         <div className="flex justify-end">
-          <Button className="w-fit">
-            {dict["home.SelectedPathModal.button"]}
+          <Button asChild className="w-fit">
+            <Link href={`/${lang}/path/${selectedPath.id}`}>
+              {dict["home.selectedPathModal.button"]}
+            </Link>
           </Button>
         </div>
       </div>

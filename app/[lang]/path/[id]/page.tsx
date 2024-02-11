@@ -10,7 +10,7 @@ import { getPathInitialNodesAndEdges } from "@/utils/path";
 import { useEffect, useRef, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
 
-export default function Path({ params }: { params: { id: number } }) {
+export default function Path({ params }: { params: { id: string } }) {
   const flowRef = useRef(null);
   const [data, setData] = useState<PathData | null>(null);
   const [error, setError] = useState<string | null>(null);

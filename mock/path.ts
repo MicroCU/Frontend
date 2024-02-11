@@ -166,8 +166,8 @@ const mockGroupDB: PathData = {
     ]
 }
 
-function mockPathAPI(id: number): Promise<PathAPIResponse> {
-    if (id == 5) {
+function mockPathAPI(id: string): Promise<PathAPIResponse> {
+    if (id == "error") {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve({
@@ -192,7 +192,7 @@ function mockPathAPI(id: number): Promise<PathAPIResponse> {
     });
 }
 
-export async function getMockData(id: number) {
+export async function getMockData(id: string) {
     let resp = await mockPathAPI(id);
     return resp;
 }
