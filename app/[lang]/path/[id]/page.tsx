@@ -9,6 +9,7 @@ import { PathData } from "@/types/type";
 import { getPathInitialNodesAndEdges } from "@/utils/path";
 import { useEffect, useRef, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
+import { updateRecentlyPath } from "@/action/path";
 
 export default function Path({ params }: { params: { id: string } }) {
   const flowRef = useRef(null);
@@ -30,6 +31,7 @@ export default function Path({ params }: { params: { id: string } }) {
     };
 
     fetchData();
+    updateRecentlyPath(params.id);
   }, []);
 
   useEffect(() => {
