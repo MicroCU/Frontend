@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Example() {
   const { lang, dict } = useTranslation();
   const { user } = useAuth();
-  console.log("[EXAMPLE] user: ", user);
+  if (!user) return null;
   return (
     <div>
       <LanguageSwitcher />

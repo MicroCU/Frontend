@@ -65,7 +65,7 @@ export const getAccessToken = async (oauthToken: string) => {
   return tokens;
 };
 
-export const getRefreshToken = async () => {
+export const refreshAccessToken = async () => {
   const refreshToken = cookies().get("refresh_token");
 
   if (!refreshToken) {
@@ -86,7 +86,6 @@ export const getRefreshToken = async () => {
   });
 
   const tokens: MCVRefreshTokenResponse = await res.json();
-  console.log(tokens);
   cookies().set("access_token", tokens.access_token, {
     expires: new Date(Date.now() + tokens.expires_in * 1000)
   });
@@ -110,7 +109,6 @@ export const getUserInfo = async () => {
   });
 
   const user: MCVUserInfoResponse = await res.json();
-  console.log(user);
   return user;
 };
 

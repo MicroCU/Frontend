@@ -4,6 +4,7 @@ import { i18n } from "./i18n-config";
 import { cookies } from "next/headers";
 import { concatLocale } from "./lib/locale";
 import { NoAuthPath } from "./context/Auth";
+import { refreshAccessToken } from "./action/mcv";
 
 export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
@@ -32,8 +33,12 @@ export function middleware(req: NextRequest) {
 
   if (NoAuthPath.includes(pathname)) return;
   const accessToken = cookies().get("access_token")?.value;
+  const refreshToken = cookies().get("refresh_token")?.value;
   if (!accessToken) {
-    return NextResponse.redirect(new URL(concatLocale("/auth", req)));
+    if (!refreshToken)
+      return NextResponse.redirect(new URL(concatLocale("/auth", req)));
+
+    refreshAccessToken();
   }
 }
 

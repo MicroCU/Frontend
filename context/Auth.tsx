@@ -31,13 +31,13 @@ export const useAuth = () => {
 };
 
 export const NoAuthPath = ["/th/auth", "/en/auth"];
-const userKey = "user";
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+
   const handleUpdateUser = async () => {
     if (NoAuthPath.includes(window.location.pathname)) return;
-    const stored = localStorage.getItem(userKey);
+    const stored = localStorage.getItem("user");
     if (stored) {
       setUser(JSON.parse(stored) ? JSON.parse(stored) : null);
       return;
@@ -45,17 +45,18 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       if (user === null) {
-        console.log("update user");
         const user = await getUserInfo();
+        const fullName = user.user.firstname_en + " " + user.user.lastname_en;
+
         setUser({
           id: user.user.id,
-          name: user.user.firstname_en + " " + user.user.lastname_en
+          name: fullName
         });
         localStorage.setItem(
-          userKey,
+          "user",
           JSON.stringify({
             id: user.user.id,
-            name: user.user.firstname_en + " " + user.user.lastname_en
+            name: fullName
           })
         );
       }

@@ -3,7 +3,12 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { authorize, getRefreshToken, getUserInfo, logout } from "@/action/mcv";
+import {
+  authorize,
+  refreshAccessToken,
+  getUserInfo,
+  logout
+} from "@/action/mcv";
 import { ReactNode } from "react";
 
 const LoginPanel = () => {
@@ -37,7 +42,7 @@ const LoginPanel = () => {
         <Separator className="my-4 bg-grayMedium" />
         <Button onClick={() => logout()}>Logout</Button>
         <Button onClick={() => getUserInfo()}>Get User</Button>
-        <Button onClick={() => getRefreshToken()}>Refresh Token</Button>
+        <Button onClick={() => refreshAccessToken()}>Refresh Token</Button>
       </div>
     </div>
   );
