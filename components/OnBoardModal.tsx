@@ -5,48 +5,34 @@ import OnBoardBtn from "./OnBoardBtn";
 import { Button } from "./ui/button";
 import Radio from "./Radio";
 import Checkbox from "./CheckBox";
-import { Answer } from "@/constants/onboard";
 import { useEffect } from "react";
 import { OnBoardMode } from "@/types/enum";
 import { useTranslation } from "@/context/Translation";
+import { useOnBoard } from "@/context/Onboard";
 
 type OnBoardModalProps =
   | {
       variant: "welcome";
-      addAnswer: (title: string, answer: string) => void;
-      onClick: () => void;
     }
   | {
       variant: "finish";
-      addAnswer: (title: string, answer: string) => void;
-      maxPage: number;
-      onClick: () => void;
     }
   | {
       variant: "radio";
       step: number;
       title: string;
       choices: string[];
-      addAnswer: (title: string, answer: string) => void;
-      onClick: () => void;
-      page: number;
-      maxPage: number;
-      answer: Answer;
     }
   | {
       variant: "checkbox";
       step: number;
       title: string;
       choices: string[];
-      addAnswer: (title: string, answer: string[]) => void;
-      onClick: () => void;
-      page: number;
-      maxPage: number;
-      answer: Answer;
     };
 
 const OnBoardModal = (props: OnBoardModalProps) => {
   const { dict } = useTranslation();
+  const { answer, addAnswer, page, maxPage, nextPage } = useOnBoard();
   const ModalBody = () => {
     switch (props.variant) {
       case "welcome":
@@ -64,8 +50,8 @@ const OnBoardModal = (props: OnBoardModalProps) => {
               <OnBoardBtn
                 text={dict["onboard.introduction.haveGoal"]}
                 onClick={() => {
-                  props.addAnswer("welcome", OnBoardMode.GOAL);
-                  props.onClick();
+                  addAnswer("welcome", OnBoardMode.GOAL);
+                  nextPage();
                 }}
               />
               <h1 className="text-grayMedium Bold24 text-center">
@@ -75,8 +61,8 @@ const OnBoardModal = (props: OnBoardModalProps) => {
               <OnBoardBtn
                 text={dict["onboard.introduction.noGoal"]}
                 onClick={() => {
-                  props.addAnswer("welcome", OnBoardMode.NOGOAL);
-                  props.onClick();
+                  addAnswer("welcome", OnBoardMode.NOGOAL);
+                  nextPage();
                 }}
               />
             </div>
@@ -85,10 +71,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
       case "finish":
         return (
           <>
-            <LinearProgressBar
-              currSteps={props.maxPage}
-              maxSteps={props.maxPage}
-            />
+            <LinearProgressBar currSteps={maxPage} maxSteps={maxPage} />
             <div className="space-y-8 flex flex-col items-center p-[40px] ">
               <CheckCircle className="text-success w-20 h-20" />
               <div className="space-y-4">
@@ -103,7 +86,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
               <Button
                 className="w-fit"
                 onClick={() => {
-                  props.onClick();
+                  nextPage();
                   // window.location.href = Route.LANDING;
                 }}
               >
@@ -115,10 +98,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
       case "radio":
         return (
           <>
-            <LinearProgressBar
-              currSteps={props.page}
-              maxSteps={props.maxPage}
-            />
+            <LinearProgressBar currSteps={page} maxSteps={maxPage} />
             <h1 className="text-grayMain Bold32">{props.title}</h1>
             <div className="space-y-6 max-h-[200px] overflow-y-auto">
               {props.choices.map((c, index) => {
@@ -127,8 +107,8 @@ const OnBoardModal = (props: OnBoardModalProps) => {
                     key={index}
                     name={props.title}
                     title={c}
-                    checked={props.answer[props.title] === c}
-                    onSelect={() => props.addAnswer(props.title, c)}
+                    checked={answer[props.title] === c}
+                    onSelect={() => addAnswer(props.title, c)}
                   />
                 );
               })}
@@ -136,24 +116,14 @@ const OnBoardModal = (props: OnBoardModalProps) => {
             <Button
               className="w-fit self-end Bold16 text-grayMain"
               variant="ghost"
-              onClick={props.onClick}
+              onClick={nextPage}
             >
               Skip
             </Button>
           </>
         );
       case "checkbox":
-        return (
-          <CheckBoxBody
-            title={props.title}
-            choices={props.choices}
-            answer={props.answer}
-            addAnswer={props.addAnswer}
-            onClick={props.onClick}
-            page={props.page}
-            maxPage={props.maxPage}
-          />
-        );
+        return <CheckBoxBody title={props.title} choices={props.choices} />;
     }
   };
 
@@ -185,23 +155,20 @@ const OnBoardModalContainer = ({ children }: OnBoardModalContainerProps) => {
 type CheckBoxBodyProps = {
   title: string;
   choices: string[];
-  answer: Answer;
-  addAnswer: (title: string, answer: string[]) => void;
-  onClick: () => void;
-  page: number;
-  maxPage: number;
 };
 
 const CheckBoxBody = (props: CheckBoxBodyProps) => {
+  const { answer, addAnswer, page, nextPage, maxPage } = useOnBoard();
+
   useEffect(() => {
-    if (!props.answer[props.title]) {
-      props.addAnswer(props.title, []);
+    if (!answer[props.title]) {
+      addAnswer(props.title, []);
     }
-  }, [props]);
+  }, [addAnswer, answer, props.title]);
 
   return (
     <>
-      <LinearProgressBar currSteps={props.page} maxSteps={props.maxPage} />
+      <LinearProgressBar currSteps={page} maxSteps={maxPage} />
       <h1 className="text-grayMain Bold32">{props.title}</h1>
       <div className="grid grid-cols-2 gap-y-4 gap-x-6 max-h-[200px] overflow-y-auto">
         {props.choices.map((c, index) => {
@@ -209,18 +176,18 @@ const CheckBoxBody = (props: CheckBoxBodyProps) => {
             <Checkbox
               key={index}
               title={c}
-              checked={props.answer[props.title]?.includes(c) || false}
+              checked={answer[props.title]?.includes(c) || false}
               onCheck={() => {
-                if (props.answer[props.title].includes(c)) {
-                  props.addAnswer(
+                if (answer[props.title].includes(c)) {
+                  addAnswer(
                     props.title,
-                    (props.answer[props.title] as string[]).filter(
+                    (answer[props.title] as string[]).filter(
                       (item) => item !== c
                     )
                   );
                 } else {
-                  props.addAnswer(props.title, [
-                    ...(props.answer[props.title] as string[]),
+                  addAnswer(props.title, [
+                    ...(answer[props.title] as string[]),
                     c
                   ]);
                 }
@@ -232,7 +199,7 @@ const CheckBoxBody = (props: CheckBoxBodyProps) => {
       <Button
         className="w-fit self-end Bold16 text-grayMain"
         variant="ghost"
-        onClick={props.onClick}
+        onClick={nextPage}
       >
         Skip
       </Button>
