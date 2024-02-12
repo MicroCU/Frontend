@@ -1,25 +1,26 @@
-import { mockData } from "@/mock/path";
+import { GroupDisplay, GroupType } from "@/types/enum";
 import { Micro, PathEdge, PathNode } from "@/types/path";
 import { MarkerType } from "reactflow";
+import { GroupData } from "@/types/type";
 
-export function getInitialNodesAndEdges(id: number) {
+export function getPathInitialNodesAndEdges(data: GroupData[]) {
   const initialNodes: PathNode[] = [];
   const initialEdges: PathEdge[] = [];
 
-  mockData[id].groups.forEach((group) => {
+  data.forEach((group) => {
     const micros: Micro[] = [];
     group.micros.forEach((member) => {
       micros.push({
         id: member.id,
-        title: member.title,
+        title: member.name,
         progress: member.progress,
         type: member.type
       });
     });
 
     const parents: string[] = [];
-    mockData[id].groups.forEach((g) => {
-      if (g.next.includes(group.id)) {
+    data.forEach((g) => {
+      if (g.nexts.includes(group.id)) {
         parents.push(g.id);
       }
     });
@@ -28,7 +29,7 @@ export function getInitialNodesAndEdges(id: number) {
       id: group.id,
       data: {
         id: group.id,
-        next: group.next,
+        next: group.nexts,
         type: group.type,
         name: group.name,
         micros: micros,
@@ -37,11 +38,16 @@ export function getInitialNodesAndEdges(id: number) {
         level: 0
       },
       position: { x: 0, y: 0 },
-      draggable: true,
-      type: group.type
+      draggable: false,
+      type:
+        group.micros.length == 1
+          ? GroupDisplay.Single
+          : group.type == GroupType.Ordered
+          ? GroupDisplay.Ordered
+          : GroupDisplay.Unordered
     });
 
-    group.next.forEach((nextId) => {
+    group.nexts.forEach((nextId) => {
       initialEdges.push({
         id: `edge-${group.id}-${nextId}`,
         source: group.id,

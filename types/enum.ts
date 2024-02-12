@@ -1,7 +1,7 @@
 export enum MicroType {
-  VIDEO = "VIDEO",
-  PRACTICE = "PRACTICE",
-  TEST = "TEST"
+  Video = "Video",
+  Practice = "Practice",
+  Test = "Test"
 }
 
 export enum OnBoardMode {
@@ -28,4 +28,14 @@ export enum PathStatus {
 
 export enum UndirectedNodeType {
   CircularNode = "circularNode",
+}
+export enum GroupType {
+  Ordered = "ordered",
+  Unordered = "unordered"
+}
+
+export enum GroupDisplay {
+  Single = "single",
+  Ordered = "ordered",
+  Unordered = "unordered"
 }

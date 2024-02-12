@@ -1,8 +1,8 @@
 "use client";
-import { useOverflowDetection } from "@/hooks/Overflow";
+import { useTranslation } from "@/context/Translation";
+import { cn } from "@/lib/utils";
 import { Micro } from "@/types/path";
-import { useRef } from "react";
-import OverflowTooltip from "./OverflowTooltip";
+import Link from "next/link";
 
 interface MicroVideoProps {
   data: Micro;
@@ -15,30 +15,26 @@ export default function MicroVideo({
   isGroup,
   className
 }: MicroVideoProps) {
-  const containerOverflowRef = useRef<HTMLDivElement>(null);
-  const isOverflow = useOverflowDetection(containerOverflowRef, data.title);
+  const { lang } = useTranslation();
   return (
-    <div
-      className={`${
-        isGroup ? "bg-grayLight" : "bg-white"
-      } relative w-fit h-fit rounded-lg ${className}`}
-    >
-      <OverflowTooltip text={data.title} isOverflowing={isOverflow}>
+    <Link href={`/${lang}/video/${data.id}`}>
+      <div
+        className={cn(
+          isGroup ? "bg-grayLight" : "bg-white",
+          "relative w-fit h-fit rounded-lg",
+          className
+        )}
+      >
         <div className="w-fit h-full px-5 py-3 text-center Bold16 flex items-center justify-center max-w-52">
-          <p
-            className="overflow-hidden whitespace-nowrap overflow-ellipsis"
-            ref={containerOverflowRef}
-          >
-            {data.title}
-          </p>
+          <p className="break-words">{data.title}</p>
         </div>
-      </OverflowTooltip>
-      {data.progress > 0 && data.progress <= 100 && (
-        <div
-          className="absolute bottom-0 left-0 h-1 bg-primary"
-          style={{ width: data.progress + "%" }}
-        ></div>
-      )}
-    </div>
+        {data.progress > 0 && data.progress <= 100 && (
+          <div
+            className="absolute bottom-0 left-0 h-1 bg-primary"
+            style={{ width: data.progress + "%" }}
+          ></div>
+        )}
+      </div>
+    </Link>
   );
 }
