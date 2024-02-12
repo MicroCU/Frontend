@@ -1,3 +1,5 @@
+"use client";
+import { useTranslation } from "@/context/Translation";
 import { cn } from "@/lib/utils";
 import { Micro } from "@/types/path";
 import Link from "next/link";
@@ -13,8 +15,9 @@ export default function MicroVideo({
   isGroup,
   className
 }: MicroVideoProps) {
+  const { lang } = useTranslation();
   return (
-    <Link href={`/video/${data.id}`}>
+    <Link href={`/${lang}/video/${data.id}`}>
       <div
         className={cn(
           isGroup ? "bg-grayLight" : "bg-white",

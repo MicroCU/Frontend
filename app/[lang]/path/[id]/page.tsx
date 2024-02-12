@@ -61,11 +61,7 @@ export default function Path({ params }: { params: { id: string } }) {
           tags={data.tags}
         />
       </div>
-      <div
-        ref={flowRef}
-        className="w-screen bg-graySmall"
-        style={{ height: "100vh" }}
-      >
+      <div ref={flowRef} className="w-screen bg-graySmall h-screen">
         <ReactFlowProvider>
           <DirectedGraph
             flowRef={flowRef}
