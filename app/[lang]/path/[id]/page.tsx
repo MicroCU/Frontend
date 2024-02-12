@@ -4,12 +4,11 @@ import PathPageLoading from "@/components/PathPageLoading";
 import DirectedGraph from "@/components/DirectedGraph";
 import { toast } from "@/components/ui/use-toast";
 import { useTranslation } from "@/context/Translation";
-import { getMockData } from "@/mock/path_data";
 import { PathData } from "@/types/type";
 import { getPathInitialNodesAndEdges } from "@/utils/path";
 import { useEffect, useRef, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
-import { updateRecentlyPath } from "@/action/path";
+import { fetchPath, updateRecentlyPath } from "@/action/path";
 
 export default function Path({ params }: { params: { id: string } }) {
   const flowRef = useRef(null);
@@ -19,7 +18,7 @@ export default function Path({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getMockData(params.id);
+        const response = await fetchPath(params.id);
         if (response.status != 200) {
           setError(response.message ? response.message : "Error fetching data");
           return;
