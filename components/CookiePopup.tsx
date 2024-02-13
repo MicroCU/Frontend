@@ -5,27 +5,41 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { hasCookie, setCookie } from "cookies-next";
 
 let Readmore = "https://www.google.com/";
 
 interface CookiePopupProps {
-  isAccept: boolean;
+  className?: string;
 }
 
-const CookiePopup = ({ isAccept }: CookiePopupProps) => {
-  const router = useRouter();
+const CookiePopup = ({ className }: CookiePopupProps) => {
+  const [isAccept, setIsAccept] = useState(true);
 
-  const cookieHandler = () => {
-    let cookie = "isAccept=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-    document.cookie = cookie;
-    router.refresh();
+  useEffect(() => {
+    setIsAccept(hasCookie("isCookieAccept"));
+  }, []);
+
+  const acceptCookie = () => {
+    setIsAccept(true);
+    setCookie("isCookieAccept", "true", {});
   };
 
   return (
-    <div className={cn("absolute w-full bottom-0", isAccept && "hidden")}>
+    <div
+      className={cn(
+        "absolute w-full bottom-0",
+        isAccept && "hidden",
+        className
+      )}
+    >
       <div className="bg-white mx-auto max-w-[640px] rounded-t-lg px-4 py-6 shadow-lg Reg12">
         <div className="flex gap-4">
-          <p>MicroCU uses cookies to let you login and analyze web traffic.</p>
+          <p>
+            <span className="Bold12">MicroCU</span> uses cookies to let you
+            login and analyze web traffic.
+          </p>
           <a href={Readmore} target="_blank" className="text-primary ">
             Read more.
           </a>
@@ -34,7 +48,7 @@ const CookiePopup = ({ isAccept }: CookiePopupProps) => {
           <div className="flex justify-between">
             <p className="flex gap-2 items-center">
               <Cookie />
-              Necessary cookies
+              <span className="Bold12">Necessary cookies</span>
             </p>
             <p className="text-success">Required</p>
           </div>
@@ -46,7 +60,7 @@ const CookiePopup = ({ isAccept }: CookiePopupProps) => {
         </div>
 
         <div className="flex justify-end gap-2">
-          <Button variant={"container"} onClick={cookieHandler}>
+          <Button variant={"container"} onClick={acceptCookie}>
             Accept all cookies
           </Button>
           {/* <Button variant={"secondary"}>Decline</Button> */}
