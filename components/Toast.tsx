@@ -7,7 +7,7 @@ export enum ToastTypeEnum {
   ERROR = "ERROR",
   INFO = "INFO"
 }
-export interface IToastProps {
+export interface ToastProps {
   title?: string;
   message: string;
   type: ToastTypeEnum;
@@ -19,7 +19,7 @@ export default function Toast({
   message,
   type,
   buttonTitle
-}: IToastProps) {
+}: ToastProps) {
   const { toast } = useToast();
   return (
     <Button

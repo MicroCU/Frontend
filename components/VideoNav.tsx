@@ -1,31 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import VideoIcon from "./VideoIcon";
 import VideoTitle from "./VideoTitle";
+import { cn } from "@/lib/utils";
+import { VideoTabType } from "@/types/enum";
 
 interface VideoNavProps {
   videoName: string;
+  currentTab: VideoTabType;
+  videoTabHandle: (currentTab: VideoTabType) => void;
   className?: string;
 }
 
-const VideoNav: React.FC<VideoNavProps> = ({ videoName, className }) => {
-  const [isPlaylistSelected, setIsPlaylistSelected] = useState<boolean>(false);
-  const [isFileSelected, setIsFileSelected] = useState<boolean>(false);
-
+const VideoNav: React.FC<VideoNavProps> = ({
+  videoName,
+  currentTab,
+  videoTabHandle,
+  className
+}) => {
   return (
-    <div className={`${className} flex w-full justify-between p-8`}>
+    <div className={cn("flex w-full justify-between p-8 relative", className)}>
       <VideoTitle videoName={videoName} />
       <div className="flex items-center gap-8">
         <VideoIcon
-          isSelected={isPlaylistSelected}
-          setIsSelected={setIsPlaylistSelected}
-          type="playlist"
+          currentTab={currentTab}
+          videoTabHandle={videoTabHandle}
+          type={VideoTabType.PLAYLIST}
         />
         <VideoIcon
-          isSelected={isFileSelected}
-          setIsSelected={setIsFileSelected}
-          type="file"
+          currentTab={currentTab}
+          videoTabHandle={videoTabHandle}
+          type={VideoTabType.FILE}
         />
       </div>
     </div>

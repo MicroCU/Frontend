@@ -12,6 +12,7 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ fileName, fileUrl }) => {
     const link = document.createElement("a");
     link.href = fileUrl;
     link.download = fileName;
+    link.target = "_blank";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -15,8 +16,14 @@ const VideoTitle: React.FC<VideoTitleProps> = ({ videoName, className }) => {
   };
 
   return (
-    <div className={`${className} flex items-center gap-6`}>
-      <ChevronLeft className="cursor-pointer" size={38} color="#ffffff" strokeWidth={3} onClick={handleGoBack}/>
+    <div className={cn("flex items-center gap-6", className)}>
+      <ChevronLeft
+        className="cursor-pointer"
+        size={38}
+        color="#ffffff"
+        strokeWidth={3}
+        onClick={handleGoBack}
+      />
       <p className="Bold32 text-white">{videoName}</p>
     </div>
   );
