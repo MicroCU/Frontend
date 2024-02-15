@@ -18,8 +18,7 @@ import ReactFlow, {
   useNodesInitialized,
   useNodesState,
   useReactFlow,
-  Node,
-  useStoreApi
+  Node
 } from "reactflow";
 import "reactflow/dist/style.css";
 import OrderedGroup from "./OrderNode";
@@ -121,15 +120,11 @@ export default function DirectedGraph({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodesInitialized, reactFlow]);
 
-  const store = useStoreApi();
   const { setCenter } = useReactFlow();
   const { height } = useScreenSize();
 
   useEffect(() => {
     const focusNode = () => {
-      const { nodeInternals } = store.getState();
-      const nodes = Array.from(nodeInternals).map(([, node]) => node);
-
       if (nodes.length > 0) {
         const node = findRootNode(initialNodes, nodes);
 
@@ -145,7 +140,7 @@ export default function DirectedGraph({
     };
 
     focusNode();
-  }, [nodes, setCenter, store, height, initialNodes]);
+  }, [nodes, setCenter, height, initialNodes]);
 
   return (
     <>
