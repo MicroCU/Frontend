@@ -80,7 +80,8 @@ export default function OverviewFlow({
 
       reactFlow.setCenter(
         selectedNode.position.x + currentNodeRadius,
-        selectedNode.position.y + currentNodeRadius
+        selectedNode.position.y + currentNodeRadius,
+        { duration: 1000 }
       );
 
       setPrevCurrent({
