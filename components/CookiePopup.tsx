@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { hasCookie, setCookie } from "cookies-next";
+import { Switch } from "./ui/switch";
 
 let Readmore = "https://www.google.com/";
 
@@ -50,7 +51,7 @@ const CookiePopup = ({ className }: CookiePopupProps) => {
               <Cookie />
               <span className="Bold12">Necessary cookies</span>
             </p>
-            <p className="text-success">Required</p>
+            <Switch disabled={true} defaultChecked={true}/>
           </div>
           <Separator className="my-2 bg-graySmall" />
           <p>
