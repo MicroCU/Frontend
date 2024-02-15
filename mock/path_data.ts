@@ -25,6 +25,97 @@ const mockGroupDB: PathData = {
         }
     ],
     groups: [
+        // CASE 1: SIMPLE
+        // {
+        //     id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
+        //     micros: [
+        //         { id: '1', name: 'Overview of the python to student who dont use it before', progress: 0, type: MicroType.Video },
+        //     ]
+        // },
+        // {
+        //     id: '2', name: 'Comment', nexts: ['4'], type: GroupType.Unordered,
+        //     micros: [
+        //         { id: '21', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '22', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '23', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // {
+        //     id: '3', name: 'Syntax - 2', nexts: [], type: GroupType.Unordered,
+        //     micros: [
+        //         { id: '3', name: 'Syntax - 2', progress: 40, type: MicroType.Video }
+        //     ]
+        // },
+        // {
+        //     id: '4', name: 'Comment', nexts: ['5'], type: GroupType.Ordered,
+        //     micros: [
+        //         { id: '41', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '42', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '43', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // {
+        //     id: '5', name: 'Comment', nexts: [], type: GroupType.Ordered,
+        //     micros: [
+        //         { id: '51', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '52', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '53', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // CASE 3: MEDIUM
+        // {
+        //     id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
+        //     micros: [
+        //         { id: '1', name: 'Overview of the python to student who dont use it before', progress: 0, type: MicroType.Video },
+        //     ]
+        // },
+        // {
+        //     id: '2', name: 'Comment', nexts: ['4'], type: GroupType.Unordered,
+        //     micros: [
+        //         { id: '21', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '22', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '23', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // {
+        //     id: '3', name: 'Syntax - 2', nexts: [], type: GroupType.Unordered,
+        //     micros: [
+        //         { id: '3', name: 'Syntax - 2', progress: 40, type: MicroType.Video }
+        //     ]
+        // },
+        // {
+        //     id: '4', name: 'Comment', nexts: ['5'], type: GroupType.Ordered,
+        //     micros: [
+        //         { id: '41', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '42', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '43', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // {
+        //     id: '5', name: 'Comment', nexts: ['6', '7'], type: GroupType.Ordered,
+        //     micros: [
+        //         { id: '51', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '52', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '53', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // {
+        //     id: '6', name: 'Comment', nexts: [], type: GroupType.Ordered,
+        //     micros: [
+        //         { id: '61', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '62', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '63', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // {
+        //     id: '7', name: 'Comment', nexts: [], type: GroupType.Ordered,
+        //     micros: [
+        //         { id: '71', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+        //         { id: '72', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+        //         { id: '73', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+        //     ]
+        // },
+        // CASE 2: ADVANCED
         {
             id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
             micros: [

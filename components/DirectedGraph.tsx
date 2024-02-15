@@ -1,5 +1,5 @@
 "use client";
-import { PathEdge, PathNode } from "@/types/path";
+import { Group, PathEdge, PathNode } from "@/types/path";
 import {
   attractionForce,
   calculateForce,
@@ -14,17 +14,19 @@ import ReactFlow, {
   BackgroundVariant,
   ConnectionLineType,
   Controls,
-  getNodesBounds,
   useEdgesState,
   useNodesInitialized,
   useNodesState,
-  useReactFlow
+  useReactFlow,
+  Node,
+  useStoreApi
 } from "reactflow";
 import "reactflow/dist/style.css";
 import OrderedGroup from "./OrderNode";
 import SingleGroup from "./SingleNode";
 import UnorderedGroup from "./UnorderNode";
 import { GroupDisplay } from "@/types/enum";
+import { useScreenSize } from "@/context/ScreenWidthHeight";
 
 const nodeTypes = {
   [GroupDisplay.Single]: SingleGroup,
@@ -33,11 +35,9 @@ const nodeTypes = {
 };
 
 export default function DirectedGraph({
-  flowRef,
   initialNodes,
   initialEdges
 }: {
-  flowRef: React.MutableRefObject<HTMLDivElement | null>;
   initialNodes: PathNode[];
   initialEdges: PathEdge[];
 }) {
@@ -118,10 +118,34 @@ export default function DirectedGraph({
     }
     setNodes([...nodes]);
 
-    const bounds = getNodesBounds([...nodes]);
-    reactFlow.fitBounds(bounds);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodesInitialized, reactFlow]);
+
+  const store = useStoreApi();
+  const { setCenter } = useReactFlow();
+  const { height } = useScreenSize();
+
+  useEffect(() => {
+    const focusNode = () => {
+      const { nodeInternals } = store.getState();
+      const nodes = Array.from(nodeInternals).map(([, node]) => node);
+
+      if (nodes.length > 0) {
+        const node = findRootNode(initialNodes, nodes);
+
+        let nodeWidth = node.width || 0;
+        const paddingTop = 20;
+
+        const x = node.position.x + nodeWidth / 2;
+        const y = node.position.y + height / 2 - paddingTop;
+        const zoom = 1;
+
+        setCenter(x, y, { zoom, duration: 1000 });
+      }
+    };
+
+    focusNode();
+  }, [nodes, setCenter, store, height, initialNodes]);
 
   return (
     <>
@@ -135,11 +159,24 @@ export default function DirectedGraph({
         minZoom={0}
         preventScrolling={false}
         panOnDrag={true}
-        fitView
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
         <Controls position="top-left" />
       </ReactFlow>
     </>
   );
+}
+
+function findRootNode(
+  initialNodes: PathNode[],
+  nodes: Node<Group, string | undefined>[]
+): Node<Group, string | undefined> {
+  let filter = initialNodes.find((node) => node.data.level === 0);
+  if (!filter) {
+    return nodes[0];
+  }
+  return nodes.find((node) => node.id === filter?.id) as Node<
+    Group,
+    string | undefined
+  >;
 }
