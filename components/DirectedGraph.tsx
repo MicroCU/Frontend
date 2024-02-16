@@ -35,10 +35,12 @@ const nodeTypes = {
 
 export default function DirectedGraph({
   initialNodes,
-  initialEdges
+  initialEdges,
+  initialViewport
 }: {
   initialNodes: PathNode[];
   initialEdges: PathEdge[];
+  initialViewport?: { x: number | null; y: number | null; zoom: number | null };
 }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -125,6 +127,23 @@ export default function DirectedGraph({
 
   useEffect(() => {
     const focusNode = () => {
+      if (
+        initialViewport &&
+        initialViewport.x &&
+        initialViewport.y &&
+        initialViewport.zoom
+      ) {
+        const { x, y, zoom } = initialViewport;
+        reactFlow.setViewport(
+          {
+            x,
+            y,
+            zoom
+          },
+          { duration: 1000 }
+        );
+        return;
+      }
       if (nodes.length > 0) {
         const node = findRootNode(initialNodes, nodes);
 
@@ -140,7 +159,7 @@ export default function DirectedGraph({
     };
 
     focusNode();
-  }, [nodes, setCenter, height, initialNodes]);
+  }, [nodes, setCenter, height, initialNodes, initialViewport]);
 
   return (
     <>

@@ -12,7 +12,23 @@ interface VideoTitleProps {
 const VideoTitle: React.FC<VideoTitleProps> = ({ videoName, className }) => {
   const router = useRouter();
   const handleGoBack = () => {
-    router.back();
+    const pathData = localStorage.getItem("pathData");
+    if (!pathData) {
+      router.push("/");
+      return;
+    }
+
+    var path: {
+      viewport: { x: number; y: number; zoom: number };
+      pathName: string;
+    } = JSON.parse(pathData);
+    if (path.viewport) {
+      router.push(
+        `${path.pathName}?x=${path.viewport.x}&y=${path.viewport.y}&zoom=${path.viewport.zoom}`
+      );
+      return;
+    }
+    router.push(path.pathName ? path.pathName : "/");
   };
 
   return (

@@ -10,11 +10,18 @@ import { useEffect, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
 import { fetchPath, updateRecentlyPath } from "@/action/path";
 import { ScreenSizeProvider } from "@/context/ScreenWidthHeight";
+import { useSearchParams } from "next/navigation";
 
 export default function Path({ params }: { params: { id: string } }) {
   const [data, setData] = useState<PathData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { dict } = useTranslation();
+
+  const searchParams = useSearchParams();
+  const x = searchParams.get("x");
+  const y = searchParams.get("y");
+  const zoom = searchParams.get("zoom");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,6 +74,11 @@ export default function Path({ params }: { params: { id: string } }) {
             <DirectedGraph
               initialNodes={initialNodes}
               initialEdges={initialEdges}
+              initialViewport={{
+                x: x ? parseFloat(x) : null,
+                y: y ? parseFloat(y) : null,
+                zoom: zoom ? parseFloat(zoom) : null
+              }}
             />
           </ReactFlowProvider>
         </div>
