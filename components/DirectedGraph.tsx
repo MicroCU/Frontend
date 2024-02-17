@@ -126,39 +126,35 @@ export default function DirectedGraph({
   const { height } = useScreenSize();
 
   useEffect(() => {
-    const focusNode = () => {
-      if (
-        initialViewport &&
-        initialViewport.x &&
-        initialViewport.y &&
-        initialViewport.zoom
-      ) {
-        const { x, y, zoom } = initialViewport;
-        reactFlow.setViewport(
-          {
-            x,
-            y,
-            zoom
-          },
-          { duration: 1000 }
-        );
-        return;
-      }
-      if (nodes.length > 0) {
-        const node = findRootNode(initialNodes, nodes);
+    if (
+      initialViewport &&
+      initialViewport.x &&
+      initialViewport.y &&
+      initialViewport.zoom
+    ) {
+      const { x, y, zoom } = initialViewport;
+      reactFlow.setViewport(
+        {
+          x,
+          y,
+          zoom
+        },
+        { duration: 1000 }
+      );
+      return;
+    }
+    if (nodes.length > 0) {
+      const node = findRootNode(initialNodes, nodes);
 
-        let nodeWidth = node.width || 0;
-        const paddingTop = 20;
+      let nodeWidth = node.width || 0;
+      const paddingTop = 20;
 
-        const x = node.position.x + nodeWidth / 2;
-        const y = node.position.y + height / 2 - paddingTop;
-        const zoom = 1;
+      const x = node.position.x + nodeWidth / 2;
+      const y = node.position.y + height / 2 - paddingTop;
+      const zoom = 1;
 
-        setCenter(x, y, { zoom, duration: 1000 });
-      }
-    };
-
-    focusNode();
+      setCenter(x, y, { zoom, duration: 1000 });
+    }
   }, [nodes, setCenter, height, initialNodes, initialViewport, reactFlow]);
 
   return (
