@@ -68,6 +68,7 @@ export default function Path({ params }: { params: { id: string } }) {
             description={data.description}
             tags={data.tags}
           />
+          <div className="flex bg-success justify-center items-center"> 1 </div>
         </div>
         <div className="w-screen bg-graySmall h-screen">
           <ReactFlowProvider>
