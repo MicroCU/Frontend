@@ -25,7 +25,7 @@ export default function MicroVideo({
     localStorage.setItem(
       "pathData",
       JSON.stringify({
-        viewport: { x: x, y: y, zoom: zoom },
+        viewport: { id: data.id, x: x, y: y, zoom: zoom },
         pathName: pathName
       })
     );

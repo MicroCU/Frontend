@@ -16,13 +16,17 @@ const VideoTitle: React.FC<VideoTitleProps> = ({ videoName, className }) => {
     const pathData = localStorage.getItem("pathData");
 
     var path: {
-      viewport: { x: number; y: number; zoom: number };
+      viewport: { id: string; x: number; y: number; zoom: number };
       pathName: string;
     } = JSON.parse(pathData || "{}");
 
     const pathSegments = pathName.split("/"); // ["", "en", "path", "1-p3", "video", "3"]
     const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}`; // /en/path/1-p3
-    if (desiredPathUrl !== path.pathName) {
+    const desiredVideoId = pathSegments[5];
+    if (
+      desiredPathUrl !== path.pathName ||
+      desiredVideoId !== path.viewport.id
+    ) {
       router.push(desiredPathUrl);
       return;
     }
