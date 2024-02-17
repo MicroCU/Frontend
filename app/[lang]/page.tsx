@@ -6,6 +6,7 @@ import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
 import { JourneyGraphContextProvider } from "@/context/JourneysGraph";
 import Flow from "@/components/undirectedGraph/Flow";
+import CookiePopup from "@/components/CookiePopup";
 
 const Home = () => {
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
@@ -30,6 +31,7 @@ const Home = () => {
           {isViewCheckList ? <CheckList /> : <CheckListIcon />}
         </div>
       </div>
+      <CookiePopup className="z-40" />
     </JourneyGraphContextProvider>
   );
 };
