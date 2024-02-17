@@ -159,7 +159,7 @@ export default function DirectedGraph({
     };
 
     focusNode();
-  }, [nodes, setCenter, height, initialNodes, initialViewport]);
+  }, [nodes, setCenter, height, initialNodes, initialViewport, reactFlow]);
 
   return (
     <>

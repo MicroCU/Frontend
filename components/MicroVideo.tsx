@@ -32,7 +32,7 @@ export default function MicroVideo({
   };
 
   return (
-    <Link href={`/${lang}/video/${data.id}`}>
+    <Link href={`${pathName}/video/${data.id}`}>
       <div
         className={cn(
           isGroup ? "bg-grayLight" : "bg-white",
