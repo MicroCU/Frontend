@@ -39,6 +39,7 @@ export function getPathInitialNodesAndEdges(data: GroupData[]) {
       },
       position: { x: 0, y: 0 },
       draggable: false,
+      selected: true,
       type:
         group.micros.length == 1
           ? GroupDisplay.Single
