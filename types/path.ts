@@ -9,9 +9,7 @@ export interface Micro {
 }
 
 export interface Group {
-  id: string;
   name: string;
-  next: string[];
   type: GroupType;
   micros: Micro[];
   force?: { x: number; y: number };

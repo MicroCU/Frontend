@@ -28,8 +28,6 @@ export function getPathInitialNodesAndEdges(data: GroupData[]) {
     initialNodes.push({
       id: group.id,
       data: {
-        id: group.id,
-        next: group.nexts,
         type: group.type,
         name: group.name,
         micros: micros,
@@ -505,7 +503,7 @@ export function attractionForce(nodes: PathNode[], edges: PathEdge[]) {
   });
 }
 
-function calculateClosestPoint(
+export function calculateClosestPoint(
   lineStart: { x: number; y: number },
   lineEnd: { x: number; y: number },
   point: { x: number; y: number }

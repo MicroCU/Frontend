@@ -23,12 +23,13 @@ export enum PathStatus {
   CURRENT_PREVIEW = "CURRENT_PREVIEW",
   STILL_LEARNING = "STILL_LEARNING",
   PASSED_TEST = "PASSED_TEST",
-  NOT_VISITED = "NOT_VISITED",
+  NOT_VISITED = "NOT_VISITED"
 }
 
 export enum UndirectedNodeType {
-  CircularNode = "circularNode",
+  CircularNode = "circularNode"
 }
+
 export enum GroupType {
   Ordered = "ordered",
   Unordered = "unordered"
@@ -38,4 +39,9 @@ export enum GroupDisplay {
   Single = "single",
   Ordered = "ordered",
   Unordered = "unordered"
+}
+
+export enum PathDisplay {
+  Select = "select",
+  Unselect = "unselect"
 }
