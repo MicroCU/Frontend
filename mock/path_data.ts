@@ -1,30 +1,100 @@
 import { GroupType, MicroType } from "@/types/enum";
 import { PathAPIResponse, PathData } from "@/types/type";
 
-const mockGroupDB: PathData = {
-    id: "path-1",
-    name: "Introduction Python 101",
-    description: `Python is an easy to learn, powerful programming language. It has
-    efficient high-level data structures and a simple but effective
-    approach to object-oriented programming. Python’s elegant syntax and
-    dynamic typing, together with its interpreted nature, make it an ideal
-    language for scripting and rapid application development in many areas
-    on most platforms.`,
-    tags: [
+const directedGraphCase = [
+    [
         {
-            id: "tag-1",
-            name: "Programming",
-            icon:
-                "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+            id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
+            micros: [
+                { id: '1', name: 'Overview of the python to student who dont use it before', progress: 0, type: MicroType.Video },
+            ]
         },
         {
-            id: "tag-2",
-            name: "Software Architecture",
-            icon:
-                "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg"
-        }
+            id: '2', name: 'Comment', nexts: ['4'], type: GroupType.Unordered,
+            micros: [
+                { id: '21', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+                { id: '22', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+                { id: '23', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+            ]
+        },
+        {
+            id: '3', name: 'Syntax - 2', nexts: [], type: GroupType.Unordered,
+            micros: [
+                { id: '3', name: 'Syntax - 2', progress: 40, type: MicroType.Video }
+            ]
+        },
+        {
+            id: '4', name: 'Comment I', nexts: ['5'], type: GroupType.Ordered,
+            micros: [
+                { id: '41', name: 'Comment 1', progress: 0, type: MicroType.Video },
+                { id: '42', name: 'Comment 2', progress: 20, type: MicroType.Video },
+                { id: '43', name: 'Comment 3', progress: 80, type: MicroType.Video },
+            ]
+        },
+        {
+            id: '5', name: 'Comment II', nexts: [], type: GroupType.Ordered,
+            micros: [
+                { id: '51', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+                { id: '52', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+                { id: '53', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+            ]
+        },
     ],
-    groups: [
+    [
+        {
+            id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
+            micros: [
+                { id: '1', name: 'Overview of the python to student who dont use it before', progress: 0, type: MicroType.Video },
+            ]
+        },
+        {
+            id: '2', name: 'Comment', nexts: ['4'], type: GroupType.Unordered,
+            micros: [
+                { id: '21', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+                { id: '22', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+                { id: '23', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+            ]
+        },
+        {
+            id: '3', name: 'Syntax - 2', nexts: [], type: GroupType.Unordered,
+            micros: [
+                { id: '3', name: 'Syntax - 2', progress: 40, type: MicroType.Video }
+            ]
+        },
+        {
+            id: '4', name: 'Comment', nexts: ['5'], type: GroupType.Ordered,
+            micros: [
+                { id: '41', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+                { id: '42', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+                { id: '43', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+            ]
+        },
+        {
+            id: '5', name: 'Comment', nexts: ['6', '7'], type: GroupType.Ordered,
+            micros: [
+                { id: '51', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+                { id: '52', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+                { id: '53', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+            ]
+        },
+        {
+            id: '6', name: 'Comment', nexts: [], type: GroupType.Ordered,
+            micros: [
+                { id: '61', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+                { id: '62', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+                { id: '63', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+            ]
+        },
+        {
+            id: '7', name: 'Comment', nexts: [], type: GroupType.Ordered,
+            micros: [
+                { id: '71', name: 'Comment 1', progress: 0, type: MicroType.Practice },
+                { id: '72', name: 'Comment 2', progress: 0, type: MicroType.Practice },
+                { id: '73', name: 'Comment 3', progress: 0, type: MicroType.Practice },
+            ]
+        },
+    ],
+    [
         {
             id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
             micros: [
@@ -164,6 +234,32 @@ const mockGroupDB: PathData = {
             ]
         },
     ]
+]
+
+const mockGroupDB: PathData = {
+    id: "path-1",
+    name: "Introduction Python 101",
+    description: `Python is an easy to learn, powerful programming language. It has
+    efficient high-level data structures and a simple but effective
+    approach to object-oriented programming. Python’s elegant syntax and
+    dynamic typing, together with its interpreted nature, make it an ideal
+    language for scripting and rapid application development in many areas
+    on most platforms.`,
+    tags: [
+        {
+            id: "tag-1",
+            name: "Programming",
+            icon:
+                "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+        },
+        {
+            id: "tag-2",
+            name: "Software Architecture",
+            icon:
+                "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg"
+        }
+    ],
+    groups: []
 }
 
 export function getPathResult(id: string): Promise<PathAPIResponse> { // Mock API Response
@@ -180,6 +276,7 @@ export function getPathResult(id: string): Promise<PathAPIResponse> { // Mock AP
             }, 2000);
         });
     }
+    mockGroupDB.groups = directedGraphCase[2]
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({

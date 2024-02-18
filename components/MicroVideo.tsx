@@ -3,6 +3,8 @@ import { useTranslation } from "@/context/Translation";
 import { cn } from "@/lib/utils";
 import { Micro } from "@/types/path";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useViewport } from "reactflow";
 
 interface MicroVideoProps {
   data: Micro;
@@ -16,14 +18,30 @@ export default function MicroVideo({
   className
 }: MicroVideoProps) {
   const { lang } = useTranslation();
+  const { x, y, zoom } = useViewport();
+  const pathName = usePathname();
+
+  const handleClick = () => {
+    localStorage.setItem(
+      "pathData",
+      JSON.stringify({
+        viewport: { id: data.id, x: x, y: y, zoom: zoom },
+        pathName: pathName
+      })
+    );
+  };
+
   return (
-    <Link href={`/${lang}/video/${data.id}`}>
+    <Link href={`${pathName}/video/${data.id}`}>
       <div
         className={cn(
           isGroup ? "bg-grayLight" : "bg-white",
           "relative w-fit h-fit rounded-lg",
           className
         )}
+        onClick={(e) => {
+          handleClick();
+        }}
       >
         <div className="w-fit h-full px-5 py-3 text-center Bold16 flex items-center justify-center max-w-52">
           <p className="break-words">{data.title}</p>

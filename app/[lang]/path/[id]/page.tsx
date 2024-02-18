@@ -6,15 +6,22 @@ import { toast } from "@/components/ui/use-toast";
 import { useTranslation } from "@/context/Translation";
 import { PathData } from "@/types/type";
 import { getPathInitialNodesAndEdges } from "@/utils/path";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
 import { fetchPath, updateRecentlyPath } from "@/action/path";
+import { ScreenSizeProvider } from "@/context/ScreenWidthHeight";
+import { useSearchParams } from "next/navigation";
 
 export default function Path({ params }: { params: { id: string } }) {
-  const flowRef = useRef(null);
   const [data, setData] = useState<PathData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { dict } = useTranslation();
+
+  const searchParams = useSearchParams();
+  const x = searchParams.get("x");
+  const y = searchParams.get("y");
+  const zoom = searchParams.get("zoom");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,23 +60,29 @@ export default function Path({ params }: { params: { id: string } }) {
   );
 
   return (
-    <div className="overflow-y-scroll w-screen">
-      <div className="w-full relative z-50">
-        <PathDescription
-          name={data.name}
-          description={data.description}
-          tags={data.tags}
-        />
-      </div>
-      <div ref={flowRef} className="w-screen bg-graySmall h-screen">
-        <ReactFlowProvider>
-          <DirectedGraph
-            flowRef={flowRef}
-            initialNodes={initialNodes}
-            initialEdges={initialEdges}
+    <ScreenSizeProvider>
+      <div className="overflow-y-scroll w-screen">
+        <div className="w-full relative z-50">
+          <PathDescription
+            name={data.name}
+            description={data.description}
+            tags={data.tags}
           />
-        </ReactFlowProvider>
+        </div>
+        <div className="w-screen bg-graySmall h-screen">
+          <ReactFlowProvider>
+            <DirectedGraph
+              initialNodes={initialNodes}
+              initialEdges={initialEdges}
+              initialViewport={{
+                x: x ? parseFloat(x) : null,
+                y: y ? parseFloat(y) : null,
+                zoom: zoom ? parseFloat(zoom) : null
+              }}
+            />
+          </ReactFlowProvider>
+        </div>
       </div>
-    </div>
+    </ScreenSizeProvider>
   );
 }
