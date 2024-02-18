@@ -8,11 +8,13 @@ import {
   initPosition,
   repulsionForce
 } from "@/utils/graph";
+import { useEffect } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
   Panel,
   useEdgesState,
+  useNodesInitialized,
   useNodesState
 } from "reactflow";
 import UnselectPath from "./Path";
@@ -36,6 +38,7 @@ export default function UndirectedGraph({
 }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const nodesInitialized = useNodesInitialized();
 
   const graphNode = nodes as GraphNode[];
   const graphEdge = edges as GraphEdge[];
@@ -50,6 +53,26 @@ export default function UndirectedGraph({
     setEdges([...graphEdge]);
     console.log(graphNode, graphEdge);
   };
+
+  useEffect(() => {
+    if (nodes[0].height === undefined || nodes[0].width === undefined) return;
+    initPosition(graphNode);
+
+    for (let i = 0; i < 100; i++) {
+      calculateForce(graphNode, graphEdge, [
+        attractionForce,
+        repulsionForce,
+        centerForce
+      ]);
+    }
+
+    for (let i = 0; i < 3; i++) {
+      calculateForce(graphNode, graphEdge, [edgeForce]);
+    }
+
+    setNodes([...graphNode]);
+    setEdges([...graphEdge]);
+  }, [nodesInitialized]);
 
   return (
     <>
@@ -68,7 +91,11 @@ export default function UndirectedGraph({
         <Panel position="bottom-right">
           <Button
             onClick={() => {
-              calculateForce(graphNode, graphEdge, [attractionForce, repulsionForce, centerForce]);
+              calculateForce(graphNode, graphEdge, [
+                attractionForce,
+                repulsionForce,
+                centerForce
+              ]);
               setNodes([...graphNode]);
               setEdges([...graphEdge]);
               console.log(graphNode, graphEdge);
