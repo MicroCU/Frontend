@@ -18,14 +18,14 @@ import ReactFlow, {
   useNodesInitialized,
   useNodesState,
   useReactFlow,
-  Node
+  Node,
+  MiniMap
 } from "reactflow";
 import "reactflow/dist/style.css";
 import OrderedGroup from "./OrderNode";
 import SingleGroup from "./SingleNode";
 import UnorderedGroup from "./UnorderNode";
 import { GroupDisplay } from "@/types/enum";
-import { useScreenSize } from "@/context/ScreenWidthHeight";
 
 const nodeTypes = {
   [GroupDisplay.Single]: SingleGroup,
@@ -122,9 +122,6 @@ export default function DirectedGraph({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodesInitialized, reactFlow]);
 
-  const { setCenter } = useReactFlow();
-  const { height } = useScreenSize();
-
   useEffect(() => {
     if (
       initialViewport &&
@@ -147,15 +144,14 @@ export default function DirectedGraph({
       const node = findRootNode(initialNodes, nodes);
 
       let nodeWidth = node.width || 0;
-      const paddingTop = 20;
 
-      const x = node.position.x + nodeWidth / 2;
-      const y = node.position.y + height / 2 - paddingTop;
+      const x = -node.position.x + window.innerWidth / 2 - nodeWidth / 2;
+      const y = node.position.y + 40;
       const zoom = 1;
 
-      setCenter(x, y, { zoom, duration: 1000 });
+      reactFlow.setViewport({ x, y, zoom }, { duration: 1000 });
     }
-  }, [nodes, setCenter, height, initialNodes, initialViewport, reactFlow]);
+  }, [nodes, initialViewport, reactFlow, initialNodes]);
 
   return (
     <>
@@ -167,11 +163,10 @@ export default function DirectedGraph({
         connectionLineType={ConnectionLineType.SmoothStep}
         nodeTypes={nodeTypes}
         minZoom={0}
-        preventScrolling={false}
-        panOnDrag={true}
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
         <Controls position="top-left" />
+        <MiniMap pannable zoomable />
       </ReactFlow>
     </>
   );

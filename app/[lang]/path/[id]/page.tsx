@@ -9,14 +9,13 @@ import { getPathInitialNodesAndEdges } from "@/utils/path";
 import { useEffect, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
 import { fetchPath, updateRecentlyPath } from "@/action/path";
-import { ScreenSizeProvider } from "@/context/ScreenWidthHeight";
 import { useSearchParams } from "next/navigation";
 
 export default function Path({ params }: { params: { id: string } }) {
   const [data, setData] = useState<PathData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [directedHeight, setDirectedHeight] = useState(0);
   const { dict } = useTranslation();
-  const [isOpened, setIsOpened] = useState(false);
 
   const searchParams = useSearchParams();
   const x = searchParams.get("x");
@@ -61,16 +60,20 @@ export default function Path({ params }: { params: { id: string } }) {
   );
 
   return (
-    <ScreenSizeProvider>
-      <div className="overflow-y-scroll w-screen">
-        <div className="w-full relative z-50">
-          <PathDescription
-            name={data.name}
-            description={data.description}
-            tags={data.tags}
-          />
-        </div>
-        <div className="w-screen bg-graySmall h-screen">
+    <div className="w-screen">
+      <div className="w-full relative">
+        <PathDescription
+          name={data.name}
+          description={data.description}
+          tags={data.tags}
+          setHeight={setDirectedHeight}
+        />
+      </div>
+      {directedHeight > 0 && (
+        <div
+          className="w-screen bg-graySmall"
+          style={{ height: directedHeight }}
+        >
           <ReactFlowProvider>
             <DirectedGraph
               initialNodes={initialNodes}
@@ -83,7 +86,7 @@ export default function Path({ params }: { params: { id: string } }) {
             />
           </ReactFlowProvider>
         </div>
-      </div>
-    </ScreenSizeProvider>
+      )}
+    </div>
   );
 }
