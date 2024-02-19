@@ -14,10 +14,10 @@ export default function PathDescription({
   tags
 }: IPathDescriptionProps) {
   return (
-    <div className="flex flex-col gap-y-4 pt-[60px] pb-12 px-20 bg-white effect-default">
+    <div className="flex flex-col gap-y-4 py-6 px-20 bg-white effect-default">
       <NavigateBtn />
       <div className="flex flex-row gap-x-8 items-center">
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-4 w-2/5">
           <div className="Bold32 text-primary"> {name} </div>
           <div className="flex flex-row flex-wrap gap-3">
             {tags.map((tag, index) => (
@@ -25,7 +25,7 @@ export default function PathDescription({
             ))}
           </div>
         </div>
-        <div className="Reg16 text-grayMain"> {description} </div>
+        <div className="Reg16 text-grayMain w-3/5"> {description} </div>
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ export default function Path({ params }: { params: { id: string } }) {
   const [data, setData] = useState<PathData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { dict } = useTranslation();
+  const [isOpened, setIsOpened] = useState(false);
 
   const searchParams = useSearchParams();
   const x = searchParams.get("x");
