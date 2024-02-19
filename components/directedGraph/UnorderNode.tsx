@@ -1,7 +1,7 @@
 import { Group } from "@/types/path";
 import { memo, useRef } from "react";
 import { Handle, Position } from "reactflow";
-import Micro from "./Micro";
+import Micro from "../Micro";
 import { useOverflowDetectionWithMicrosWidth } from "@/hooks/Overflow";
 
 function UnorderedGroup({ id, data }: { id: string; data: Group }) {

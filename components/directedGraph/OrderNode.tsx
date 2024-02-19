@@ -1,7 +1,7 @@
 import { Group } from "@/types/path";
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
-import Micro from "./Micro";
+import Micro from "../Micro";
 
 function OrderedGroup({ id, data }: { id: string; data: Group }) {
   return (
