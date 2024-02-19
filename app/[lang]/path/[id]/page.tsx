@@ -14,7 +14,7 @@ import { useSearchParams } from "next/navigation";
 export default function Path({ params }: { params: { id: string } }) {
   const [data, setData] = useState<PathData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [directedHeight, setDirectedHeight] = useState(0);
+  const [descriptionHeight, setDescriptionHeight] = useState(0);
   const { dict } = useTranslation();
 
   const searchParams = useSearchParams();
@@ -61,32 +61,28 @@ export default function Path({ params }: { params: { id: string } }) {
 
   return (
     <div className="w-screen">
-      <div className="w-full relative">
+      <div className="w-full absolute">
         <PathDescription
           name={data.name}
           description={data.description}
           tags={data.tags}
-          setHeight={setDirectedHeight}
+          setHeight={setDescriptionHeight}
         />
       </div>
-      {directedHeight > 0 && (
-        <div
-          className="w-screen bg-graySmall"
-          style={{ height: directedHeight }}
-        >
-          <ReactFlowProvider>
-            <DirectedGraph
-              initialNodes={initialNodes}
-              initialEdges={initialEdges}
-              initialViewport={{
-                x: x ? parseFloat(x) : null,
-                y: y ? parseFloat(y) : null,
-                zoom: zoom ? parseFloat(zoom) : null
-              }}
-            />
-          </ReactFlowProvider>
-        </div>
-      )}
+      <div className="w-screen bg-graySmall h-screen">
+        <ReactFlowProvider>
+          <DirectedGraph
+            initialNodes={initialNodes}
+            initialEdges={initialEdges}
+            initialViewport={{
+              x: x ? parseFloat(x) : null,
+              y: y ? parseFloat(y) : null,
+              zoom: zoom ? parseFloat(zoom) : null
+            }}
+            descriptionHeight={descriptionHeight}
+          />
+        </ReactFlowProvider>
+      </div>
     </div>
   );
 }

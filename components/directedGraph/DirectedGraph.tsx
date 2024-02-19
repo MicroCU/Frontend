@@ -18,8 +18,7 @@ import ReactFlow, {
   useNodesInitialized,
   useNodesState,
   useReactFlow,
-  Node,
-  MiniMap
+  Node
 } from "reactflow";
 import "reactflow/dist/style.css";
 import OrderedGroup from "./OrderNode";
@@ -36,11 +35,13 @@ const nodeTypes = {
 export default function DirectedGraph({
   initialNodes,
   initialEdges,
-  initialViewport
+  initialViewport,
+  descriptionHeight
 }: {
   initialNodes: PathNode[];
   initialEdges: PathEdge[];
   initialViewport?: { x: number | null; y: number | null; zoom: number | null };
+  descriptionHeight: number;
 }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -146,12 +147,12 @@ export default function DirectedGraph({
       let nodeWidth = node.width || 0;
 
       const x = -node.position.x + window.innerWidth / 2 - nodeWidth / 2;
-      const y = node.position.y + 40;
+      const y = node.position.y + 40 + descriptionHeight;
       const zoom = 1;
 
       reactFlow.setViewport({ x, y, zoom }, { duration: 1000 });
     }
-  }, [nodes, initialViewport, reactFlow, initialNodes]);
+  }, [nodes, initialViewport, reactFlow, initialNodes, descriptionHeight]);
 
   return (
     <>
@@ -165,8 +166,7 @@ export default function DirectedGraph({
         minZoom={0}
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
-        <Controls position="top-left" />
-        <MiniMap pannable zoomable />
+        <Controls position="bottom-right" />
       </ReactFlow>
     </>
   );

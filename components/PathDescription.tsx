@@ -27,12 +27,7 @@ export default function PathDescription({
   const componentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (componentRef.current) {
-      setHeight(
-        window.innerHeight - componentRef.current.getBoundingClientRect().height
-      );
-    }
-    if (!isOpen) {
-      setHeight(window.innerHeight);
+      setHeight(componentRef.current.getBoundingClientRect().height);
     }
   }, [componentRef, isOpen, setHeight]);
 
