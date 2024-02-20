@@ -43,19 +43,13 @@ export default function UndirectedGraph({
   const graphNode = nodes as GraphNode[];
   const graphEdge = edges as GraphEdge[];
 
-  const applyForce = () => {
-    calculateForce(graphNode, graphEdge, [
-      attractionForce
-      //   repulsionForce,
-      //   centerForce
-    ]);
-    setNodes([...graphNode]);
-    setEdges([...graphEdge]);
-    console.log(graphNode, graphEdge);
-  };
-
   useEffect(() => {
-    if (nodes[0].height === undefined || nodes[0].width === undefined) return;
+    if (
+      nodes.length == 0 ||
+      nodes[0].height === undefined ||
+      nodes[0].width === undefined
+    )
+      return;
     initPosition(graphNode);
 
     for (let i = 0; i < 100; i++) {
@@ -88,7 +82,7 @@ export default function UndirectedGraph({
         onEdgesChange={onEdgesChange}
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
-        <Panel position="bottom-right">
+        {/* <Panel position="bottom-right">
           <Button
             onClick={() => {
               calculateForce(graphNode, graphEdge, [
@@ -98,7 +92,6 @@ export default function UndirectedGraph({
               ]);
               setNodes([...graphNode]);
               setEdges([...graphEdge]);
-              console.log(graphNode, graphEdge);
             }}
           >
             All
@@ -116,7 +109,6 @@ export default function UndirectedGraph({
               calculateForce(graphNode, graphEdge, [attractionForce]);
               setNodes([...graphNode]);
               setEdges([...graphEdge]);
-              console.log(graphNode, graphEdge);
             }}
           >
             Attraction Force
@@ -126,7 +118,6 @@ export default function UndirectedGraph({
               calculateForce(graphNode, graphEdge, [repulsionForce]);
               setNodes([...graphNode]);
               setEdges([...graphEdge]);
-              console.log(graphNode, graphEdge);
             }}
           >
             Repulsion Force
@@ -136,12 +127,11 @@ export default function UndirectedGraph({
               calculateForce(graphNode, graphEdge, [edgeForce]);
               setNodes([...graphNode]);
               setEdges([...graphEdge]);
-              console.log(graphNode, graphEdge);
             }}
           >
             Edge Force
           </Button>
-        </Panel>
+        </Panel> */}
       </ReactFlow>
     </>
   );

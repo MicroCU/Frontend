@@ -50,13 +50,6 @@ export function calculateForce(
       Math.pow(node.data.velocity!.x, 2) + Math.pow(node.data.velocity!.y, 2)
     );
   });
-
-  console.log({
-    "force mag": forceMagnitudes,
-    "force avg": forceMagnitudes / nodes.length,
-    "velocity mag": velocityMagnitudes,
-    "velocity avg": velocityMagnitudes / nodes.length
-  });
   return {
     force: forceMagnitudes / nodes.length,
     velocity: velocityMagnitudes / nodes.length
@@ -73,8 +66,6 @@ export function centerForce(nodes: GraphNode[]) {
 
     node.data.force!.x -= fx;
     node.data.force!.y -= fy;
-
-    console.log("center", node.data.name, fx, fy);
   });
 }
 
@@ -108,8 +99,6 @@ export function repulsionForce(nodes: GraphNode[]) {
 
       nodes[j].data.force!.x -= fx;
       nodes[j].data.force!.y -= fy;
-
-      console.log("repulsion", nodes[i].data.name, nodes[j].data.name, fx, fy);
     }
   }
 }
@@ -138,8 +127,6 @@ export function attractionForce(nodes: GraphNode[], edges: GraphEdge[]) {
 
     target.data.force!.x += fx;
     target.data.force!.y += fy;
-
-    console.log("attraction", source.data.name, target.data.name, fx, fy);
   });
 }
 
@@ -186,14 +173,6 @@ export function edgeForce(nodes: GraphNode[], edges: GraphEdge[]) {
       nodes.find((n) => n.id === source.id)!.data.force!.y += fy;
       nodes.find((n) => n.id === target.id)!.data.force!.x += fx;
       nodes.find((n) => n.id === target.id)!.data.force!.y += fy;
-
-      console.log("edge", {
-        c: c,
-        cx: cx,
-        cy: cy,
-        fx: fx,
-        fy: fy
-      });
     });
   });
 }
@@ -246,7 +225,6 @@ export function initPosition(nodes: GraphNode[]) {
   for (let i = 0; i < nodes.length; i++) {
     const x = r * Math.cos(angle * i);
     const y = r * Math.sin(angle * i);
-    console.log(x, y);
     nodes[i].position.x = x;
     nodes[i].position.y = y;
   }

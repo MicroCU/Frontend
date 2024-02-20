@@ -24,6 +24,8 @@ function PathEdge({ id, source, target, markerEnd, style }: EdgeProps) {
     targetY: ty
   });
 
+  if (edgePath == "M NaN,NaNL NaN,NaN") return null;
+
   return (
     <path
       id={id}
