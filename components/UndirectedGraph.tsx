@@ -12,14 +12,15 @@ import { useEffect } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
-  Panel,
+  Controls,
+  getNodesBounds,
   useEdgesState,
   useNodesInitialized,
-  useNodesState
+  useNodesState,
+  useReactFlow
 } from "reactflow";
 import UnselectPath from "./Path";
 import PathEdge from "./PathEdge";
-import { Button } from "./ui/button";
 
 const nodeTypes = {
   [PathDisplay.Unselect]: UnselectPath
@@ -68,6 +69,12 @@ export default function UndirectedGraph({
     setEdges([...graphEdge]);
   }, [nodesInitialized]);
 
+  const reactFlow = useReactFlow();
+  useEffect(() => {
+    const bounds = getNodesBounds(nodes);
+    reactFlow.fitBounds(bounds, { duration: 1000 });
+  }, [nodes, reactFlow]);
+
   return (
     <>
       <ReactFlow
@@ -77,61 +84,13 @@ export default function UndirectedGraph({
         zoomOnScroll={true}
         nodeTypes={nodeTypes}
         edgeTypes={edgeType}
-        draggable={true}
+        draggable={false}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        minZoom={0}
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
-        {/* <Panel position="bottom-right">
-          <Button
-            onClick={() => {
-              calculateForce(graphNode, graphEdge, [
-                attractionForce,
-                repulsionForce,
-                centerForce
-              ]);
-              setNodes([...graphNode]);
-              setEdges([...graphEdge]);
-            }}
-          >
-            All
-          </Button>
-          <Button
-            onClick={() => {
-              initPosition(graphNode);
-              setNodes([...graphNode]);
-            }}
-          >
-            Avoid Collision
-          </Button>
-          <Button
-            onClick={() => {
-              calculateForce(graphNode, graphEdge, [attractionForce]);
-              setNodes([...graphNode]);
-              setEdges([...graphEdge]);
-            }}
-          >
-            Attraction Force
-          </Button>
-          <Button
-            onClick={() => {
-              calculateForce(graphNode, graphEdge, [repulsionForce]);
-              setNodes([...graphNode]);
-              setEdges([...graphEdge]);
-            }}
-          >
-            Repulsion Force
-          </Button>
-          <Button
-            onClick={() => {
-              calculateForce(graphNode, graphEdge, [edgeForce]);
-              setNodes([...graphNode]);
-              setEdges([...graphEdge]);
-            }}
-          >
-            Edge Force
-          </Button>
-        </Panel> */}
+        <Controls position="top-left" />
       </ReactFlow>
     </>
   );
