@@ -44,8 +44,3 @@ export enum GroupDisplay {
 export enum GraphDisplay {
   CircleNode = "circularNode"
 }
-
-export enum PathDisplay {
-  Select = "select",
-  Unselect = "unselect"
-}
