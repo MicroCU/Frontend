@@ -35,7 +35,7 @@ export default function PathDescription({
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
       <CollapsibleContent className="relative z-50">
         <div
-          className="flex flex-col gap-y-4 py-6 px-20 bg-white effect-default z-50"
+          className="flex flex-col gap-y-4 py-6 px-20 bg-white effect-description z-50"
           ref={componentRef}
         >
           <NavigateBtn />
@@ -50,19 +50,18 @@ export default function PathDescription({
             </div>
             <div className="Reg16 text-grayMain w-3/5"> {description} </div>
           </div>
-          <div className="flex justify-center"> 1</div>
         </div>
       </CollapsibleContent>
       <CollapsibleTrigger asChild>
         {isOpen ? (
           <div className="absolute inset-x-0 -bottom-6 flex justify-center items-center z-40">
-            <div className="bg-white flex justify-center w-16 h-fit effect-default rounded-b-lg">
+            <div className="bg-white flex justify-center w-16 h-fit effect-description rounded-b-lg">
               <ChevronUp className="w-6 h-6 text-primary" />
             </div>
           </div>
         ) : (
           <div className="absolute inset-x-0 -bottom-6 flex justify-center items-center z-40">
-            <div className="bg-white flex justify-center w-16 h-fit effect-default rounded-b-lg">
+            <div className="bg-white flex justify-center w-16 h-fit effect-description rounded-b-lg">
               <ChevronDown className="w-6 h-6 text-primary" />
             </div>
           </div>

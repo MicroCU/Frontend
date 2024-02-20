@@ -164,6 +164,7 @@ export default function DirectedGraph({
         connectionLineType={ConnectionLineType.SmoothStep}
         nodeTypes={nodeTypes}
         minZoom={0}
+        panOnScroll
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
         <Controls position="bottom-right" />
