@@ -41,6 +41,10 @@ export enum GroupDisplay {
   Unordered = "unordered"
 }
 
+export enum GraphDisplay {
+  CircleNode = "circularNode"
+}
+
 export enum PathDisplay {
   Select = "select",
   Unselect = "unselect"

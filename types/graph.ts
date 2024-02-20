@@ -1,5 +1,5 @@
 import { Edge, Node } from "reactflow";
-import { PathDisplay, PathStatus, UndirectedNodeType } from "./enum";
+import { GraphDisplay, PathStatus } from "./enum";
 import { BriefPathInfo } from "./type";
 
 export interface Path {
@@ -13,5 +13,5 @@ export interface Graph {
   paths: Path[];
 }
 
-export type GraphNode = Node<Path, PathDisplay>;
+export type GraphNode = Node<Path, GraphDisplay>;
 export type GraphEdge = Edge<undefined>;

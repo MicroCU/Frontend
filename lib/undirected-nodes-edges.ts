@@ -1,4 +1,4 @@
-import { MenuTab, PathDisplay } from '@/types/enum';
+import { GraphDisplay, MenuTab } from '@/types/enum';
 import { GraphNode, GraphEdge } from '@/types/graph';
 import { JourneyStoreData } from '@/types/type';
 
@@ -16,7 +16,7 @@ export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type:
         journey.paths.data.forEach((path, index) => {
             nodes.push({
                 id: path.id,
-                type: PathDisplay.Unselect,
+                type: GraphDisplay.CircleNode,
                 data: {
                     force: { x: 0, y: 0 },
                     velocity: { x: 0, y: 0 },

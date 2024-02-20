@@ -18,12 +18,12 @@ import ReactFlow, {
   useNodesState,
   useReactFlow
 } from "reactflow";
-import UnselectPath from "../Path";
 import PathEdge from "../PathEdge";
-import { PathDisplay } from "@/types/enum";
+import { GraphDisplay } from "@/types/enum";
+import CircleNode from "./CircleNode";
 
 const nodeTypes = {
-  [PathDisplay.Unselect]: UnselectPath
+  [GraphDisplay.CircleNode]: CircleNode
 };
 
 const edgeType = {
