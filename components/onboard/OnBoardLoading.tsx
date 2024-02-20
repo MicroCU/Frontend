@@ -12,8 +12,8 @@ const OnboardLoading = () => {
         <Skeleton className="h-[200px]" />
       </div>
       <div className="flex justify-between">
-        <Skeleton className="h-[32px] w-[20%]" />
-        <Skeleton className="h-[32px] w-[20%]" />
+        <Skeleton className="h-[32px] w-1/5" />
+        <Skeleton className="h-[32px] w-1/5" />
       </div>
     </OnBoardModalContainer>
   );
