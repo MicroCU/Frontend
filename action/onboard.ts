@@ -19,6 +19,11 @@ export const fetchNoGoalQuestion = async () => {
   return onBoardNoGoalQuestion;
 };
 
+export const isAlreadyMCVPref = async () => {
+  //TODO: implement this
+  return false;
+};
+
 export const storeMCVPref = async () => {
   //TODO: implement this
   return;
