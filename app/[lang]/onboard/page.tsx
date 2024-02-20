@@ -1,6 +1,6 @@
 "use client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import OnBoardModal from "@/components/OnBoardModal";
+import OnBoardModal from "@/components/onboard/OnBoardModal";
 import { useOnBoard } from "@/context/Onboard";
 
 import { useTranslation } from "@/context/Translation";
@@ -10,6 +10,31 @@ const OnBoardContent = () => {
   const { lang } = useTranslation();
   const { answer, page, question } = useOnBoard();
 
+  const CurrentModal = () => {
+    switch (page) {
+      case 0:
+        return <OnBoardModal variant="welcome" />;
+      case question.length + 1:
+        return <OnBoardModal variant="finish" />;
+      default:
+        return question.map((q, index) => {
+          if (
+            (q.variant === "radio" || q.variant === "checkbox") &&
+            page === q.step
+          ) {
+            return (
+              <OnBoardModal
+                key={index}
+                variant={q.variant}
+                title={q.title}
+                choices={q.choices}
+              />
+            );
+          }
+        });
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-primary to-danger">
       <h1 className="absolute top-0 left-0 bg-white">
@@ -18,24 +43,7 @@ const OnBoardContent = () => {
         <br></br>
         <Link href={"/" + lang + "/example"}> go to example page </Link>
       </h1>
-      {page === 0 && <OnBoardModal variant="welcome" />}
-      {question.map((q, index) => {
-        if (
-          (q.variant === "radio" || q.variant === "checkbox") &&
-          page === q.step
-        ) {
-          return (
-            <OnBoardModal
-              key={index}
-              variant={q.variant}
-              step={q.step}
-              title={q.title}
-              choices={q.choices}
-            />
-          );
-        }
-      })}
-      {page === question.length + 1 && <OnBoardModal variant="finish" />}
+      <CurrentModal />
     </div>
   );
 };

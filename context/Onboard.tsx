@@ -15,6 +15,7 @@ type OnBoardContextType = {
   answer: Answer;
   question: Question;
   nextPage: () => void;
+  backPage: () => void;
   addAnswer: (title: string, answer: string | string[]) => void;
 };
 
@@ -24,6 +25,7 @@ const OnBoardContext = createContext<OnBoardContextType>({
   answer: {},
   question: [],
   nextPage: () => {},
+  backPage: () => {},
   addAnswer: () => {}
 });
 
@@ -52,13 +54,20 @@ const OnBoardContextProvider = ({ children }: { children: ReactNode }) => {
     setPage((p) => p + 1);
   };
 
+  const backPage = () => {
+    if (page === 0) {
+      return;
+    }
+    setPage((p) => p - 1);
+  };
+
   const addAnswer = (title: string, answer: string | string[]) => {
     setAnswer((prev) => ({ ...prev, [title]: answer }));
   };
 
   return (
     <OnBoardContext.Provider
-      value={{ page, answer, nextPage, addAnswer, question, maxPage }}
+      value={{ page, answer, nextPage, addAnswer, question, maxPage, backPage }}
     >
       {children}
     </OnBoardContext.Provider>
