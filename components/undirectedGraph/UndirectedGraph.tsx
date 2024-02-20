@@ -1,4 +1,4 @@
-import { GraphEdge, GraphNode } from "@/types/graph";
+import { GraphEdge, GraphNode, Path } from "@/types/graph";
 import {
   attractionForce,
   calculateForce,
@@ -7,7 +7,12 @@ import {
   initPosition,
   repulsionForce
 } from "@/utils/graph";
-import { useEffect } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  MouseEvent as ReactMouseEvent
+} from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -16,11 +21,14 @@ import ReactFlow, {
   useEdgesState,
   useNodesInitialized,
   useNodesState,
-  useReactFlow
+  useReactFlow,
+  Node
 } from "reactflow";
 import PathEdge from "../PathEdge";
-import { GraphDisplay } from "@/types/enum";
+import { GraphDisplay, PathStatus } from "@/types/enum";
 import CircleNode from "./CircleNode";
+import { useJourneyGraph } from "@/context/JourneysGraph";
+import { UndirectedGraphNodeData } from "@/types/type";
 
 const nodeTypes = {
   [GraphDisplay.CircleNode]: CircleNode
@@ -40,17 +48,22 @@ export default function UndirectedGraph({
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodesInitialized = useNodesInitialized();
+  const reactFlow = useReactFlow();
 
   const graphNode = nodes as GraphNode[];
   const graphEdge = edges as GraphEdge[];
 
+  const { selectedPath, setSelectedPath } = useJourneyGraph();
+
+  // Apply force to nodes
   useEffect(() => {
     if (
       nodes.length == 0 ||
       nodes[0].height === undefined ||
       nodes[0].width === undefined
-    )
+    ) {
       return;
+    }
     initPosition(graphNode);
 
     for (let i = 0; i < 100; i++) {
@@ -67,13 +80,87 @@ export default function UndirectedGraph({
 
     setNodes([...graphNode]);
     setEdges([...graphEdge]);
+
+    const bounds = getNodesBounds(graphNode);
+    reactFlow.fitBounds(bounds, { duration: 1000 });
   }, [nodesInitialized]);
 
-  const reactFlow = useReactFlow();
+  // Center view to selected node
+  const currentNodeRadius = 24;
+  const [prevCurrent, setPrevCurrent] = useState<{
+    id: string;
+    status: PathStatus;
+  } | null>(null);
+
+  const setCenterView = useCallback(
+    (selectedNode: Node<Path>) => {
+      setNodes(
+        nodes.map((node) => {
+          if (node.id === selectedNode.id) {
+            return {
+              ...node,
+              data: {
+                ...node.data,
+                status: PathStatus.CURRENT_PREVIEW
+              }
+            };
+          } else if (node.id === prevCurrent?.id) {
+            return {
+              ...node,
+              data: {
+                ...node.data,
+                status: prevCurrent.status
+              }
+            };
+          } else {
+            return {
+              ...node
+            };
+          }
+        })
+      );
+
+      reactFlow.setCenter(
+        selectedNode.position.x + currentNodeRadius,
+        selectedNode.position.y + currentNodeRadius,
+        { duration: 1000 }
+      );
+
+      setPrevCurrent({
+        id: selectedNode.id,
+        status: selectedNode.data.status
+      });
+    },
+    [reactFlow, nodes]
+  );
+
   useEffect(() => {
-    const bounds = getNodesBounds(nodes);
-    reactFlow.fitBounds(bounds, { duration: 1000 });
-  }, [nodes, reactFlow]);
+    let selectedNode =
+      nodes.find((node) => node.data.pathInfo.id === selectedPath?.id) ?? null;
+    if (selectedPath && selectedNode) {
+      setCenterView(selectedNode);
+    }
+    if (selectedPath === null) {
+      // When click close the path description modal
+      setNodes(
+        nodes.map((node) => {
+          if (node.id === prevCurrent?.id) {
+            return {
+              ...node,
+              data: {
+                ...node.data,
+                status: prevCurrent.status
+              }
+            };
+          } else {
+            return {
+              ...node
+            };
+          }
+        })
+      );
+    }
+  }, [selectedPath]);
 
   return (
     <>
@@ -88,6 +175,12 @@ export default function UndirectedGraph({
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         minZoom={0}
+        onNodeClick={(
+          event: ReactMouseEvent,
+          node: Node<UndirectedGraphNodeData>
+        ) => {
+          setSelectedPath(node.data.pathInfo);
+        }}
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
         <Controls position="top-left" />

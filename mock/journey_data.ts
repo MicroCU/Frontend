@@ -352,7 +352,7 @@ export function getHomeResult(): Promise<APIResponse> { // Mock API call
                 status: 200,
                 data: MockHomeData,
             });
-        }, 1000);
+        }, 0);
     });
 }
 
