@@ -49,6 +49,7 @@ function UnorderNode({
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        className="opacity-0"
       />
       <UnorderedGroup id={id} data={data} />
       <Handle
@@ -56,6 +57,7 @@ function UnorderNode({
         position={Position.Bottom}
         id="b"
         isConnectable={isConnectable}
+        className="opacity-0"
       />
     </>
   );

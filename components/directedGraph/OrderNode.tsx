@@ -34,6 +34,7 @@ function OrderNode({
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        className="opacity-0"
       />
       <OrderedGroup id={id} data={data} />
       <Handle
@@ -41,6 +42,7 @@ function OrderNode({
         position={Position.Bottom}
         id="b"
         isConnectable={isConnectable}
+        className="opacity-0"
       />
     </>
   );
