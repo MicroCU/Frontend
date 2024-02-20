@@ -1,4 +1,3 @@
-import { PathDisplay } from "@/types/enum";
 import { GraphEdge, GraphNode } from "@/types/graph";
 import {
   attractionForce,
@@ -19,8 +18,9 @@ import ReactFlow, {
   useNodesState,
   useReactFlow
 } from "reactflow";
-import UnselectPath from "./Path";
-import PathEdge from "./PathEdge";
+import UnselectPath from "../Path";
+import PathEdge from "../PathEdge";
+import { PathDisplay } from "@/types/enum";
 
 const nodeTypes = {
   [PathDisplay.Unselect]: UnselectPath

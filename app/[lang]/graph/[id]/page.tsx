@@ -1,5 +1,5 @@
 "use client";
-import UndirectedGraph from "@/components/UndirectedGraph";
+import UndirectedGraph from "@/components/undirectedGraph/UndirectedGraph";
 import { mockGraphData } from "@/mock/graph_data";
 import { ReactFlowProvider } from "reactflow";
 

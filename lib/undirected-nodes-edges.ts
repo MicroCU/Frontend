@@ -1,53 +1,33 @@
-import { getMockJourneyPosition } from '@/mock/journey_data';
-import { getMockRecentlyPosition } from '@/mock/recently_data';
-import { getMockSearchPosition } from '@/mock/search_data';
-import { MenuTab, UndirectedNodeType } from '@/types/enum';
-import { JourneyStoreData, UndirectedGraphNodeData } from '@/types/type';
-import { Node, Edge } from 'reactflow';
+import { MenuTab, PathDisplay } from '@/types/enum';
+import { GraphNode, GraphEdge } from '@/types/graph';
+import { JourneyStoreData } from '@/types/type';
 
-export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type: MenuTab) {
+export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type: MenuTab): { nodes: GraphNode[]; edges: GraphEdge[] } {
     if (!journeys || !journeys.data) {
         return {
-            initialNodes: [],
-            initialEdges: []
+            nodes: [],
+            edges: []
         }
     }
 
-    const nodes: Node<UndirectedGraphNodeData, UndirectedNodeType>[] = [];
-    const edges: Edge<any>[] = [];
+    const nodes: GraphNode[] = [];
+    const edges: GraphEdge[] = [];
     journeys.data.forEach((journey, index) => {
         journey.paths.data.forEach((path, index) => {
-            let mockPosition: null | { x: number, y: number } = null;
-            if (type === MenuTab.journey) {
-                mockPosition = getMockJourneyPosition(path.id);
-            } else if (type === MenuTab.search) {
-                mockPosition = getMockSearchPosition(path.id);
-            } else if (type === MenuTab.recently) {
-                mockPosition = getMockRecentlyPosition(path.id);
-            } else {
-                mockPosition = getMockJourneyPosition(path.id);
-            }
-            if (mockPosition === null) {
-                return {
-                    initialNodes: [],
-                    initialEdges: []
-                }
-            }
-
             nodes.push({
                 id: path.id,
-                type: UndirectedNodeType.CircularNode,
+                type: PathDisplay.Unselect,
                 data: {
+                    force: { x: 0, y: 0 },
+                    velocity: { x: 0, y: 0 },
                     status: path.status,
-                    pathInfo: path
-                },
-                position: {
-                    x: mockPosition.x,
-                    y: mockPosition.y
+                    pathInfo: path,
                 },
                 draggable: false,
-                width: 24,
-                height: 24
+                position: {
+                    x: 0,
+                    y: 0
+                }
             })
         })
     })
@@ -60,7 +40,6 @@ export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type:
                     id: `${neighborId}-${relationship.id}`,
                     source: neighborId,
                     target: relationship.id,
-                    type: 'straight'
                 })
 
                 isExisted.push([relationship.id, neighborId].sort());
@@ -69,8 +48,8 @@ export function generateInitialNodeEdge(journeys: JourneyStoreData | null, type:
     })
 
     return {
-        initialNodes: nodes,
-        initialEdges: edges
+        nodes: nodes,
+        edges: edges
     }
 }
 

@@ -1,11 +1,10 @@
 import { Edge, Node } from "reactflow";
-import { PathDisplay } from "./enum";
+import { PathDisplay, PathStatus, UndirectedNodeType } from "./enum";
+import { BriefPathInfo } from "./type";
 
 export interface Path {
-  name: string;
-  description: string;
-  picture: string;
-  status: string;
+  pathInfo: BriefPathInfo,
+  status: PathStatus;
   force?: { x: number; y: number };
   velocity?: { x: number; y: number };
 }
