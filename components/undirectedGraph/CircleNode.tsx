@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
 import { PathStatus } from "@/types/enum";
 import { UndirectedGraphNodeData } from "@/types/type";
+import { memo } from "react";
 import { Handle, Position } from "reactflow";
 
-export default function CircleNode({
+function CircleNode({
   id,
   data,
   type
@@ -14,9 +15,9 @@ export default function CircleNode({
 }) {
   return (
     <>
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Top} className="opacity-0" />
       <Node status={data.status} name={data.pathInfo.name} />
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Bottom} className="opacity-0" />
     </>
   );
 }
@@ -53,3 +54,5 @@ export function Node({ status, name }: NodeProps) {
     );
   }
 }
+
+export default memo(CircleNode);
