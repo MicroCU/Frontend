@@ -30,9 +30,7 @@ export interface NodeProps {
 export function Node({ status, name }: NodeProps) {
   if (status === PathStatus.CURRENT_PREVIEW) {
     return (
-      <div className="relative p-2">
-        <div className="bg-primary w-12 h-12 rounded-full glow-selected-node"></div>
-      </div>
+      <div className="bg-primary w-12 h-12 rounded-full glow-selected-node"></div>
     );
   } else {
     return (

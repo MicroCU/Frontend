@@ -1,6 +1,7 @@
 import JourneyModalItems from "./JourneyModalItems";
 import JourneyModalItemsLoading from "./JourneyModalItemsLoading";
 import { useJourneyNormal } from "@/context/JourneysNormal";
+import { ScrollArea } from "./ui/scroll-area";
 
 export default function JourneyModalCollection() {
   const { journeys } = useJourneyNormal();
@@ -13,14 +14,13 @@ export default function JourneyModalCollection() {
     );
   }
   return (
-    <div
-      className="space-y-6 overflow-y-auto mt-6"
-      style={{ maxHeight: "calc(100vh - 160px)" }}
-    >
-      {journeys &&
-        journeys.map((journey) => (
-          <JourneyModalItems key={journey.id} journey={journey} />
-        ))}
-    </div>
+    <ScrollArea className="w-full" style={{ height: "calc(100vh - 160px)" }}>
+      <div className="space-y-6 mt-6">
+        {journeys &&
+          journeys.map((journey) => (
+            <JourneyModalItems key={journey.id} journey={journey} />
+          ))}
+      </div>
+    </ScrollArea>
   );
 }

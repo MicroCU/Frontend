@@ -82,6 +82,7 @@ export default function UndirectedGraph({
     setEdges([...graphEdge]);
 
     const bounds = getNodesBounds(graphNode);
+    // bounds.height += 50;
     reactFlow.fitBounds(bounds, { duration: 1000 });
   }, [nodesInitialized]);
 
