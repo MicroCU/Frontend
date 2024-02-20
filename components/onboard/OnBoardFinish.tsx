@@ -4,10 +4,11 @@ import { OnBoardModalContainer } from "./OnBoardModal";
 import { CheckCircle } from "lucide-react";
 import LinearProgressBar from "../LinearProgressBar";
 import { Button } from "../ui/button";
+import { storeMCVPref } from "@/action/onboard";
 
 const OnboardFinish = () => {
   const { dict } = useTranslation();
-  const { answer, addAnswer, page, maxPage, nextPage } = useOnBoard();
+  const { maxPage } = useOnBoard();
   return (
     <OnBoardModalContainer>
       <LinearProgressBar currSteps={maxPage} maxSteps={maxPage} />
@@ -24,7 +25,8 @@ const OnboardFinish = () => {
         <Button
           className="w-fit"
           onClick={() => {
-            nextPage();
+            window.location.href = "/en";
+            storeMCVPref();
           }}
         >
           {dict["onboard.finish.button"]}

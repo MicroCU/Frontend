@@ -1,5 +1,6 @@
 "use client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import OnboardLoading from "@/components/onboard/OnBoardLoading";
 import OnBoardModal from "@/components/onboard/OnBoardModal";
 import { useOnBoard } from "@/context/Onboard";
 
@@ -8,7 +9,7 @@ import Link from "next/link";
 
 const OnBoardContent = () => {
   const { lang } = useTranslation();
-  const { answer, page, question } = useOnBoard();
+  const { answer, page, question, isLoading } = useOnBoard();
 
   const CurrentModal = () => {
     switch (page) {
@@ -43,7 +44,7 @@ const OnBoardContent = () => {
         <br></br>
         <Link href={"/" + lang + "/example"}> go to example page </Link>
       </h1>
-      <CurrentModal />
+      {isLoading ? <OnboardLoading /> : <CurrentModal />}
     </div>
   );
 };

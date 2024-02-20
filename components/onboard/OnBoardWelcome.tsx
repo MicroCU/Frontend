@@ -6,7 +6,8 @@ import { OnBoardModalContainer } from "./OnBoardModal";
 
 const OnboardWelcome = () => {
   const { dict } = useTranslation();
-  const { addAnswer, nextPage } = useOnBoard();
+  const { addAnswer, nextPage, fetchQuestion } = useOnBoard();
+
   return (
     <OnBoardModalContainer>
       <div>
@@ -22,6 +23,7 @@ const OnboardWelcome = () => {
           text={dict["onboard.introduction.haveGoal"]}
           onClick={() => {
             addAnswer("welcome", OnBoardMode.GOAL);
+            fetchQuestion(OnBoardMode.GOAL);
             nextPage();
           }}
         />
@@ -32,6 +34,7 @@ const OnboardWelcome = () => {
           text={dict["onboard.introduction.noGoal"]}
           onClick={() => {
             addAnswer("welcome", OnBoardMode.NOGOAL);
+            fetchQuestion(OnBoardMode.NOGOAL);
             nextPage();
           }}
         />
