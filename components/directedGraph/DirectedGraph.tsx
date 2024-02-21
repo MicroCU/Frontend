@@ -25,7 +25,6 @@ import OrderedGroup from "./OrderNode";
 import SingleGroup from "./SingleNode";
 import UnorderedGroup from "./UnorderNode";
 import { GroupDisplay } from "@/types/enum";
-import { useScreenSize } from "@/context/ScreenWidthHeight";
 
 const nodeTypes = {
   [GroupDisplay.Single]: SingleGroup,
@@ -36,11 +35,13 @@ const nodeTypes = {
 export default function DirectedGraph({
   initialNodes,
   initialEdges,
-  initialViewport
+  initialViewport,
+  descriptionHeight
 }: {
   initialNodes: PathNode[];
   initialEdges: PathEdge[];
   initialViewport?: { x: number | null; y: number | null; zoom: number | null };
+  descriptionHeight: number;
 }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -122,9 +123,6 @@ export default function DirectedGraph({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodesInitialized, reactFlow]);
 
-  const { setCenter } = useReactFlow();
-  const { height } = useScreenSize();
-
   useEffect(() => {
     if (
       initialViewport &&
@@ -147,15 +145,14 @@ export default function DirectedGraph({
       const node = findRootNode(initialNodes, nodes);
 
       let nodeWidth = node.width || 0;
-      const paddingTop = 20;
 
-      const x = node.position.x + nodeWidth / 2;
-      const y = node.position.y + height / 2 - paddingTop;
+      const x = -node.position.x + window.innerWidth / 2 - nodeWidth / 2;
+      const y = node.position.y + 40 + descriptionHeight;
       const zoom = 1;
 
-      setCenter(x, y, { zoom, duration: 1000 });
+      reactFlow.setViewport({ x, y, zoom }, { duration: 1000 });
     }
-  }, [nodes, setCenter, height, initialNodes, initialViewport, reactFlow]);
+  }, [nodes, initialViewport, reactFlow, initialNodes, descriptionHeight]);
 
   return (
     <>
@@ -167,11 +164,10 @@ export default function DirectedGraph({
         connectionLineType={ConnectionLineType.SmoothStep}
         nodeTypes={nodeTypes}
         minZoom={0}
-        preventScrolling={false}
-        panOnDrag={true}
+        panOnScroll
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
-        <Controls position="top-left" />
+        <Controls position="bottom-right" />
       </ReactFlow>
     </>
   );

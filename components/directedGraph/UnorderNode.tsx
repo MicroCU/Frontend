@@ -1,7 +1,7 @@
 import { Group } from "@/types/path";
 import { memo, useRef } from "react";
 import { Handle, Position } from "reactflow";
-import Micro from "./Micro";
+import Micro from "../Micro";
 import { useOverflowDetectionWithMicrosWidth } from "@/hooks/Overflow";
 
 function UnorderedGroup({ id, data }: { id: string; data: Group }) {
@@ -49,6 +49,7 @@ function UnorderNode({
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        className="opacity-0"
       />
       <UnorderedGroup id={id} data={data} />
       <Handle
@@ -56,6 +57,7 @@ function UnorderNode({
         position={Position.Bottom}
         id="b"
         isConnectable={isConnectable}
+        className="opacity-0"
       />
     </>
   );

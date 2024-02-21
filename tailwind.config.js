@@ -103,6 +103,9 @@ module.exports = {
         ".effect-default": {
           boxShadow: "0 4px 4px 0 rgba(0, 0, 0, 0.25)"
         },
+        ".effect-description": {
+          boxShadow: "0 3px 3px 0 rgba(0, 0, 0, 0.25)"
+        },
         ".effect-svg-default": {
           filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25))"
         },

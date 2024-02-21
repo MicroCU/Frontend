@@ -1,7 +1,7 @@
 import { Group } from "@/types/path";
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
-import Micro from "./Micro";
+import Micro from "../Micro";
 
 function OrderedGroup({ id, data }: { id: string; data: Group }) {
   return (
@@ -34,6 +34,7 @@ function OrderNode({
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        className="opacity-0"
       />
       <OrderedGroup id={id} data={data} />
       <Handle
@@ -41,6 +42,7 @@ function OrderNode({
         position={Position.Bottom}
         id="b"
         isConnectable={isConnectable}
+        className="opacity-0"
       />
     </>
   );

@@ -1,7 +1,7 @@
 "use client";
 import PathDescription from "@/components/PathDescription";
 import PathPageLoading from "@/components/PathPageLoading";
-import DirectedGraph from "@/components/DirectedGraph";
+import DirectedGraph from "@/components/directedGraph/DirectedGraph";
 import { toast } from "@/components/ui/use-toast";
 import { useTranslation } from "@/context/Translation";
 import { PathData } from "@/types/type";
@@ -9,12 +9,12 @@ import { getPathInitialNodesAndEdges } from "@/utils/path";
 import { useEffect, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
 import { fetchPath, updateRecentlyPath } from "@/action/path";
-import { ScreenSizeProvider } from "@/context/ScreenWidthHeight";
 import { useSearchParams } from "next/navigation";
 
 export default function Path({ params }: { params: { id: string } }) {
   const [data, setData] = useState<PathData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [descriptionHeight, setDescriptionHeight] = useState(0);
   const { dict } = useTranslation();
 
   const searchParams = useSearchParams();
@@ -60,29 +60,29 @@ export default function Path({ params }: { params: { id: string } }) {
   );
 
   return (
-    <ScreenSizeProvider>
-      <div className="overflow-y-scroll w-screen">
-        <div className="w-full relative z-50">
-          <PathDescription
-            name={data.name}
-            description={data.description}
-            tags={data.tags}
-          />
-        </div>
-        <div className="w-screen bg-graySmall h-screen">
-          <ReactFlowProvider>
-            <DirectedGraph
-              initialNodes={initialNodes}
-              initialEdges={initialEdges}
-              initialViewport={{
-                x: x ? parseFloat(x) : null,
-                y: y ? parseFloat(y) : null,
-                zoom: zoom ? parseFloat(zoom) : null
-              }}
-            />
-          </ReactFlowProvider>
-        </div>
+    <div className="w-screen">
+      <div className="w-full absolute">
+        <PathDescription
+          name={data.name}
+          description={data.description}
+          tags={data.tags}
+          setHeight={setDescriptionHeight}
+        />
       </div>
-    </ScreenSizeProvider>
+      <div className="w-screen bg-graySmall h-screen">
+        <ReactFlowProvider>
+          <DirectedGraph
+            initialNodes={initialNodes}
+            initialEdges={initialEdges}
+            initialViewport={{
+              x: x ? parseFloat(x) : null,
+              y: y ? parseFloat(y) : null,
+              zoom: zoom ? parseFloat(zoom) : null
+            }}
+            descriptionHeight={descriptionHeight}
+          />
+        </ReactFlowProvider>
+      </div>
+    </div>
   );
 }
