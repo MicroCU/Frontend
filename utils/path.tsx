@@ -28,8 +28,6 @@ export function getPathInitialNodesAndEdges(data: GroupData[]) {
     initialNodes.push({
       id: group.id,
       data: {
-        id: group.id,
-        next: group.nexts,
         type: group.type,
         name: group.name,
         micros: micros,
@@ -216,13 +214,6 @@ export function calculateForce(
       Math.pow(node.data.velocity!.x, 2) + Math.pow(node.data.velocity!.y, 2)
     );
   });
-
-  // console.log({
-  //   "force mag": forceMagnitudes,
-  //   "force avg": forceMagnitudes / nodes.length,
-  //   "velocity mag": velocityMagnitudes,
-  //   "velocity avg": velocityMagnitudes / nodes.length
-  // });
   return {
     force: forceMagnitudes / nodes.length,
     velocity: velocityMagnitudes / nodes.length
@@ -458,14 +449,6 @@ export function repulsionForcePrimary(nodes: PathNode[]) {
       if (nodes[i].data.level! < nodes[j].data.level!) {
         nodes[j].data.force!.y -= fy + fy;
       }
-
-      // console.log("repulse", {
-      //   i: nodes[i].data.name,
-      //   j: nodes[j].data.name,
-      //   power: power,
-      //   fx: fx,
-      //   fy: fy
-      // });
     }
   }
 }
@@ -496,17 +479,10 @@ export function attractionForce(nodes: PathNode[], edges: PathEdge[]) {
     if (source.data.level! < target.data.level!) {
       target.data.force!.y -= fy + fy;
     }
-
-    // console.log("attract", {
-    //   source: source.data.name,
-    //   target: target.data.name,
-    //   fx: fx,
-    //   fy: fy
-    // });
   });
 }
 
-function calculateClosestPoint(
+export function calculateClosestPoint(
   lineStart: { x: number; y: number },
   lineEnd: { x: number; y: number },
   point: { x: number; y: number }
@@ -577,14 +553,6 @@ export function edgeForce(nodes: PathNode[], edges: PathEdge[]) {
       nodes.find((n) => n.id === source.id)!.data.force!.y += fy;
       nodes.find((n) => n.id === target.id)!.data.force!.x += fx;
       nodes.find((n) => n.id === target.id)!.data.force!.y += fy;
-
-      // console.log("edge", {
-      //   c: c,
-      //   cx: cx,
-      //   cy: cy,
-      //   fx: fx,
-      //   fy: fy
-      // });
     });
   });
 }
@@ -600,13 +568,6 @@ export function levelForce(nodes: PathNode[]) {
       const fy = (1 - Math.tanh((dy - 200) / 200)) * 10;
 
       nodes[j].data.force!.y += fy;
-
-      // console.log("level", {
-      //   i: nodes[i].data.name,
-      //   j: nodes[j].data.name,
-      //   fy: fy,
-      //   dy: dy
-      // });
     }
   }
 }
@@ -616,11 +577,6 @@ export function centerForce(nodes: PathNode[]) {
     const ix = nodes[i].position.x + nodes[i].width! / 2;
 
     const fx = Math.pow(ix / 100, 2);
-
-    // console.log("center", {
-    //   i: nodes[i].data.name,
-    //   fx: fx
-    // });
   }
 }
 export function nCrossEdge(nodes: PathNode[], edges: PathEdge[]) {

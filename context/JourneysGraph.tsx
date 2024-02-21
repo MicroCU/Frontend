@@ -120,13 +120,9 @@ export function JourneyGraphContextProvider({
       setSelectedPath(null);
       handleFetchRecently();
     } else if (selectedTab === MenuTab.search) {
-      if (searchKeyword === "") {
-        setSelectedPath(null);
-        setJourneys({} as JourneyStoreData);
-      } else {
-        setJourneys(null);
-        handleFetchSearch(searchKeyword);
-      }
+      setJourneys(null);
+      setSelectedPath(null);
+      handleFetchSearch(searchKeyword);
     }
   }, [selectedTab, searchKeyword]);
 
