@@ -12,7 +12,7 @@ const Checkbox = ({ title, checked, onCheck }: CheckboxProps) => {
   return (
     <Button
       className={cn(
-        "flex justify-between py-[10px] px-[18px] text-grayMain bg-graySmall hover:text-white",
+        "flex justify-between py-[10px] px-[18px] text-grayMain bg-graySmall hover:text-white hover:bg-grayMedium",
         checked ? "bg-primary text-white" : ""
       )}
       onClick={onCheck}
