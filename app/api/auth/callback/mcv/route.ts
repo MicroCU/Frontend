@@ -1,5 +1,5 @@
 import { getAccessToken } from "@/action/mcv";
-import { isAlreadyMCVPref } from "@/action/onboard";
+import { checkIsOnBoard } from "@/action/onboard";
 import { concatLocale } from "@/lib/locale";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
@@ -12,10 +12,15 @@ export async function GET(req: NextRequest) {
     return new Response("Missing code", { status: 400 });
   }
 
-  await getAccessToken(code);
+  try {
+    await getAccessToken(code);
+  } catch (err) {
+    console.log(err);
+    redirect("/auth");
+  }
 
-  const isAlreadyMCV = await isAlreadyMCVPref();
-  if (!isAlreadyMCV) {
+  const isOnBoard = await checkIsOnBoard();
+  if (!isOnBoard) {
     redirect("/onboard");
   }
   redirect(concatLocale("/", req).toString());
