@@ -10,7 +10,7 @@ import PathCardSearchCollection from "./PathCardSearchCollection";
 import { cn } from "@/lib/utils";
 import { useJourneyNormal } from "@/context/JourneysNormal";
 
-const NormalModal = () => {
+const NormalModal = ({ className }: { className?: string }) => {
   const { dict } = useTranslation();
   const { journeys, selectedTab, setSelectedTab, setJourneys } =
     useJourneyNormal();
@@ -18,7 +18,9 @@ const NormalModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="container">{dict["home.switch.button"]}</Button>
+        <Button variant="container" className={className}>
+          {dict["home.switch.button"]}
+        </Button>
       </DialogTrigger>
       <DialogContent
         className="w-[800px]"
