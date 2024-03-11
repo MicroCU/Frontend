@@ -8,7 +8,7 @@ import {
   fixCrossEdgeBackTrack,
   repulsionForcePrimary
 } from "@/utils/path";
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -25,6 +25,7 @@ import OrderedGroup from "./OrderNode";
 import SingleGroup from "./SingleNode";
 import UnorderedGroup from "./UnorderNode";
 import { GroupDisplay } from "@/types/enum";
+import ContextMenu, { ContextMenuProps } from "./ContextMenu";
 
 const nodeTypes = {
   [GroupDisplay.Single]: SingleGroup,
@@ -154,9 +155,33 @@ export default function DirectedGraph({
     }
   }, [nodes, initialViewport, reactFlow, initialNodes, descriptionHeight]);
 
+  const [menu, setMenu] = useState<ContextMenuProps | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const onNodeContextMenu = useCallback(
+    (event: React.MouseEvent, node: Node) => {
+      event.preventDefault();
+
+      if (ref.current === null) return;
+      const pane = ref.current.getBoundingClientRect();
+      setMenu({
+        id: node.id,
+        top: event.clientY < pane.height - 200 ? event.clientY : 0,
+        left: event.clientX < pane.width - 200 ? event.clientX : 0,
+        right:
+          event.clientX >= pane.width - 200 ? pane.width - event.clientX : 0,
+        bottom:
+          event.clientY >= pane.height - 200 ? pane.height - event.clientY : 0
+      });
+    },
+    [setMenu]
+  );
+
+  const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
+
   return (
     <>
       <ReactFlow
+        ref={ref}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
@@ -165,9 +190,12 @@ export default function DirectedGraph({
         nodeTypes={nodeTypes}
         minZoom={0}
         panOnScroll
+        onPaneClick={onPaneClick}
+        onNodeContextMenu={onNodeContextMenu}
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
         <Controls position="bottom-right" />
+        {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
       </ReactFlow>
     </>
   );
