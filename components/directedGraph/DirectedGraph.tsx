@@ -165,6 +165,7 @@ export default function DirectedGraph({
       const pane = ref.current.getBoundingClientRect();
       setMenu({
         id: node.id,
+        type: node.type,
         top: event.clientY < pane.height - 200 ? event.clientY : 0,
         left: event.clientX < pane.width - 200 ? event.clientX : 0,
         right:

@@ -1,7 +1,9 @@
+import { GroupDisplay } from "@/types/enum";
 import React from "react";
 
 export interface ContextMenuProps {
   id: string;
+  type: string | undefined;
   top: number;
   left: number;
   right: number;
@@ -11,13 +13,13 @@ export interface ContextMenuProps {
 
 export default function ContextMenu({
   id,
+  type,
   top,
   left,
   right,
   bottom,
   onClick
 }: ContextMenuProps) {
-  console.log("ContextMenuProps: ", id, top, left, right, bottom);
   return (
     <div
       style={{
@@ -26,12 +28,12 @@ export default function ContextMenu({
         right: `${right}px`,
         bottom: `${bottom}px`
       }}
-      className="absolute z-[100]"
+      className="absolute z-[100] bg-grayMain hover:bg-grayMedium border-solid rounded shadow-md w-fit h-fit Medium16 text-white"
       onClick={onClick}
     >
-      <p style={{ margin: "0.5em" }}>
-        <small>node: {id}</small>
-      </p>
+      <button onClick={() => {}} className="p-2 text-left w-full">
+        Marked as completed
+      </button>
     </div>
   );
 }
