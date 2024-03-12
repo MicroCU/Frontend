@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
+import { MicroType } from "@/types/enum";
 import { Micro } from "@/types/path";
+import MicroContextMenu from "./MicroContextMenu";
 
 interface MicroPracticeProps {
   data: Micro;
@@ -8,7 +10,7 @@ interface MicroPracticeProps {
 
 export default function MicroPractice({ data, className }: MicroPracticeProps) {
   return (
-    <>
+    <MicroContextMenu microType={MicroType.Practice}>
       <div
         className={cn(
           data.progress > 0 ? "bg-progress" : "bg-primary",
@@ -18,6 +20,6 @@ export default function MicroPractice({ data, className }: MicroPracticeProps) {
       >
         <p className="break-words">{data.title}</p>
       </div>
-    </>
+    </MicroContextMenu>
   );
 }
