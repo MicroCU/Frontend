@@ -10,7 +10,7 @@ interface MicroTestProps {
 
 export default function MicroTest({ data, className }: MicroTestProps) {
   return (
-    <MicroContextMenu microType={MicroType.Test}>
+    <MicroContextMenu microType={MicroType.Test} id={data.id}>
       <div
         className={cn(
           "border-3 p-4 rounded-2xl w-fit",

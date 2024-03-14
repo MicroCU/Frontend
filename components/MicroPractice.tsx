@@ -10,7 +10,7 @@ interface MicroPracticeProps {
 
 export default function MicroPractice({ data, className }: MicroPracticeProps) {
   return (
-    <MicroContextMenu microType={MicroType.Practice}>
+    <MicroContextMenu microType={MicroType.Practice} id={data.id}>
       <div
         className={cn(
           data.progress > 0 ? "bg-progress" : "bg-primary",
