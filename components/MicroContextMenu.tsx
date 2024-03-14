@@ -59,14 +59,6 @@ export default function MicroContextMenu({
         <ContextMenuItem
           inset
           className="text-grayMain hover:bg-graySmall"
-          onClick={handleMarketComplete}
-        >
-          {dict["micro.contextMenu.markedComplete"]}
-        </ContextMenuItem>
-        <ContextMenuSeparator className="bg-graySmall" />
-        <ContextMenuItem
-          inset
-          className="text-grayMain hover:bg-graySmall"
           onClick={handleViewContent}
         >
           {microType === MicroType.Video
@@ -74,6 +66,14 @@ export default function MicroContextMenu({
             : microType === MicroType.Practice
             ? dict["micro.contextMenu.practice"]
             : dict["micro.contextMenu.test"]}
+        </ContextMenuItem>
+        <ContextMenuSeparator className="bg-graySmall" />
+        <ContextMenuItem
+          inset
+          className="text-grayMain hover:bg-graySmall"
+          onClick={handleMarketComplete}
+        >
+          {dict["micro.contextMenu.markedComplete"]}
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
