@@ -19,5 +19,9 @@
   "home.recently.noresult": "No recently paths",
   "home.general.error": "Uh oh! Something went wrong",
   "path.general.error": "Something went wrong",
-  "path.button.back": "Back"
+  "path.button.back": "Back",
+  "micro.contextMenu.markedComplete": "Mark as Complete",
+  "micro.contextMenu.video": "View video",
+  "micro.contextMenu.practice": "Do practice",
+  "micro.contextMenu.test": "Start test"
 }

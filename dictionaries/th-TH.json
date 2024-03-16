@@ -19,5 +19,9 @@
   "home.recently.noresult": "ไม่มี path ที่เรียนเร็วๆนี้",
   "home.general.error": "โอ๊ะ! มีบางอย่างผิดพลาด",
   "path.general.error": "มีบางอย่างผิดพลาด",
-  "path.button.back": "กลับ"
+  "path.button.back": "กลับ",
+  "micro.contextMenu.markedComplete": "ทำเครื่องหมายว่าเสร็จแล้ว",
+  "micro.contextMenu.video": "ดูวิดีโอ",
+  "micro.contextMenu.practice": "ทำแบบฝึกหัด",
+  "micro.contextMenu.test": "ทำแบบทดสอบ"
 }
