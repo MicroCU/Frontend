@@ -28,7 +28,6 @@ export default function MicroContextMenu({
   const router = useRouter();
   const handleMarketComplete = () => {
     updateRecentlyPath(id);
-    console.log("Marked complete");
   };
   const handleViewContent = () => {
     if (microType === MicroType.Video) {
@@ -45,34 +44,22 @@ export default function MicroContextMenu({
         })
       );
       router.push(`${pathName}/video/${id}`);
-    } else if (microType === MicroType.Practice) {
-      console.log("View practice content");
-    } else {
-      console.log("View test content");
     }
   };
 
   return (
     <ContextMenu>
       <ContextMenuTrigger className="w-fit">{children}</ContextMenuTrigger>
-      <ContextMenuContent className="w-64 rounded-lg bg-white shadow-md border border-graySmall">
-        <ContextMenuItem
-          inset
-          className="text-grayMain hover:bg-graySmall"
-          onClick={handleViewContent}
-        >
+      <ContextMenuContent className="w-64">
+        <ContextMenuItem inset onClick={handleViewContent}>
           {microType === MicroType.Video
             ? dict["micro.contextMenu.video"]
             : microType === MicroType.Practice
             ? dict["micro.contextMenu.practice"]
             : dict["micro.contextMenu.test"]}
         </ContextMenuItem>
-        <ContextMenuSeparator className="bg-graySmall" />
-        <ContextMenuItem
-          inset
-          className="text-grayMain hover:bg-graySmall"
-          onClick={handleMarketComplete}
-        >
+        <ContextMenuSeparator />
+        <ContextMenuItem inset onClick={handleMarketComplete}>
           {dict["micro.contextMenu.markedComplete"]}
         </ContextMenuItem>
       </ContextMenuContent>
