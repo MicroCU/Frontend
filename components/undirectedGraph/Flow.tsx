@@ -2,7 +2,7 @@
 import { ReactFlowProvider } from "reactflow";
 import { useJourneyGraph } from "@/context/JourneysGraph";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
-import LoadingGraph from "../LoadingGraph";
+import { Player as Lottie } from "@lottiefiles/react-lottie-player";
 import UndirectedGraph from "./UndirectedGraph";
 
 export default function Flow() {
@@ -11,7 +11,7 @@ export default function Flow() {
   if (!journeys) {
     return (
       <div className="flex flex-1 justify-center items-center">
-        <LoadingGraph />
+        <Lottie autoplay loop src="/lottie/graph.json" />
       </div>
     );
   }

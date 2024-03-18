@@ -11,6 +11,7 @@ export function middleware(req: NextRequest) {
 
   if (
     [
+      "/lottie/graph.json",
       "/cv-logo.png",
       "/cu.svg",
       "/chula.svg",
