@@ -30,23 +30,22 @@ export interface NodeProps {
 export function Node({ status, name }: NodeProps) {
   if (status === PathStatus.CURRENT_PREVIEW) {
     return (
-      <div className="bg-primary w-12 h-12 rounded-full glow-selected-node"></div>
+      <div className="bg-primary w-12 h-12 rounded-full glow-selected-node" />
     );
   } else {
     return (
       <div className="relative">
         <div
           className={cn(
-            "w-6 h-6 rounded-full",
+            "w-6 h-6 rounded-full bg-graySmall",
             status === PathStatus.STILL_LEARNING
-              ? "bg-progress"
-              : status === PathStatus.PASSED_TEST
-              ? "bg-grayMedium"
-              : "bg-graySmall"
+              ? "bg-grayMedium animate-pulse"
+              : "",
+            status === PathStatus.PASSED_TEST ? "bg-progress" : ""
           )}
-        ></div>
-        <div className="absolute flex flex-col justify-center items-center w-5">
-          <div className="text-center">{name}</div>
+        />
+        <div className="absolute flex flex-col justify-center items-center w-5 text-center">
+          {name}
         </div>
       </div>
     );
