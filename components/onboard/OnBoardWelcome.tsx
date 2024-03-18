@@ -3,20 +3,21 @@ import { useTranslation } from "@/context/Translation";
 import { OnBoardMode } from "@/types/enum";
 import OnBoardBtn from "./OnBoardBtn";
 import { OnBoardModalContainer } from "./OnBoardModal";
+import I18nTypo from "../ui/i18nTypo";
 
 const OnboardWelcome = () => {
-  const { dict } = useTranslation();
+  const { dict, lang } = useTranslation();
   const { addAnswer, nextPage, fetchQuestion } = useOnBoard();
 
   return (
     <OnBoardModalContainer>
       <div>
-        <h1 className="text-grayMedium Bold24">
+        <I18nTypo className="text-grayMedium Bold24">
           {dict["onboard.welcome.title"]}
-        </h1>
-        <h1 className="text-grayMain Bold32">
+        </I18nTypo>
+        <I18nTypo className="text-grayMain Bold32">
           {dict["onboard.introduction.question"]}
-        </h1>
+        </I18nTypo>
       </div>
       <div className="space-y-6">
         <OnBoardBtn
@@ -27,9 +28,9 @@ const OnboardWelcome = () => {
             nextPage();
           }}
         />
-        <h1 className="text-grayMedium Bold24 text-center">
+        <I18nTypo className="text-grayMedium Bold24 text-center">
           {dict["onboard.introduction.optionWord"]}
-        </h1>
+        </I18nTypo>
         <OnBoardBtn
           text={dict["onboard.introduction.noGoal"]}
           onClick={() => {

@@ -9,6 +9,7 @@ import PathCardRecentlyCollection from "./PathCardRecentlyCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
 import { cn } from "@/lib/utils";
 import { useJourneyNormal } from "@/context/JourneysNormal";
+import I18nTypo from "./ui/i18nTypo";
 
 const NormalModal = ({ className }: { className?: string }) => {
   const { dict } = useTranslation();
@@ -19,7 +20,7 @@ const NormalModal = ({ className }: { className?: string }) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="container" className={className}>
-          {dict["home.switch.button"]}
+          <I18nTypo>{dict["home.switch.button"]}</I18nTypo>
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -41,7 +42,7 @@ const NormalModal = ({ className }: { className?: string }) => {
               }}
               disabled={!journeys}
             >
-              {dict["home.tabs.journey"]}
+              <I18nTypo>{dict["home.tabs.journey"]}</I18nTypo>
             </TabsTrigger>
             <TabsTrigger
               value={MenuTab.recently}
@@ -50,7 +51,7 @@ const NormalModal = ({ className }: { className?: string }) => {
               }}
               disabled={!journeys}
             >
-              {dict["home.tabs.recently"]}
+              <I18nTypo>{dict["home.tabs.recently"]}</I18nTypo>
             </TabsTrigger>
             <TabsTrigger
               value={MenuTab.search}
@@ -59,7 +60,7 @@ const NormalModal = ({ className }: { className?: string }) => {
               }}
               disabled={!journeys}
             >
-              {dict["home.tabs.search"]}
+              <I18nTypo>{dict["home.tabs.search"]}</I18nTypo>
             </TabsTrigger>
           </TabsList>
           <TabsContent value={MenuTab.journey}>

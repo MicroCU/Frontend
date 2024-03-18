@@ -9,6 +9,7 @@ import {
 import { useTranslation } from "@/context/Translation";
 import { updateRecentlyPath } from "@/action/path";
 import { usePathname, useRouter } from "next/navigation";
+import I18nTypo from "./ui/i18nTypo";
 
 interface MicroContextMenuProps {
   children: React.ReactNode;
@@ -52,15 +53,17 @@ export default function MicroContextMenu({
       <ContextMenuTrigger className="w-fit">{children}</ContextMenuTrigger>
       <ContextMenuContent className="w-64">
         <ContextMenuItem inset onClick={handleViewContent}>
-          {microType === MicroType.Video
-            ? dict["micro.contextMenu.video"]
-            : microType === MicroType.Practice
-            ? dict["micro.contextMenu.practice"]
-            : dict["micro.contextMenu.test"]}
+          <I18nTypo>
+            {microType === MicroType.Video
+              ? dict["micro.contextMenu.video"]
+              : microType === MicroType.Practice
+              ? dict["micro.contextMenu.practice"]
+              : dict["micro.contextMenu.test"]}
+          </I18nTypo>
         </ContextMenuItem>
         <ContextMenuSeparator />
         <ContextMenuItem inset onClick={handleMarketComplete}>
-          {dict["micro.contextMenu.markedComplete"]}
+          <I18nTypo>{dict["micro.contextMenu.markedComplete"]}</I18nTypo>
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>

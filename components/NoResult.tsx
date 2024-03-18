@@ -4,6 +4,7 @@ import { useJourneyNormal } from "@/context/JourneysNormal";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { History, SearchX } from "lucide-react";
+import I18nTypo from "./ui/i18nTypo";
 
 export interface NoResult {
   type: MenuTab;
@@ -18,14 +19,14 @@ export default function NoResult({ type }: NoResult) {
       {type === MenuTab.recently && (
         <>
           <History className="stroke-grayMain w-8 h-8" />
-          <p> {dict["home.recently.noresult"]} </p>
+          <I18nTypo> {dict["home.recently.noresult"]} </I18nTypo>
         </>
       )}
       {type === MenuTab.search &&
         (SearchKeywordGraph != "" || SearchKeywordNormal != "") && (
           <>
             <SearchX className="stroke-grayMain w-8 h-8" />
-            <p> {dict["home.searchbar.noresult"]} </p>
+            <I18nTypo> {dict["home.searchbar.noresult"]} </I18nTypo>
           </>
         )}
     </div>
