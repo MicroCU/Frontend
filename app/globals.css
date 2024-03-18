@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  *:lang(th) {
+    font-family: "Bai Jamjuree", "Inter";
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

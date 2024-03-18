@@ -8,6 +8,7 @@ import {
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { ReactNode } from "react";
+import I18nTypo from "./ui/i18nTypo";
 
 export interface NavToolTipProps {
   children: ReactNode;
@@ -32,7 +33,7 @@ export default function NavToolTip({ children, tooltipType }: NavToolTipProps) {
       <Tooltip delayDuration={100}>
         <TooltipTrigger> {children} </TooltipTrigger>
         <TooltipContent side="right">
-          <p> {tooltipShowText} </p>
+          <I18nTypo> {tooltipShowText} </I18nTypo>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

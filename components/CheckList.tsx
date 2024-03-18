@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { checkIsDataFieldsValid, cn } from "@/lib/utils";
 import { JourneyStoreData } from "@/types/type";
 import { MenuTab } from "@/types/enum";
+import I18nTypo from "./ui/i18nTypo";
 
 export interface ICheckListProps {
   className?: string;
@@ -44,11 +45,15 @@ export default function CheckList({ className }: ICheckListProps) {
       >
         <div className="flex items-center gap-x-1">
           <ListTodo size={24} className="stroke-primary" />
-          <p className="Bold24 text-primary">{dict["home.checklist.title"]}</p>
+          <I18nTypo className="Bold24 text-I18nTyporimary">
+            {dict["home.checklist.title"]}
+          </I18nTypo>
         </div>
         {journeys && checkIfAllCompleted(journeys) ? (
           <div className="w-[200px] h-full flex justify-center items-center">
-            <p className="Reg12"> {dict["home.checklist.complete"]} </p>
+            <I18nTypo className="Reg12">
+              {dict["home.checklist.complete"]}
+            </I18nTypo>
           </div>
         ) : (!journeys && selectedTab != MenuTab.search) ||
           (!journeys &&

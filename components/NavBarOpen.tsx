@@ -15,6 +15,7 @@ import { JourneyStoreData } from "@/types/type";
 import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import { logout } from "@/action/mcv";
+import I18nTypo from "./ui/i18nTypo";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -49,7 +50,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             }}
             disabled={!journeys}
           >
-            {dict["home.tabs.journey"]}
+            <I18nTypo>{dict["home.tabs.journey"]}</I18nTypo>
           </TabsTrigger>
           <TabsTrigger
             value={MenuTab.recently}
@@ -58,7 +59,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             }}
             disabled={!journeys}
           >
-            {dict["home.tabs.recently"]}
+            <I18nTypo>{dict["home.tabs.recently"]}</I18nTypo>
           </TabsTrigger>
           <TabsTrigger
             value={MenuTab.search}
@@ -67,7 +68,7 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
             }}
             disabled={!journeys}
           >
-            {dict["home.tabs.search"]}
+            <I18nTypo>{dict["home.tabs.search"]}</I18nTypo>
           </TabsTrigger>
         </TabsList>
         <ScrollArea

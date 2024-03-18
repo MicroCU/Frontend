@@ -1,5 +1,6 @@
 "use client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import I18nTypo from "@/components/ui/i18nTypo";
 import { useAuth } from "@/context/Auth";
 import { useTranslation } from "@/context/Translation";
 import Link from "next/link";
@@ -11,7 +12,7 @@ export default function Example() {
   return (
     <div>
       <LanguageSwitcher />
-      <p> {dict["onboard.welcome.title"]} </p>
+      <I18nTypo> {dict["onboard.welcome.title"]} </I18nTypo>
       <div>
         <p> {user ? user.id : "Not found ID"}</p>
         <p> {user ? user.name : "Not found Name"}</p>
