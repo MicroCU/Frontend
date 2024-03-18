@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { checkIsDataFieldsValid, cn } from "@/lib/utils";
 import { JourneyStoreData } from "@/types/type";
 import { MenuTab } from "@/types/enum";
-import I18nTypo from "./ui/i18nTypo";
+import I18nTypo from "./ui/I18nTypo";
 
 export interface ICheckListProps {
   className?: string;

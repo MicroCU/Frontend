@@ -3,7 +3,7 @@ import { useTranslation } from "@/context/Translation";
 import { OnBoardMode } from "@/types/enum";
 import OnBoardBtn from "./OnBoardBtn";
 import { OnBoardModalContainer } from "./OnBoardModal";
-import I18nTypo from "../ui/i18nTypo";
+import I18nTypo from "../ui/I18nTypo";
 
 const OnboardWelcome = () => {
   const { dict, lang } = useTranslation();

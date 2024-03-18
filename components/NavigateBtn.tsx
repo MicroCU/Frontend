@@ -2,7 +2,7 @@
 import { useTranslation } from "@/context/Translation";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import I18nTypo from "./ui/i18nTypo";
+import I18nTypo from "./ui/I18nTypo";
 
 export default function NavigateBtn() {
   const { dict, lang } = useTranslation();

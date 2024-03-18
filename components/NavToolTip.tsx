@@ -8,7 +8,7 @@ import {
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { ReactNode } from "react";
-import I18nTypo from "./ui/i18nTypo";
+import I18nTypo from "./ui/I18nTypo";
 
 export interface NavToolTipProps {
   children: ReactNode;

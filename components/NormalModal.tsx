@@ -9,7 +9,7 @@ import PathCardRecentlyCollection from "./PathCardRecentlyCollection";
 import PathCardSearchCollection from "./PathCardSearchCollection";
 import { cn } from "@/lib/utils";
 import { useJourneyNormal } from "@/context/JourneysNormal";
-import I18nTypo from "./ui/i18nTypo";
+import I18nTypo from "./ui/I18nTypo";
 
 const NormalModal = ({ className }: { className?: string }) => {
   const { dict } = useTranslation();

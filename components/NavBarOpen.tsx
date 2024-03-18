@@ -15,7 +15,7 @@ import { JourneyStoreData } from "@/types/type";
 import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import { logout } from "@/action/mcv";
-import I18nTypo from "./ui/i18nTypo";
+import I18nTypo from "./ui/I18nTypo";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
