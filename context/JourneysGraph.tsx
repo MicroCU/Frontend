@@ -1,14 +1,7 @@
 "use client";
 import { toast } from "@/components/ui/use-toast";
 import { MenuTab } from "@/types/enum";
-import {
-  BriefPathInfo,
-  ErrorAPI,
-  HomePageData,
-  JourneyStoreData,
-  RecentlyPageData,
-  SearchPageData
-} from "@/types/type";
+import { BriefPathInfo, ErrorAPI, JourneyStoreData } from "@/types/type";
 import {
   Dispatch,
   SetStateAction,
@@ -18,12 +11,9 @@ import {
   useState
 } from "react";
 import { useTranslation } from "./Translation";
-import { getHomeResult } from "@/mock/journey_data";
-import {
-  getRecentlyResult,
-  convertRecentlyToJourney
-} from "@/mock/recently_data";
-import { getSearchResult, convertSearchToJourney } from "@/mock/search_data";
+import { convertRecentlyToJourney } from "@/mock/recently_data";
+import { convertSearchToJourney } from "@/mock/search_data";
+import { fetchJourney, fetchRecently, fetchSearch } from "@/action/journey";
 
 interface JourneyGraphContextType {
   selectedTab: MenuTab;
@@ -77,25 +67,62 @@ export function JourneyGraphContextProvider({
     }
   }, [error]);
 
+  const handleFetchJourney = async () => {
+    const result = await fetchJourney();
+    if (result.status !== 200) {
+      setError({
+        status: result.status,
+        message: result.message ? result.message : "Unknown error occurred"
+      });
+      return;
+    }
+    setJourneys({
+      data: result.data.journeys,
+      relationships: result.data.relationships
+    });
+  };
+
+  const handleFetchRecently = async () => {
+    const result = await fetchRecently();
+    if (result.status !== 200) {
+      setError({
+        status: result.status,
+        message: result.message ? result.message : "Unknown error occurred"
+      });
+      return;
+    }
+    const journey = convertRecentlyToJourney(result.data);
+    setJourneys(journey);
+  };
+
+  const handleFetchSearch = async (searchText: string) => {
+    const result = await fetchSearch(searchText);
+    if (result.status !== 200) {
+      setError({
+        status: result.status,
+        message: result.message ? result.message : "Unknown error occurred"
+      });
+      return;
+    }
+    const journey = convertSearchToJourney(result.data);
+    setJourneys(journey);
+  };
+
   useEffect(() => {
     if (selectedTab === MenuTab.journey) {
       setJourneys(null);
       setSearchKeyword("");
       setSelectedPath(null);
-      fetchJourney(setJourneys, setError);
+      handleFetchJourney();
     } else if (selectedTab === MenuTab.recently) {
       setJourneys(null);
       setSearchKeyword("");
       setSelectedPath(null);
-      fetchRecently(setJourneys, setError);
+      handleFetchRecently();
     } else if (selectedTab === MenuTab.search) {
-      if (searchKeyword === "") {
-        setSelectedPath(null);
-        setJourneys({} as JourneyStoreData);
-      } else {
-        setJourneys(null);
-        fetchSearch(setJourneys, searchKeyword, setError);
-      }
+      setJourneys(null);
+      setSelectedPath(null);
+      handleFetchSearch(searchKeyword);
     }
   }, [selectedTab, searchKeyword]);
 
@@ -117,76 +144,4 @@ export function JourneyGraphContextProvider({
       {children}
     </JourneyGraphContext.Provider>
   );
-}
-
-async function fetchJourney(
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
-  setError: Dispatch<SetStateAction<ErrorAPI | null>>
-) {
-  try {
-    const resp = await getHomeResult();
-    const status = resp.status;
-    if (status !== 200) {
-      const errMesg = resp.message;
-      setError({
-        status: status,
-        message: errMesg ? errMesg : "Unknown error"
-      });
-      return;
-    }
-    const result = resp.data as HomePageData;
-    setJourneys({
-      data: result.journeys,
-      relationships: result.relationships
-    });
-  } catch (error) {
-    console.error("error: ", error);
-  }
-}
-
-async function fetchRecently(
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
-  setError: Dispatch<SetStateAction<ErrorAPI | null>>
-) {
-  try {
-    const resp = await getRecentlyResult();
-    const status = resp.status;
-    if (status !== 200) {
-      const errMesg = resp.message;
-      setError({
-        status: status,
-        message: errMesg ? errMesg : "Unknown error"
-      });
-      return;
-    }
-    const result = resp.data as RecentlyPageData;
-    const journey = convertRecentlyToJourney(result);
-    setJourneys(journey);
-  } catch (error) {
-    console.error("error: ", error);
-  }
-}
-
-async function fetchSearch(
-  setJourneys: Dispatch<SetStateAction<JourneyStoreData | null>>,
-  serachText: string,
-  setError: Dispatch<SetStateAction<ErrorAPI | null>>
-) {
-  try {
-    const resp = await getSearchResult(serachText);
-    const status = resp.status;
-    if (status !== 200) {
-      const errMesg = resp.message;
-      setError({
-        status: status,
-        message: errMesg ? errMesg : "Unknown error"
-      });
-      return;
-    }
-    const result = resp.data as SearchPageData;
-    const journey = convertSearchToJourney(result);
-    setJourneys(journey);
-  } catch (error) {
-    console.error("error: ", error);
-  }
 }

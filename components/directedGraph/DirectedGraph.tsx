@@ -1,7 +1,6 @@
 "use client";
-import { GroupType, PathEdge, PathNode } from "@/types/path";
+import { Group, PathEdge, PathNode } from "@/types/path";
 import {
-  ForceFunction,
   attractionForce,
   calculateForce,
   centerForce,
@@ -9,44 +8,45 @@ import {
   fixCrossEdgeBackTrack,
   repulsionForcePrimary
 } from "@/utils/path";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
   ConnectionLineType,
+  Controls,
   useEdgesState,
   useNodesInitialized,
-  useNodesState
+  useNodesState,
+  useReactFlow,
+  Node
 } from "reactflow";
 import "reactflow/dist/style.css";
 import OrderedGroup from "./OrderNode";
 import SingleGroup from "./SingleNode";
 import UnorderedGroup from "./UnorderNode";
+import { GroupDisplay } from "@/types/enum";
 
 const nodeTypes = {
-  [GroupType.Single]: SingleGroup,
-  [GroupType.Ordered]: OrderedGroup,
-  [GroupType.Unordered]: UnorderedGroup
+  [GroupDisplay.Single]: SingleGroup,
+  [GroupDisplay.Ordered]: OrderedGroup,
+  [GroupDisplay.Unordered]: UnorderedGroup
 };
 
 export default function DirectedGraph({
-  flowRef,
   initialNodes,
-  initialEdges
+  initialEdges,
+  initialViewport,
+  descriptionHeight
 }: {
-  flowRef: React.MutableRefObject<HTMLDivElement | null>;
   initialNodes: PathNode[];
   initialEdges: PathEdge[];
+  initialViewport?: { x: number | null; y: number | null; zoom: number | null };
+  descriptionHeight: number;
 }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [level, setLevel] = useState(0);
   const nodesInitialized = useNodesInitialized();
-
-  const applyForce = (...f: ForceFunction[]) => {
-    calculateForce(nodes as PathNode[], edges as PathEdge[], f);
-    setNodes([...nodes]);
-  };
+  const reactFlow = useReactFlow();
 
   useEffect(() => {
     if (nodes[0].height === undefined || nodes[0].width === undefined) return;
@@ -117,11 +117,42 @@ export default function DirectedGraph({
       minVelocity <= velocity ? minCount++ : (minCount = 0);
       minVelocity = Math.min(minVelocity, velocity);
       if (minVelocity <= 1) break;
-      console.log(minVelocity, minCount);
     }
     setNodes([...nodes]);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodesInitialized]);
+  }, [nodesInitialized, reactFlow]);
+
+  useEffect(() => {
+    if (
+      initialViewport &&
+      initialViewport.x &&
+      initialViewport.y &&
+      initialViewport.zoom
+    ) {
+      const { x, y, zoom } = initialViewport;
+      reactFlow.setViewport(
+        {
+          x,
+          y,
+          zoom
+        },
+        { duration: 1000 }
+      );
+      return;
+    }
+    if (nodes.length > 0) {
+      const node = findRootNode(initialNodes, nodes);
+
+      let nodeWidth = node.width || 0;
+
+      const x = -node.position.x + window.innerWidth / 2 - nodeWidth / 2;
+      const y = node.position.y + 40 + descriptionHeight;
+      const zoom = 1;
+
+      reactFlow.setViewport({ x, y, zoom }, { duration: 1000 });
+    }
+  }, [nodes, initialViewport, reactFlow, initialNodes, descriptionHeight]);
 
   return (
     <>
@@ -132,10 +163,26 @@ export default function DirectedGraph({
         onEdgesChange={onEdgesChange}
         connectionLineType={ConnectionLineType.SmoothStep}
         nodeTypes={nodeTypes}
-        fitView
+        minZoom={0}
+        panOnScroll
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
+        <Controls position="bottom-right" />
       </ReactFlow>
     </>
   );
+}
+
+function findRootNode(
+  initialNodes: PathNode[],
+  nodes: Node<Group, string | undefined>[]
+): Node<Group, string | undefined> {
+  let filter = initialNodes.find((node) => node.data.level === 0);
+  if (!filter) {
+    return nodes[0];
+  }
+  return nodes.find((node) => node.id === filter?.id) as Node<
+    Group,
+    string | undefined
+  >;
 }

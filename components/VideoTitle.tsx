@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface VideoTitleProps {
   videoName: string;
@@ -11,8 +11,32 @@ interface VideoTitleProps {
 
 const VideoTitle: React.FC<VideoTitleProps> = ({ videoName, className }) => {
   const router = useRouter();
+  const pathName = usePathname(); // /en/path/1-p3/video/3
   const handleGoBack = () => {
-    router.back();
+    const pathData = localStorage.getItem("pathData");
+
+    var path: {
+      viewport: { id: string; x: number; y: number; zoom: number };
+      pathName: string;
+    } = JSON.parse(pathData || "{}");
+
+    const pathSegments = pathName.split("/"); // ["", "en", "path", "1-p3", "video", "3"]
+    const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}`; // /en/path/1-p3
+    const desiredVideoId = pathSegments[5];
+    if (
+      desiredPathUrl !== path.pathName ||
+      desiredVideoId !== path.viewport.id
+    ) {
+      router.push(desiredPathUrl);
+      return;
+    }
+
+    if (path.viewport) {
+      router.push(
+        `${path.pathName}?x=${path.viewport.x}&y=${path.viewport.y}&zoom=${path.viewport.zoom}`
+      );
+      return;
+    }
   };
 
   return (

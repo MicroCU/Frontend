@@ -15,7 +15,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from "./ui/dropdown-menu";
-import { VideoState } from "@/app/[lang]/video/[id]/page";
+import { VideoState } from "@/app/[lang]/path/[id]/video/[vid]/page";
 import { cn } from "@/lib/utils";
 
 interface VideoControllerProps {

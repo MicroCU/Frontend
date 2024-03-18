@@ -16,12 +16,14 @@ function SingleNode({
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        className="opacity-0"
       />
       <Micro data={data.micros[0]} isGroup={false} />
       <Handle
         type="source"
         position={Position.Bottom}
         isConnectable={isConnectable}
+        className="opacity-0"
       />
     </>
   );

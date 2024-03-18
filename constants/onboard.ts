@@ -11,9 +11,9 @@ type onBoardWelcomeFinishType = {
 
 export type Answer = Record<string, string | string[]>;
 
-type Question = (onBoardGoalQuestionType | onBoardWelcomeFinishType)[];
+export type Question = (onBoardGoalQuestionType | onBoardWelcomeFinishType)[];
 
-const onBoardNoGoalQuestion: Question = [
+export const onBoardNoGoalQuestion: Question = [
   {
     variant: "checkbox",
     title: "What is your favorite subject?",
@@ -61,7 +61,7 @@ const onBoardNoGoalQuestion: Question = [
   }
 ];
 
-const onBoardGoalQuestion: Question = [
+export const onBoardGoalQuestion: Question = [
   {
     variant: "checkbox",
     title: "Choose your favorite Journey",
@@ -75,5 +75,3 @@ const onBoardGoalQuestion: Question = [
     choices: ["Secondary school", "Undergraduate", "Graduate"]
   }
 ];
-
-export { onBoardNoGoalQuestion, onBoardGoalQuestion };

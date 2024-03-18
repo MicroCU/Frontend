@@ -39,8 +39,8 @@ const LoginPanel = () => {
             />
           }
         />
-        <Separator className="my-4 bg-grayMedium" />
-        <Button onClick={() => logout()}>Logout</Button>
+        {/* <Separator className="my-4 bg-grayMedium" />
+        <Button onClick={() => logout()}>Logout</Button> */}
         {/* for testing auth
           <Button onClick={() => getUserInfo()}>Get User</Button>
           <Button onClick={() => refreshAccessToken()}>Refresh Token</Button> 

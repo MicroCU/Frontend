@@ -1,25 +1,26 @@
-import { mockData } from "@/mock/path";
+import { GroupDisplay, GroupType } from "@/types/enum";
 import { Micro, PathEdge, PathNode } from "@/types/path";
 import { MarkerType } from "reactflow";
+import { GroupData } from "@/types/type";
 
-export function getInitialNodesAndEdges(id: number) {
+export function getPathInitialNodesAndEdges(data: GroupData[]) {
   const initialNodes: PathNode[] = [];
   const initialEdges: PathEdge[] = [];
 
-  mockData[id].groups.forEach((group) => {
+  data.forEach((group) => {
     const micros: Micro[] = [];
     group.micros.forEach((member) => {
       micros.push({
         id: member.id,
-        title: member.title,
+        title: member.name,
         progress: member.progress,
         type: member.type
       });
     });
 
     const parents: string[] = [];
-    mockData[id].groups.forEach((g) => {
-      if (g.next.includes(group.id)) {
+    data.forEach((g) => {
+      if (g.nexts.includes(group.id)) {
         parents.push(g.id);
       }
     });
@@ -27,8 +28,6 @@ export function getInitialNodesAndEdges(id: number) {
     initialNodes.push({
       id: group.id,
       data: {
-        id: group.id,
-        next: group.next,
         type: group.type,
         name: group.name,
         micros: micros,
@@ -37,11 +36,17 @@ export function getInitialNodesAndEdges(id: number) {
         level: 0
       },
       position: { x: 0, y: 0 },
-      draggable: true,
-      type: group.type
+      draggable: false,
+      selected: true,
+      type:
+        group.micros.length == 1
+          ? GroupDisplay.Single
+          : group.type == GroupType.Ordered
+          ? GroupDisplay.Ordered
+          : GroupDisplay.Unordered
     });
 
-    group.next.forEach((nextId) => {
+    group.nexts.forEach((nextId) => {
       initialEdges.push({
         id: `edge-${group.id}-${nextId}`,
         source: group.id,
@@ -209,13 +214,6 @@ export function calculateForce(
       Math.pow(node.data.velocity!.x, 2) + Math.pow(node.data.velocity!.y, 2)
     );
   });
-
-  // console.log({
-  //   "force mag": forceMagnitudes,
-  //   "force avg": forceMagnitudes / nodes.length,
-  //   "velocity mag": velocityMagnitudes,
-  //   "velocity avg": velocityMagnitudes / nodes.length
-  // });
   return {
     force: forceMagnitudes / nodes.length,
     velocity: velocityMagnitudes / nodes.length
@@ -451,14 +449,6 @@ export function repulsionForcePrimary(nodes: PathNode[]) {
       if (nodes[i].data.level! < nodes[j].data.level!) {
         nodes[j].data.force!.y -= fy + fy;
       }
-
-      // console.log("repulse", {
-      //   i: nodes[i].data.name,
-      //   j: nodes[j].data.name,
-      //   power: power,
-      //   fx: fx,
-      //   fy: fy
-      // });
     }
   }
 }
@@ -489,17 +479,10 @@ export function attractionForce(nodes: PathNode[], edges: PathEdge[]) {
     if (source.data.level! < target.data.level!) {
       target.data.force!.y -= fy + fy;
     }
-
-    // console.log("attract", {
-    //   source: source.data.name,
-    //   target: target.data.name,
-    //   fx: fx,
-    //   fy: fy
-    // });
   });
 }
 
-function calculateClosestPoint(
+export function calculateClosestPoint(
   lineStart: { x: number; y: number },
   lineEnd: { x: number; y: number },
   point: { x: number; y: number }
@@ -570,14 +553,6 @@ export function edgeForce(nodes: PathNode[], edges: PathEdge[]) {
       nodes.find((n) => n.id === source.id)!.data.force!.y += fy;
       nodes.find((n) => n.id === target.id)!.data.force!.x += fx;
       nodes.find((n) => n.id === target.id)!.data.force!.y += fy;
-
-      // console.log("edge", {
-      //   c: c,
-      //   cx: cx,
-      //   cy: cy,
-      //   fx: fx,
-      //   fy: fy
-      // });
     });
   });
 }
@@ -593,13 +568,6 @@ export function levelForce(nodes: PathNode[]) {
       const fy = (1 - Math.tanh((dy - 200) / 200)) * 10;
 
       nodes[j].data.force!.y += fy;
-
-      // console.log("level", {
-      //   i: nodes[i].data.name,
-      //   j: nodes[j].data.name,
-      //   fy: fy,
-      //   dy: dy
-      // });
     }
   }
 }
@@ -609,11 +577,6 @@ export function centerForce(nodes: PathNode[]) {
     const ix = nodes[i].position.x + nodes[i].width! / 2;
 
     const fx = Math.pow(ix / 100, 2);
-
-    // console.log("center", {
-    //   i: nodes[i].data.name,
-    //   fx: fx
-    // });
   }
 }
 export function nCrossEdge(nodes: PathNode[], edges: PathEdge[]) {

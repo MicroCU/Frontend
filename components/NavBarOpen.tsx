@@ -12,6 +12,9 @@ import { useJourneyGraph } from "@/context/JourneysGraph";
 import PathList from "./PathList";
 import { JourneyNormalContextProvider } from "@/context/JourneysNormal";
 import { JourneyStoreData } from "@/types/type";
+import { Button } from "./ui/button";
+import { LogOut } from "lucide-react";
+import { logout } from "@/action/mcv";
 
 interface NavBarOpenModeProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -87,7 +90,15 @@ export default function NavBarOpenMode({ setIsOpen }: NavBarOpenModeProps) {
         </ScrollArea>
       </Tabs>
       <JourneyNormalContextProvider>
-        <NormalModal />
+        <div className="grid gap-2 grid-cols-4">
+          <Button
+            className="col-span-1 bg-grayMain hover:bg-black"
+            onClick={() => logout()}
+          >
+            <LogOut className="p-0.5" />
+          </Button>
+          <NormalModal className="col-span-3" />
+        </div>
       </JourneyNormalContextProvider>
     </div>
   );

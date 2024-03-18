@@ -1,10 +1,5 @@
 import { Edge, Node } from "reactflow";
-
-export enum MicroType {
-  VIDEO = "VIDEO",
-  PRACTICE = "PRACTICE",
-  TEST = "TEST"
-}
+import { GroupDisplay, GroupType, MicroType } from "./enum";
 
 export interface Micro {
   id: string;
@@ -13,16 +8,8 @@ export interface Micro {
   type: MicroType;
 }
 
-export enum GroupType {
-  Single = "Single",
-  Ordered = "Ordered",
-  Unordered = "Unordered"
-}
-
 export interface Group {
-  id: string;
   name: string;
-  next: string[];
   type: GroupType;
   micros: Micro[];
   force?: { x: number; y: number };
@@ -34,5 +21,5 @@ export interface Path {
   groups: Group[];
 }
 
-export type PathNode = Node<Group, GroupType>;
+export type PathNode = Node<Group, GroupDisplay>;
 export type PathEdge = Edge<undefined>;

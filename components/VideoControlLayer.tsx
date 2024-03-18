@@ -2,7 +2,7 @@ import VideoNav from "./VideoNav";
 import { MutableRefObject, useEffect, useState } from "react";
 import VideoController from "./VideoController";
 import LoadingSpinner from "./LoadingSpinner";
-import { VideoState } from "@/app/[lang]/video/[id]/page";
+import { VideoState } from "@/app/[lang]/path/[id]/video/[vid]/page";
 import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
 import { cn } from "@/lib/utils";
@@ -154,7 +154,11 @@ const VideoControlLayer = ({
         {videoState.ended && (
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
             {choiceData.map((item) => (
-              <VideoChoice videoName={item.videoName} link={item.link} />
+              <VideoChoice
+                videoName={item.videoName}
+                link={item.link}
+                key={item.videoName}
+              />
             ))}
           </div>
         )}
