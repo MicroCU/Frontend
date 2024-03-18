@@ -1,5 +1,5 @@
-import LoadingGraph from "./LoadingGraph";
 import { Skeleton } from "./ui/skeleton";
+import { Player as Lottie } from "@lottiefiles/react-lottie-player";
 
 export default function PathPageLoading() {
   return (
@@ -18,7 +18,7 @@ export default function PathPageLoading() {
         </div>
       </div>
       <div className="w-screen h-4/6 flex justify-center items-center">
-        <LoadingGraph />
+        <Lottie autoplay loop src="/lottie/graph.json" />
       </div>
     </div>
   );
