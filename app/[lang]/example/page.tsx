@@ -1,6 +1,6 @@
 "use client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import I18nTypo from "@/components/ui/i18nTypo";
+import I18nTypo from "@/components/ui/I18nTypo";
 import { useAuth } from "@/context/Auth";
 import { useTranslation } from "@/context/Translation";
 import Link from "next/link";

@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import I18nTypo from "../ui/i18nTypo";
+import I18nTypo from "../ui/I18nTypo";
 
 type OnBoardBtnProps = {
   text: string;

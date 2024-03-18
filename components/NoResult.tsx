@@ -4,7 +4,7 @@ import { useJourneyNormal } from "@/context/JourneysNormal";
 import { useTranslation } from "@/context/Translation";
 import { MenuTab } from "@/types/enum";
 import { History, SearchX } from "lucide-react";
-import I18nTypo from "./ui/i18nTypo";
+import I18nTypo from "./ui/I18nTypo";
 
 export interface NoResult {
   type: MenuTab;

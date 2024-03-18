@@ -9,7 +9,7 @@ import {
 import { useTranslation } from "@/context/Translation";
 import { updateRecentlyPath } from "@/action/path";
 import { usePathname, useRouter } from "next/navigation";
-import I18nTypo from "./ui/i18nTypo";
+import I18nTypo from "./ui/I18nTypo";
 
 interface MicroContextMenuProps {
   children: React.ReactNode;
