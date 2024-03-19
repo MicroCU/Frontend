@@ -288,3 +288,37 @@ export function getPathResult(id: string): Promise<PathAPIResponse> { // Mock AP
         }, 0);
     });
 }
+
+export function updatePathProgress(id: string, progress: number): Promise<{ status: number, message?: string }> { // Mock API Response
+    // find path's id in mockDB
+    for (let i = 0; i < directedGraphCase.length; i++) {
+        let paths = directedGraphCase[i]
+        for (let j = 0; j < paths.length; j++) {
+            let group = paths[j]
+            if (group.id == id) {
+                for (let k = 0; k < group.micros.length; k++) {
+                    group.micros[k].progress = progress
+                }
+                break
+            }
+        }
+    }
+
+    if (id == "21") {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    status: 500,
+                    message: "Mock Data jaaaaa"
+                });
+            }, 2000);
+        });
+    }
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                status: 200
+            });
+        }, 0);
+    });
+}

@@ -25,6 +25,7 @@ import OrderedGroup from "./OrderNode";
 import SingleGroup from "./SingleNode";
 import UnorderedGroup from "./UnorderNode";
 import { GroupDisplay } from "@/types/enum";
+import { usePath } from "@/context/Path";
 
 const nodeTypes = {
   [GroupDisplay.Single]: SingleGroup,
@@ -47,6 +48,7 @@ export default function DirectedGraph({
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodesInitialized = useNodesInitialized();
   const reactFlow = useReactFlow();
+  const { selectedPathId } = usePath();
 
   useEffect(() => {
     if (nodes[0].height === undefined || nodes[0].width === undefined) return;
@@ -141,7 +143,7 @@ export default function DirectedGraph({
       );
       return;
     }
-    if (nodes.length > 0) {
+    if (nodes.length > 0 && selectedPathId === "") {
       const node = findRootNode(initialNodes, nodes);
 
       let nodeWidth = node.width || 0;
@@ -152,7 +154,35 @@ export default function DirectedGraph({
 
       reactFlow.setViewport({ x, y, zoom }, { duration: 1000 });
     }
-  }, [nodes, initialViewport, reactFlow, initialNodes, descriptionHeight]);
+  }, [
+    nodes,
+    initialViewport,
+    reactFlow,
+    initialNodes,
+    descriptionHeight,
+    selectedPathId
+  ]);
+
+  useEffect(() => {
+    setNodes((nds) =>
+      nds.map((node) => {
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            micros: node.data.micros.map((micro) => {
+              if (micro.id !== selectedPathId) return micro;
+              return {
+                ...micro,
+                completed: true,
+                progress: 100
+              };
+            })
+          }
+        };
+      })
+    );
+  }, [selectedPathId, setNodes]);
 
   return (
     <>
