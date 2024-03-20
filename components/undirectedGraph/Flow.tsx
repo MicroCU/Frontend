@@ -1,9 +1,9 @@
-"use client";
 import { ReactFlowProvider } from "reactflow";
 import { useJourneyGraph } from "@/context/JourneysGraph";
 import { generateInitialNodeEdge } from "@/lib/undirected-nodes-edges";
-import { Player as Lottie } from "@lottiefiles/react-lottie-player";
 import UndirectedGraph from "./UndirectedGraph";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("@/components/Lottie"), { ssr: false });
 
 export default function Flow() {
   const { journeys, selectedTab, searchKeyword } = useJourneyGraph();
@@ -11,7 +11,7 @@ export default function Flow() {
   if (!journeys) {
     return (
       <div className="flex flex-1 justify-center items-center">
-        <Lottie autoplay loop src="/lottie/graph.json" />
+        <Lottie src="/lottie/graph.json" />
       </div>
     );
   }
