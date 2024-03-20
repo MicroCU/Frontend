@@ -48,7 +48,7 @@ export default function DirectedGraph({
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodesInitialized = useNodesInitialized();
   const reactFlow = useReactFlow();
-  const { selectedPathId } = usePath();
+  const { selectedPathId, pathInfo } = usePath();
 
   useEffect(() => {
     if (nodes[0].height === undefined || nodes[0].width === undefined) return;

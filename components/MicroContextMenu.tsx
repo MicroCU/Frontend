@@ -48,7 +48,6 @@ export default function MicroContextMenu({
                       if (node.id === id) {
                         return {
                           ...node,
-                          completed: true,
                           progress: 100
                         };
                       }

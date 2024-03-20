@@ -28,7 +28,7 @@ const directedGraphCase = [
             micros: [
                 { id: '41', name: 'Comment 1', progress: 0, type: MicroType.Video },
                 { id: '42', name: 'Comment 2', progress: 20, type: MicroType.Video },
-                { id: '43', name: 'Comment 3', progress: 80, type: MicroType.Video },
+                { id: '43', name: 'Comment 3', progress: 40, type: MicroType.Video },
             ]
         },
         {
@@ -167,7 +167,7 @@ const directedGraphCase = [
                 { id: '81', name: 'Comment 2 Long Long Long Long Long Long Long Long', progress: 20, type: MicroType.Video },
                 { id: '82', name: 'Comment 3', progress: 40, type: MicroType.Video },
                 { id: '83', name: 'Comment 4', progress: 60, type: MicroType.Video },
-                { id: '84', name: 'Comment 5', progress: 100, type: MicroType.Video },
+                { id: '84', name: 'Comment 5', progress: 10, type: MicroType.Video },
                 { id: '85', name: 'Comment 6', progress: 35, type: MicroType.Video },
             ]
         },
@@ -276,7 +276,7 @@ export function getPathResult(id: string): Promise<PathAPIResponse> { // Mock AP
             }, 2000);
         });
     }
-    mockGroupDB.groups = directedGraphCase[2]
+    mockGroupDB.groups = directedGraphCase[0]
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
