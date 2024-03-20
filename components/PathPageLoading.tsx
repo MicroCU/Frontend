@@ -1,5 +1,6 @@
+import dynamic from "next/dynamic";
 import { Skeleton } from "./ui/skeleton";
-import { Player as Lottie } from "@lottiefiles/react-lottie-player";
+const Lottie = dynamic(() => import("@/components/Lottie"), { ssr: false });
 
 export default function PathPageLoading() {
   return (
@@ -18,7 +19,7 @@ export default function PathPageLoading() {
         </div>
       </div>
       <div className="w-screen h-4/6 flex justify-center items-center">
-        <Lottie autoplay loop src="/lottie/graph.json" />
+        <Lottie src="/lottie/graph.json" />
       </div>
     </div>
   );
