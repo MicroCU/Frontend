@@ -10,6 +10,9 @@ import { useTranslation } from "@/context/Translation";
 import { updateRecentlyPath } from "@/action/path";
 import { usePathname, useRouter } from "next/navigation";
 import I18nTypo from "./ui/I18nTypo";
+import { useEffect, useState } from "react";
+import { toast } from "./ui/use-toast";
+import { usePath } from "@/context/Path";
 
 interface MicroContextMenuProps {
   children: React.ReactNode;
@@ -27,8 +30,48 @@ export default function MicroContextMenu({
   const { dict } = useTranslation();
   const pathName = usePathname();
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const { setPathInfo, setSelectedPathId } = usePath();
   const handleMarketComplete = () => {
-    updateRecentlyPath(id);
+    const updateToAPI = async () => {
+      try {
+        const response = await updateRecentlyPath(id);
+        if (response?.status == 200) {
+          setPathInfo((prev) => {
+            if (prev) {
+              return {
+                ...prev,
+                groups: prev.groups.map((group) => {
+                  return {
+                    ...group,
+                    nodes: group.micros.map((node) => {
+                      if (node.id === id) {
+                        return {
+                          ...node,
+                          progress: 100
+                        };
+                      }
+                      return node;
+                    })
+                  };
+                })
+              };
+            }
+            return prev;
+          });
+          setSelectedPathId(id);
+        }
+        if (response?.status != 200) {
+          setError(
+            response?.message ? response.message : "Error fetching data"
+          );
+          return;
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    updateToAPI();
   };
   const handleViewContent = () => {
     if (microType === MicroType.Video) {
@@ -47,6 +90,17 @@ export default function MicroContextMenu({
       router.push(`${pathName}/video/${id}`);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Update Progress Error (Mock Only)",
+        description: "Cannot save the progress now!"
+      });
+      setError(null);
+    }
+  }, [error]);
 
   return (
     <ContextMenu>
