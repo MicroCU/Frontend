@@ -48,33 +48,33 @@ const VideoControlLayer = ({
       videoName: "example",
       imageURL:
         "https://static.javatpoint.com/definition/images/computer-definition.png",
-      link: "/go"
+      videoId: "1"
     },
     {
       videoName: "example",
       imageURL:
         "https://static.javatpoint.com/definition/images/computer-definition.png",
-      link: "/go"
+      videoId: "2"
     },
     {
       videoName: "example",
       imageURL: "",
-      link: "/go"
+      videoId: "3"
     },
     {
       videoName: "example",
       imageURL: "",
-      link: "/go"
+      videoId: "4"
     },
     {
       videoName: "example",
       imageURL: "",
-      link: "/go"
+      videoId: "5"
     },
     {
       videoName: "example",
       imageURL: "",
-      link: "/go"
+      videoId: "6"
     }
   ];
 
@@ -87,20 +87,19 @@ const VideoControlLayer = ({
 
   const choiceData = [
     {
+      choiceName: "choice1",
       videoName: "example",
-      link: "/video/2"
+      videoId: "2"
     },
     {
+      choiceName: "choice2",
       videoName: "example",
-      link: "/go"
+      videoId: "2"
     },
     {
+      choiceName: null,
       videoName: "example",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      link: "/go"
+      videoId: "2"
     }
   ];
 
@@ -126,6 +125,8 @@ const VideoControlLayer = ({
         videoName={videoName}
         currentTab={currentVideoTab}
         videoTabHandle={videoTabHandle}
+        isFile={fileData ? true : false}
+        isPlaylist={platlistData ? true : false}
         className="bg-gradient-to-b from-black"
       />
       <div
@@ -142,21 +143,25 @@ const VideoControlLayer = ({
               : "right-[-400px]"
           )}
         />
-        <VideoTab.VideoFileTab
-          data={fileData}
-          className={cn(
-            "top-0 h-[97%]",
-            currentVideoTab == VideoTabType.FILE && !isHidden
-              ? "right-0"
-              : "right-[-400px]"
-          )}
-        />
-        {videoState.ended && (
+        {fileData && (
+          <VideoTab.VideoFileTab
+            data={fileData}
+            className={cn(
+              "top-0 h-[97%]",
+              currentVideoTab == VideoTabType.FILE && !isHidden
+                ? "right-0"
+                : "right-[-400px]"
+            )}
+          />
+        )}
+
+        {videoState.ended && choiceData && (
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
             {choiceData.map((item) => (
               <VideoChoice
+                choiceName={item.choiceName}
                 videoName={item.videoName}
-                link={item.link}
+                videoId={item.videoId}
                 key={item.videoName}
               />
             ))}

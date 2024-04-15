@@ -1,20 +1,23 @@
 "use client"
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface PlaylistTabItemProps {
   videoName: string;
   imageURL: string;
-  link: string;
+  videoId: string;
 }
 
 const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
   videoName,
   imageURL,
-  link,
+  videoId,
 }) => {
   const router = useRouter();
+  const pathName = usePathname();
   const handleRoute = () => {
-    router.push(link);
+    const pathSegments = pathName.split("/");
+    const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${videoId}`;
+    router.push(desiredPathUrl);
   }
   return (
     <div className="flex  gap-4 cursor-pointer" onClick={handleRoute}>

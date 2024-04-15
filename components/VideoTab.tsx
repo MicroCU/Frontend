@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface PlaylistItem {
   videoName: string;
   imageURL: string;
-  link: string;
+  videoId: string;
 }
 
 interface FileItem {
@@ -46,7 +46,7 @@ const VideoPlaylistTab: React.FC<VideoPlaylistTabProps> = ({
             key={index}
             videoName={item.videoName}
             imageURL={item.imageURL}
-            link={item.link}
+            videoId={item.videoId}
           />
         ))}
       </div>

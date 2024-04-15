@@ -1,16 +1,21 @@
 "use client"
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 interface VideoChoiceProps {
+  choiceName: string|null;
   videoName: string;
-  link: string;
+  videoId: string;
 }
 
-const VideoChoice: React.FC<VideoChoiceProps> = ({ videoName, link }) => {
+const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName,videoName, videoId }) => {
   const router = useRouter();
+  const pathName = usePathname();
+
   const handleRoute = () => {
-    router.push(link);
+    const pathSegments = pathName.split("/");
+    const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${videoId}`;
+    router.push(desiredPathUrl);
   };
 
   return (
@@ -18,7 +23,7 @@ const VideoChoice: React.FC<VideoChoiceProps> = ({ videoName, link }) => {
       className="bg-white text-grayMain hover:bg-primary hover:text-white Bold24 w-[530px] py-6"
       onClick={handleRoute}
     >
-      {videoName}
+      {choiceName ?? "Go to " + videoName}
     </Button>
   );
 };
