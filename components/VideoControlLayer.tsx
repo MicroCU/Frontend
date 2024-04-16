@@ -100,8 +100,20 @@ const VideoControlLayer = ({
       choiceName: null,
       videoName: "example",
       videoId: "2"
+    },
+    {
+      choiceName: null,
+      videoName: "example",
+      videoId: "2"
+    },
+    {
+      choiceName: null,
+      videoName: "example",
+      videoId: "2"
     }
   ];
+
+  const choiceLimit = 4;
 
   const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
     VideoTabType.HIDE
@@ -157,7 +169,7 @@ const VideoControlLayer = ({
 
         {videoState.ended && choiceData && (
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
-            {choiceData.map((item) => (
+            {choiceData.slice(0, choiceLimit).map((item) => (
               <VideoChoice
                 choiceName={item.choiceName}
                 videoName={item.videoName}
