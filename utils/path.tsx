@@ -3,6 +3,73 @@ import { Micro, PathEdge, PathNode } from "@/types/path";
 import { MarkerType } from "reactflow";
 import { GroupData } from "@/types/type";
 
+export function getNextMicro(
+  microId: string,
+  nodes: PathNode[],
+  edges: PathEdge[]
+): Micro[] {
+  let result: Micro[] = [];
+
+  const currentNodes = nodes.filter(
+    (n) => n.data.micros.find((m) => m.id === microId) !== undefined
+  )[0];
+
+  if (currentNodes.data.type === GroupType.Unordered) {
+    currentNodes.data.micros.forEach((micro) => {
+      if (micro.id === microId) return;
+      result.push(micro);
+    });
+  }
+  if (currentNodes.data.type === GroupType.Ordered) {
+    if (
+      currentNodes.data.micros[currentNodes.data.micros.length - 1].id !==
+      microId
+    ) {
+      const c = currentNodes.data.micros.findIndex(
+        (micro) => micro.id === microId
+      );
+      result.push(currentNodes.data.micros[c + 1]);
+      return result;
+    }
+  }
+
+  const childNode: PathNode[] = [];
+  edges
+    .filter((edge) => currentNodes.id == edge.source)
+    .forEach((edge) => {
+      childNode.push(nodes.find((node) => node.id === edge.target)!);
+    });
+
+  let micros: any[] = [];
+  childNode.forEach((node) => {
+    if (node.data.type === GroupType.Unordered) {
+      node.data.micros.forEach((micro, index) => {
+        if (!micros[index]) micros[index] = [];
+        micros[index].push(micro);
+      });
+    }
+    if (node.data.type === GroupType.Ordered) {
+      if (!micros[0]) micros[0] = [];
+      micros[0].push(node.data.micros[0]);
+    }
+  });
+  micros = micros.reduce((acc, val) => acc.concat(val), []);
+  result = result.concat(micros);
+
+  let numToRemove = result.length - 4;
+  let numRemove = 0;
+
+  return result
+    .filter((micro) => {
+      if (micro.progress > 80 && numRemove < numToRemove) {
+        numRemove++;
+        return false;
+      }
+      return true;
+    })
+    .slice(0, 4);
+}
+
 export function getPathInitialNodesAndEdges(data: GroupData[]) {
   const initialNodes: PathNode[] = [];
   const initialEdges: PathEdge[] = [];
@@ -42,8 +109,8 @@ export function getPathInitialNodesAndEdges(data: GroupData[]) {
         group.micros.length == 1
           ? GroupDisplay.Single
           : group.type == GroupType.Ordered
-          ? GroupDisplay.Ordered
-          : GroupDisplay.Unordered
+            ? GroupDisplay.Ordered
+            : GroupDisplay.Unordered
     });
 
     group.nexts.forEach((nextId) => {
