@@ -6,7 +6,15 @@ const directedGraphCase = [
         {
             id: '1', name: 'Overview of the python to student who dont use it before', nexts: ['2', '3'], type: GroupType.Unordered,
             micros: [
-                { id: '1', name: 'Overview of the python to student who dont use it before', total_progress: 0, type: MicroType.Video },
+                { id: '1', name: 'Overview of the python to student who dont use it before', total_progress: 0, type: MicroType.Video,
+                    video: {
+                        id: '1',
+                        title: 'Overview of the python to student who dont use it before',
+                        link: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                        decisionTitle: 'Python 101',
+                        progress: 20
+                    }
+                 },
             ]
         },
         {
@@ -20,7 +28,15 @@ const directedGraphCase = [
         {
             id: '3', name: 'Syntax - 2', nexts: [], type: GroupType.Unordered,
             micros: [
-                { id: '3', name: 'Syntax - 2', total_progress: 40, type: MicroType.Video }
+                { id: '3', name: 'Syntax - 2', total_progress: 40, type: MicroType.Video ,
+                    video: {
+                        id: '3',
+                        title: 'Syntax - 2',
+                        link: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                        decisionTitle: 'Python 101',
+                        progress: 40
+                    }
+                }
             ]
         },
         {
@@ -289,7 +305,7 @@ export function getPathResult(id: string): Promise<PathAPIResponse> { // Mock AP
     });
 }
 
-export function updatePathtotal_progress(id: string, total_progress: number): Promise<{ status: number, message?: string }> { // Mock API Response
+export function updatePathProgress(id: string, total_progress: number): Promise<{ status: number, message?: string }> { // Mock API Response
     // find path's id in mockDB
     for (let i = 0; i < directedGraphCase.length; i++) {
         let paths = directedGraphCase[i]

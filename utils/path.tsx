@@ -81,7 +81,10 @@ export function getPathInitialNodesAndEdges(data: GroupData[]) {
         id: member.id,
         name: member.name,
         total_progress: member.total_progress,
-        type: member.type
+        type: member.type,
+        video: member.video,
+        document: member.document,
+        test: member.test
       });
     });
 

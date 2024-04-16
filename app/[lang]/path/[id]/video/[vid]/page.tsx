@@ -1,5 +1,6 @@
 "use client";
 
+import { fetchPath } from "@/action/path";
 import VideoControlLayer from "@/components/VideoControlLayer";
 import { usePath } from "@/context/Path";
 import { cn } from "@/lib/utils";
@@ -20,19 +21,35 @@ export interface VideoState {
 
 let count = 0;
 
-//mock
-let videoName = "Example";
-let videoUrl =
-  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
-// let videoUrl = "https://www.youtube.com/watch?v=ohpHY8m54Hc";
-let progress = 0.5;
-
-const VideoPage = ({ params }: { params: { microId: string } }) => {
+const VideoPage = ({ params }: { params: { vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
 
-  const { pathInfo } = usePath();
+  const { pathInfo, setPathInfo } = usePath();
+  const [error, setError] = useState<string | null>(null);
 
-  const currentMicro = pathInfo?.groups.flatMap(group => group.micros).find(micro => micro.id === params.microId)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchPath(params.vid);
+        if (response.status != 200) {
+          setError(response.message ? response.message : "Error fetching data");
+          return;
+        }
+        setPathInfo(response.data.path);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (!pathInfo) {
+      fetchData();
+    }
+  }, []);
+
+  const videoData = pathInfo?.groups
+    .flatMap((group) => group.micros)
+    .find((micro) => micro.id === params.vid)?.video;
+  console.log(videoData);
 
   const videoPlayerRef = useRef<ReactPlayer>(null);
   const controlRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +58,7 @@ const VideoPage = ({ params }: { params: { microId: string } }) => {
     playing: false,
     muted: false,
     volume: 1,
-    played: progress,
+    played: (videoData?.progress ?? 0) / 100,
     seeking: false,
     buffer: true,
     speed: 1,
@@ -184,7 +201,7 @@ const VideoPage = ({ params }: { params: { microId: string } }) => {
 
   const onVideoReady = useCallback(() => {
     if (!isVideoReady) {
-      videoPlayerRef.current?.seekTo(progress);
+      videoPlayerRef.current?.seekTo((videoData?.progress ?? 0) / 100);
       setIsVideoReady(true);
     }
   }, [isVideoReady]);
@@ -228,7 +245,7 @@ const VideoPage = ({ params }: { params: { microId: string } }) => {
         <ReactPlayer
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
-          url={videoUrl}
+          url={videoData?.link}
           width="100%"
           height="100%"
           playing={playing}
@@ -243,7 +260,7 @@ const VideoPage = ({ params }: { params: { microId: string } }) => {
           onReady={onVideoReady}
         />
         <VideoControlLayer
-          videoName={videoName}
+          videoName={videoData?.title || ""}
           controlRef={controlRef}
           onPlayPause={playPauseHandler}
           onSeek={seekHandler}

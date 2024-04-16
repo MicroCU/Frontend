@@ -49,12 +49,12 @@ export default function MicroVideo({
           }}
         >
           <div className="w-fit h-full px-5 py-3 text-center Bold16 flex items-center justify-center max-w-52">
-            <p className="break-words">{data.title}</p>
+            <p className="break-words">{data.name}</p>
           </div>
-          {data.progress > 0 && data.progress <= 100 && (
+          {data.total_progress > 0 && data.total_progress <= 100 && (
             <div
               className="absolute bottom-0 left-0 h-1 bg-primary"
-              style={{ width: data.progress + "%" }}
+              style={{ width: data.total_progress + "%" }}
             ></div>
           )}
         </div>
