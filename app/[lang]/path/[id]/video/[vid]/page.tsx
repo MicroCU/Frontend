@@ -1,16 +1,11 @@
 "use client";
 
 import VideoControlLayer from "@/components/VideoControlLayer";
+import { usePath } from "@/context/Path";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
-
-interface VideoPageProps {
-  params: {
-    id: string;
-  };
-}
 
 export interface VideoState {
   playing: boolean;
@@ -32,8 +27,12 @@ let videoUrl =
 // let videoUrl = "https://www.youtube.com/watch?v=ohpHY8m54Hc";
 let progress = 0.5;
 
-const VideoPage = ({ params }: VideoPageProps) => {
+const VideoPage = ({ params }: { params: { microId: string } }) => {
   const [isClient, setIsClient] = useState(false);
+
+  const { pathInfo } = usePath();
+
+  const currentMicro = pathInfo?.groups.flatMap(group => group.micros).find(micro => micro.id === params.microId)
 
   const videoPlayerRef = useRef<ReactPlayer>(null);
   const controlRef = useRef<HTMLDivElement | null>(null);
