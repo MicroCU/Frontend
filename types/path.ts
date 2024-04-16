@@ -8,7 +8,7 @@ export interface Micro {
   total_progress: number;
   type: MicroType;
   video?: Videodata;
-  document?: DocumentData;
+  documents?: DocumentData[];
   test?: Testdata;
 }
 

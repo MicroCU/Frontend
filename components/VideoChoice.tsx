@@ -3,18 +3,17 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 interface VideoChoiceProps {
-  choiceName: string|null;
-  videoName: string;
-  videoId: string;
+  choiceName: string;
+  microId: string;
 }
 
-const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName,videoName, videoId }) => {
+const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName, microId }) => {
   const router = useRouter();
   const pathName = usePathname();
 
   const handleRoute = () => {
     const pathSegments = pathName.split("/");
-    const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${videoId}`;
+    const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${microId}`;
     router.push(desiredPathUrl);
   };
 
@@ -23,7 +22,7 @@ const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName,videoName, videoId
       className="bg-white text-grayMain hover:bg-primary hover:text-white Bold24 w-[530px] py-6"
       onClick={handleRoute}
     >
-      {choiceName ?? "Go to " + videoName}
+      {choiceName}
     </Button>
   );
 };

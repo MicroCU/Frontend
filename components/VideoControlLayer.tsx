@@ -7,6 +7,9 @@ import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
 import { cn } from "@/lib/utils";
 import { VideoTabType } from "@/types/enum";
+import { MicroData } from "@/types/type";
+import { usePath } from "@/context/Path";
+import { getNextMicro, getPathInitialNodesAndEdges } from "@/utils/path";
 
 interface VideoControlLayerProps {
   videoName: string;
@@ -24,6 +27,7 @@ interface VideoControlLayerProps {
   speedHandler: (value: string) => void;
   isHidden: boolean;
   videoState: VideoState;
+  microData: MicroData;
 }
 
 const VideoControlLayer = ({
@@ -41,7 +45,8 @@ const VideoControlLayer = ({
   isFullScreen,
   speedHandler,
   isHidden,
-  videoState
+  videoState,
+  microData
 }: VideoControlLayerProps) => {
   const platlistData = [
     {
@@ -78,42 +83,17 @@ const VideoControlLayer = ({
     }
   ];
 
-  const fileData = [
-    {
-      fileName: "example",
-      fileUrl: "https://filesamples.com/samples/code/c/sample3.c"
-    }
-  ];
+  const { pathInfo } = usePath();
+  const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
+    pathInfo?.groups || []
+  );
 
-  const choiceData = [
-    {
-      choiceName: "choice1",
-      videoName: "example",
-      videoId: "2"
-    },
-    {
-      choiceName: "choice2",
-      videoName: "example",
-      videoId: "2"
-    },
-    {
-      choiceName: null,
-      videoName: "example",
-      videoId: "2"
-    },
-    {
-      choiceName: null,
-      videoName: "example",
-      videoId: "2"
-    },
-    {
-      choiceName: null,
-      videoName: "example",
-      videoId: "2"
-    }
-  ];
-
-  const choiceLimit = 4;
+  const playlistData = pathInfo?.groups
+    .flatMap((group) => group.micros)
+    .filter((micro) => micro.id !== microData.id)
+    .map(({ id, name }) => ({ id, name }));
+  const fileData = microData.documents;
+  const choiceData = getNextMicro(microData.id, initialNodes, initialEdges);
 
   const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
     VideoTabType.HIDE
@@ -146,20 +126,23 @@ const VideoControlLayer = ({
         onClick={onPlayPause}
       >
         {videoState.buffer && videoState.playing && <LoadingSpinner />}
-        <VideoTab.VideoPlaylistTab
-          data={platlistData}
-          className={cn(
-            "top-0 h-[97%]",
-            currentVideoTab == VideoTabType.PLAYLIST && !isHidden
-              ? "right-0"
-              : "right-[-400px]"
-          )}
-        />
+        {playlistData && (
+          <VideoTab.VideoPlaylistTab
+            data={playlistData}
+            className={cn(
+              "top-0 h-[97%] z-20",
+              currentVideoTab == VideoTabType.PLAYLIST && !isHidden
+                ? "right-0"
+                : "right-[-400px]"
+            )}
+          />
+        )}
+
         {fileData && (
           <VideoTab.VideoFileTab
             data={fileData}
             className={cn(
-              "top-0 h-[97%]",
+              "top-0 h-[97%] z-20",
               currentVideoTab == VideoTabType.FILE && !isHidden
                 ? "right-0"
                 : "right-[-400px]"
@@ -169,12 +152,11 @@ const VideoControlLayer = ({
 
         {videoState.ended && choiceData && (
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
-            {choiceData.slice(0, choiceLimit).map((item) => (
+            {choiceData.map((item) => (
               <VideoChoice
-                choiceName={item.choiceName}
-                videoName={item.videoName}
-                videoId={item.videoId}
-                key={item.videoName}
+                choiceName={item.video?.decisionTitle || "Go to " + item.name}
+                microId={item.id}
+                key={"choice" + item.id}
               />
             ))}
           </div>

@@ -13,7 +13,19 @@ const directedGraphCase = [
                         link: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
                         decisionTitle: 'Python 101',
                         progress: 20
-                    }
+                    },
+                    documents: [
+                        {
+                          id: '100',
+                          name: "HTML Doc 1",
+                          link: "https://mycourseville-default.s3.ap-southeast-1.amazonaws.com/useruploaded_course_files/2023_2/46128/materials/Final_Report_Example-738515-17047265726194.pdf"
+                        },
+                        {
+                          id: '101',
+                          name: "HTML Doc 2",
+                          link: "https://mycourseville-default.s3.ap-southeast-1.amazonaws.com/useruploaded_course_files/2023_2/46128/materials/2023_2110489_syllabus-738515-17047223002075.pdf"
+                        }
+                    ],
                  },
             ]
         },

@@ -46,10 +46,10 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
     }
   }, []);
 
-  const videoData = pathInfo?.groups
+  const currentMicroData = pathInfo?.groups
     .flatMap((group) => group.micros)
-    .find((micro) => micro.id === params.vid)?.video;
-  console.log(videoData);
+    .find((micro) => micro.id === params.vid);
+  const videoData = currentMicroData?.video;
 
   const videoPlayerRef = useRef<ReactPlayer>(null);
   const controlRef = useRef<HTMLDivElement | null>(null);
@@ -232,6 +232,9 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+  if (!currentMicroData || !videoData) {
+    return null;
+  }
   return (
     isClient && (
       <div
@@ -275,6 +278,7 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
           speedHandler={speedHandler}
           isHidden={isHidden}
           videoState={videoState}
+          microData={currentMicroData}
         />
       </div>
     )

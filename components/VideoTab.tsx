@@ -2,16 +2,11 @@ import { cn } from "@/lib/utils";
 import FileTabItem from "./FileTabItem";
 import PlaylistTabItem from "./PlaylistTabItem";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { DocumentData } from "@/types/type";
 
 interface PlaylistItem {
-  videoName: string;
-  imageURL: string;
-  videoId: string;
-}
-
-interface FileItem {
-  fileName: string;
-  fileUrl: string;
+  id: string;
+  name: string;
 }
 
 interface VideoPlaylistTabProps {
@@ -20,7 +15,7 @@ interface VideoPlaylistTabProps {
 }
 
 interface VideoFileTabProps {
-  data: FileItem[];
+  data: DocumentData[];
   className?: string;
 }
 
@@ -42,12 +37,7 @@ const VideoPlaylistTab: React.FC<VideoPlaylistTabProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {data.map((item, index) => (
-          <PlaylistTabItem
-            key={index}
-            videoName={item.videoName}
-            imageURL={item.imageURL}
-            videoId={item.videoId}
-          />
+          <PlaylistTabItem key={index} id={item.id} name={item.name} />
         ))}
       </div>
     </ScrollArea>
@@ -66,11 +56,7 @@ const VideoFileTab: React.FC<VideoFileTabProps> = ({ data, className }) => {
     >
       <div className={`flex flex-col gap-4 `}>
         {data.map((item, index) => (
-          <FileTabItem
-            key={index}
-            fileName={item.fileName}
-            fileUrl={item.fileUrl}
-          />
+          <FileTabItem key={index} fileName={item.name} fileUrl={item.link} />
         ))}
       </div>
     </ScrollArea>
