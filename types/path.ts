@@ -1,11 +1,15 @@
 import { Edge, Node } from "reactflow";
 import { GroupDisplay, GroupType, MicroType } from "./enum";
+import { DocumentData, Testdata, Videodata } from "./type";
 
 export interface Micro {
   id: string;
-  title: string;
-  progress: number;
+  name: string;
+  total_progress: number;
   type: MicroType;
+  video?: Videodata;
+  documents?: DocumentData[];
+  test?: Testdata;
 }
 
 export interface Group {

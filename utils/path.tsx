@@ -61,7 +61,7 @@ export function getNextMicro(
 
   return result
     .filter((micro) => {
-      if (micro.progress > 80 && numRemove < numToRemove) {
+      if (micro.total_progress > 80 && numRemove < numToRemove) {
         numRemove++;
         return false;
       }
@@ -79,9 +79,12 @@ export function getPathInitialNodesAndEdges(data: GroupData[]) {
     group.micros.forEach((member) => {
       micros.push({
         id: member.id,
-        title: member.name,
-        progress: member.progress,
-        type: member.type
+        name: member.name,
+        total_progress: member.total_progress,
+        type: member.type,
+        video: member.video,
+        documents: member.documents,
+        test: member.test
       });
     });
 

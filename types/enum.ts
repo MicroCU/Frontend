@@ -1,7 +1,7 @@
 export enum MicroType {
-  Video = "Video",
-  Practice = "Practice",
-  Test = "Test"
+  Video = "video",
+  Practice = "practice",
+  Test = "test"
 }
 
 export enum OnBoardMode {

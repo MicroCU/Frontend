@@ -14,8 +14,11 @@ export type TagData = {
 export interface MicroData {
   id: string;
   name: string;
-  progress: number;
+  total_progress: number;
   type: MicroType;
+  video?: Videodata;
+  documents?: DocumentData[];
+  test?: Testdata;
 }
 
 export interface BriefPathInfo {
@@ -113,12 +116,20 @@ export interface PathAPIResponse {
 }
 
 export interface Videodata {
+  id: string
   title: string
   link: string
-  decisionTitle: string
+  decisionTitle: string|null
+  progress: number
 }
 
 export interface DocumentData {
+  id: string
   name: string
+  link: string
+}
+
+export interface Testdata {
+  id: string
   link: string
 }

@@ -7,6 +7,9 @@ import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
 import { cn } from "@/lib/utils";
 import { VideoTabType } from "@/types/enum";
+import { MicroData } from "@/types/type";
+import { usePath } from "@/context/Path";
+import { getNextMicro, getPathInitialNodesAndEdges } from "@/utils/path";
 
 interface VideoControlLayerProps {
   videoName: string;
@@ -24,6 +27,7 @@ interface VideoControlLayerProps {
   speedHandler: (value: string) => void;
   isHidden: boolean;
   videoState: VideoState;
+  microData: MicroData;
 }
 
 const VideoControlLayer = ({
@@ -41,68 +45,20 @@ const VideoControlLayer = ({
   isFullScreen,
   speedHandler,
   isHidden,
-  videoState
+  videoState,
+  microData
 }: VideoControlLayerProps) => {
-  const platlistData = [
-    {
-      videoName: "example",
-      imageURL:
-        "https://static.javatpoint.com/definition/images/computer-definition.png",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      imageURL:
-        "https://static.javatpoint.com/definition/images/computer-definition.png",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      link: "/go"
-    }
-  ];
+  const { pathInfo } = usePath();
+  const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
+    pathInfo?.groups || []
+  );
 
-  const fileData = [
-    {
-      fileName: "example",
-      fileUrl: "https://filesamples.com/samples/code/c/sample3.c"
-    }
-  ];
-
-  const choiceData = [
-    {
-      videoName: "example",
-      link: "/video/2"
-    },
-    {
-      videoName: "example",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      link: "/go"
-    },
-    {
-      videoName: "example",
-      link: "/go"
-    }
-  ];
+  const playlistData = pathInfo?.groups
+    .flatMap((group) => group.micros)
+    .filter((micro) => micro.id !== microData.id)
+    .map(({ id, name, type, test }) => ({ id, name, type, link: test?.link || "" }));
+  const fileData = microData.documents;
+  const choiceData = getNextMicro(microData.id, initialNodes, initialEdges);
 
   const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
     VideoTabType.HIDE
@@ -126,6 +82,8 @@ const VideoControlLayer = ({
         videoName={videoName}
         currentTab={currentVideoTab}
         videoTabHandle={videoTabHandle}
+        isFile={fileData ? true : false}
+        isPlaylist={playlistData ? true : false}
         className="bg-gradient-to-b from-black"
       />
       <div
@@ -133,31 +91,39 @@ const VideoControlLayer = ({
         onClick={onPlayPause}
       >
         {videoState.buffer && videoState.playing && <LoadingSpinner />}
-        <VideoTab.VideoPlaylistTab
-          data={platlistData}
-          className={cn(
-            "top-0 h-[97%]",
-            currentVideoTab == VideoTabType.PLAYLIST && !isHidden
-              ? "right-0"
-              : "right-[-400px]"
-          )}
-        />
-        <VideoTab.VideoFileTab
-          data={fileData}
-          className={cn(
-            "top-0 h-[97%]",
-            currentVideoTab == VideoTabType.FILE && !isHidden
-              ? "right-0"
-              : "right-[-400px]"
-          )}
-        />
-        {videoState.ended && (
+        {playlistData && (
+          <VideoTab.VideoPlaylistTab
+            data={playlistData}
+            className={cn(
+              "top-0 h-[97%] z-20",
+              currentVideoTab == VideoTabType.PLAYLIST && !isHidden
+                ? "right-0"
+                : "right-[-400px]"
+            )}
+          />
+        )}
+
+        {fileData && (
+          <VideoTab.VideoFileTab
+            data={fileData}
+            className={cn(
+              "top-0 h-[97%] z-20",
+              currentVideoTab == VideoTabType.FILE && !isHidden
+                ? "right-0"
+                : "right-[-400px]"
+            )}
+          />
+        )}
+
+        {videoState.ended && choiceData && (
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
             {choiceData.map((item) => (
               <VideoChoice
-                videoName={item.videoName}
-                link={item.link}
-                key={item.videoName}
+                choiceName={item.video?.decisionTitle || "Go to " + item.name}
+                microId={item.id}
+                microType={item.type}
+                testLink={item.test?.link || ""}
+                key={"choice" + item.id}
               />
             ))}
           </div>

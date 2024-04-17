@@ -1,32 +1,42 @@
 "use client"
-import { useRouter } from "next/navigation";
+import { MicroType } from "@/types/enum";
+import { usePathname, useRouter } from "next/navigation";
 
 interface PlaylistTabItemProps {
-  videoName: string;
-  imageURL: string;
-  link: string;
+  id: string;
+  name: string;
+  type: MicroType;
+  testLink: string;
 }
 
 const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
-  videoName,
-  imageURL,
-  link,
+  id,
+  name,
+  type,
+  testLink,
 }) => {
   const router = useRouter();
+  const pathName = usePathname();
   const handleRoute = () => {
-    router.push(link);
+    if (type === MicroType.Video) {
+      const pathSegments = pathName.split("/");
+      const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${id}`;
+      router.push(desiredPathUrl);
+    } else {
+      router.push(testLink);
+    }
   }
   return (
     <div className="flex  gap-4 cursor-pointer" onClick={handleRoute}>
       <div className="bg-primary min-w-[150px] h-[90px]">
         <img
-          src={imageURL ? imageURL : "/defaultVideoImage.svg"}
+          src="/defaultVideoImage.svg"
           alt="Video Thumbnail"
           className="w-full h-full object-cover"
         />
       </div>
       <div className="w-full Bold16 flex items-center">
-        <p>{videoName}</p>
+        <p>{name}</p>
       </div>
     </div>
   );
