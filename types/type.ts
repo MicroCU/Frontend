@@ -119,7 +119,7 @@ export interface Videodata {
   id: string
   title: string
   link: string
-  decisionTitle: string
+  decisionTitle: string|null
   progress: number
 }
 

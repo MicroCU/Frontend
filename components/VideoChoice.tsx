@@ -1,20 +1,28 @@
 "use client"
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
+import { MicroType } from "@/types/enum";
 
 interface VideoChoiceProps {
   choiceName: string;
   microId: string;
+  microType: MicroType;
+  testLink: string;
 }
 
-const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName, microId }) => {
+const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName, microId, microType, testLink }) => {
   const router = useRouter();
   const pathName = usePathname();
 
   const handleRoute = () => {
-    const pathSegments = pathName.split("/");
-    const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${microId}`;
-    router.push(desiredPathUrl);
+    if (microType === MicroType.Video) {
+      const pathSegments = pathName.split("/");
+      const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${microId}`;
+      router.push(desiredPathUrl);
+    } else {
+      router.push(testLink);
+    }
+
   };
 
   return (

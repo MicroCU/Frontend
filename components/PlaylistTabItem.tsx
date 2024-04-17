@@ -1,21 +1,30 @@
 "use client"
+import { MicroType } from "@/types/enum";
 import { usePathname, useRouter } from "next/navigation";
 
 interface PlaylistTabItemProps {
   id: string;
   name: string;
+  type: MicroType;
+  testLink: string;
 }
 
 const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
   id,
   name,
+  type,
+  testLink,
 }) => {
   const router = useRouter();
   const pathName = usePathname();
   const handleRoute = () => {
-    const pathSegments = pathName.split("/");
-    const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${id}`;
-    router.push(desiredPathUrl);
+    if (type === MicroType.Video) {
+      const pathSegments = pathName.split("/");
+      const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${id}`;
+      router.push(desiredPathUrl);
+    } else {
+      router.push(testLink);
+    }
   }
   return (
     <div className="flex  gap-4 cursor-pointer" onClick={handleRoute}>

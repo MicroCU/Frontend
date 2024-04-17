@@ -48,41 +48,6 @@ const VideoControlLayer = ({
   videoState,
   microData
 }: VideoControlLayerProps) => {
-  const platlistData = [
-    {
-      videoName: "example",
-      imageURL:
-        "https://static.javatpoint.com/definition/images/computer-definition.png",
-      videoId: "1"
-    },
-    {
-      videoName: "example",
-      imageURL:
-        "https://static.javatpoint.com/definition/images/computer-definition.png",
-      videoId: "2"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      videoId: "3"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      videoId: "4"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      videoId: "5"
-    },
-    {
-      videoName: "example",
-      imageURL: "",
-      videoId: "6"
-    }
-  ];
-
   const { pathInfo } = usePath();
   const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
     pathInfo?.groups || []
@@ -91,7 +56,7 @@ const VideoControlLayer = ({
   const playlistData = pathInfo?.groups
     .flatMap((group) => group.micros)
     .filter((micro) => micro.id !== microData.id)
-    .map(({ id, name }) => ({ id, name }));
+    .map(({ id, name, type, test }) => ({ id, name, type, link: test?.link || "" }));
   const fileData = microData.documents;
   const choiceData = getNextMicro(microData.id, initialNodes, initialEdges);
 
@@ -118,7 +83,7 @@ const VideoControlLayer = ({
         currentTab={currentVideoTab}
         videoTabHandle={videoTabHandle}
         isFile={fileData ? true : false}
-        isPlaylist={platlistData ? true : false}
+        isPlaylist={playlistData ? true : false}
         className="bg-gradient-to-b from-black"
       />
       <div
@@ -156,6 +121,8 @@ const VideoControlLayer = ({
               <VideoChoice
                 choiceName={item.video?.decisionTitle || "Go to " + item.name}
                 microId={item.id}
+                microType={item.type}
+                testLink={item.test?.link || ""}
                 key={"choice" + item.id}
               />
             ))}

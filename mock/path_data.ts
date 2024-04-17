@@ -32,7 +32,12 @@ const directedGraphCase = [
         {
             id: '2', name: 'Comment', nexts: ['4'], type: GroupType.Unordered,
             micros: [
-                { id: '21', name: 'Comment 1', total_progress: 0, type: MicroType.Practice },
+                { id: '21', name: 'Comment 1 Test', total_progress: 0, type: MicroType.Test,
+                    test:{
+                        id: '21',
+                        link: "https://www.mycourseville.com/?q=courseville/course/46128"
+                    }
+                 },
                 { id: '22', name: 'Comment 2', total_progress: 0, type: MicroType.Practice },
                 { id: '23', name: 'Comment 3', total_progress: 0, type: MicroType.Practice },
             ]

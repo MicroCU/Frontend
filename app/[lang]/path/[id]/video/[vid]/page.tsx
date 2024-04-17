@@ -1,6 +1,7 @@
 "use client";
 
 import { fetchPath } from "@/action/path";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
 import { usePath } from "@/context/Path";
 import { cn } from "@/lib/utils";
@@ -232,8 +233,16 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  if (!pathInfo) {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
   if (!currentMicroData || !videoData) {
-    return null;
+    return <div>no video</div>;
   }
   return (
     isClient && (

@@ -3,10 +3,13 @@ import FileTabItem from "./FileTabItem";
 import PlaylistTabItem from "./PlaylistTabItem";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DocumentData } from "@/types/type";
+import { MicroType } from "@/types/enum";
 
 interface PlaylistItem {
   id: string;
   name: string;
+  type: MicroType;
+  link: string;
 }
 
 interface VideoPlaylistTabProps {
@@ -37,7 +40,13 @@ const VideoPlaylistTab: React.FC<VideoPlaylistTabProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {data.map((item, index) => (
-          <PlaylistTabItem key={index} id={item.id} name={item.name} />
+          <PlaylistTabItem
+            key={index}
+            id={item.id}
+            name={item.name}
+            type={item.type}
+            testLink={item.link}
+          />
         ))}
       </div>
     </ScrollArea>
