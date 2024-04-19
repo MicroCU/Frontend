@@ -32,6 +32,9 @@ export function PlayerContainer(props: PlayerContainerProps) {
     playerTime$
   } = usePlayerUpdates(playerId);
 
+  console.log(playerState$);
+  
+
   useEffect(() => {
     if (!playerId) {
       return;
@@ -122,7 +125,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
           {
             label: "add custom",
             presets: ["Playback"],
-            container: "TopBarLeftControls",
+            container: "TopBarRightControls",
             get: () => customButton
           }
         ]
@@ -133,11 +136,11 @@ export function PlayerContainer(props: PlayerContainerProps) {
 
   return (
     <div>
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: "100vh", width: "100%" }}>
         <KalturaPlayer
           entryId={entryId}
           customizeConfig={customizeConfig}
-          autoplay={true}
+          autoplay={false}
           onPlayerLoaded={handlePlayerLoaded}
         />
       </div>

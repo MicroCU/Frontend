@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useLoadPlayer } from "./inner-hooks/use-load-player";
 import { PlayerStatuses } from "./kaltura-player-context";
-import { StyleSheet, css } from "aphrodite";
 
 export interface KalturaPlayerProps {
   /**
@@ -47,33 +46,6 @@ library should fit. And you can always convert it to whatever method you are usi
 This is the only place we actually need styling.
 Checkout https://github.com/MicheleBertoli/css-in-js
 */
-const classes = StyleSheet.create({
-  kalturaPlayer: {
-    height: "100%",
-    width: "100%"
-  },
-  scriptErrorContainer: {
-    height: "100%",
-    width: "100%",
-    backgroundColor: "lightgray",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    position: "relative",
-    borderRadius: "4px"
-  },
-  scriptsErrorMsg: {
-    width: "100%",
-    fontSize: "15px",
-    fontWeight: "normal",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "normal",
-    letterSpacing: "normal",
-    textAlign: "center",
-    color: "#434a4b"
-  }
-});
 
 export const PlayerErrorMessage = "Oops, failed to load the player";
 
@@ -101,13 +73,13 @@ export const KalturaPlayer = (props: KalturaPlayerProps) => {
   return (
     <>
       {playerStatus === PlayerStatuses.Error ? (
-        <div className={css(classes.scriptErrorContainer)}>
-          <div className={css(classes.scriptsErrorMsg)}>
+        <div className="h-full w-full bg-gray-300 flex flex-col justify-evenly relative rounded-md">
+          <div className="w-full text-center text-base font-normal font-stretch-normal leading-normal tracking-normal text-gray-700">
             {PlayerErrorMessage}
           </div>
         </div>
       ) : (
-        <div id={playerId} className={css(classes.kalturaPlayer)} />
+        <div id={playerId} className="h-full w-full" />
       )}
     </>
   );
