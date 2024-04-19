@@ -4,6 +4,12 @@ import { PlaybackStatuses } from "./kaltura-player-context";
 import { usePlayer } from "./use-player";
 import { usePlayerUpdates } from "./use-player-updates";
 import { KalturaPlayer } from "./kaltura-player";
+import { MicroData } from "@/types/type";
+import { usePath } from "@/context/Path";
+import VideoTab from "../VideoTab";
+import { cn } from "@/lib/utils";
+import { VideoTabType } from "@/types/enum";
+import VideoNav from "../VideoNav";
 
 export interface EntriesConfig {
   entryId: string;
@@ -12,41 +18,61 @@ export interface EntriesConfig {
 
 export interface PlayerContainerProps {
   entriesConfig: EntriesConfig;
+  microData: MicroData;
 }
 
 export function PlayerContainer(props: PlayerContainerProps) {
-  const { entriesConfig } = props;
+  const { entriesConfig, microData } = props;
 
   const [entryId, setEntryId] = useState(entriesConfig.entryId);
   const [playerId, setPlayerId] = useState("");
   const [playerState, setPlayerState] = useState<PlaybackStatuses | null>(null);
   const [playerTime, setPlayerTime] = useState<number | null>(null);
 
-  const { playerPlay, playerPause, playerSeek, getPlayerInstance } = usePlayer(
-    playerId
-  );
-  const {
-    getPlayerState,
-    getPlayerTime,
-    playerState$,
-    playerTime$
-  } = usePlayerUpdates(playerId);
+  const { playerPlay, playerPause, playerSeek, getPlayerInstance } =
+    usePlayer(playerId);
+  const { getPlayerState, getPlayerTime, playerState$, playerTime$ } =
+    usePlayerUpdates(playerId);
 
-  console.log(playerState$);
-  
+  const { pathInfo } = usePath();
+  const playlistData = pathInfo?.groups
+    .flatMap((group) => group.micros)
+    .filter((micro) => micro.id !== microData.id)
+    .map(({ id, name, type, test }) => ({
+      id,
+      name,
+      type,
+      link: test?.link || ""
+    }));
+
+  const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
+    VideoTabType.HIDE
+  );
+
+  const videoTabHandle = (currentTab: VideoTabType) => {
+    if (currentTab === currentVideoTab) {
+      setCurrentVideoTab(VideoTabType.HIDE);
+    } else {
+      setCurrentVideoTab(currentTab);
+    }
+  };
 
   useEffect(() => {
     if (!playerId) {
       return;
     }
 
-    const stateSubscription = playerState$.subscribe((result: React.SetStateAction<PlaybackStatuses | null>) => {
-      setPlayerState(result);
-    });
+    const stateSubscription = playerState$.subscribe(
+      (result: React.SetStateAction<PlaybackStatuses | null>) => {
+        setPlayerState(result);
+      }
+    );
 
-    const timeSubscription = playerTime$.subscribe((result: React.SetStateAction<number | null>) => {
-      setPlayerTime(result);
-    });
+    const timeSubscription = playerTime$.subscribe(
+      (result: React.SetStateAction<number | null>) => {
+        setPlayerTime(result);
+      }
+    );
 
     return () => {
       stateSubscription.unsubscribe();
@@ -111,7 +137,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
     const customButton = h("div", {
       title: tooltip,
       onClick: () => {
-        alert(tooltip);
+        handleToggleMute();
       },
       style: { marginTop: 10, width: 30, height: 30, background: "yellow" }
     });
@@ -119,7 +145,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
     const newConfig = {
       ...config,
       ui: {
-        ...(config.ui || {}),                
+        ...(config.ui || {}),
         uiComponents: [
           ...((config.ui || {}).uiComponents || []),
           {
@@ -134,12 +160,65 @@ export function PlayerContainer(props: PlayerContainerProps) {
     return newConfig;
   };
 
+  const [cursorMoved, setCursorMoved] = useState<boolean>(true);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    const handleMouseMove = () => {
+      setCursorMoved(true);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        setCursorMoved(false);
+      }, 3000);
+    };
+
+    // Attach event listener for mouse move
+    document.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      // Clean up the event listener on component unmount
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
     <div>
-      <div style={{ height: "100vh", width: "100%" }}>
+      <div className="h-screen w-full absolute top-0 left-0 overflow-hidden">
+        {/* <div
+          className="absolute right-0 z-10 text-white"
+          onClick={() => videoTabHandle(VideoTabType.PLAYLIST)}
+        >
+          Playlist
+        </div> */}
+        <VideoNav
+          videoName={"videoName"}
+          currentTab={currentVideoTab}
+          videoTabHandle={videoTabHandle}
+          isFile={false}
+          isPlaylist={playlistData ? true : false}
+          className={`bg-gradient-to-b from-black absolute z-10 ${
+            getPlayerState() === PlaybackStatuses.Paused
+              ? "visible"
+              : cursorMoved
+              ? "visible"
+              : "hidden"
+          }`}
+        />
+        {playlistData && (
+          <VideoTab.VideoPlaylistTab
+            data={playlistData}
+            className={cn(
+              "top-24 h-[81%] z-20",
+              currentVideoTab == VideoTabType.PLAYLIST && cursorMoved
+                ? "right-0"
+                : "right-[-400px]"
+            )}
+          />
+        )}
         <KalturaPlayer
           entryId={entryId}
-          customizeConfig={customizeConfig}
+          // customizeConfig={customizeConfig}
           autoplay={false}
           onPlayerLoaded={handlePlayerLoaded}
         />

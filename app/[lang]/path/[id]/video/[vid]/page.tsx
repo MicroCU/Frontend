@@ -244,34 +244,33 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
 
   const defaultPlayerConfig: PlayerBundleConfig = {
     bundlerUrl: "https://cdnapisec.kaltura.com",
-    partnerId: "",
+    partnerId: "2503922",
     ks: "",
-    uiConfId: ""
+    uiConfId: "45152271"
   };
 
   const defaultEntriesConfig: EntriesConfig = {
-    entryId: "",
-    alternateEntryId: ""
+    entryId: "0_7fjx3mcg",
   };
 
-  const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
-    null
-  );
-  const [entriesConfig, setEntriesConfig] =
-    useState<EntriesConfig>(defaultEntriesConfig);
+  // const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
+  //   null
+  // );
+  // const [entriesConfig, setEntriesConfig] =
+  //   useState<EntriesConfig>(defaultEntriesConfig);
 
-  useEffect(() => {
-    setPlayerConfig({
-      bundlerUrl: "https://cdnapisec.kaltura.com",
-      partnerId: "2503922",
-      ks: "",
-      uiConfId: "45152271"
-    });
-    setEntriesConfig({
-      entryId: "0_7fjx3mcg",
-      // alternateEntryId: "0_7eul7ul1"
-    });
-  }, []);
+  // useEffect(() => {
+  //   setPlayerConfig({
+  //     bundlerUrl: "https://cdnapisec.kaltura.com",
+  //     partnerId: "2503922",
+  //     ks: "",
+  //     uiConfId: "45152271"
+  //   });
+  //   setEntriesConfig({
+  //     entryId: "0_7fjx3mcg",
+  //     // alternateEntryId: "0_7eul7ul1"
+  //   });
+  // }, []);
 
   if (!pathInfo) {
     return (
@@ -333,9 +332,9 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   // );
   return (
     <KalturaPlayerProvider
-      playerBundleConfig={playerConfig || defaultPlayerConfig}
+      playerBundleConfig={defaultPlayerConfig}
     >
-      <PlayerContainer entriesConfig={entriesConfig} />
+      <PlayerContainer entriesConfig={defaultEntriesConfig} microData={currentMicroData} />
     </KalturaPlayerProvider>
   );
 };
