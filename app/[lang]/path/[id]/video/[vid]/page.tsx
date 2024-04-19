@@ -3,6 +3,14 @@
 import { fetchPath } from "@/action/path";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
+import {
+  KalturaPlayerProvider,
+  PlayerBundleConfig
+} from "@/components/kalturaPlayer";
+import {
+  EntriesConfig,
+  PlayerContainer
+} from "@/components/kalturaPlayer/player-container";
 import { usePath } from "@/context/Path";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -234,6 +242,37 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
     setIsClient(true);
   }, []);
 
+  const defaultPlayerConfig: PlayerBundleConfig = {
+    bundlerUrl: "https://cdnapisec.kaltura.com",
+    partnerId: "",
+    ks: "",
+    uiConfId: ""
+  };
+
+  const defaultEntriesConfig: EntriesConfig = {
+    entryId: "",
+    alternateEntryId: ""
+  };
+
+  const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
+    null
+  );
+  const [entriesConfig, setEntriesConfig] =
+    useState<EntriesConfig>(defaultEntriesConfig);
+
+  useEffect(() => {
+    setPlayerConfig({
+      bundlerUrl: "https://cdnapisec.kaltura.com",
+      partnerId: "2503922",
+      ks: "",
+      uiConfId: "45152271"
+    });
+    setEntriesConfig({
+      entryId: "0_7fjx3mcg",
+      alternateEntryId: "0_7eul7ul1"
+    });
+  }, []);
+
   if (!pathInfo) {
     return (
       <div className="w-screen h-screen flex items-center justify-center">
@@ -254,7 +293,7 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
         onMouseMove={mouseMoveHandler}
         onClick={mouseMoveHandler}
       >
-        <ReactPlayer
+        {/* <ReactPlayer
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
           url={videoData?.link}
@@ -288,7 +327,10 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
           isHidden={isHidden}
           videoState={videoState}
           microData={currentMicroData}
-        />
+        /> */}
+        <KalturaPlayerProvider playerBundleConfig={playerConfig||defaultPlayerConfig}>
+          <PlayerContainer entriesConfig={entriesConfig} />
+        </KalturaPlayerProvider>
       </div>
     )
   );
