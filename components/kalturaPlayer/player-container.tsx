@@ -44,6 +44,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
       type,
       link: test?.link || ""
     }));
+  const fileData = microData.documents;  
 
   const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
     VideoTabType.HIDE
@@ -195,7 +196,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
           videoName={"videoName"}
           currentTab={currentVideoTab}
           videoTabHandle={videoTabHandle}
-          isFile={false}
+          isFile={fileData ? true : false}
           isPlaylist={playlistData ? true : false}
           className={`bg-gradient-to-b from-black absolute z-10 ${
             getPlayerState() === PlaybackStatuses.Paused
@@ -211,6 +212,17 @@ export function PlayerContainer(props: PlayerContainerProps) {
             className={cn(
               "top-24 h-[81%] z-20",
               currentVideoTab == VideoTabType.PLAYLIST && cursorMoved
+                ? "right-0"
+                : "right-[-400px]"
+            )}
+          />
+        )}
+        {fileData && (
+          <VideoTab.VideoFileTab
+            data={fileData}
+            className={cn(
+              "top-24 h-[81%] z-20",
+              currentVideoTab == VideoTabType.FILE && cursorMoved
                 ? "right-0"
                 : "right-[-400px]"
             )}
