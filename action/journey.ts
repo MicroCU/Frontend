@@ -3,22 +3,20 @@
 import { cookies } from "next/headers";
 import { HomePageData, RecentlyPageData, SearchPageData } from "@/types/type";
 import { AuthError } from "@/constants/error";
-import { getHomeResult } from "@/mock/journey_data";
 
 export const fetchJourney = async (lang: string) => {
-    // const accessToken = cookies().get("access_token");
+    const accessToken = cookies().get("access_token");
 
-    // if (!accessToken) {
-    //     throw new Error(AuthError.ERR_ACCESS_TOKEN);
-    // }
+    if (!accessToken) {
+        throw new Error(AuthError.ERR_ACCESS_TOKEN);
+    }
 
-    // const res = await fetch(process.env.MCV_JOURNEY_URL! + "?lang=" + lang, {
-    //     headers: {
-    //         Authorization: `Bearer ${accessToken.value}`
-    //     }
-    // });
-    // const resp = await res.json();
-    const resp = await getHomeResult();
+    const res = await fetch(process.env.MCV_JOURNEY_URL! + "?lang=" + lang, {
+        headers: {
+            Authorization: `Bearer ${accessToken.value}`
+        }
+    });
+    const resp = await res.json();
     return {
         status: resp.status,
         msg: resp.message,

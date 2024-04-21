@@ -124,9 +124,14 @@ export function JourneyGraphContextProvider({
       setSelectedPath(null);
       handleFetchRecently(lang);
     } else if (selectedTab === MenuTab.search) {
-      setJourneys(null);
-      setSelectedPath(null);
-      handleFetchSearch(searchKeyword, lang);
+      if (searchKeyword === "") {
+        setSelectedPath(null);
+        setJourneys({} as JourneyStoreData);
+      } else {
+        setJourneys(null);
+        setSelectedPath(null);
+        handleFetchSearch(searchKeyword, lang);
+      }
     }
   }, [selectedTab, searchKeyword, lang]);
 
