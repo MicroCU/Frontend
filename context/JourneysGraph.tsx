@@ -11,9 +11,11 @@ import {
   useState
 } from "react";
 import { useTranslation } from "./Translation";
-import { convertRecentlyToJourney } from "@/mock/recently_data";
-import { convertSearchToJourney } from "@/mock/search_data";
 import { fetchJourney, fetchRecently, fetchSearch } from "@/action/journey";
+import {
+  convertRecentlyToJourney,
+  convertSearchToJourney
+} from "@/utils/converter";
 
 interface JourneyGraphContextType {
   selectedTab: MenuTab;
@@ -82,8 +84,8 @@ export function JourneyGraphContextProvider({
     });
   };
 
-  const handleFetchRecently = async () => {
-    const result = await fetchRecently();
+  const handleFetchRecently = async (lang: string) => {
+    const result = await fetchRecently(lang);
     if (result.status !== 200) {
       setError({
         status: result.status,
@@ -95,8 +97,8 @@ export function JourneyGraphContextProvider({
     setJourneys(journey);
   };
 
-  const handleFetchSearch = async (searchText: string) => {
-    const result = await fetchSearch(searchText);
+  const handleFetchSearch = async (searchText: string, lang: string) => {
+    const result = await fetchSearch(searchText, lang);
     if (result.status !== 200) {
       setError({
         status: result.status,
@@ -104,6 +106,7 @@ export function JourneyGraphContextProvider({
       });
       return;
     }
+
     const journey = convertSearchToJourney(result.data);
     setJourneys(journey);
   };
@@ -119,11 +122,11 @@ export function JourneyGraphContextProvider({
       setJourneys(null);
       setSearchKeyword("");
       setSelectedPath(null);
-      handleFetchRecently();
+      handleFetchRecently(lang);
     } else if (selectedTab === MenuTab.search) {
       setJourneys(null);
       setSelectedPath(null);
-      handleFetchSearch(searchKeyword);
+      handleFetchSearch(searchKeyword, lang);
     }
   }, [selectedTab, searchKeyword, lang]);
 
