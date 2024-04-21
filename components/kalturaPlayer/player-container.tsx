@@ -174,10 +174,8 @@ export function PlayerContainer(props: PlayerContainerProps) {
     if (playerInstance) {
       const currentTime = getPlayerTime() / 1000;
       const duration =
-        Math.floor(playerInstance.duration * 1000) / 1000 - 0.001;
+        Math.floor(playerInstance.duration * 1000) / 1000;
       if (currentTime >= duration) {
-        console.log(getPlayerState());
-        console.log("Video ended");
         setIsVideoEnded(true);
       } else {
         setIsVideoEnded(false);

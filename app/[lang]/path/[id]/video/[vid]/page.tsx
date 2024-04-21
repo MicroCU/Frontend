@@ -1,5 +1,6 @@
 "use client";
 
+import { fetchKalturaId } from "@/action/kaltura";
 import { fetchPath } from "@/action/path";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
@@ -30,16 +31,7 @@ export interface VideoState {
 
 let count = 0;
 
-const defaultPlayerConfig: PlayerBundleConfig = {
-  bundlerUrl: "https://cdnapisec.kaltura.com",
-  partnerId: "2503922",
-  ks: "",
-  uiConfId: "45152271"
-};
-
-const defaultEntriesConfig: EntriesConfig = {
-  entryId: "0_7fjx3mcg"
-};
+const entryIdMock = "0_7fjx3mcg";
 
 const VideoPage = ({ params }: { params: { vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
@@ -70,6 +62,27 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
     .flatMap((group) => group.micros)
     .find((micro) => micro.id === params.vid);
   const videoData = currentMicroData?.video;
+
+  const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
+    null
+  );
+  const [entriesConfig, setEntriesConfig] =
+    useState<EntriesConfig>();
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await fetchKalturaId();
+      setPlayerConfig({
+        bundlerUrl: "https://cdnapisec.kaltura.com",
+        partnerId: config.partnerId,
+        uiConfId: config.uiConfId
+      });
+      setEntriesConfig({
+        entryId: entryIdMock
+      });
+    };
+    fetchConfig();
+  }, []);
 
   const videoPlayerRef = useRef<ReactPlayer>(null);
   const controlRef = useRef<HTMLDivElement | null>(null);
@@ -253,24 +266,6 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
     setIsClient(true);
   }, []);
 
-  const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
-    null
-  );
-  const [entriesConfig, setEntriesConfig] =
-    useState<EntriesConfig>(defaultEntriesConfig);
-
-  useEffect(() => {
-    setPlayerConfig({
-      bundlerUrl: "https://cdnapisec.kaltura.com",
-      partnerId: "2503922",
-      ks: "",
-      uiConfId: "45152271"
-    });
-    setEntriesConfig({
-      entryId: "0_7fjx3mcg"
-    });
-  }, []);
-
   if (!pathInfo) {
     return (
       <div className="w-screen h-screen flex items-center justify-center">
@@ -281,13 +276,13 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   if (!currentMicroData || !videoData) {
     return <div>no video</div>;
   }
-  if (playerConfig && entriesConfig) {
+  if (playerConfig && entriesConfig && entryIdMock) {
     return (
       <KalturaPlayerProvider
-        playerBundleConfig={playerConfig || defaultPlayerConfig}
+        playerBundleConfig={playerConfig}
       >
         <PlayerContainer
-          entriesConfig={entriesConfig || defaultEntriesConfig}
+          entriesConfig={entriesConfig}
           microData={currentMicroData}
         />
       </KalturaPlayerProvider>
