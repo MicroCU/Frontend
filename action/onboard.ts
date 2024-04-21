@@ -33,14 +33,11 @@ export const checkIsOnBoard = async () => {
     throw new Error(AuthError.ERR_ACCESS_TOKEN);
   }
   try {
-    const data = await fetch(
-      "https://www.mycourseville.com/api-dev/v1/public/micro/journeys/get?lang=th",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken.value}`
-        }
+    const data = await fetch(process.env.MCV_JOURNEY_URL!, {
+      headers: {
+        Authorization: `Bearer ${accessToken.value}`
       }
-    );
+    });
     const resp: GetJourneysResp = await data.json();
     if (resp.data.total > 0) return true;
   } catch (e) {
@@ -66,8 +63,8 @@ export const storeMCVPref = async () => {
     jid2: null,
     jid3: null
   };
-
-  let url = `https://www.mycourseville.com/api-dev/v1/public/micro/journeys/post?jid1=${params.jid1}`;
+  console.log(process.env.MCV_JOURNEY_POST_URL!);
+  let url = process.env.MCV_JOURNEY_POST_URL! + `?jid1=${params.jid1}`;
   if (params.jid2) {
     url += `&jid2=${params.jid2}`;
   }
@@ -83,6 +80,7 @@ export const storeMCVPref = async () => {
       }
     });
     const resp: PostJourneysResp = await data.json();
+    console.log(resp.data);
   } catch (e) {
     console.log(e);
   }
