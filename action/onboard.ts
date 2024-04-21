@@ -60,6 +60,7 @@ export const storeMCVPref = async () => {
   }
 
   // mock
+  // TODO: Yod will provide the real data by analysing from the user's answer
   const params = {
     jid1: 2,
     jid2: null,
