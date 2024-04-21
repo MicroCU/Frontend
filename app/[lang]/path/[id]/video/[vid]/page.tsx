@@ -30,6 +30,17 @@ export interface VideoState {
 
 let count = 0;
 
+const defaultPlayerConfig: PlayerBundleConfig = {
+  bundlerUrl: "https://cdnapisec.kaltura.com",
+  partnerId: "2503922",
+  ks: "",
+  uiConfId: "45152271"
+};
+
+const defaultEntriesConfig: EntriesConfig = {
+  entryId: "0_7fjx3mcg"
+};
+
 const VideoPage = ({ params }: { params: { vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
 
@@ -242,35 +253,23 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
     setIsClient(true);
   }, []);
 
-  const defaultPlayerConfig: PlayerBundleConfig = {
-    bundlerUrl: "https://cdnapisec.kaltura.com",
-    partnerId: "2503922",
-    ks: "",
-    uiConfId: "45152271"
-  };
+  const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
+    null
+  );
+  const [entriesConfig, setEntriesConfig] =
+    useState<EntriesConfig>(defaultEntriesConfig);
 
-  const defaultEntriesConfig: EntriesConfig = {
-    entryId: "0_7fjx3mcg",
-  };
-
-  // const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
-  //   null
-  // );
-  // const [entriesConfig, setEntriesConfig] =
-  //   useState<EntriesConfig>(defaultEntriesConfig);
-
-  // useEffect(() => {
-  //   setPlayerConfig({
-  //     bundlerUrl: "https://cdnapisec.kaltura.com",
-  //     partnerId: "2503922",
-  //     ks: "",
-  //     uiConfId: "45152271"
-  //   });
-  //   setEntriesConfig({
-  //     entryId: "0_7fjx3mcg",
-  //     // alternateEntryId: "0_7eul7ul1"
-  //   });
-  // }, []);
+  useEffect(() => {
+    setPlayerConfig({
+      bundlerUrl: "https://cdnapisec.kaltura.com",
+      partnerId: "2503922",
+      ks: "",
+      uiConfId: "45152271"
+    });
+    setEntriesConfig({
+      entryId: "0_7fjx3mcg"
+    });
+  }, []);
 
   if (!pathInfo) {
     return (
@@ -282,60 +281,65 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   if (!currentMicroData || !videoData) {
     return <div>no video</div>;
   }
-  // return (
-  //   isClient && (
-  //     <div
-  //       className={cn(
-  //         "relative bg-black flex flex-col justify-center items-center w-full h-screen",
-  //         isHidden && "cursor-none"
-  //       )}
-  //       onMouseMove={mouseMoveHandler}
-  //       onClick={mouseMoveHandler}
-  //     >
-  //       <ReactPlayer
-  //         ref={videoPlayerRef}
-  //         className="p-0 m-0 w-full h-full"
-  //         url={videoData?.link}
-  //         width="100%"
-  //         height="100%"
-  //         playing={playing}
-  //         muted={muted}
-  //         controls={false}
-  //         volume={volume}
-  //         onProgress={progressHandler}
-  //         playbackRate={speed}
-  //         onEnded={endingHandler}
-  //         onBuffer={bufferStartHandler}
-  //         onBufferEnd={bufferEndHandler}
-  //         onReady={onVideoReady}
-  //       />
-  //       <VideoControlLayer
-  //         videoName={videoData?.title || ""}
-  //         controlRef={controlRef}
-  //         onPlayPause={playPauseHandler}
-  //         onSeek={seekHandler}
-  //         onSeekMouseUp={seekMouseUpHandler}
-  //         onVolumeChangeHandler={volumeChangeHandler}
-  //         onVolumeSeekUp={volumeSeekUpHandler}
-  //         onMute={muteHandler}
-  //         duration={formatDuration}
-  //         currentTime={formatCurrentTime}
-  //         fullscreenHandler={handleFullScreenToggle}
-  //         isFullScreen={isFullScreen}
-  //         speedHandler={speedHandler}
-  //         isHidden={isHidden}
-  //         videoState={videoState}
-  //         microData={currentMicroData}
-  //       />
-  //     </div>
-  //   )
-  // );
+  if (playerConfig && entriesConfig) {
+    return (
+      <KalturaPlayerProvider
+        playerBundleConfig={playerConfig || defaultPlayerConfig}
+      >
+        <PlayerContainer
+          entriesConfig={entriesConfig || defaultEntriesConfig}
+          microData={currentMicroData}
+        />
+      </KalturaPlayerProvider>
+    );
+  }
   return (
-    <KalturaPlayerProvider
-      playerBundleConfig={defaultPlayerConfig}
-    >
-      <PlayerContainer entriesConfig={defaultEntriesConfig} microData={currentMicroData} />
-    </KalturaPlayerProvider>
+    isClient && (
+      <div
+        className={cn(
+          "relative bg-black flex flex-col justify-center items-center w-full h-screen",
+          isHidden && "cursor-none"
+        )}
+        onMouseMove={mouseMoveHandler}
+        onClick={mouseMoveHandler}
+      >
+        <ReactPlayer
+          ref={videoPlayerRef}
+          className="p-0 m-0 w-full h-full"
+          url={videoData?.link}
+          width="100%"
+          height="100%"
+          playing={playing}
+          muted={muted}
+          controls={false}
+          volume={volume}
+          onProgress={progressHandler}
+          playbackRate={speed}
+          onEnded={endingHandler}
+          onBuffer={bufferStartHandler}
+          onBufferEnd={bufferEndHandler}
+          onReady={onVideoReady}
+        />
+        <VideoControlLayer
+          videoName={videoData?.title || ""}
+          controlRef={controlRef}
+          onPlayPause={playPauseHandler}
+          onSeek={seekHandler}
+          onSeekMouseUp={seekMouseUpHandler}
+          onVolumeChangeHandler={volumeChangeHandler}
+          onVolumeSeekUp={volumeSeekUpHandler}
+          onMute={muteHandler}
+          duration={formatDuration}
+          currentTime={formatCurrentTime}
+          fullscreenHandler={handleFullScreenToggle}
+          isFullScreen={isFullScreen}
+          speedHandler={speedHandler}
+          isHidden={isHidden}
+          videoState={videoState}
+          microData={currentMicroData}
+        />
+      </div>
+    )
   );
 };
 
