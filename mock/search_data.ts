@@ -113,23 +113,23 @@ export function getSearchResult(searchText: string): Promise<APIResponse> {  // 
             relationships: [
                 {
                     id: "search-1",
-                    neighbor: ["search-2"]
+                    neighbors: ["search-2"]
                 },
                 {
                     id: "search-2",
-                    neighbor: ["search-1", "search-3", "search-4", "search-5"]
+                    neighbors: ["search-1", "search-3", "search-4", "search-5"]
                 },
                 {
                     id: "search-3",
-                    neighbor: ["search-2"]
+                    neighbors: ["search-2"]
                 },
                 {
                     id: "search-4",
-                    neighbor: ["search-2"]
+                    neighbors: ["search-2"]
                 },
                 {
                     id: "search-5",
-                    neighbor: ["search-2"]
+                    neighbors: ["search-2"]
                 }
             ]
         }
@@ -144,11 +144,11 @@ export function getSearchResult(searchText: string): Promise<APIResponse> {  // 
             relationships: [
                 {
                     id: "search-1",
-                    neighbor: ["search-2"]
+                    neighbors: ["search-2"]
                 },
                 {
                     id: "search-2",
-                    neighbor: ["search-1"]
+                    neighbors: ["search-1"]
                 },
             ]
         }

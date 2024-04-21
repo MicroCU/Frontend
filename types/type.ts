@@ -27,7 +27,7 @@ export interface BriefPathInfo {
   description: string;
   tags: TagData[];
   picture?: string;
-  status: PathStatus;
+  progress: number;
 }
 
 export interface UndirectedGraphNodeData {
@@ -50,7 +50,7 @@ export interface HomePageData {
   journeys: JourneyData[];
   relationships: {
     id: string;
-    neighbor: string[];
+    neighbors: string[];
   }[];
 }
 
@@ -59,7 +59,7 @@ export interface SearchPageData {
   data: BriefPathInfo[];
   relationships: {
     id: string;
-    neighbor: string[];
+    neighbors: string[];
   }[];
 }
 
@@ -68,7 +68,7 @@ export interface RecentlyPageData {
   data: BriefPathInfo[];
   relationships: {
     id: string;
-    neighbor: string[];
+    neighbors: string[];
   }[];
 }
 
@@ -76,7 +76,7 @@ export interface JourneyStoreData {
   data: JourneyData[];
   relationships: {
     id: string;
-    neighbor: string[];
+    neighbors: string[];
   }[];
 }
 
@@ -119,7 +119,7 @@ export interface Videodata {
   id: string
   title: string
   link: string
-  decisionTitle: string|null
+  decisionTitle: string | null
   progress: number
 }
 

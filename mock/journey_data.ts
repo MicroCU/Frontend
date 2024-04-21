@@ -296,51 +296,51 @@ const MockHomeData: HomePageData = {
     relationships: [
         {
             id: "1-p1",
-            neighbor: ["1-p2", "1-p3"]
+            neighbors: ["1-p2", "1-p3"]
         },
         {
             id: "1-p2",
-            neighbor: ["1-p1"]
+            neighbors: ["1-p1"]
         },
         {
             id: "1-p3",
-            neighbor: ["1-p1", "2-p1", "2-p2", "3-p1"]
+            neighbors: ["1-p1", "2-p1", "2-p2", "3-p1"]
         },
         {
             id: "2-p1",
-            neighbor: ["1-p3", "2-p3"]
+            neighbors: ["1-p3", "2-p3"]
         },
         {
             id: "2-p2",
-            neighbor: ["1-p3", "2-p3"]
+            neighbors: ["1-p3", "2-p3"]
         },
         {
             id: "2-p3",
-            neighbor: ["2-p1", "2-p2"]
+            neighbors: ["2-p1", "2-p2"]
         },
         {
             id: "3-p1",
-            neighbor: ["1-p3", "3-p2", "3-p3"]
+            neighbors: ["1-p3", "3-p2", "3-p3"]
         },
         {
             id: "3-p2",
-            neighbor: ["3-p1", "4-p1", "4-p2", "4-p3"]
+            neighbors: ["3-p1", "4-p1", "4-p2", "4-p3"]
         },
         {
             id: "3-p3",
-            neighbor: ["3-p1"]
+            neighbors: ["3-p1"]
         },
         {
             id: "4-p1",
-            neighbor: ["3-p2"]
+            neighbors: ["3-p2"]
         },
         {
             id: "4-p2",
-            neighbor: ["3-p2"]
+            neighbors: ["3-p2"]
         },
         {
             id: "4-p3",
-            neighbor: ["3-p2"]
+            neighbors: ["3-p2"]
         },
     ]
 }

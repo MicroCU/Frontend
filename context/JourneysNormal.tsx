@@ -62,12 +62,12 @@ export function JourneyNormalContextProvider({
     }
   }, [error]);
 
-  const handleFetchJourney = async () => {
-    const result = await fetchJourney();
+  const handleFetchJourney = async (lang: string) => {
+    const result = await fetchJourney(lang);
     if (result.status !== 200) {
       setError({
         status: result.status,
-        message: result.message ? result.message : "Unknown error occurred"
+        message: result.msg ? result.msg : "Unknown error occurred"
       });
       return;
     }
@@ -79,7 +79,7 @@ export function JourneyNormalContextProvider({
     if (result.status !== 200) {
       setError({
         status: result.status,
-        message: result.message ? result.message : "Unknown error occurred"
+        message: result.msg ? result.msg : "Unknown error occurred"
       });
       return;
     }
@@ -92,7 +92,7 @@ export function JourneyNormalContextProvider({
     if (result.status !== 200) {
       setError({
         status: result.status,
-        message: result.message ? result.message : "Unknown error occurred"
+        message: result.msg ? result.msg : "Unknown error occurred"
       });
       return;
     }
@@ -100,11 +100,12 @@ export function JourneyNormalContextProvider({
     setJourneys(journey.data);
   };
 
+  const { lang } = useTranslation();
   useEffect(() => {
     if (selectedTab === MenuTab.journey) {
       setJourneys(null);
       setSearchKeyword("");
-      handleFetchJourney();
+      handleFetchJourney(lang);
     } else if (selectedTab === MenuTab.recently) {
       setJourneys(null);
       setSearchKeyword("");
@@ -117,7 +118,7 @@ export function JourneyNormalContextProvider({
         handleFetchSearch(searchKeyword);
       }
     }
-  }, [selectedTab, searchKeyword]);
+  }, [selectedTab, searchKeyword, lang]);
 
   return (
     <JourneyNormalContext.Provider

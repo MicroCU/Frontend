@@ -80,19 +80,19 @@ export function getRecentlyResult(): Promise<APIResponse> {  // Mock API Respons
         relationships: [
             {
                 id: "recently-1",
-                neighbor: ["recently-2", "recently-3"]
+                neighbors: ["recently-2", "recently-3"]
             },
             {
                 id: "recently-2",
-                neighbor: ["recently-1", "recently-4"]
+                neighbors: ["recently-1", "recently-4"]
             },
             {
                 id: "recently-3",
-                neighbor: ["recently-1", "recently-4"]
+                neighbors: ["recently-1", "recently-4"]
             },
             {
                 id: "recently-4",
-                neighbor: ["recently-2", "recently-3"]
+                neighbors: ["recently-2", "recently-3"]
             },
         ]
     }

@@ -67,12 +67,12 @@ export function JourneyGraphContextProvider({
     }
   }, [error]);
 
-  const handleFetchJourney = async () => {
-    const result = await fetchJourney();
+  const handleFetchJourney = async (lang: string) => {
+    const result = await fetchJourney(lang);
     if (result.status !== 200) {
       setError({
         status: result.status,
-        message: result.message ? result.message : "Unknown error occurred"
+        message: result.msg ? result.msg : "Unknown error occurred"
       });
       return;
     }
@@ -87,7 +87,7 @@ export function JourneyGraphContextProvider({
     if (result.status !== 200) {
       setError({
         status: result.status,
-        message: result.message ? result.message : "Unknown error occurred"
+        message: result.msg ? result.msg : "Unknown error occurred"
       });
       return;
     }
@@ -100,7 +100,7 @@ export function JourneyGraphContextProvider({
     if (result.status !== 200) {
       setError({
         status: result.status,
-        message: result.message ? result.message : "Unknown error occurred"
+        message: result.msg ? result.msg : "Unknown error occurred"
       });
       return;
     }
@@ -108,12 +108,13 @@ export function JourneyGraphContextProvider({
     setJourneys(journey);
   };
 
+  const { lang } = useTranslation();
   useEffect(() => {
     if (selectedTab === MenuTab.journey) {
       setJourneys(null);
       setSearchKeyword("");
       setSelectedPath(null);
-      handleFetchJourney();
+      handleFetchJourney(lang);
     } else if (selectedTab === MenuTab.recently) {
       setJourneys(null);
       setSearchKeyword("");
@@ -124,7 +125,7 @@ export function JourneyGraphContextProvider({
       setSelectedPath(null);
       handleFetchSearch(searchKeyword);
     }
-  }, [selectedTab, searchKeyword]);
+  }, [selectedTab, searchKeyword, lang]);
 
   return (
     <JourneyGraphContext.Provider
