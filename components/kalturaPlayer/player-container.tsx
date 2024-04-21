@@ -10,6 +10,8 @@ import VideoTab from "../VideoTab";
 import { cn } from "@/lib/utils";
 import { VideoTabType } from "@/types/enum";
 import VideoNav from "../VideoNav";
+import { getNextMicro, getPathInitialNodesAndEdges } from "@/utils/path";
+import VideoChoice from "../VideoChoice";
 
 export interface EntriesConfig {
   entryId: string;
@@ -35,6 +37,9 @@ export function PlayerContainer(props: PlayerContainerProps) {
     usePlayerUpdates(playerId);
 
   const { pathInfo } = usePath();
+  const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
+    pathInfo?.groups || []
+  );
   const playlistData = pathInfo?.groups
     .flatMap((group) => group.micros)
     .filter((micro) => micro.id !== microData.id)
@@ -44,7 +49,8 @@ export function PlayerContainer(props: PlayerContainerProps) {
       type,
       link: test?.link || ""
     }));
-  const fileData = microData.documents;  
+  const fileData = microData.documents;
+  const choiceData = getNextMicro(microData.id, initialNodes, initialEdges);
 
   const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
     VideoTabType.HIDE
@@ -161,6 +167,32 @@ export function PlayerContainer(props: PlayerContainerProps) {
     return newConfig;
   };
 
+  const [isVideoEnded, setIsVideoEnded] = useState<boolean>(false);
+
+  useEffect(() => {
+    const playerInstance = getPlayerInstance();
+    if (playerInstance) {
+      const currentTime = getPlayerTime() / 1000;
+      const duration =
+        Math.floor(playerInstance.duration * 1000) / 1000 - 0.001;
+      if (currentTime >= duration) {
+        console.log(getPlayerState());
+        console.log("Video ended");
+        setIsVideoEnded(true);
+      } else {
+        setIsVideoEnded(false);
+      }
+    }
+  }, [getPlayerTime()]);
+
+  const handleFullScreenToggle = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen();
+    }
+  };
+
   const [cursorMoved, setCursorMoved] = useState<boolean>(true);
 
   useEffect(() => {
@@ -186,12 +218,6 @@ export function PlayerContainer(props: PlayerContainerProps) {
   return (
     <div>
       <div className="h-screen w-full absolute top-0 left-0 overflow-hidden">
-        {/* <div
-          className="absolute right-0 z-10 text-white"
-          onClick={() => videoTabHandle(VideoTabType.PLAYLIST)}
-        >
-          Playlist
-        </div> */}
         <VideoNav
           videoName={"videoName"}
           currentTab={currentVideoTab}
@@ -199,7 +225,8 @@ export function PlayerContainer(props: PlayerContainerProps) {
           isFile={fileData ? true : false}
           isPlaylist={playlistData ? true : false}
           className={`bg-gradient-to-b from-black absolute z-10 ${
-            getPlayerState() === PlaybackStatuses.Paused
+            getPlayerState() === PlaybackStatuses.Paused ||
+            getPlayerState() === PlaybackStatuses.Idle
               ? "visible"
               : cursorMoved
               ? "visible"
@@ -228,10 +255,27 @@ export function PlayerContainer(props: PlayerContainerProps) {
             )}
           />
         )}
+        {isVideoEnded && choiceData && (
+          <div className="absolute bottom-20 w-full flex justify-center gap-10 px-20 z-20">
+            {choiceData.map((item) => (
+              <VideoChoice
+                choiceName={item.video?.decisionTitle || "Go to " + item.name}
+                microId={item.id}
+                microType={item.type}
+                testLink={item.test?.link || ""}
+                key={"choice" + item.id}
+              />
+            ))}
+          </div>
+        )}
+        <div
+          className="absolute right-2 bottom-0 w-12 h-10 z-20 cursor-pointer"
+          onClick={handleFullScreenToggle}
+        ></div>
         <KalturaPlayer
           entryId={entryId}
           // customizeConfig={customizeConfig}
-          autoplay={false}
+          autoplay={true}
           onPlayerLoaded={handlePlayerLoaded}
         />
       </div>
