@@ -20,7 +20,7 @@ const mockDBForSearch: BriefPathInfo[] = [
                 name: "Health",
             },
         ],
-        status: PathStatus.STILL_LEARNING
+        progress: 50,
     },
     {
         id: "search-2",
@@ -38,7 +38,7 @@ const mockDBForSearch: BriefPathInfo[] = [
                 name: "Laboratory",
             },
         ],
-        status: PathStatus.PASSED_TEST,
+        progress: 25,
     },
     {
         id: "search-3",
@@ -56,7 +56,7 @@ const mockDBForSearch: BriefPathInfo[] = [
                 name: "Laboratory",
             },
         ],
-        status: PathStatus.NOT_VISITED,
+        progress: 0,
     },
     {
         id: "search-4",
@@ -74,7 +74,7 @@ const mockDBForSearch: BriefPathInfo[] = [
                 name: "Laboratory",
             },
         ],
-        status: PathStatus.NOT_VISITED,
+        progress: 0,
     },
     {
         id: "search-5",
@@ -92,7 +92,207 @@ const mockDBForSearch: BriefPathInfo[] = [
                 name: "Laboratory",
             },
         ],
-        status: PathStatus.NOT_VISITED,
+        progress: 0,
+    },
+    {
+        id: "search-6",
+        name: "Basic Biology",
+        description: "Biological science is the study of life and living organisms, their life cycles, adaptations and environment.",
+        tags: [
+            {
+                id: "search-1-t1",
+                icon:
+                    "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Biology",
+            },
+            {
+                id: "search-1-t2",
+                icon:
+                    "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Health",
+            },
+        ],
+        progress: 50,
+    },
+    {
+        id: "search-7",
+        name: "Basic Bio Chemistry",
+        description: "An overview of the basic concepts and principles of chemistry.",
+        tags: [
+            {
+                id: "search-2-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Chemistry",
+            },
+            {
+                id: "search-2-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 25,
+    },
+    {
+        id: "search-8",
+        name: "Basic Physics",
+        description: "An overview of the basic concepts and principles of physics.",
+        tags: [
+            {
+                id: "search-3-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Physics",
+            },
+            {
+                id: "search-3-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-9",
+        name: "Basic Mathematics",
+        description: "An overview of the basic concepts and principles of mathematics.",
+        tags: [
+            {
+                id: "search-4-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Mathematics",
+            },
+            {
+                id: "search-4-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-10",
+        name: "Basic English",
+        description: "An overview of the basic concepts and principles of English.",
+        tags: [
+            {
+                id: "search-5-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "English",
+            },
+            {
+                id: "search-5-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-11",
+        name: "Basic Physics",
+        description: "An overview of the basic concepts and principles of physics.",
+        tags: [
+            {
+                id: "search-3-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Physics",
+            },
+            {
+                id: "search-3-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-12",
+        name: "Basic Mathematics",
+        description: "An overview of the basic concepts and principles of mathematics.",
+        tags: [
+            {
+                id: "search-4-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Mathematics",
+            },
+            {
+                id: "search-4-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-13",
+        name: "Basic English aaaa",
+        description: "An overview of the basic concepts and principles of English.",
+        tags: [
+            {
+                id: "search-5-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "English",
+            },
+            {
+                id: "search-5-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-14",
+        name: "Basic Physics",
+        description: "An overview of the basic concepts and principles of physics.",
+        tags: [
+            {
+                id: "search-3-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Physics",
+            },
+            {
+                id: "search-3-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-15",
+        name: "Basic Mathematics",
+        description: "An overview of the basic concepts and principles of mathematics.",
+        tags: [
+            {
+                id: "search-4-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Mathematics",
+            },
+            {
+                id: "search-4-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
+    },
+    {
+        id: "search-16",
+        name: "Basic English aaaa",
+        description: "An overview of the basic concepts and principles of English.",
+        tags: [
+            {
+                id: "search-5-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "English",
+            },
+            {
+                id: "search-5-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Laboratory",
+            },
+        ],
+        progress: 0,
     },
 ]
 
