@@ -1,11 +1,14 @@
 "use client";
+import { getUserInfo } from "@/action/mcv";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import OnboardLoading from "@/components/onboard/OnBoardLoading";
 import OnBoardModal from "@/components/onboard/OnBoardModal";
+import { useAuth } from "@/context/Auth";
 import { useOnBoard } from "@/context/Onboard";
 
 import { useTranslation } from "@/context/Translation";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const OnBoardContent = () => {
   const { lang } = useTranslation();
@@ -36,9 +39,15 @@ const OnBoardContent = () => {
     }
   };
 
+  const { user } = useAuth();
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-primary to-danger">
       <h1 className="absolute top-0 left-0 bg-white">
+        {JSON.stringify(user?.id)}
+        <br />
+        {JSON.stringify(user?.name)}
+        <br />
         {JSON.stringify(answer)}
         <LanguageSwitcher />
         <br></br>

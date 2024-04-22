@@ -39,6 +39,7 @@ export const checkIsOnBoard = async () => {
       }
     });
     const resp: GetJourneysResp = await data.json();
+    console.log(resp);
     if (resp.data.total > 0) return true;
   } catch (e) {
     console.log(e);
@@ -63,7 +64,6 @@ export const storeMCVPref = async () => {
     jid2: null,
     jid3: null
   };
-  console.log(process.env.MCV_JOURNEY_POST_URL!);
   let url = process.env.MCV_JOURNEY_POST_URL! + `?jid1=${params.jid1}`;
   if (params.jid2) {
     url += `&jid2=${params.jid2}`;
@@ -80,7 +80,7 @@ export const storeMCVPref = async () => {
       }
     });
     const resp: PostJourneysResp = await data.json();
-    console.log(resp.data);
+    console.log(resp);
   } catch (e) {
     console.log(e);
   }

@@ -18,10 +18,13 @@ export async function GET(req: NextRequest) {
     console.log(err);
     redirect("/auth");
   }
-
-  const isOnBoard = await checkIsOnBoard();
-  if (!isOnBoard) {
-    redirect("/onboard");
+  const ENABLE_ONBOARDING = true;
+  if (ENABLE_ONBOARDING) {
+    const isOnBoard = await checkIsOnBoard();
+    if (!isOnBoard) {
+      redirect("/onboard");
+    }
   }
+  console.log("BYPASSING ONBOARDING");
   redirect(concatLocale("/", req).toString());
 }

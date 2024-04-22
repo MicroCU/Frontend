@@ -7,9 +7,11 @@ import CheckList from "@/components/CheckList";
 import { JourneyGraphContextProvider } from "@/context/JourneysGraph";
 import Flow from "@/components/undirectedGraph/Flow";
 import CookiePopup from "@/components/CookiePopup";
+import { useAuth } from "@/context/Auth";
 
 const Home = () => {
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
+  const { user } = useAuth();
   return (
     <JourneyGraphContextProvider>
       <div className="flex min-h-screen bg-grayLight">
@@ -29,6 +31,11 @@ const Home = () => {
           }}
         >
           {isViewCheckList ? <CheckList /> : <CheckListIcon />}
+          <aside className="absolute right-0 mt-4 h-40 flex-wrap text-progress Bold16">
+            For Testing <br />
+            {user?.name} <br />
+            {/* {user?.id} */}
+          </aside>
         </div>
       </div>
       <CookiePopup className="z-40" />

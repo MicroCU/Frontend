@@ -40,6 +40,7 @@ export const authorize = async ({ isChulaIT }: { isChulaIT?: boolean }) => {
 };
 
 export const getAccessToken = async (oauthToken: string) => {
+  clearCookies();
   const res = await fetch(process.env.MCV_ACCESS_TOKEN_URL!, {
     method: "POST",
     headers: {
@@ -112,8 +113,12 @@ export const getUserInfo = async () => {
   return user;
 };
 
-export const logout = () => {
+const clearCookies = () => {
   cookies().delete("access_token");
   cookies().delete("refresh_token");
+};
+
+export const logout = () => {
+  clearCookies();
   redirect(process.env.MCV_LOGOUT_URL!);
 };

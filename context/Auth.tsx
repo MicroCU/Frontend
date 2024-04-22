@@ -37,28 +37,32 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   const handleUpdateUser = async () => {
     if (NoAuthPath.includes(window.location.pathname)) return;
-    const stored = localStorage.getItem("user");
-    if (stored) {
-      setUser(JSON.parse(stored) ? JSON.parse(stored) : null);
-      return;
-    }
+    // const stored = localStorage.getItem("user");
+    // if (stored) {
+    //   setUser(JSON.parse(stored) ? JSON.parse(stored) : null);
+    //   return;
+    // }
 
     try {
       if (user === null) {
-        const user = await getUserInfo();
-        const fullName = user.user.firstname_en + " " + user.user.lastname_en;
+        try {
+          const user = await getUserInfo();
+          const fullName = user.user.firstname_th;
 
-        setUser({
-          id: user.user.id,
-          name: fullName
-        });
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
+          setUser({
             id: user.user.id,
             name: fullName
-          })
-        );
+          });
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              id: user.user.id,
+              name: fullName
+            })
+          );
+        } catch (e) {
+          console.log(e);
+        }
       }
     } catch (err) {
       if (err instanceof Error && err.message === AuthError.ERR_ACCESS_TOKEN) {
