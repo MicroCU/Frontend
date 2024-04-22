@@ -35,7 +35,7 @@ export default function MicroContextMenu({
   const handleMarkedAsComplete = () => {
     const updateToAPI = async () => {
       try {
-        const response = await updateRecentlyPath(id);
+        const response = await updateRecentlyPath(id); // NEED Change to update micro progress (PROBLEM: how to get ticks and watchedPartition and type ?)
         if (response?.status == 200) {
           setPathInfo((prev) => {
             if (prev) {
