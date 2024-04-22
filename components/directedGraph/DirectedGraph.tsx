@@ -48,7 +48,7 @@ export default function DirectedGraph({
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodesInitialized = useNodesInitialized();
   const reactFlow = useReactFlow();
-  const { selectedPathId, pathInfo } = usePath();
+  const { selectedMicroId, pathInfo } = usePath();
 
   useEffect(() => {
     if (nodes[0].height === undefined || nodes[0].width === undefined) return;
@@ -143,7 +143,7 @@ export default function DirectedGraph({
       );
       return;
     }
-    if (nodes.length > 0 && selectedPathId === "") {
+    if (nodes.length > 0 && selectedMicroId === "") {
       const node = findRootNode(initialNodes, nodes);
 
       let nodeWidth = node.width || 0;
@@ -160,7 +160,7 @@ export default function DirectedGraph({
     reactFlow,
     initialNodes,
     descriptionHeight,
-    selectedPathId
+    selectedMicroId
   ]);
 
   useEffect(() => {
@@ -171,7 +171,7 @@ export default function DirectedGraph({
           data: {
             ...node.data,
             micros: node.data.micros.map((micro) => {
-              if (micro.id !== selectedPathId) return micro;
+              if (micro.id !== selectedMicroId) return micro;
               return {
                 ...micro,
                 completed: true,
@@ -182,7 +182,7 @@ export default function DirectedGraph({
         };
       })
     );
-  }, [selectedPathId, setNodes]);
+  }, [selectedMicroId, setNodes]);
 
   return (
     <>

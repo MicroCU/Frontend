@@ -31,12 +31,13 @@ export default function MicroContextMenu({
   const pathName = usePathname();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const { setPathInfo, setSelectedPathId } = usePath();
-  const handleMarketComplete = () => {
+  const { setPathInfo, setSelectedMicroId } = usePath();
+  const handleMarkedAsComplete = () => {
     const updateToAPI = async () => {
       try {
         const response = await updateRecentlyPath(id);
         if (response?.status == 200) {
+          console.log("Update progress success");
           setPathInfo((prev) => {
             if (prev) {
               return {
@@ -59,7 +60,7 @@ export default function MicroContextMenu({
             }
             return prev;
           });
-          setSelectedPathId(id);
+          setSelectedMicroId(id);
         }
         if (response?.status != 200) {
           setError(
@@ -116,7 +117,7 @@ export default function MicroContextMenu({
           </I18nTypo>
         </ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem inset onClick={handleMarketComplete}>
+        <ContextMenuItem inset onClick={handleMarkedAsComplete}>
           <I18nTypo>{dict["micro.contextMenu.markedComplete"]}</I18nTypo>
         </ContextMenuItem>
       </ContextMenuContent>

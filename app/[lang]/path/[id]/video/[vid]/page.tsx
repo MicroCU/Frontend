@@ -4,6 +4,7 @@ import { fetchPath } from "@/action/path";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
 import { usePath } from "@/context/Path";
+import { useTranslation } from "@/context/Translation";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
@@ -27,11 +28,12 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
 
   const { pathInfo, setPathInfo } = usePath();
   const [error, setError] = useState<string | null>(null);
+  const { lang } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchPath(params.vid);
+        const response = await fetchPath(params.vid, lang);
         if (response.status != 200) {
           setError(response.message ? response.message : "Error fetching data");
           return;

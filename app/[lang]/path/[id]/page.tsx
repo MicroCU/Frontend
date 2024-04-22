@@ -15,7 +15,7 @@ export default function Path({ params }: { params: { id: string } }) {
   const { pathInfo, setPathInfo } = usePath();
   const [error, setError] = useState<string | null>(null);
   const [descriptionHeight, setDescriptionHeight] = useState(0);
-  const { dict } = useTranslation();
+  const { dict, lang } = useTranslation();
 
   const searchParams = useSearchParams();
   const x = searchParams.get("x");
@@ -25,7 +25,7 @@ export default function Path({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchPath(params.id);
+        const response = await fetchPath(params.id, lang);
         if (response.status != 200) {
           setError(response.message ? response.message : "Error fetching data");
           return;
