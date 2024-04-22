@@ -5,7 +5,6 @@ import DirectedGraph from "@/components/directedGraph/DirectedGraph";
 import { getPathInitialNodesAndEdges } from "@/utils/path";
 import { useEffect, useState } from "react";
 import { ReactFlowProvider } from "reactflow";
-import { updateRecentlyPath } from "@/action/path";
 import { useSearchParams } from "next/navigation";
 import { usePath } from "@/context/Path";
 
@@ -20,7 +19,6 @@ export default function Path({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     setSelectedPathId(params.id);
-    updateRecentlyPath(params.id); // TODO: CHange this
   }, []);
 
   if (!pathInfo) {

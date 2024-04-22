@@ -2,7 +2,7 @@
 import { ErrorAPI, PathData } from "@/types/type";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "./Translation";
-import { fetchPath } from "@/action/path";
+import { fetchPath, updateRecentlyPath } from "@/action/path";
 import { toast } from "@/components/ui/use-toast";
 
 interface PathContextType {
@@ -68,8 +68,21 @@ export function PathContextProvider({
     setPathInfo(result.data.path);
   };
 
+  const handleUpdateRecentlyPath = async (id: string) => {
+    if (!id) return;
+    const result = await updateRecentlyPath(id);
+    if (result.status !== 200) {
+      setError({
+        status: result.status,
+        message: result.msg ? result.msg : "Unknown error occurred"
+      });
+      return;
+    }
+  };
+
   useEffect(() => {
     handleFetchPathInfo(pathId, lang);
+    handleUpdateRecentlyPath(pathId);
   }, [pathId, lang]);
 
   return (

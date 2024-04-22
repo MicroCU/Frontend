@@ -23,30 +23,13 @@ export interface VideoState {
 
 let count = 0;
 
-const VideoPage = ({ params }: { params: { vid: string } }) => {
+const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
 
-  const { pathInfo, setPathInfo } = usePath();
-  const [error, setError] = useState<string | null>(null);
-  const { lang } = useTranslation();
+  const { pathInfo, setSelectedPathId } = usePath();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchPath(params.vid, lang);
-        if (response.status != 200) {
-          setError(response.message ? response.message : "Error fetching data");
-          return;
-        }
-        setPathInfo(response.data.path);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    if (!pathInfo) {
-      fetchData();
-    }
+    setSelectedPathId(params.id);
   }, []);
 
   const currentMicroData = pathInfo?.groups
@@ -235,7 +218,6 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
   if (!pathInfo) {
     return (
       <div className="w-screen h-screen flex items-center justify-center">
@@ -243,6 +225,7 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
       </div>
     );
   }
+
   if (!currentMicroData || !videoData) {
     return <div>no video</div>;
   }
@@ -301,10 +284,12 @@ export default VideoPage;
 function getVideoLink(sourceId: string, sourceType: string) {
   if (sourceType == "youtube-v") {
     return `https://www.youtube.com/watch?v=${sourceId}`;
-  } else if (sourceType == "kaltura") { // TODO
-    return "NEED IMPLEMENTATION"
-  } else if (sourceType == "vimeo") {   // TODO
-    return "NEED IMPLEMENTATION"
+  } else if (sourceType == "kaltura") {
+    // TODO
+    return "NEED IMPLEMENTATION";
+  } else if (sourceType == "vimeo") {
+    // TODO
+    return "NEED IMPLEMENTATION";
   } else {
     return "";
   }
