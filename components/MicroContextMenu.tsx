@@ -37,7 +37,6 @@ export default function MicroContextMenu({
       try {
         const response = await updateRecentlyPath(id);
         if (response?.status == 200) {
-          console.log("Update progress success");
           setPathInfo((prev) => {
             if (prev) {
               return {
