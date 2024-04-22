@@ -25,8 +25,8 @@ const OnboardFinish = () => {
         <Button
           className="w-fit"
           onClick={() => {
-            window.location.href = "/en";
             storeMCVPref();
+            window.location.href = "/en";
           }}
         >
           {dict["onboard.finish.button"]}

@@ -1,7 +1,8 @@
 "use client";
+import { storeMCVPref } from "@/action/onboard";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import Lottie from "@/components/Lottie";
 import I18nTypo from "@/components/ui/I18nTypo";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/Auth";
 import { useTranslation } from "@/context/Translation";
 import Link from "next/link";
@@ -19,6 +20,13 @@ export default function Example() {
         <p> {user ? user.name : "Not found Name"}</p>
       </div>
       <Link href={`/${lang}/try`}> To Another Page </Link>
+      <Button
+        onClick={() => {
+          storeMCVPref();
+        }}
+      >
+        Test Store
+      </Button>
     </div>
   );
 }
