@@ -259,7 +259,7 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
         <ReactPlayer
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
-          url={videoData?.link}
+          url={getVideoLink(videoData.sourceId, videoData.sourceType)}
           width="100%"
           height="100%"
           playing={playing}
@@ -297,3 +297,15 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
 };
 
 export default VideoPage;
+
+function getVideoLink(sourceId: string, sourceType: string) {
+  if (sourceType == "youtube-v") {
+    return `https://www.youtube.com/watch?v=${sourceId}`;
+  } else if (sourceType == "kaltura") { // TODO
+    return "NEED IMPLEMENTATION"
+  } else if (sourceType == "vimeo") {   // TODO
+    return "NEED IMPLEMENTATION"
+  } else {
+    return "";
+  }
+}

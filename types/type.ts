@@ -118,9 +118,10 @@ export interface PathAPIResponse {
 export interface Videodata {
   id: string
   title: string
-  link: string
   decisionTitle: string | null
   progress: number
+  sourceId: string
+  sourceType: string
 }
 
 export interface DocumentData {

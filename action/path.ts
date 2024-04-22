@@ -13,27 +13,17 @@ export const updateRecentlyPath = async (id: string) => {
 }
 
 export const fetchPath = async (id: string, lang: string) => {
-    if (!id) {
-        return {
-            status: 400,
-            message: "Invalid path id",
-            data: {
-                path: null
-            }
-        }
+    const accessToken = cookies().get("access_token");
+
+    if (!accessToken) {
+        throw new Error(AuthError.ERR_ACCESS_TOKEN);
     }
-    // const accessToken = cookies().get("access_token");
 
-    // if (!accessToken) {
-    //     throw new Error(AuthError.ERR_ACCESS_TOKEN);
-    // }
-
-    // const res = await fetch(process.env.MCV_PATH_URL! + id + "/get?lang=" + lang, {
-    //     headers: {
-    //         Authorization: `Bearer ${accessToken.value}`
-    //     }
-    // });
-    // const resp = await res.json();
-    const resp = await getPathResult(id);
+    const res = await fetch(process.env.MCV_PATH_URL! + id + "/get?lang=" + lang, {
+        headers: {
+            Authorization: `Bearer ${accessToken.value}`
+        }
+    });
+    const resp = await res.json();
     return resp;
 }
