@@ -15,24 +15,43 @@ export const updateRecentlyPath = async (id: string) => {
             Authorization: `Bearer ${accessToken.value}`
         }
     });
-    const resp = await res.json();
-    return resp;
+    if (res.status === 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            msg: resp.msg
+        }
+    }
+    return {
+        status: res.status,
+        msg: res.statusText
+    }
 }
 
-export const updateVideoProgress = async (videoId: string, pathId: string, type: string, numTicks: number, watchedPartition: number[]) => {
+export const markedAsCompleteVideo = async (sourceType: string, sourceId: string) => {
     const accessToken = cookies().get("access_token");
 
     if (!accessToken) {
         throw new Error(AuthError.ERR_ACCESS_TOKEN);
     }
 
-    const res = await fetch(process.env.MCV_MICRO_UPDATE_VIDEO_PROGRESS_URL! + videoId + "/progress/patch?path_id=" + pathId + "&type=" + type + "&num_tick=" + numTicks + "&watched_partition=" + watchedPartition, {
+    const res = await fetch(process.env.MCV_MICRO_MARKED_AS_COMPLETE_URL! + sourceId + "/complete/patch?source_type=" + sourceType, {
+        method: 'PATCH',
         headers: {
             Authorization: `Bearer ${accessToken.value}`
         }
     });
-    const resp = await res.json();
-    return resp;
+    if (res.status === 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            msg: resp.message
+        }
+    }
+    return {
+        status: res.status,
+        msg: res.statusText
+    }
 }
 
 export const fetchPath = async (id: string, lang: string) => {
@@ -47,6 +66,15 @@ export const fetchPath = async (id: string, lang: string) => {
             Authorization: `Bearer ${accessToken.value}`
         }
     });
-    const resp = await res.json();
-    return resp;
+    if (res.status === 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            data: resp.data
+        }
+    }
+    return {
+        status: res.status,
+        msg: res.statusText
+    }
 }

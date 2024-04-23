@@ -36,6 +36,8 @@ export default function MicroVideo({
       microType={MicroType.Video}
       id={data.id}
       viewport={{ x: x, y: y, zoom: zoom }}
+      sourceId={data.video?.sourceId}
+      sourceType={data.video?.sourceType}
     >
       <Link href={`${pathName}/video/${data.id}`}>
         <div

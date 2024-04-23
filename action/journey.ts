@@ -16,11 +16,16 @@ export const fetchJourney = async (lang: string) => {
             Authorization: `Bearer ${accessToken.value}`
         }
     });
-    const resp = await res.json();
+    if (res.status === 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            data: resp.data as HomePageData
+        }
+    }
     return {
-        status: resp.status,
-        msg: resp.message,
-        data: resp.data as HomePageData
+        status: res.status,
+        msg: res.statusText
     }
 }
 
@@ -36,11 +41,16 @@ export const fetchRecently = async (lang: string) => {
             Authorization: `Bearer ${accessToken.value}`
         }
     });
-    const resp = await res.json();
+    if (res.status === 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            data: resp.data as RecentlyPageData
+        }
+    }
     return {
-        status: resp.status,
-        msg: resp.message,
-        data: resp.data as RecentlyPageData
+        status: res.status,
+        msg: res.statusText
     }
 }
 
@@ -56,10 +66,15 @@ export const fetchSearch = async (searchText: string, lang: string) => {
             Authorization: `Bearer ${accessToken.value}`
         }
     });
-    const resp = await res.json();
+    if (res.status == 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            data: resp.data as SearchPageData
+        }
+    }
     return {
-        status: resp.status,
-        msg: resp.message,
-        data: resp.data as SearchPageData
+        status: res.status,
+        msg: res.statusText
     }
 }

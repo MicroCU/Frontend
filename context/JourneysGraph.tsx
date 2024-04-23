@@ -71,7 +71,7 @@ export function JourneyGraphContextProvider({
 
   const handleFetchJourney = async (lang: string) => {
     const result = await fetchJourney(lang);
-    if (result.status !== 200) {
+    if (result.status !== 200 || !result.data) {
       setError({
         status: result.status,
         message: result.msg ? result.msg : "Unknown error occurred"
@@ -86,7 +86,7 @@ export function JourneyGraphContextProvider({
 
   const handleFetchRecently = async (lang: string) => {
     const result = await fetchRecently(lang);
-    if (result.status !== 200) {
+    if (result.status !== 200 || !result.data) {
       setError({
         status: result.status,
         message: result.msg ? result.msg : "Unknown error occurred"
@@ -99,7 +99,7 @@ export function JourneyGraphContextProvider({
 
   const handleFetchSearch = async (searchText: string, lang: string) => {
     const result = await fetchSearch(searchText, lang);
-    if (result.status !== 200) {
+    if (result.status !== 200 || !result.data) {
       setError({
         status: result.status,
         message: result.msg ? result.msg : "Unknown error occurred"

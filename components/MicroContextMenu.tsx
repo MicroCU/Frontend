@@ -7,7 +7,7 @@ import {
   ContextMenuSeparator
 } from "./ui/context-menu";
 import { useTranslation } from "@/context/Translation";
-import { updateRecentlyPath } from "@/action/path";
+import { markedAsCompleteVideo, updateRecentlyPath } from "@/action/path";
 import { usePathname, useRouter } from "next/navigation";
 import I18nTypo from "./ui/I18nTypo";
 import { useEffect, useState } from "react";
@@ -18,6 +18,8 @@ interface MicroContextMenuProps {
   children: React.ReactNode;
   id: string;
   microType: MicroType;
+  sourceId?: string;
+  sourceType?: string;
   viewport?: { x: number; y: number; zoom: number };
 }
 
@@ -25,7 +27,9 @@ export default function MicroContextMenu({
   children,
   id,
   microType,
-  viewport
+  viewport,
+  sourceId,
+  sourceType
 }: MicroContextMenuProps) {
   const { dict } = useTranslation();
   const pathName = usePathname();
@@ -35,7 +39,10 @@ export default function MicroContextMenu({
   const handleMarkedAsComplete = () => {
     const updateToAPI = async () => {
       try {
-        const response = await updateRecentlyPath(id); // NEED Change to update micro progress (PROBLEM: how to get ticks and watchedPartition and type ?)
+        if (!sourceType || !sourceId) {
+          return;
+        }
+        const response = await markedAsCompleteVideo(sourceType, sourceId);
         if (response?.status == 200) {
           setPathInfo((prev) => {
             if (prev) {
@@ -63,7 +70,7 @@ export default function MicroContextMenu({
         }
         if (response?.status != 200) {
           setError(
-            response?.message ? response.message : "Error fetching data"
+            response?.msg ? response.msg : "Error fetching data"
           );
           return;
         }
