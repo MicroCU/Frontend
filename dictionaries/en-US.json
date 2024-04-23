@@ -23,5 +23,6 @@
   "micro.contextMenu.markedComplete": "Mark as Complete",
   "micro.contextMenu.video": "View video",
   "micro.contextMenu.practice": "Do practice",
-  "micro.contextMenu.test": "Start test"
+  "micro.contextMenu.test": "Start test",
+  "micro.videoChoice.goto": "Go to"
 }

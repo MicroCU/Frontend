@@ -49,7 +49,7 @@ const directedGraphCase = [
                     video: {
                         id: '3',
                         title: 'Syntax - 2',
-                        link: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                        link: "https://www.youtube.com/watch?v=fnRJ7pMzVdA",
                         decisionTitle: 'Python 101',
                         progress: 40
                     }

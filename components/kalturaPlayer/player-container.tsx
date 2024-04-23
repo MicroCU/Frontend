@@ -273,7 +273,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
         <KalturaPlayer
           entryId={entryId}
           // customizeConfig={customizeConfig}
-          autoplay={true}
+          autoplay={false}
           onPlayerLoaded={handlePlayerLoaded}
         />
       </div>

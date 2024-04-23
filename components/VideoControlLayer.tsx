@@ -10,6 +10,7 @@ import { VideoTabType } from "@/types/enum";
 import { MicroData } from "@/types/type";
 import { usePath } from "@/context/Path";
 import { getNextMicro, getPathInitialNodesAndEdges } from "@/utils/path";
+import { useTranslation } from "@/context/Translation";
 
 interface VideoControlLayerProps {
   videoName: string;
@@ -48,6 +49,7 @@ const VideoControlLayer = ({
   videoState,
   microData
 }: VideoControlLayerProps) => {
+  const { dict } = useTranslation();
   const { pathInfo } = usePath();
   const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
     pathInfo?.groups || []
@@ -119,7 +121,7 @@ const VideoControlLayer = ({
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
             {choiceData.map((item) => (
               <VideoChoice
-                choiceName={item.video?.decisionTitle || "Go to " + item.name}
+                choiceName={item.video?.decisionTitle || dict["micro.videoChoice.goto"] + " " + item.name}
                 microId={item.id}
                 microType={item.type}
                 testLink={item.test?.link || ""}
