@@ -312,7 +312,7 @@ export function getPathResult(id: string): Promise<PathAPIResponse> { // Mock AP
             }, 2000);
         });
     }
-    mockGroupDB.groups = directedGraphCase[0]
+    // mockGroupDB.groups = directedGraphCase[0]
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
