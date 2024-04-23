@@ -5,7 +5,7 @@ import { DocumentData, Testdata, Videodata } from "./type";
 export interface Micro {
   id: string;
   name: string;
-  total_progress: number;
+  progress: number;
   type: MicroType;
   video?: Videodata;
   documents?: DocumentData[];

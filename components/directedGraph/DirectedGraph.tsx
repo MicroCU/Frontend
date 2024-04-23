@@ -175,7 +175,7 @@ export default function DirectedGraph({
               return {
                 ...micro,
                 completed: true,
-                total_progress: 100
+                progress: 100
               };
             })
           }
