@@ -20,6 +20,7 @@ interface MicroContextMenuProps {
   microType: MicroType;
   sourceId?: string;
   sourceType?: string;
+  testLink?: string;
   viewport?: { x: number; y: number; zoom: number };
 }
 
@@ -29,7 +30,8 @@ export default function MicroContextMenu({
   microType,
   viewport,
   sourceId,
-  sourceType
+  sourceType,
+  testLink
 }: MicroContextMenuProps) {
   const { dict } = useTranslation();
   const pathName = usePathname();
@@ -69,16 +71,17 @@ export default function MicroContextMenu({
           setSelectedMicroId(id);
         }
         if (response?.status != 200) {
-          setError(
-            response?.msg ? response.msg : "Error fetching data"
-          );
+          setError(response?.msg ? response.msg : "Error fetching data");
           return;
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    updateToAPI();
+
+    if (microType === MicroType.Video) {
+      updateToAPI();
+    }
   };
   const handleViewContent = () => {
     if (microType === MicroType.Video) {
@@ -95,6 +98,8 @@ export default function MicroContextMenu({
         })
       );
       router.push(`${pathName}/video/${id}`);
+    } else if (microType === MicroType.Test) {
+      window.open(testLink);
     }
   };
 
@@ -123,7 +128,11 @@ export default function MicroContextMenu({
           </I18nTypo>
         </ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem inset onClick={handleMarkedAsComplete}>
+        <ContextMenuItem
+          inset
+          onClick={handleMarkedAsComplete}
+          disabled={microType != MicroType.Video}
+        >
           <I18nTypo>{dict["micro.contextMenu.markedComplete"]}</I18nTypo>
         </ContextMenuItem>
       </ContextMenuContent>
