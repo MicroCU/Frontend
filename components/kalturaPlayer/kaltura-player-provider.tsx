@@ -14,11 +14,12 @@ import { Observable, Subject, throwError } from "rxjs";
 
 export interface KalturaPlayerProviderProps {
   playerBundleConfig: PlayerBundleConfig;
+  startTime?: number;
   children?: React.ReactChild;
 }
 
 export const KalturaPlayerProvider = (props: KalturaPlayerProviderProps) => {
-  const { playerBundleConfig, children } = props;
+  const { playerBundleConfig, startTime, children } = props;
   const { playerBundleStatus } = useLoadPlayerBundler({ playerBundleConfig });
 
   const _playersRef = useRef<
@@ -121,6 +122,7 @@ export const KalturaPlayerProvider = (props: KalturaPlayerProviderProps) => {
     return {
       playerBundleStatus,
       playerBundleConfig,
+      startTime: startTime || 0,
       registerPlayer,
       getPlayerCurrentTime$,
       getPlayerState$,

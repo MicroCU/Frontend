@@ -204,11 +204,8 @@ export function PlayerContainer(props: PlayerContainerProps) {
       }, 3000);
     };
 
-    // Attach event listener for mouse move
     document.addEventListener("mousemove", handleMouseMove);
-
     return () => {
-      // Clean up the event listener on component unmount
       document.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
@@ -217,7 +214,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
     <div>
       <div className="h-screen w-full absolute top-0 left-0 overflow-hidden">
         <VideoNav
-          videoName={"videoName"}
+          videoName={microData.video?.title || ""}
           currentTab={currentVideoTab}
           videoTabHandle={videoTabHandle}
           isFile={fileData ? true : false}

@@ -1,6 +1,5 @@
 "use client";
 
-import { fetchKalturaId } from "@/action/kaltura";
 import { fetchPath } from "@/action/path";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
@@ -31,7 +30,7 @@ export interface VideoState {
 
 let count = 0;
 
-const entryIdMock = "0_7fjx3mcg";
+const entryIdMock = "";
 
 const VideoPage = ({ params }: { params: { vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
@@ -66,16 +65,14 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
     null
   );
-  const [entriesConfig, setEntriesConfig] =
-    useState<EntriesConfig>();
+  const [entriesConfig, setEntriesConfig] = useState<EntriesConfig>();
 
   useEffect(() => {
     const fetchConfig = async () => {
-      const config = await fetchKalturaId();
       setPlayerConfig({
         bundlerUrl: "https://cdnapisec.kaltura.com",
-        partnerId: config.partnerId,
-        uiConfId: config.uiConfId
+        partnerId: "2503922",
+        uiConfId: "45152271"
       });
       setEntriesConfig({
         entryId: entryIdMock
@@ -278,9 +275,7 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   }
   if (playerConfig && entriesConfig && entryIdMock) {
     return (
-      <KalturaPlayerProvider
-        playerBundleConfig={playerConfig}
-      >
+      <KalturaPlayerProvider playerBundleConfig={playerConfig}>
         <PlayerContainer
           entriesConfig={entriesConfig}
           microData={currentMicroData}

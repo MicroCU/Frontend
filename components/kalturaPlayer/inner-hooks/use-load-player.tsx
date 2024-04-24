@@ -57,7 +57,7 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
     onPlayerLoadingError
   } = options;
 
-  const { playerBundleStatus, playerBundleConfig, registerPlayer } = useContext(
+  const { playerBundleStatus, playerBundleConfig, startTime , registerPlayer } = useContext(
     KalturaPlayerContext
   );
 
@@ -279,6 +279,9 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
         config = {
           ...config,
           targetId: playerState.playerId,
+          sources: {
+            startTime: startTime
+          },
           provider: {
             ...config.provider,
             uiConfId: playerBundleConfig.uiConfId,
