@@ -30,7 +30,7 @@ const MockHomeData: HomePageData = {
                                 name: "Programming Language",
                             },
                         ],
-                        status: PathStatus.NOT_VISITED,
+                        progress: 0,
                         picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2100301.png",
                     },
                     {
@@ -52,7 +52,7 @@ const MockHomeData: HomePageData = {
                                 name: "Basic",
                             },
                         ],
-                        status: PathStatus.PASSED_TEST,
+                        progress: 100,
                         picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110352.png"
                     },
                     {
@@ -74,7 +74,7 @@ const MockHomeData: HomePageData = {
                                 name: "Advanced",
                             },
                         ],
-                        status: PathStatus.STILL_LEARNING
+                        progress: 30,
                     },
                 ],
             },
@@ -105,7 +105,7 @@ const MockHomeData: HomePageData = {
                                 name: "Architecture",
                             },
                         ],
-                        status: PathStatus.NOT_VISITED
+                        progress: 30,
                     },
                     {
                         id: "2-p2",
@@ -126,7 +126,7 @@ const MockHomeData: HomePageData = {
                                 name: "Advanced",
                             },
                         ],
-                        status: PathStatus.STILL_LEARNING
+                        progress: 40,
                     },
                     {
                         id: "2-p3",
@@ -147,7 +147,7 @@ const MockHomeData: HomePageData = {
                                 name: "Advanced",
                             },
                         ],
-                        status: PathStatus.PASSED_TEST
+                        progress: 50,
                     },
                 ]
             },
@@ -172,7 +172,7 @@ const MockHomeData: HomePageData = {
                                 name: "Math",
                             },
                         ],
-                        status: PathStatus.NOT_VISITED
+                        progress: 0,
                     },
                     {
                         id: "3-p2",
@@ -193,7 +193,7 @@ const MockHomeData: HomePageData = {
                                 name: "Data Science",
                             },
                         ],
-                        status: PathStatus.PASSED_TEST
+                        progress: 60,
                     },
                     {
                         id: "3-p3",
@@ -214,7 +214,7 @@ const MockHomeData: HomePageData = {
                                 name: "Advanced",
                             },
                         ],
-                        status: PathStatus.STILL_LEARNING
+                        progress: 40,
                     },
                 ],
             }
@@ -245,7 +245,7 @@ const MockHomeData: HomePageData = {
                                 name: "Math",
                             },
                         ],
-                        status: PathStatus.NOT_VISITED
+                        progress: 0,
                     },
                     {
                         id: "4-p2",
@@ -266,7 +266,7 @@ const MockHomeData: HomePageData = {
                                 name: "Math",
                             },
                         ],
-                        status: PathStatus.STILL_LEARNING
+                        progress: 8,
                     },
                     {
                         id: "4-p3",
@@ -287,7 +287,7 @@ const MockHomeData: HomePageData = {
                                 name: "Basic",
                             },
                         ],
-                        status: PathStatus.PASSED_TEST
+                        progress: 0,
                     },
                 ],
             }
@@ -296,51 +296,51 @@ const MockHomeData: HomePageData = {
     relationships: [
         {
             id: "1-p1",
-            neighbor: ["1-p2", "1-p3"]
+            neighbors: ["1-p2", "1-p3"]
         },
         {
             id: "1-p2",
-            neighbor: ["1-p1"]
+            neighbors: ["1-p1"]
         },
         {
             id: "1-p3",
-            neighbor: ["1-p1", "2-p1", "2-p2", "3-p1"]
+            neighbors: ["1-p1", "2-p1", "2-p2", "3-p1"]
         },
         {
             id: "2-p1",
-            neighbor: ["1-p3", "2-p3"]
+            neighbors: ["1-p3", "2-p3"]
         },
         {
             id: "2-p2",
-            neighbor: ["1-p3", "2-p3"]
+            neighbors: ["1-p3", "2-p3"]
         },
         {
             id: "2-p3",
-            neighbor: ["2-p1", "2-p2"]
+            neighbors: ["2-p1", "2-p2"]
         },
         {
             id: "3-p1",
-            neighbor: ["1-p3", "3-p2", "3-p3"]
+            neighbors: ["1-p3", "3-p2", "3-p3"]
         },
         {
             id: "3-p2",
-            neighbor: ["3-p1", "4-p1", "4-p2", "4-p3"]
+            neighbors: ["3-p1", "4-p1", "4-p2", "4-p3"]
         },
         {
             id: "3-p3",
-            neighbor: ["3-p1"]
+            neighbors: ["3-p1"]
         },
         {
             id: "4-p1",
-            neighbor: ["3-p2"]
+            neighbors: ["3-p2"]
         },
         {
             id: "4-p2",
-            neighbor: ["3-p2"]
+            neighbors: ["3-p2"]
         },
         {
             id: "4-p3",
-            neighbor: ["3-p2"]
+            neighbors: ["3-p2"]
         },
     ]
 }

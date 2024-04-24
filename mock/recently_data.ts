@@ -14,7 +14,7 @@ const mockDBForRecently: BriefPathInfo[] = [
                 name: "Language",
             },
         ],
-        status: PathStatus.STILL_LEARNING,
+        progress: 0,
         picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
     },
     {
@@ -33,7 +33,7 @@ const mockDBForRecently: BriefPathInfo[] = [
                 name: "Business",
             },
         ],
-        status: PathStatus.PASSED_TEST,
+        progress: 100,
     },
     {
         id: "recently-3",
@@ -51,7 +51,7 @@ const mockDBForRecently: BriefPathInfo[] = [
                 name: "Daily Life",
             },
         ],
-        status: PathStatus.NOT_VISITED,
+        progress: 50,
     },
     {
         id: "recently-4",
@@ -69,7 +69,232 @@ const mockDBForRecently: BriefPathInfo[] = [
                 name: "Advance",
             },
         ],
-        status: PathStatus.NOT_VISITED,
+        progress: 25,
+    },
+    {
+        id: "recently-5",
+        name: "Basic Grammar",
+        description: "Grammar is the system of a language. People sometimes describe grammar as the 'rules' of a language; but in fact no language has rules*.",
+        tags: [
+            {
+                id: "recently-1-t1",
+                icon:
+                    "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+        ],
+        progress: 0,
+        picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+    },
+    {
+        id: "recently-6",
+        name: "Professional Speaking",
+        description: "Speaking is the delivery of language through the mouth. To speak, we create sounds using many parts of our body, including the lungs, vocal tract, vocal cords, tongue, teeth and lips.",
+        tags: [
+            {
+                id: "recently-2-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-2-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Business",
+            },
+        ],
+        progress: 100,
+    },
+    {
+        id: "recently-7",
+        name: "1000 Vacabularies",
+        description: "A vocabulary, also known as a wordstock or word-stock, is a set of familiar words within a person's language. A vocabulary, usually developed with age, serves as a useful and fundamental tool for communication and acquiring knowledge.",
+        tags: [
+            {
+                id: "recently-3-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-3-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Daily Life",
+            },
+        ],
+        progress: 50,
+    },
+    {
+        id: "recently-8",
+        name: "Advance Wrtting",
+        description: "Writing is a medium of human communication that involves the representation of a language with symbols. Writing systems are not themselves human languages (with the debatable exception of computer languages); they are means of rendering a language into a form that can be reconstructed by other humans separated by time and/or space.",
+        tags: [
+            {
+                id: "recently-4-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-4-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Advance",
+            },
+        ],
+        progress: 25,
+    },
+    {
+        id: "recently-9",
+        name: "Basic Grammar",
+        description: "Grammar is the system of a language. People sometimes describe grammar as the 'rules' of a language; but in fact no language has rules*.",
+        tags: [
+            {
+                id: "recently-1-t1",
+                icon:
+                    "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+        ],
+        progress: 0,
+        picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+    },
+    {
+        id: "recently-10",
+        name: "Professional Speaking",
+        description: "Speaking is the delivery of language through the mouth. To speak, we create sounds using many parts of our body, including the lungs, vocal tract, vocal cords, tongue, teeth and lips.",
+        tags: [
+            {
+                id: "recently-2-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-2-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Business",
+            },
+        ],
+        progress: 100,
+    },
+    {
+        id: "recently-11",
+        name: "1000 Vacabularies",
+        description: "A vocabulary, also known as a wordstock or word-stock, is a set of familiar words within a person's language. A vocabulary, usually developed with age, serves as a useful and fundamental tool for communication and acquiring knowledge.",
+        tags: [
+            {
+                id: "recently-3-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-3-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Daily Life",
+            },
+        ],
+        progress: 50,
+    },
+    {
+        id: "recently-12",
+        name: "Advance Wrtting",
+        description: "Writing is a medium of human communication that involves the representation of a language with symbols. Writing systems are not themselves human languages (with the debatable exception of computer languages); they are means of rendering a language into a form that can be reconstructed by other humans separated by time and/or space.",
+        tags: [
+            {
+                id: "recently-4-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-4-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Advance",
+            },
+        ],
+        progress: 25,
+    },
+    {
+        id: "recently-13",
+        name: "Advance Wrtting",
+        description: "Writing is a medium of human communication that involves the representation of a language with symbols. Writing systems are not themselves human languages (with the debatable exception of computer languages); they are means of rendering a language into a form that can be reconstructed by other humans separated by time and/or space.",
+        tags: [
+            {
+                id: "recently-4-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-4-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Advance",
+            },
+        ],
+        progress: 25,
+    },
+    {
+        id: "recently-14",
+        name: "Basic Grammar",
+        description: "Grammar is the system of a language. People sometimes describe grammar as the 'rules' of a language; but in fact no language has rules*.",
+        tags: [
+            {
+                id: "recently-1-t1",
+                icon:
+                    "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+        ],
+        progress: 0,
+        picture: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110499_1550453917.png"
+    },
+    {
+        id: "recently-15",
+        name: "Professional Speaking",
+        description: "Speaking is the delivery of language through the mouth. To speak, we create sounds using many parts of our body, including the lungs, vocal tract, vocal cords, tongue, teeth and lips.",
+        tags: [
+            {
+                id: "recently-2-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-2-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Business",
+            },
+        ],
+        progress: 100,
+    },
+    {
+        id: "recently-16",
+        name: "1000 Vacabularies",
+        description: "A vocabulary, also known as a wordstock or word-stock, is a set of familiar words within a person's language. A vocabulary, usually developed with age, serves as a useful and fundamental tool for communication and acquiring knowledge.",
+        tags: [
+            {
+                id: "recently-3-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-3-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Daily Life",
+            },
+        ],
+        progress: 50,
+    },
+    {
+        id: "recently-12",
+        name: "Advance Wrtting",
+        description: "Writing is a medium of human communication that involves the representation of a language with symbols. Writing systems are not themselves human languages (with the debatable exception of computer languages); they are means of rendering a language into a form that can be reconstructed by other humans separated by time and/or space.",
+        tags: [
+            {
+                id: "recently-4-t1",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Language",
+            },
+            {
+                id: "recently-4-t2",
+                icon: "https://www.mycourseville.com/sites/all/modules/courseville/files/thumbs/2110521.svg",
+                name: "Advance",
+            },
+        ],
+        progress: 25,
     },
 ]
 
@@ -80,19 +305,19 @@ export function getRecentlyResult(): Promise<APIResponse> {  // Mock API Respons
         relationships: [
             {
                 id: "recently-1",
-                neighbor: ["recently-2", "recently-3"]
+                neighbors: ["recently-2", "recently-3"]
             },
             {
                 id: "recently-2",
-                neighbor: ["recently-1", "recently-4"]
+                neighbors: ["recently-1", "recently-4"]
             },
             {
                 id: "recently-3",
-                neighbor: ["recently-1", "recently-4"]
+                neighbors: ["recently-1", "recently-4"]
             },
             {
                 id: "recently-4",
-                neighbor: ["recently-2", "recently-3"]
+                neighbors: ["recently-2", "recently-3"]
             },
         ]
     }
