@@ -13,18 +13,24 @@ export default function PathCardRecentlyCollection() {
   }
 
   return (
-    <ScrollArea className="w-full" style={{ height: "calc(100vh - 160px)" }}>
-      <div className="space-y-6">
-        {journeys.length > 0 &&
-          journeys[0].paths.data.map((path) => (
-            <div key={path.id}>
-              <PathCard path={path} />
-            </div>
-          ))}
-      </div>
-      {journeys.length > 0 && journeys[0].paths.data.length === 0 && (
+    <>
+      {journeys.length > 0 && journeys[0].paths.data.length === 0 ? (
         <NoResult type={MenuTab.recently} />
+      ) : (
+        <ScrollArea
+          className="w-full"
+          style={{ height: "calc(100vh - 160px)" }}
+        >
+          <div className="space-y-6">
+            {journeys.length > 0 &&
+              journeys[0].paths.data.map((path) => (
+                <div key={path.id}>
+                  <PathCard path={path} />
+                </div>
+              ))}
+          </div>
+        </ScrollArea>
       )}
-    </ScrollArea>
+    </>
   );
 }

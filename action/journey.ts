@@ -1,36 +1,80 @@
 "use server";
 
-import { getHomeResult } from "@/mock/journey_data";
-import { getRecentlyResult } from "@/mock/recently_data";
-import { getSearchResult } from "@/mock/search_data";
+import { cookies } from "next/headers";
 import { HomePageData, RecentlyPageData, SearchPageData } from "@/types/type";
+import { AuthError } from "@/constants/error";
 
-// TODO: Implement the actual API call
+export const fetchJourney = async (lang: string) => {
+    const accessToken = cookies().get("access_token");
 
-export const fetchJourney = async () => {
-    const resp = await getHomeResult();
+    if (!accessToken) {
+        throw new Error(AuthError.ERR_ACCESS_TOKEN);
+    }
+
+    const res = await fetch(process.env.MCV_JOURNEY_URL! + "?lang=" + lang, {
+        headers: {
+            Authorization: `Bearer ${accessToken.value}`
+        }
+    });
+    if (res.status === 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            data: resp.data as HomePageData
+        }
+    }
     return {
-        status: resp.status,
-        message: resp.message,
-        data: resp.data as HomePageData
+        status: res.status,
+        msg: res.statusText
     }
 }
 
-export const fetchRecently = async () => {
-    const resp = await getRecentlyResult();
-    // TODO: MAY NEED TO add revalidate
+export const fetchRecently = async (lang: string) => {
+    const accessToken = cookies().get("access_token");
+
+    if (!accessToken) {
+        throw new Error(AuthError.ERR_ACCESS_TOKEN);
+    }
+
+    const res = await fetch(process.env.MCV_PATH_RECENT_URL! + "?lang=" + lang, {
+        headers: {
+            Authorization: `Bearer ${accessToken.value}`
+        }
+    });
+    if (res.status === 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            data: resp.data as RecentlyPageData
+        }
+    }
     return {
-        status: resp.status,
-        message: resp.message,
-        data: resp.data as RecentlyPageData
+        status: res.status,
+        msg: res.statusText
     }
 }
 
-export const fetchSearch = async (searchText: string) => {
-    const resp = await getSearchResult(searchText);
+export const fetchSearch = async (searchText: string, lang: string) => {
+    const accessToken = cookies().get("access_token");
+
+    if (!accessToken) {
+        throw new Error(AuthError.ERR_ACCESS_TOKEN);
+    }
+
+    const res = await fetch(process.env.MCV_PATH_SEARCH_URL! + "?search=" + searchText + "&lang=" + lang, {
+        headers: {
+            Authorization: `Bearer ${accessToken.value}`
+        }
+    });
+    if (res.status == 200) {
+        const resp = await res.json();
+        return {
+            status: res.status,
+            data: resp.data as SearchPageData
+        }
+    }
     return {
-        status: resp.status,
-        message: resp.message,
-        data: resp.data as SearchPageData
+        status: res.status,
+        msg: res.statusText
     }
 }

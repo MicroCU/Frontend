@@ -36,6 +36,8 @@ export default function MicroVideo({
       microType={MicroType.Video}
       id={data.id}
       viewport={{ x: x, y: y, zoom: zoom }}
+      sourceId={data.video?.sourceId}
+      sourceType={data.video?.sourceType}
     >
       <Link href={`${pathName}/video/${data.id}`}>
         <div
@@ -51,10 +53,10 @@ export default function MicroVideo({
           <div className="w-fit h-full px-5 py-3 text-center Bold16 flex items-center justify-center max-w-52">
             <p className="break-words">{data.name}</p>
           </div>
-          {data.total_progress > 0 && data.total_progress <= 100 && (
+          {data.progress > 0 && data.progress <= 100 && (
             <div
               className="absolute bottom-0 left-0 h-1 bg-primary"
-              style={{ width: data.total_progress + "%" }}
+              style={{ width: data.progress + "%" }}
             ></div>
           )}
         </div>

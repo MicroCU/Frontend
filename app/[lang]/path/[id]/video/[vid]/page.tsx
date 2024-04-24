@@ -4,6 +4,7 @@ import { fetchPath } from "@/action/path";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
 import { usePath } from "@/context/Path";
+import { useTranslation } from "@/context/Translation";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
@@ -22,29 +23,13 @@ export interface VideoState {
 
 let count = 0;
 
-const VideoPage = ({ params }: { params: { vid: string } }) => {
+const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
 
-  const { pathInfo, setPathInfo } = usePath();
-  const [error, setError] = useState<string | null>(null);
+  const { pathInfo, setSelectedPathId } = usePath();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchPath(params.vid);
-        if (response.status != 200) {
-          setError(response.message ? response.message : "Error fetching data");
-          return;
-        }
-        setPathInfo(response.data.path);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    if (!pathInfo) {
-      fetchData();
-    }
+    setSelectedPathId(params.id);
   }, []);
 
   const currentMicroData = pathInfo?.groups
@@ -233,7 +218,6 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
   if (!pathInfo) {
     return (
       <div className="w-screen h-screen flex items-center justify-center">
@@ -241,6 +225,7 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
       </div>
     );
   }
+
   if (!currentMicroData || !videoData) {
     return <div>no video</div>;
   }
@@ -257,7 +242,7 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
         <ReactPlayer
           ref={videoPlayerRef}
           className="p-0 m-0 w-full h-full"
-          url={videoData?.link}
+          url={getVideoLink(videoData.sourceId, videoData.sourceType)}
           width="100%"
           height="100%"
           playing={playing}
@@ -295,3 +280,17 @@ const VideoPage = ({ params }: { params: { vid: string } }) => {
 };
 
 export default VideoPage;
+
+function getVideoLink(sourceId: string, sourceType: string) {
+  if (sourceType == "youtube-v") {
+    return `https://www.youtube.com/watch?v=${sourceId}`;
+  } else if (sourceType == "kaltura") {
+    // TODO
+    return "NEED IMPLEMENTATION";
+  } else if (sourceType == "vimeo") {
+    // TODO
+    return "NEED IMPLEMENTATION";
+  } else {
+    return "";
+  }
+}
