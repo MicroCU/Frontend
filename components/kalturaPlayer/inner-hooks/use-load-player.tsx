@@ -44,7 +44,7 @@ function getUniquePlayerId() {
 
 const acceptedPlaybackStatusesValues: string[] = Object.keys(
   PlaybackStatuses
-).map(key => (PlaybackStatuses as any)[key]);
+).map((key) => (PlaybackStatuses as any)[key]);
 
 export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
   const {
@@ -57,9 +57,8 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
     onPlayerLoadingError
   } = options;
 
-  const { playerBundleStatus, playerBundleConfig, startTime , registerPlayer } = useContext(
-    KalturaPlayerContext
-  );
+  const { playerBundleStatus, playerBundleConfig, startTime, registerPlayer } =
+    useContext(KalturaPlayerContext);
 
   const unmountedRef = useRef(false);
 
@@ -89,7 +88,7 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
       );
     };
 
-    const updatePlayerState = (e: PlayerStateChangeEvent) => {
+    const updatePlayerState = (e: any) => {
       const playbackStatus = e.payload.newState.type;
       if (acceptedPlaybackStatusesValues.indexOf(playbackStatus) === -1) {
         console.warn(
@@ -171,7 +170,7 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
       playerRegistrationRef.current.onRemove();
       playerTimeSubjectRef.current.complete();
       playerRef.current.destroy();
-      setPlayerState(prevState => ({
+      setPlayerState((prevState) => ({
         ...prevState,
         playerStatus: PlayerStatuses.Destroyed,
         mediaStatus: MediaStatuses.Destroyed
@@ -184,7 +183,7 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
       return;
     }
 
-    setPlayerState(prevState => ({
+    setPlayerState((prevState) => ({
       ...prevState,
       mediaStatus: MediaStatuses.Loading
     }));
@@ -194,7 +193,7 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
       .then(() => {
         if (unmountedRef.current) return;
         if (onMediaLoaded) onMediaLoaded(entryId);
-        setPlayerState(prevState => ({
+        setPlayerState((prevState) => ({
           ...prevState,
           mediaStatus: MediaStatuses.Loaded
         }));
@@ -203,7 +202,7 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
         if (unmountedRef.current) return;
         console.warn(`Kaltura Player: 'loadMedia' error:`, err);
         if (onMediaLoadingError) onMediaLoadingError(entryId);
-        setPlayerState(prevState => ({
+        setPlayerState((prevState) => ({
           ...prevState,
           mediaStatus: MediaStatuses.Error
         }));
@@ -331,14 +330,14 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
         if (onPlayerLoaded)
           onPlayerLoaded({ entryId, playerId: playerState.playerId });
 
-        setPlayerState(prevState => ({
+        setPlayerState((prevState) => ({
           ...prevState,
           playerStatus: PlayerStatuses.Loaded
         }));
       } catch (e) {
         console.warn(`kaltura Player: setup failure:`, e);
         if (onPlayerLoadingError) onPlayerLoadingError(entryId);
-        setPlayerState(prevState => ({
+        setPlayerState((prevState) => ({
           ...prevState,
           playerStatus: PlayerStatuses.Error
         }));
@@ -351,7 +350,7 @@ export const useLoadPlayer = (options: UseLoadPlayerOptions): PlayerState => {
         break;
       case PlayerBundleStatuses.Error:
         if (onPlayerLoadingError) onPlayerLoadingError(entryId);
-        setPlayerState(prevState => ({
+        setPlayerState((prevState) => ({
           ...prevState,
           playerStatus: PlayerStatuses.Error
         }));

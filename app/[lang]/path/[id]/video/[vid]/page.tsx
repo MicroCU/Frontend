@@ -31,8 +31,6 @@ export interface VideoState {
 
 let count = 0;
 
-const entryIdMock = "";
-
 const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
 
@@ -54,17 +52,30 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
 
   useEffect(() => {
     const fetchConfig = async () => {
+      const url = new URL(videoData?.link||"").origin;
+
+      const pRegex = /\/p\/(\d+)\//;
+      const uiconfIdRegex = /\/uiconf_id\/(\d+)/;
+
+      const pMatch = videoData?.link.match(pRegex);
+      const partnerId = pMatch ? pMatch[1] : null;
+
+      const uiconfIdMatch = videoData?.link.match(uiconfIdRegex);
+      const uiConfId = uiconfIdMatch ? uiconfIdMatch[1] : null;
+      
       setPlayerConfig({
-        bundlerUrl: "https://cdnapisec.kaltura.com",
-        partnerId: "2503922",
-        uiConfId: "45152271"
+        bundlerUrl: url,
+        partnerId: partnerId || "",
+        uiConfId: uiConfId || ""
       });
       setEntriesConfig({
-        entryId: entryIdMock
+        entryId: videoData?.sourceId || ""
       });
     };
-    fetchConfig();
-  }, []);
+    if (videoData?.sourceType == "kaltura") {
+      fetchConfig();
+    }
+  }, [videoData]);
 
   const videoPlayerRef = useRef<ReactPlayer>(null);
   const controlRef = useRef<HTMLDivElement | null>(null);
@@ -258,7 +269,7 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   if (!currentMicroData || !videoData) {
     return <div>no video</div>;
   }
-  if (playerConfig && entriesConfig && entryIdMock) {
+  if (videoData.sourceType == "kaltura" && playerConfig && entriesConfig) {
     return (
       <KalturaPlayerProvider playerBundleConfig={playerConfig}>
         <PlayerContainer
@@ -323,12 +334,8 @@ export default VideoPage;
 function getVideoLink(sourceId: string, sourceType: string) {
   if (sourceType == "youtube-v") {
     return `https://www.youtube.com/watch?v=${sourceId}`;
-  } else if (sourceType == "kaltura") {
-    // TODO
-    return "NEED IMPLEMENTATION";
   } else if (sourceType == "vimeo") {
-    // TODO
-    return "NEED IMPLEMENTATION";
+    return `https://vimeo.com/${sourceId}`;
   } else {
     return "";
   }
