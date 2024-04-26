@@ -44,3 +44,9 @@ export enum GroupDisplay {
 export enum GraphDisplay {
   CircleNode = "circularNode"
 }
+
+export enum VideoType {
+  Youtube = "youtube-v",
+  Kaltura = "kaltura",
+  Vimeo = "vimeo"
+}

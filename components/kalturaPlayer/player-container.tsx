@@ -87,33 +87,6 @@ export function PlayerContainer(props: PlayerContainerProps) {
     };
   }, [playerId, playerState$, playerTime$]);
 
-  const handleTogglePlay = () => {
-    if (getPlayerState() === PlaybackStatuses.Playing) {
-      playerPause();
-      return;
-    }
-
-    if (getPlayerState() === PlaybackStatuses.Paused) {
-      playerPlay();
-      return;
-    }
-  };
-
-  const handleToggleMute = () => {
-    const playerInstance = getPlayerInstance();
-
-    if (!playerInstance) {
-      return;
-    }
-
-    playerInstance.muted = !playerInstance.muted;
-  };
-
-  const handleSeek = (pause: boolean) => {
-    const newTime = getPlayerTime() - 5000;
-    playerSeek({ seekTo: newTime, pause });
-  };
-
   const handlePlayerLoaded = (data: { playerId: string }) => {
     const { playerId } = data;
 
@@ -124,52 +97,11 @@ export function PlayerContainer(props: PlayerContainerProps) {
     setPlayerId(playerId);
   };
 
-  const handleSwitchMedia = () => {
-    if (entriesConfig.alternateEntryId && entryId === entriesConfig.entryId) {
-      setEntryId(entriesConfig.alternateEntryId);
-      return;
-    }
-
-    setEntryId(entriesConfig.entryId);
-  };
-
-  const customizeConfig = (config: any) => {
-    // DEVELOPER NOTICE - this is an optional method that lets you
-    // customize the plaer config during loading.
-    // if you don't need to customize, just remove it, just remove it
-
-    const tooltip = "I'm such a cool yellow button, added by the application";
-    // @ts-ignore
-    const h = window.KalturaPlayer.ui.preact.h;
-    const customButton = h("div", {
-      title: tooltip,
-      onClick: () => {
-        handleToggleMute();
-      },
-      style: { marginTop: 10, width: 30, height: 30, background: "yellow" }
-    });
-
-    const newConfig = {
-      ...config,
-      ui: {
-        ...(config.ui || {}),
-        uiComponents: [
-          ...((config.ui || {}).uiComponents || []),
-          {
-            label: "add custom",
-            presets: ["Playback"],
-            container: "TopBarRightControls",
-            get: () => customButton
-          }
-        ]
-      }
-    };
-    return newConfig;
-  };
-
   const [isVideoEnded, setIsVideoEnded] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(Math.ceil(getPlayerTime()/ 1000));
+    
     const playerInstance = getPlayerInstance();
     if (playerInstance) {
       const currentTime = getPlayerTime() / 1000;
@@ -269,7 +201,6 @@ export function PlayerContainer(props: PlayerContainerProps) {
         ></div>
         <KalturaPlayer
           entryId={entryId}
-          // customizeConfig={customizeConfig}
           autoplay={false}
           onPlayerLoaded={handlePlayerLoaded}
         />

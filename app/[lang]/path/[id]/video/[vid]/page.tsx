@@ -1,6 +1,7 @@
 "use client";
 
 import { fetchPath } from "@/action/path";
+import { updateVideoProgress } from "@/action/video";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
 import {
@@ -14,6 +15,7 @@ import {
 import { usePath } from "@/context/Path";
 import { useTranslation } from "@/context/Translation";
 import { cn } from "@/lib/utils";
+import { VideoType } from "@/types/enum";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
@@ -52,7 +54,7 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
 
   useEffect(() => {
     const fetchConfig = async () => {
-      const url = new URL(videoData?.link||"").origin;
+      const url = new URL(videoData?.link || "").origin;
 
       const pRegex = /\/p\/(\d+)\//;
       const uiconfIdRegex = /\/uiconf_id\/(\d+)/;
@@ -62,14 +64,14 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
 
       const uiconfIdMatch = videoData?.link.match(uiconfIdRegex);
       const uiConfId = uiconfIdMatch ? uiconfIdMatch[1] : null;
-      
+
       setPlayerConfig({
         bundlerUrl: url,
-        partnerId: partnerId || "",
-        uiConfId: uiConfId || ""
+        partnerId: "2503922",
+        uiConfId: "45152271"
       });
       setEntriesConfig({
-        entryId: videoData?.sourceId || ""
+        entryId: "0_7fjx3mcg"
       });
     };
     if (videoData?.sourceType == "kaltura") {
@@ -104,20 +106,6 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   const duration = videoPlayerRef.current
     ? videoPlayerRef.current.getDuration()
     : 0.0;
-
-  const formatTime = (time: number) => {
-    if (isNaN(time)) {
-      return "00:00";
-    }
-
-    const date = new Date(time * 1000);
-    const hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes();
-    const seconds = date.getUTCSeconds().toString().padStart(2, "0");
-    if (hours) {
-      return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds} `;
-    } else return `${minutes}:${seconds}`;
-  };
 
   const formatCurrentTime = formatTime(currentTime);
 
@@ -256,6 +244,33 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   }, [videoState]);
 
   useEffect(() => {
+    const handleUpdateVideoProgress = async () => {
+      const totalTick = Math.min(duration, 400);
+      const secondToUpdate = totalTick < 400 ? 1 : duration / totalTick;
+      const tick = Math.floor(currentTime / secondToUpdate);
+      if (
+        currentTime >= secondToUpdate * tick &&
+        currentTime < secondToUpdate * tick + 1
+      ) {
+        try {
+          const res = await updateVideoProgress(
+            videoData?.sourceId || "",
+            pathInfo?.id || "",
+            videoData?.sourceType === VideoType.Youtube
+              ? "yt"
+              : videoData?.sourceType || "",
+            totalTick,
+            Array.from({ length: tick }, (_, i) => i)
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    };
+    handleUpdateVideoProgress();
+  }, [currentTime]);
+
+  useEffect(() => {
     setIsClient(true);
   }, []);
   if (!pathInfo) {
@@ -330,6 +345,20 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
 };
 
 export default VideoPage;
+
+const formatTime = (time: number) => {
+  if (isNaN(time)) {
+    return "00:00";
+  }
+
+  const date = new Date(time * 1000);
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const seconds = date.getUTCSeconds().toString().padStart(2, "0");
+  if (hours) {
+    return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds} `;
+  } else return `${minutes}:${seconds}`;
+};
 
 function getVideoLink(sourceId: string, sourceType: string) {
   if (sourceType == "youtube-v") {
