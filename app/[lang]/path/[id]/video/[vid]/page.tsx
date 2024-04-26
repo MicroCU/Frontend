@@ -3,6 +3,14 @@
 import { fetchPath } from "@/action/path";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VideoControlLayer from "@/components/VideoControlLayer";
+import {
+  KalturaPlayerProvider,
+  PlayerBundleConfig
+} from "@/components/kalturaPlayer";
+import {
+  EntriesConfig,
+  PlayerContainer
+} from "@/components/kalturaPlayer/player-container";
 import { usePath } from "@/context/Path";
 import { useTranslation } from "@/context/Translation";
 import { cn } from "@/lib/utils";
@@ -36,6 +44,38 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
     .flatMap((group) => group.micros)
     .find((micro) => micro.id === params.vid);
   const videoData = currentMicroData?.video;
+
+  const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
+    null
+  );
+  const [entriesConfig, setEntriesConfig] = useState<EntriesConfig>();
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const url = new URL(videoData?.link||"").origin;
+
+      const pRegex = /\/p\/(\d+)\//;
+      const uiconfIdRegex = /\/uiconf_id\/(\d+)/;
+
+      const pMatch = videoData?.link.match(pRegex);
+      const partnerId = pMatch ? pMatch[1] : null;
+
+      const uiconfIdMatch = videoData?.link.match(uiconfIdRegex);
+      const uiConfId = uiconfIdMatch ? uiconfIdMatch[1] : null;
+      
+      setPlayerConfig({
+        bundlerUrl: url,
+        partnerId: partnerId || "",
+        uiConfId: uiConfId || ""
+      });
+      setEntriesConfig({
+        entryId: videoData?.sourceId || ""
+      });
+    };
+    if (videoData?.sourceType == "kaltura") {
+      fetchConfig();
+    }
+  }, [videoData]);
 
   const videoPlayerRef = useRef<ReactPlayer>(null);
   const controlRef = useRef<HTMLDivElement | null>(null);
@@ -229,6 +269,16 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   if (!currentMicroData || !videoData) {
     return <div>no video</div>;
   }
+  if (videoData.sourceType == "kaltura" && playerConfig && entriesConfig) {
+    return (
+      <KalturaPlayerProvider playerBundleConfig={playerConfig}>
+        <PlayerContainer
+          entriesConfig={entriesConfig}
+          microData={currentMicroData}
+        />
+      </KalturaPlayerProvider>
+    );
+  }
   return (
     isClient && (
       <div
@@ -284,12 +334,8 @@ export default VideoPage;
 function getVideoLink(sourceId: string, sourceType: string) {
   if (sourceType == "youtube-v") {
     return `https://www.youtube.com/watch?v=${sourceId}`;
-  } else if (sourceType == "kaltura") {
-    // TODO
-    return "NEED IMPLEMENTATION";
   } else if (sourceType == "vimeo") {
-    // TODO
-    return "NEED IMPLEMENTATION";
+    return `https://vimeo.com/${sourceId}`;
   } else {
     return "";
   }

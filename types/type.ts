@@ -122,6 +122,7 @@ export interface Videodata {
   progress: number
   sourceId: string
   sourceType: string
+  link: string
 }
 
 export interface DocumentData {

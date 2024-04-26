@@ -23,5 +23,6 @@
   "micro.contextMenu.markedComplete": "ทำเครื่องหมายว่าเสร็จแล้ว",
   "micro.contextMenu.video": "ดูวิดีโอ",
   "micro.contextMenu.practice": "ทำแบบฝึกหัด",
-  "micro.contextMenu.test": "ทำแบบทดสอบ"
+  "micro.contextMenu.test": "ทำแบบทดสอบ",
+  "micro.videoChoice.goto": "ไปที่"
 }

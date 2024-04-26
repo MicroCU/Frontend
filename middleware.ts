@@ -18,7 +18,8 @@ export function middleware(req: NextRequest) {
       "/next.svg",
       "/vercel.svg",
       "/api",
-      "/defaultVideoImage.svg"
+      "/defaultVideoImage.svg",
+      "/defaultTestImage.svg",
     ].includes(pathname)
   )
     return;
