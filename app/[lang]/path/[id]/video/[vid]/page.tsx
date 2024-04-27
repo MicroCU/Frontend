@@ -36,7 +36,7 @@ let count = 0;
 const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
   const [isClient, setIsClient] = useState(false);
 
-  const { pathInfo, setSelectedPathId } = usePath();
+  const { pathInfo, setSelectedPathId, pathId } = usePath();
 
   useEffect(() => {
     setSelectedPathId(params.id);
@@ -255,7 +255,7 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
         try {
           const res = await updateVideoProgress(
             videoData?.sourceId || "",
-            pathInfo?.id || "",
+            pathId || "",
             videoData?.sourceType === VideoType.Youtube
               ? "yt"
               : videoData?.sourceType || "",

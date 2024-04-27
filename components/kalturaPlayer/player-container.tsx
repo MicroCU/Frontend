@@ -8,10 +8,11 @@ import { MicroData } from "@/types/type";
 import { usePath } from "@/context/Path";
 import VideoTab from "../VideoTab";
 import { cn } from "@/lib/utils";
-import { VideoTabType } from "@/types/enum";
+import { VideoTabType, VideoType } from "@/types/enum";
 import VideoNav from "../VideoNav";
 import { getNextMicro, getPathInitialNodesAndEdges } from "@/utils/path";
 import VideoChoice from "../VideoChoice";
+import { updateVideoProgress } from "@/action/video";
 
 export interface EntriesConfig {
   entryId: string;
@@ -100,13 +101,10 @@ export function PlayerContainer(props: PlayerContainerProps) {
   const [isVideoEnded, setIsVideoEnded] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(Math.ceil(getPlayerTime()/ 1000));
-    
     const playerInstance = getPlayerInstance();
     if (playerInstance) {
       const currentTime = getPlayerTime() / 1000;
-      const duration =
-        Math.floor(playerInstance.duration * 1000) / 1000;
+      const duration = Math.floor(playerInstance.duration * 1000) / 1000;
       if (currentTime >= duration) {
         setIsVideoEnded(true);
       } else {
@@ -114,6 +112,37 @@ export function PlayerContainer(props: PlayerContainerProps) {
       }
     }
   }, [getPlayerTime()]);
+
+  // useEffect(() => {
+  //   const handleUpdateVideoProgress = async () => {
+  //     const totalTick = Math.min(playerInstance.duration, 400);
+  //     const secondToUpdate = totalTick < 400 ? 1 : playerInstance.duration / totalTick;
+  //     const currentTime = getPlayerTime() / 1000;
+  //     const tick = Math.floor(currentTime / secondToUpdate);
+  //     if (
+  //       currentTime >= secondToUpdate * tick &&
+  //       currentTime < secondToUpdate * tick + 1
+  //     ) {
+  //       try {
+  //         const res = await updateVideoProgress(
+  //           "0_7fjx3mcg", //entryId
+  //           pathInfo?.id || "",
+  //           VideoType.Kaltura,
+  //           totalTick,
+  //           Array.from({ length: tick }, (_, i) => i)
+  //         );
+  //         console.log(res);
+          
+  //       } catch (e) {
+  //         console.log(e);
+  //       }
+  //     }
+  //   };
+  //   const playerInstance = getPlayerInstance();
+  //   if (playerInstance) {
+  //     handleUpdateVideoProgress();
+  //   }
+  // }, [getPlayerTime()]);
 
   const handleFullScreenToggle = () => {
     if (document.fullscreenElement) {
