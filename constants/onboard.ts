@@ -13,40 +13,32 @@ export type Answer = Record<string, string | string[]>;
 
 export type Question = (onBoardGoalQuestionType | onBoardWelcomeFinishType)[];
 
+// Python
+// DS
+// DA
+// ML
+
 export const onBoardNoGoalQuestion: Question = [
   {
     variant: "checkbox",
-    title: "What is your favorite subject?",
+    title: "What kind of projects do you find most exciting ?",
     step: 1,
     choices: [
-      "Programming",
-      "Math",
-      "Physics",
-      "Social",
-      "Bio",
-      "Chemistry",
-      "English",
-      "History",
-      "Geography",
-      "Economics",
-      "Law",
-      "Health",
-      "Art",
-      "Music",
-      "Sport",
-      "Other"
+      "Building applications or tools to solve everyday problems", // 3, 0, 0, 0
+      "Working on projects that require statistical analysis", // 0, 3, 2, 1
+      "Analyzing historical data to improve business decisions", // 0, 2, 3, 1
+      "Designing systems that learn and adapt over time" // 1, 0, 0, 3
     ]
   },
   {
-    variant: "radio",
-    title: "What do you do in free time ?",
+    variant: "checkbox",
+    title: "When faced with a problem, do you prefer to",
     step: 2,
     choices: [
-      "Reading",
-      "Playing games",
-      "Watching movies",
-      "Listening to music",
-      "Other"
+      "Write a script to automate the solution?", // 3, 0, 0, 1
+      "Analyze the data to understand trends?", // 0, 2, 2, 1
+      "Dive deep into the data to find root causes?", // 0, 1, 3, 0
+      "Apply algorithms to predict future outcomes?" // 0, 1, 1, 3
     ]
   },
   {
@@ -64,14 +56,33 @@ export const onBoardNoGoalQuestion: Question = [
 export const onBoardGoalQuestion: Question = [
   {
     variant: "checkbox",
-    title: "Choose your favorite Journey",
+    title: "If you could improve one skill this year, what would it be?",
     step: 1,
-    choices: ["Programming", "Health", "Law"]
+    choices: [
+      "Learning a programming language like Python", // 3, 0, 0, 0
+      "Understanding complex data sets and their implication", // 0, 3, 0, 0
+      "Mastering the art of turning data into actionable insights", // 0, 0, 3, 0
+      "Developing predictive models from data" // 0, 0, 0, 3
+    ]
   },
   {
     variant: "radio",
-    title: "What is your knowledge level?",
+    title: "What is your experience on this field?",
     step: 2,
-    choices: ["Secondary school", "Undergraduate", "Graduate"]
+    choices: [
+      "less than 1 year", // 1, 0, 0, 0
+      "1-3 year", // 0, 1, 1, 0
+      "more than 3 year" // 0, 0, 0, 1
+    ]
+  },
+  {
+    variant: "radio",
+    title: "What is your preferred length of learning?",
+    step: 3,
+    choices: [
+      "Short (less than 20 hours)",
+      "Medium (20-60 hours)",
+      "Long (more than 60 hours)"
+    ]
   }
 ];
