@@ -1,4 +1,4 @@
-import { GroupType, MicroType, PathStatus } from "./enum";
+import { GroupType, MicroType, PathStatus, VideoType } from "./enum";
 
 export type User = {
   id: string;
@@ -121,7 +121,7 @@ export interface Videodata {
   decisionTitle: string | null
   progress: number
   sourceId: string
-  sourceType: string
+  sourceType: VideoType
   link: string
 }
 

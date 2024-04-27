@@ -8,10 +8,11 @@ import { MicroData } from "@/types/type";
 import { usePath } from "@/context/Path";
 import VideoTab from "../VideoTab";
 import { cn } from "@/lib/utils";
-import { VideoTabType } from "@/types/enum";
+import { VideoTabType, VideoType } from "@/types/enum";
 import VideoNav from "../VideoNav";
 import { getNextMicro, getPathInitialNodesAndEdges } from "@/utils/path";
 import VideoChoice from "../VideoChoice";
+import { updateVideoProgress } from "@/action/video";
 
 export interface EntriesConfig {
   entryId: string;
@@ -26,15 +27,11 @@ export interface PlayerContainerProps {
 export function PlayerContainer(props: PlayerContainerProps) {
   const { entriesConfig, microData } = props;
 
-  const [entryId, setEntryId] = useState(entriesConfig.entryId);
+  const entryId = entriesConfig.entryId;
   const [playerId, setPlayerId] = useState("");
-  const [playerState, setPlayerState] = useState<PlaybackStatuses | null>(null);
-  const [playerTime, setPlayerTime] = useState<number | null>(null);
 
-  const { playerPlay, playerPause, playerSeek, getPlayerInstance } =
-    usePlayer(playerId);
-  const { getPlayerState, getPlayerTime, playerState$, playerTime$ } =
-    usePlayerUpdates(playerId);
+  const { getPlayerInstance } = usePlayer(playerId);
+  const { getPlayerState, getPlayerTime } = usePlayerUpdates(playerId);
 
   const { pathInfo } = usePath();
   const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
@@ -64,56 +61,6 @@ export function PlayerContainer(props: PlayerContainerProps) {
     }
   };
 
-  useEffect(() => {
-    if (!playerId) {
-      return;
-    }
-
-    const stateSubscription = playerState$.subscribe(
-      (result: React.SetStateAction<PlaybackStatuses | null>) => {
-        setPlayerState(result);
-      }
-    );
-
-    const timeSubscription = playerTime$.subscribe(
-      (result: React.SetStateAction<number | null>) => {
-        setPlayerTime(result);
-      }
-    );
-
-    return () => {
-      stateSubscription.unsubscribe();
-      timeSubscription.unsubscribe();
-    };
-  }, [playerId, playerState$, playerTime$]);
-
-  const handleTogglePlay = () => {
-    if (getPlayerState() === PlaybackStatuses.Playing) {
-      playerPause();
-      return;
-    }
-
-    if (getPlayerState() === PlaybackStatuses.Paused) {
-      playerPlay();
-      return;
-    }
-  };
-
-  const handleToggleMute = () => {
-    const playerInstance = getPlayerInstance();
-
-    if (!playerInstance) {
-      return;
-    }
-
-    playerInstance.muted = !playerInstance.muted;
-  };
-
-  const handleSeek = (pause: boolean) => {
-    const newTime = getPlayerTime() - 5000;
-    playerSeek({ seekTo: newTime, pause });
-  };
-
   const handlePlayerLoaded = (data: { playerId: string }) => {
     const { playerId } = data;
 
@@ -124,62 +71,48 @@ export function PlayerContainer(props: PlayerContainerProps) {
     setPlayerId(playerId);
   };
 
-  const handleSwitchMedia = () => {
-    if (entriesConfig.alternateEntryId && entryId === entriesConfig.entryId) {
-      setEntryId(entriesConfig.alternateEntryId);
-      return;
-    }
-
-    setEntryId(entriesConfig.entryId);
-  };
-
-  const customizeConfig = (config: any) => {
-    // DEVELOPER NOTICE - this is an optional method that lets you
-    // customize the plaer config during loading.
-    // if you don't need to customize, just remove it, just remove it
-
-    const tooltip = "I'm such a cool yellow button, added by the application";
-    // @ts-ignore
-    const h = window.KalturaPlayer.ui.preact.h;
-    const customButton = h("div", {
-      title: tooltip,
-      onClick: () => {
-        handleToggleMute();
-      },
-      style: { marginTop: 10, width: 30, height: 30, background: "yellow" }
-    });
-
-    const newConfig = {
-      ...config,
-      ui: {
-        ...(config.ui || {}),
-        uiComponents: [
-          ...((config.ui || {}).uiComponents || []),
-          {
-            label: "add custom",
-            presets: ["Playback"],
-            container: "TopBarRightControls",
-            get: () => customButton
-          }
-        ]
-      }
-    };
-    return newConfig;
-  };
-
   const [isVideoEnded, setIsVideoEnded] = useState<boolean>(false);
 
   useEffect(() => {
     const playerInstance = getPlayerInstance();
     if (playerInstance) {
       const currentTime = getPlayerTime() / 1000;
-      const duration =
-        Math.floor(playerInstance.duration * 1000) / 1000;
+      const duration = Math.floor(playerInstance.duration * 1000) / 1000;
       if (currentTime >= duration) {
         setIsVideoEnded(true);
       } else {
         setIsVideoEnded(false);
       }
+    }
+  }, [getPlayerTime()]);
+
+  useEffect(() => {
+    const handleUpdateVideoProgress = async () => {
+      const totalTick = Math.min(playerInstance.duration, 400);
+      const secondToUpdate =
+        totalTick < 400 ? 1 : playerInstance.duration / totalTick;
+      const currentTime = getPlayerTime() / 1000;
+      const tick = Math.floor(currentTime / secondToUpdate);
+      if (
+        currentTime >= secondToUpdate * tick &&
+        currentTime < secondToUpdate * tick + 1
+      ) {
+        try {
+          const res = await updateVideoProgress(
+            entryId,
+            pathInfo?.id || "",
+            VideoType.Kaltura,
+            totalTick,
+            Array.from({ length: tick }, (_, i) => i)
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    };
+    const playerInstance = getPlayerInstance();
+    if (playerInstance) {
+      handleUpdateVideoProgress();
     }
   }, [getPlayerTime()]);
 
@@ -269,7 +202,6 @@ export function PlayerContainer(props: PlayerContainerProps) {
         ></div>
         <KalturaPlayer
           entryId={entryId}
-          // customizeConfig={customizeConfig}
           autoplay={false}
           onPlayerLoaded={handlePlayerLoaded}
         />
