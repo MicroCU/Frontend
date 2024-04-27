@@ -60,18 +60,18 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
       const uiconfIdRegex = /\/uiconf_id\/(\d+)/;
 
       const pMatch = videoData?.link.match(pRegex);
-      const partnerId = pMatch ? pMatch[1] : null;
+      const partnerId = pMatch ? pMatch[1] : "";
 
       const uiconfIdMatch = videoData?.link.match(uiconfIdRegex);
-      const uiConfId = uiconfIdMatch ? uiconfIdMatch[1] : null;
+      const uiConfId = uiconfIdMatch ? uiconfIdMatch[1] : "";
 
       setPlayerConfig({
         bundlerUrl: url,
-        partnerId: "2503922",
-        uiConfId: "45152271"
+        partnerId: partnerId,
+        uiConfId: uiConfId
       });
       setEntriesConfig({
-        entryId: "0_7fjx3mcg"
+        entryId: videoData?.sourceId || ""
       });
     };
     if (videoData?.sourceType == "kaltura") {

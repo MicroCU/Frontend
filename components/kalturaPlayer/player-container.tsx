@@ -27,15 +27,11 @@ export interface PlayerContainerProps {
 export function PlayerContainer(props: PlayerContainerProps) {
   const { entriesConfig, microData } = props;
 
-  const [entryId, setEntryId] = useState(entriesConfig.entryId);
+  const entryId = entriesConfig.entryId;
   const [playerId, setPlayerId] = useState("");
-  const [playerState, setPlayerState] = useState<PlaybackStatuses | null>(null);
-  const [playerTime, setPlayerTime] = useState<number | null>(null);
 
-  const { playerPlay, playerPause, playerSeek, getPlayerInstance } =
-    usePlayer(playerId);
-  const { getPlayerState, getPlayerTime, playerState$, playerTime$ } =
-    usePlayerUpdates(playerId);
+  const { getPlayerInstance } = usePlayer(playerId);
+  const { getPlayerState, getPlayerTime } = usePlayerUpdates(playerId);
 
   const { pathInfo } = usePath();
   const { initialNodes, initialEdges } = getPathInitialNodesAndEdges(
@@ -65,29 +61,6 @@ export function PlayerContainer(props: PlayerContainerProps) {
     }
   };
 
-  useEffect(() => {
-    if (!playerId) {
-      return;
-    }
-
-    const stateSubscription = playerState$.subscribe(
-      (result: React.SetStateAction<PlaybackStatuses | null>) => {
-        setPlayerState(result);
-      }
-    );
-
-    const timeSubscription = playerTime$.subscribe(
-      (result: React.SetStateAction<number | null>) => {
-        setPlayerTime(result);
-      }
-    );
-
-    return () => {
-      stateSubscription.unsubscribe();
-      timeSubscription.unsubscribe();
-    };
-  }, [playerId, playerState$, playerTime$]);
-
   const handlePlayerLoaded = (data: { playerId: string }) => {
     const { playerId } = data;
 
@@ -113,36 +86,35 @@ export function PlayerContainer(props: PlayerContainerProps) {
     }
   }, [getPlayerTime()]);
 
-  // useEffect(() => {
-  //   const handleUpdateVideoProgress = async () => {
-  //     const totalTick = Math.min(playerInstance.duration, 400);
-  //     const secondToUpdate = totalTick < 400 ? 1 : playerInstance.duration / totalTick;
-  //     const currentTime = getPlayerTime() / 1000;
-  //     const tick = Math.floor(currentTime / secondToUpdate);
-  //     if (
-  //       currentTime >= secondToUpdate * tick &&
-  //       currentTime < secondToUpdate * tick + 1
-  //     ) {
-  //       try {
-  //         const res = await updateVideoProgress(
-  //           "0_7fjx3mcg", //entryId
-  //           pathInfo?.id || "",
-  //           VideoType.Kaltura,
-  //           totalTick,
-  //           Array.from({ length: tick }, (_, i) => i)
-  //         );
-  //         console.log(res);
-          
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //     }
-  //   };
-  //   const playerInstance = getPlayerInstance();
-  //   if (playerInstance) {
-  //     handleUpdateVideoProgress();
-  //   }
-  // }, [getPlayerTime()]);
+  useEffect(() => {
+    const handleUpdateVideoProgress = async () => {
+      const totalTick = Math.min(playerInstance.duration, 400);
+      const secondToUpdate =
+        totalTick < 400 ? 1 : playerInstance.duration / totalTick;
+      const currentTime = getPlayerTime() / 1000;
+      const tick = Math.floor(currentTime / secondToUpdate);
+      if (
+        currentTime >= secondToUpdate * tick &&
+        currentTime < secondToUpdate * tick + 1
+      ) {
+        try {
+          const res = await updateVideoProgress(
+            entryId,
+            pathInfo?.id || "",
+            VideoType.Kaltura,
+            totalTick,
+            Array.from({ length: tick }, (_, i) => i)
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    };
+    const playerInstance = getPlayerInstance();
+    if (playerInstance) {
+      handleUpdateVideoProgress();
+    }
+  }, [getPlayerTime()]);
 
   const handleFullScreenToggle = () => {
     if (document.fullscreenElement) {
