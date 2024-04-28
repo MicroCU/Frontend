@@ -51,7 +51,7 @@ export default function PathList() {
       {checkIsDataFieldsValid(journeys) &&
         journeys!.data[0].paths.data.map((path) => (
           <div
-            className="pb-2"
+            className="pb-2 max-w-60"
             key={path.id}
             onClick={() => {
               setSelectedPath(getPathDetailFromId(path.id, journeys));
