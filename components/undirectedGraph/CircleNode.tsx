@@ -44,7 +44,7 @@ export function Node({ status, name }: NodeProps) {
             status === PathStatus.PASSED_TEST ? "bg-progress" : ""
           )}
         />
-        <div className="absolute flex flex-col justify-center items-center w-5 text-center">
+        <div className="absolute bottom-30 -left-6 w-20 text-center text-xs line-clamp-2">
           {name}
         </div>
       </div>
