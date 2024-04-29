@@ -15,7 +15,7 @@ export default function MicroTest({ data, className }: MicroTestProps) {
       id={data.id}
       testLink={data.test?.link}
     >
-      <a href={data.test?.link}>
+      <a href={data.test?.link} target="_blank" rel="noopener noreferrer">
         <div
           className={cn(
             "border-3 p-4 rounded-2xl w-fit",
