@@ -129,6 +129,9 @@ export interface DocumentData {
   id: string
   name: string
   link: string
+  progress: number
+  type?: string
+  content?: string
 }
 
 export interface Testdata {

@@ -166,7 +166,10 @@ export function PlayerContainer(props: PlayerContainerProps) {
             data={playlistData}
             className={cn(
               "top-24 h-[81%] z-20",
-              currentVideoTab == VideoTabType.PLAYLIST && cursorMoved
+              currentVideoTab == VideoTabType.PLAYLIST &&
+                (cursorMoved ||
+                  getPlayerState() === PlaybackStatuses.Paused ||
+                  getPlayerState() === PlaybackStatuses.Idle)
                 ? "right-0"
                 : "right-[-400px]"
             )}
@@ -177,7 +180,10 @@ export function PlayerContainer(props: PlayerContainerProps) {
             data={fileData}
             className={cn(
               "top-24 h-[81%] z-20",
-              currentVideoTab == VideoTabType.FILE && cursorMoved
+              currentVideoTab == VideoTabType.FILE &&
+                (cursorMoved ||
+                  getPlayerState() === PlaybackStatuses.Paused ||
+                  getPlayerState() === PlaybackStatuses.Idle)
                 ? "right-0"
                 : "right-[-400px]"
             )}
