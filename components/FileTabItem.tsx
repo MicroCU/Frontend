@@ -48,6 +48,13 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
     `;
     return content;
   };
+
+  const handleIFrameLoad = (event: React.SyntheticEvent<HTMLIFrameElement, Event>) => {
+    const iframe = event.currentTarget;
+    if (iframe.contentWindow) {
+      iframe.style.height = `${iframe.contentWindow.document.body.scrollHeight + 40}px`;
+    }
+  };
   return data.type == "html" ? (
     <Dialog>
       <DialogTrigger>
@@ -57,7 +64,7 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <iframe srcDoc={getHTMLContent()} className="w-full h-[30vh]"></iframe>
+        <iframe srcDoc={getHTMLContent()} onLoad={handleIFrameLoad} className="w-full"></iframe>
       </DialogContent>
     </Dialog>
   ) : (
