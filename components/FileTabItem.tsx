@@ -5,12 +5,14 @@ import { usePath } from "@/context/Path";
 import { DocumentData } from "@/types/type";
 import { ArrowDownToLine } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { useTranslation } from "@/context/Translation";
 
 interface FileTabItemProps {
   data: DocumentData;
 }
 
 const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
+  const { lang } = useTranslation();
   const { pathId } = usePath();
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -29,6 +31,23 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
       console.error(e);
     }
   };
+  const getHTMLContent = () => {
+    const content = `
+    <html>
+      <head>
+        <style>
+          body {
+            font-size: 18px;
+          }
+        </style>
+      </head>
+      <body>
+        ${data.content}
+      </body>
+    </html>
+    `;
+    return content;
+  };
   return data.type == "html" ? (
     <Dialog>
       <DialogTrigger>
@@ -37,8 +56,8 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
           <ArrowDownToLine />
         </div>
       </DialogTrigger>
-      <DialogContent>
-        <iframe srcDoc={data.content} className="w-full"></iframe>
+      <DialogContent className="h-1/3">
+        <iframe srcDoc={getHTMLContent()} className="w-full h-full"></iframe>
       </DialogContent>
     </Dialog>
   ) : (
