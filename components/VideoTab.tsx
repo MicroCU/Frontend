@@ -65,7 +65,7 @@ const VideoFileTab: React.FC<VideoFileTabProps> = ({ data, className }) => {
     >
       <div className={`flex flex-col gap-4 `}>
         {data.map((item, index) => (
-          <FileTabItem key={index} id={item.id} fileName={item.name} fileUrl={item.link} />
+          <FileTabItem key={index} data={item} />
         ))}
       </div>
     </ScrollArea>

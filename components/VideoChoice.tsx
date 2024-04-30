@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { MicroType } from "@/types/enum";
+import I18nTypo from "./ui/I18nTypo";
 
 interface VideoChoiceProps {
   choiceName: string;
@@ -10,7 +11,12 @@ interface VideoChoiceProps {
   testLink: string;
 }
 
-const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName, microId, microType, testLink }) => {
+const VideoChoice: React.FC<VideoChoiceProps> = ({
+  choiceName,
+  microId,
+  microType,
+  testLink
+}) => {
   const router = useRouter();
   const pathName = usePathname();
 
@@ -22,7 +28,6 @@ const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName, microId, microTyp
     } else {
       router.push(testLink);
     }
-
   };
 
   return (
@@ -30,7 +35,7 @@ const VideoChoice: React.FC<VideoChoiceProps> = ({ choiceName, microId, microTyp
       className="bg-white text-grayMain hover:bg-primary hover:text-white Bold24 w-[530px] py-6"
       onClick={handleRoute}
     >
-      {choiceName}
+      <I18nTypo>{choiceName}</I18nTypo>
     </Button>
   );
 };
