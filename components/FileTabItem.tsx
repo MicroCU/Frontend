@@ -56,8 +56,8 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
           <ArrowDownToLine />
         </div>
       </DialogTrigger>
-      <DialogContent className="h-1/3">
-        <iframe srcDoc={getHTMLContent()} className="w-full h-full"></iframe>
+      <DialogContent>
+        <iframe srcDoc={getHTMLContent()} className="w-full h-[30vh]"></iframe>
       </DialogContent>
     </Dialog>
   ) : (
