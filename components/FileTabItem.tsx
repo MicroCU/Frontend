@@ -5,14 +5,12 @@ import { usePath } from "@/context/Path";
 import { DocumentData } from "@/types/type";
 import { ArrowDownToLine } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
-import { useTranslation } from "@/context/Translation";
 
 interface FileTabItemProps {
   data: DocumentData;
 }
 
 const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
-  const { lang } = useTranslation();
   const { pathId } = usePath();
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -25,7 +23,9 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
   };
   const handleOnClick = async () => {
     try {
-      handleDownload();
+      if (data.type != "html") {
+        handleDownload();
+      }
       const res = await updateMaterialProgress(data.id, pathId);
     } catch (e) {
       console.error(e);
@@ -35,9 +35,11 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
     const content = `
     <html>
       <head>
+        <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet">
         <style>
           body {
             font-size: 18px;
+            font-family: 'Bai Jamjuree', sans-serif;
           }
         </style>
       </head>
@@ -49,22 +51,33 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
     return content;
   };
 
-  const handleIFrameLoad = (event: React.SyntheticEvent<HTMLIFrameElement, Event>) => {
+  const handleIFrameLoad = (
+    event: React.SyntheticEvent<HTMLIFrameElement, Event>
+  ) => {
     const iframe = event.currentTarget;
     if (iframe.contentWindow) {
-      iframe.style.height = `${iframe.contentWindow.document.body.scrollHeight + 40}px`;
+      iframe.style.height = `${
+        iframe.contentWindow.document.body.scrollHeight + 40
+      }px`;
     }
   };
   return data.type == "html" ? (
     <Dialog>
       <DialogTrigger>
-        <div className="flex justify-between gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain">
+        <div
+          className="flex justify-between gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain"
+          onClick={handleOnClick}
+        >
           <p>{data.name}</p>
           <ArrowDownToLine />
         </div>
       </DialogTrigger>
       <DialogContent>
-        <iframe srcDoc={getHTMLContent()} onLoad={handleIFrameLoad} className="w-full"></iframe>
+        <iframe
+          srcDoc={getHTMLContent()}
+          onLoad={handleIFrameLoad}
+          className="w-full"
+        ></iframe>
       </DialogContent>
     </Dialog>
   ) : (
