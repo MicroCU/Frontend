@@ -138,3 +138,9 @@ export interface Testdata {
   id: string
   link: string
 }
+
+export interface JourneyALLData {
+  id: string
+  name_th: string
+  name_en: string
+}

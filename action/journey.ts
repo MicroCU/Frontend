@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { HomePageData, RecentlyPageData, SearchPageData } from "@/types/type";
+import { HomePageData, JourneyALLData, RecentlyPageData, SearchPageData } from "@/types/type";
 import { AuthError } from "@/constants/error";
 
 export const fetchJourney = async (lang: string) => {
@@ -75,6 +75,27 @@ export const fetchSearch = async (searchText: string, lang: string) => {
     }
     return {
         status: res.status,
+        msg: res.statusText
+    }
+}
+
+export const fetchALLJourney = async () => {
+    const accessToken = cookies().get("access_token");
+
+    if (!accessToken) {
+        throw new Error(AuthError.ERR_ACCESS_TOKEN);
+    }
+
+    const res = await fetch(process.env.MCV_JOURNEY_ALL_URL!, {
+        headers: {
+            Authorization: `Bearer ${accessToken.value}`
+        }
+    });
+    if (res.status === 200) {
+        const resp = await res.json();
+        return resp.data as JourneyALLData[]
+    }
+    return {
         msg: res.statusText
     }
 }

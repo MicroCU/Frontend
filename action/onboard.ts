@@ -8,6 +8,7 @@ import {
   onBoardNoGoalQuestionTH
 } from "@/constants/onboard";
 import { cookies } from "next/headers";
+import { fetchALLJourney } from "./journey";
 
 export const fetchGoalQuestion = async (lang: string) => {
   if (lang === "en") return onBoardGoalQuestionEN;
@@ -55,10 +56,11 @@ export const storeMCVPref = async (answer: Answer) => {
     throw new Error(AuthError.ERR_ACCESS_TOKEN);
   }
 
+  const allJourneys = await fetchALLJourney();
   // mock
   // TODO: Yod will provide the real data by analysing from the user's answer
   // answer = answer from onboarding
-  console.log(answer);
+  console.log("All journeys: ", allJourneys);
 
   const params = {
     jid1: 2,
