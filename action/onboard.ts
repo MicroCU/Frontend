@@ -1,9 +1,11 @@
 "use server";
 import { AuthError } from "@/constants/error";
 import {
+  Answer,
   onBoardGoalQuestion,
   onBoardNoGoalQuestion
 } from "@/constants/onboard";
+import { useOnBoard } from "@/context/Onboard";
 import { cookies } from "next/headers";
 
 export const fetchGoalQuestion = async () => {
@@ -51,7 +53,7 @@ type PostJourneysResp = {
   data: string;
   status: string;
 };
-export const storeMCVPref = async () => {
+export const storeMCVPref = async (answer: Answer) => {
   const accessToken = cookies().get("access_token");
   if (!accessToken) {
     throw new Error(AuthError.ERR_ACCESS_TOKEN);
@@ -59,6 +61,8 @@ export const storeMCVPref = async () => {
 
   // mock
   // TODO: Yod will provide the real data by analysing from the user's answer
+  console.log(answer);
+
   const params = {
     jid1: 2,
     jid2: null,

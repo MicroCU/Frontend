@@ -4,12 +4,15 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import I18nTypo from "@/components/ui/I18nTypo";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/Auth";
+import { useOnBoard } from "@/context/Onboard";
 import { useTranslation } from "@/context/Translation";
 import Link from "next/link";
 
 export default function Example() {
   const { lang, dict } = useTranslation();
   const { user } = useAuth();
+  const { answer } = useOnBoard();
+
   if (!user) return null;
   return (
     <div>
@@ -22,7 +25,7 @@ export default function Example() {
       <Link href={`/${lang}/try`}> To Another Page </Link>
       <Button
         onClick={() => {
-          storeMCVPref();
+          storeMCVPref(answer);
         }}
       >
         Test Store
