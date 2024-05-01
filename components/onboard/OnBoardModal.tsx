@@ -76,7 +76,7 @@ export const QuestionWrapper = (props: QuestionWrapperProps) => {
   const { answer, addAnswer, page, nextPage, maxPage, backPage } = useOnBoard();
 
   useEffect(() => {
-    if (!answer[props.step]) {
+    if (answer[props.step] == undefined) {
       addAnswer(props.step, []);
     }
   }, [addAnswer, answer, props.step]);
