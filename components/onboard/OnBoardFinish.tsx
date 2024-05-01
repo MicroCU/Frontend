@@ -8,7 +8,7 @@ import { storeMCVPref } from "@/action/onboard";
 
 const OnboardFinish = () => {
   const { dict } = useTranslation();
-  const { maxPage } = useOnBoard();
+  const { maxPage, answer } = useOnBoard();
   return (
     <OnBoardModalContainer>
       <LinearProgressBar currSteps={maxPage} maxSteps={maxPage} />
@@ -25,7 +25,7 @@ const OnboardFinish = () => {
         <Button
           className="w-fit"
           onClick={() => {
-            storeMCVPref();
+            storeMCVPref(answer);
             window.location.href = "/en";
           }}
         >

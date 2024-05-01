@@ -20,35 +20,47 @@ export type Question = (onBoardGoalQuestionType | onBoardWelcomeFinishType)[];
 
 export const onBoardNoGoalQuestion: Question = [
   {
-    variant: "checkbox",
-    title: "What kind of projects do you find most exciting ?",
+    variant: "radio",
+    title:
+      "How interested are you in creating tools to solve everyday problems, like a program to calculate GPA ?",
     step: 1,
     choices: [
-      "Building applications or tools to solve everyday problems", // 3, 0, 0, 0
-      "Working on projects that require statistical analysis", // 0, 3, 2, 1
-      "Analyzing historical data to improve business decisions", // 0, 2, 3, 1
-      "Designing systems that learn and adapt over time" // 1, 0, 0, 3
-    ]
-  },
-  {
-    variant: "checkbox",
-    title: "When faced with a problem, do you prefer to",
-    step: 2,
-    choices: [
-      "Write a script to automate the solution?", // 3, 0, 0, 1
-      "Analyze the data to understand trends?", // 0, 2, 2, 1
-      "Dive deep into the data to find root causes?", // 0, 1, 3, 0
-      "Apply algorithms to predict future outcomes?" // 0, 1, 1, 3
+      "Not interested", // 3, 0, 0, 0
+      "Somewhat interested", // 0, 3, 2, 1
+      "Very interested" // 0, 2, 3, 1
     ]
   },
   {
     variant: "radio",
-    title: "What is your preferred length of learning?",
+    title:
+      "How interested are you in visualizing data, analyzing data, and presenting ?",
+    step: 2,
+    choices: [
+      "Not interested", // 3, 0, 0, 0
+      "Somewhat interested", // 0, 3, 2, 1
+      "Very interested" // 0, 2, 3, 1
+    ]
+  },
+  {
+    variant: "radio",
+    title:
+      "The statement, 'When there is a problem, you like to analyze and find the root cause of the issue,' how well does this describe you ?",
     step: 3,
     choices: [
-      "Short (less than 20 hours)",
-      "Medium (20-60 hours)",
-      "Long (more than 60 hours)"
+      "Not interested", // 3, 0, 0, 0
+      "Somewhat interested", // 0, 3, 2, 1
+      "Very interested" // 0, 2, 3, 1
+    ]
+  },
+  {
+    variant: "radio",
+    title:
+      "When you encounter a problem, do you prefer to develop and design systems that can learn on their own to help predict future occurrences and be used in the future when the same or similar problems arise? How accurate is this statement for you?",
+    step: 4,
+    choices: [
+      "Not interested", // 3, 0, 0, 0
+      "Somewhat interested", // 0, 3, 2, 1
+      "Very interested" // 0, 2, 3, 1
     ]
   }
 ];
@@ -56,33 +68,33 @@ export const onBoardNoGoalQuestion: Question = [
 export const onBoardGoalQuestion: Question = [
   {
     variant: "checkbox",
-    title: "If you could improve one skill this year, what would it be?",
+    title: "What do you want to learn ?",
     step: 1,
     choices: [
-      "Learning a programming language like Python", // 3, 0, 0, 0
-      "Understanding complex data sets and their implication", // 0, 3, 0, 0
-      "Mastering the art of turning data into actionable insights", // 0, 0, 3, 0
-      "Developing predictive models from data" // 0, 0, 0, 3
+      "Python", // 3, 0, 0, 0
+      "Data Analysis", // 0, 3, 0, 0
+      "Data Science", // 0, 0, 3, 0
+      "Machine Learning" // 0, 0, 0, 3
     ]
   },
   {
     variant: "radio",
-    title: "What is your experience on this field?",
+    title: "How much experience do you have with Python?",
     step: 2,
     choices: [
-      "less than 1 year", // 1, 0, 0, 0
-      "1-3 year", // 0, 1, 1, 0
-      "more than 3 year" // 0, 0, 0, 1
+      "No experience at all", // 1, 0, 0, 0
+      "Some basic knowledge, but not fluent", // 0, 1, 1, 0
+      "Fluent in programming" // 0, 0, 0, 1
     ]
   },
   {
     variant: "radio",
-    title: "What is your preferred length of learning?",
+    title: "How much experience do you have with data visualization?",
     step: 3,
     choices: [
-      "Short (less than 20 hours)",
-      "Medium (20-60 hours)",
-      "Long (more than 60 hours)"
+      "No experience at all", // 1, 0, 0, 0
+      "Some basic knowledge, but not fluent", // 0, 1, 1, 0
+      "Fluent" // 0, 0, 0, 1
     ]
   }
 ];
