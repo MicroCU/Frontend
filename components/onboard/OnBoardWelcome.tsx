@@ -6,7 +6,7 @@ import { OnBoardModalContainer } from "./OnBoardModal";
 import I18nTypo from "../ui/I18nTypo";
 
 const OnboardWelcome = () => {
-  const { dict, lang } = useTranslation();
+  const { dict } = useTranslation();
   const { addAnswer, nextPage, fetchQuestion } = useOnBoard();
 
   return (
@@ -23,7 +23,7 @@ const OnboardWelcome = () => {
         <OnBoardBtn
           text={dict["onboard.introduction.haveGoal"]}
           onClick={() => {
-            addAnswer("welcome", OnBoardMode.GOAL);
+            addAnswer(0, OnBoardMode.GOAL);
             fetchQuestion(OnBoardMode.GOAL);
             nextPage();
           }}
@@ -34,7 +34,7 @@ const OnboardWelcome = () => {
         <OnBoardBtn
           text={dict["onboard.introduction.noGoal"]}
           onClick={() => {
-            addAnswer("welcome", OnBoardMode.NOGOAL);
+            addAnswer(0, OnBoardMode.NOGOAL);
             fetchQuestion(OnBoardMode.NOGOAL);
             nextPage();
           }}

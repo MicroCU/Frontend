@@ -11,7 +11,7 @@ import {
 import { Settings } from "lucide-react";
 
 const OnBoardContent = () => {
-  const { answer, page, question, isLoading } = useOnBoard();
+  const { page, question, isLoading } = useOnBoard();
 
   const CurrentModal = () => {
     switch (page) {
@@ -27,6 +27,7 @@ const OnBoardContent = () => {
           ) {
             return (
               <OnBoardModal
+                step={q.step}
                 key={index}
                 variant={q.variant}
                 title={q.title}

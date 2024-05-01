@@ -5,8 +5,8 @@ export enum MicroType {
 }
 
 export enum OnBoardMode {
-  NOGOAL = "NOGOAL",
-  GOAL = "GOAL"
+  NOGOAL = 0,
+  GOAL = 1
 }
 
 export enum VideoTabType {
@@ -50,3 +50,4 @@ export enum VideoType {
   Kaltura = "kaltura",
   Vimeo = "vimeo"
 }
+

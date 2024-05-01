@@ -22,7 +22,7 @@ type OnBoardContextType = {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   nextPage: () => void;
   backPage: () => void;
-  addAnswer: (title: string, answer: string | string[]) => void;
+  addAnswer: (title: number, answer: number | number[]) => void;
   fetchQuestion: (mode: OnBoardMode) => void;
 };
 
@@ -85,7 +85,7 @@ const OnBoardContextProvider = ({ children }: OnBoardContextProviderProps) => {
     setPage((p) => p - 1);
   };
 
-  const addAnswer = (title: string, answer: string | string[]) => {
+  const addAnswer = (title: number, answer: number | number[]) => {
     setAnswer((prev) => ({ ...prev, [title]: answer }));
   };
 

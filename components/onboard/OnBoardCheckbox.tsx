@@ -4,6 +4,7 @@ import Checkbox from "../CheckBox";
 
 type OnBoardCheckboxProps = {
   title: string;
+  step: number;
   choices: string[];
 };
 
@@ -11,26 +12,38 @@ const OnboardCheckbox = (props: OnBoardCheckboxProps) => {
   const { answer, addAnswer } = useOnBoard();
   return (
     <OnBoardModalContainer>
-      <QuestionWrapper title={props.title} choices={props.choices}>
+      <QuestionWrapper
+        title={props.title}
+        choices={props.choices}
+        step={props.step}
+      >
         <div className="grid grid-cols-2 gap-y-4 gap-x-6 max-h-[200px] overflow-y-auto">
           {props.choices.map((c, index) => {
             return (
               <Checkbox
                 key={index}
                 title={c}
-                checked={answer[props.title]?.includes(c) || false}
+                checked={
+                  (answer[props.step] as number[] | undefined)?.includes(
+                    index
+                  ) || false
+                }
                 onCheck={() => {
-                  if (answer[props.title].includes(c)) {
+                  if (
+                    (answer[props.step] as number[] | undefined)?.includes(
+                      index
+                    )
+                  ) {
                     addAnswer(
-                      props.title,
-                      (answer[props.title] as string[]).filter(
-                        (item) => item !== c
+                      props.step,
+                      (answer[props.step] as number[]).filter(
+                        (item) => item !== index
                       )
                     );
                   } else {
-                    addAnswer(props.title, [
-                      ...(answer[props.title] as string[]),
-                      c
+                    addAnswer(props.step, [
+                      ...(answer[props.step] as number[]),
+                      index
                     ]);
                   }
                 }}

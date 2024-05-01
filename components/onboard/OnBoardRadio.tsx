@@ -4,6 +4,7 @@ import Radio from "../Radio";
 
 type OnBoardRadioProps = {
   title: string;
+  step: number;
   choices: string[];
 };
 
@@ -11,7 +12,11 @@ const OnboardRadio = (props: OnBoardRadioProps) => {
   const { answer, addAnswer } = useOnBoard();
   return (
     <OnBoardModalContainer>
-      <QuestionWrapper title={props.title} choices={props.choices}>
+      <QuestionWrapper
+        title={props.title}
+        choices={props.choices}
+        step={props.step}
+      >
         <div className="space-y-6 max-h-[200px] overflow-y-auto">
           {props.choices.map((c, index) => {
             return (
@@ -19,8 +24,8 @@ const OnboardRadio = (props: OnBoardRadioProps) => {
                 key={index}
                 name={props.title}
                 title={c}
-                checked={answer[props.title] === c}
-                onSelect={() => addAnswer(props.title, c)}
+                checked={answer[props.step] === index}
+                onSelect={() => addAnswer(props.step, index)}
               />
             );
           })}
