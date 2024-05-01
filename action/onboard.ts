@@ -2,25 +2,21 @@
 import { AuthError } from "@/constants/error";
 import {
   Answer,
-  onBoardGoalQuestion,
-  onBoardNoGoalQuestion
+  onBoardGoalQuestionEN,
+  onBoardGoalQuestionTH,
+  onBoardNoGoalQuestionEN,
+  onBoardNoGoalQuestionTH
 } from "@/constants/onboard";
-import { useOnBoard } from "@/context/Onboard";
 import { cookies } from "next/headers";
 
-export const fetchGoalQuestion = async () => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-
-  return onBoardGoalQuestion;
+export const fetchGoalQuestion = async (lang: string) => {
+  if (lang === "en") return onBoardGoalQuestionEN;
+  return onBoardGoalQuestionTH;
 };
 
-export const fetchNoGoalQuestion = async () => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-  return onBoardNoGoalQuestion;
+export const fetchNoGoalQuestion = async (lang: string) => {
+  if (lang === "en") return onBoardNoGoalQuestionEN;
+  return onBoardNoGoalQuestionTH;
 };
 
 type GetJourneysResp = {
@@ -61,6 +57,7 @@ export const storeMCVPref = async (answer: Answer) => {
 
   // mock
   // TODO: Yod will provide the real data by analysing from the user's answer
+  // answer = answer from onboarding
   console.log(answer);
 
   const params = {

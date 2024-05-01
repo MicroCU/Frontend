@@ -1,17 +1,16 @@
 "use client";
-import { getUserInfo } from "@/action/mcv";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import OnboardLoading from "@/components/onboard/OnBoardLoading";
 import OnBoardModal from "@/components/onboard/OnBoardModal";
-import { useAuth } from "@/context/Auth";
 import { useOnBoard } from "@/context/Onboard";
-
-import { useTranslation } from "@/context/Translation";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@/components/ui/popover";
+import { Settings } from "lucide-react";
 
 const OnBoardContent = () => {
-  const { lang } = useTranslation();
   const { answer, page, question, isLoading } = useOnBoard();
 
   const CurrentModal = () => {
@@ -39,20 +38,18 @@ const OnBoardContent = () => {
     }
   };
 
-  const { user } = useAuth();
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-primary to-danger">
-      <h1 className="absolute top-0 left-0 bg-white">
-        {JSON.stringify(user?.id)}
-        <br />
-        {JSON.stringify(user?.name)}
-        <br />
-        {JSON.stringify(answer)}
-        <LanguageSwitcher />
-        <br></br>
-        <Link href={"/" + lang + "/example"}> go to example page </Link>
-      </h1>
+      <div className="absolute top-0 left-0">
+        <Popover>
+          <PopoverTrigger className="text-grayLight flex flex-row gap-x-2">
+            <Settings /> Language
+          </PopoverTrigger>
+          <PopoverContent className="w-fit bg-white shadow-md">
+            <LanguageSwitcher />
+          </PopoverContent>
+        </Popover>
+      </div>
       {isLoading ? <OnboardLoading /> : <CurrentModal />}
     </div>
   );

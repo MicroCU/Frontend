@@ -11,6 +11,7 @@ import {
   useContext,
   useState
 } from "react";
+import { useTranslation } from "./Translation";
 
 type OnBoardContextType = {
   page: number;
@@ -54,14 +55,15 @@ const OnBoardContextProvider = ({ children }: OnBoardContextProviderProps) => {
   const [answer, setAnswer] = useState<Answer>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [question, setQuestion] = useState<Question>([]);
+  const { lang } = useTranslation();
 
   const fetchQuestion = async (mode: OnBoardMode) => {
     setIsLoading(true);
     if (mode === OnBoardMode.GOAL) {
-      const q = await fetchGoalQuestion();
+      const q = await fetchGoalQuestion(lang);
       setQuestion(q);
     } else {
-      const q = await fetchNoGoalQuestion();
+      const q = await fetchNoGoalQuestion(lang);
       setQuestion(q);
     }
     setIsLoading(false);
