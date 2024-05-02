@@ -108,9 +108,9 @@ export default function DirectedGraph({
       }
       level++;
     }
-    let minVelocity = 100;
+    let minVelocity = 10;
     let minCount = 0;
-    while (minCount < 10) {
+    while (minCount < 100) {
       const { force, velocity } = calculateForce(
         nodes as PathNode[],
         edges as PathEdge[],

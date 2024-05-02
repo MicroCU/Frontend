@@ -112,8 +112,8 @@ export function getPathInitialNodesAndEdges(data: GroupData[]) {
         group.micros.length == 1
           ? GroupDisplay.Single
           : group.type == GroupType.Ordered
-          ? GroupDisplay.Ordered
-          : GroupDisplay.Unordered
+            ? GroupDisplay.Ordered
+            : GroupDisplay.Unordered
     });
 
     group.nexts.forEach((nextId) => {
@@ -252,10 +252,10 @@ export function calculateForce(
   generatesForce.forEach((force) => force(nodes, edges));
 
   nodes.forEach((node) => {
-    if (node.data.force!.x > 300) node.data.force!.x = 300;
-    if (node.data.force!.x < -300) node.data.force!.x = -300;
-    if (node.data.force!.y > 300) node.data.force!.y = 300;
-    if (node.data.force!.y < -300) node.data.force!.y = -300;
+    if (node.data.force!.x > 100) node.data.force!.x = 100;
+    if (node.data.force!.x < -100) node.data.force!.x = -100;
+    if (node.data.force!.y > 100) node.data.force!.y = 100;
+    if (node.data.force!.y < -100) node.data.force!.y = -100;
   });
 
   nodes.forEach((node) => {

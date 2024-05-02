@@ -14,6 +14,7 @@ type OnBoardModalProps =
     }
   | {
       variant: "radio" | "checkbox";
+      step: number;
       title: string;
       choices: string[];
     };
@@ -26,9 +27,21 @@ const OnBoardModal = (props: OnBoardModalProps) => {
       case "finish":
         return <OnboardFinish />;
       case "radio":
-        return <OnboardRadio title={props.title} choices={props.choices} />;
+        return (
+          <OnboardRadio
+            title={props.title}
+            choices={props.choices}
+            step={props.step}
+          />
+        );
       case "checkbox":
-        return <OnboardCheckbox title={props.title} choices={props.choices} />;
+        return (
+          <OnboardCheckbox
+            title={props.title}
+            choices={props.choices}
+            step={props.step}
+          />
+        );
     }
   };
   return <Modal />;
@@ -55,6 +68,7 @@ export const OnBoardModalContainer = ({
 type QuestionWrapperProps = {
   children: React.ReactNode;
   title: string;
+  step: number;
   choices: string[];
 };
 
@@ -62,10 +76,10 @@ export const QuestionWrapper = (props: QuestionWrapperProps) => {
   const { answer, addAnswer, page, nextPage, maxPage, backPage } = useOnBoard();
 
   useEffect(() => {
-    if (!answer[props.title]) {
-      addAnswer(props.title, []);
+    if (!answer[props.step]) {
+      addAnswer(props.step, []);
     }
-  }, [addAnswer, answer, props.title]);
+  }, [addAnswer, answer, props.step]);
 
   return (
     <>
@@ -85,7 +99,9 @@ export const QuestionWrapper = (props: QuestionWrapperProps) => {
           variant="ghost"
           onClick={nextPage}
         >
-          {answer[props.title]?.length === 0 ? "Skip" : "Next"}
+          {(answer[props.step] as number[] | undefined)?.length === 0
+            ? "Skip"
+            : "Next"}
         </Button>
       </div>
     </>

@@ -9,69 +9,128 @@ type onBoardWelcomeFinishType = {
   variant: "welcome" | "finish";
 };
 
-export type Answer = Record<string, string | string[]>;
+export type Answer = Record<number, number[] | number>;
 
 export type Question = (onBoardGoalQuestionType | onBoardWelcomeFinishType)[];
 
-export const onBoardNoGoalQuestion: Question = [
+// Python
+// DS
+// DA
+// ML
+
+export const onBoardNoGoalQuestionEN: Question = [
+  {
+    variant: "radio",
+    title:
+      "How interested are you in creating tools to solve everyday problems, like a program to calculate GPA ?",
+    step: 1,
+    choices: ["Not interested", "Somewhat interested", "Very interested"]
+  },
+  {
+    variant: "radio",
+    title:
+      "How interested are you in visualizing data, analyzing data, and presenting ?",
+    step: 2,
+    choices: ["Not interested", "Somewhat interested", "Very interested"]
+  },
+  {
+    variant: "radio",
+    title:
+      "The statement, 'When there is a problem, you like to analyze and find the root cause of the issue,' how well does this describe you ?",
+    step: 3,
+    choices: ["Not interested", "Somewhat interested", "Very interested"]
+  },
+  {
+    variant: "radio",
+    title:
+      "When you encounter a problem, do you prefer to develop and design systems that can learn on their own to help predict future occurrences and be used in the future when the same or similar problems arise? How accurate is this statement for you ?",
+    step: 4,
+    choices: ["Not interested", "Somewhat interested", "Very interested"]
+  }
+];
+
+export const onBoardNoGoalQuestionTH: Question = [
+  {
+    variant: "radio",
+    title:
+      "“สร้างเครื่องมือเพื่อแก้ปัญหาในชีวิตประจำวัน เช่น โปรแกรมคำนวณเกรดเฉลี่ย” คุณสนใจงานนี้แค่ไหน ?",
+    step: 1,
+    choices: ["ไม่สนใจ", "ปานกลาง", "สนใจมาก"]
+  },
+  {
+    variant: "radio",
+    title:
+      "คุณสนใจในการ visualization ข้อมูล, วิเคราะห์ข้อมูล และพรีเซ็นต์งาน มากน้อยแค่ไหน ? ",
+    step: 2,
+    choices: ["ไม่สนใจ", "ปานกลาง", "สนใจมาก"]
+  },
+  {
+    variant: "radio",
+    title:
+      "“เมื่อมีปัญหา คุณชอบที่จะวิเคราะห์หาสาเหตุที่แท้จริง (Root cause) ของปัญหา” ข้อความนี้ตรงกับคุณมากน้อยแค่ไหน ?",
+    step: 3,
+    choices: ["ไม่ตรงเลย", "ปานกลาง", "ตรงมาก"]
+  },
+  {
+    variant: "radio",
+    title:
+      "“เมื่อคุณพบปัญหา คุณเลือกที่จะพัฒนาและออกแบบระบบที่สามารถเรียนรู้ได้ด้วยตัวเอง เพื่อใช้ในการช่วยทำนายสิ่งที่จะเกิดขึ้นและเพื่อใช้ในอนาคตเมื่อปัญหานี้หรือปัญหาที่คล้ายกันถูกพบเจออีก” ข้อความนี้ตรงกับคุณมากน้อยแค่ไหน ?",
+    step: 4,
+    choices: ["ไม่สนใจ", "ปานกลาง", "สนใจมาก"]
+  }
+];
+
+export const onBoardGoalQuestionEN: Question = [
   {
     variant: "checkbox",
-    title: "What is your favorite subject?",
+    title: "What do you want to learn ?",
     step: 1,
-    choices: [
-      "Programming",
-      "Math",
-      "Physics",
-      "Social",
-      "Bio",
-      "Chemistry",
-      "English",
-      "History",
-      "Geography",
-      "Economics",
-      "Law",
-      "Health",
-      "Art",
-      "Music",
-      "Sport",
-      "Other"
-    ]
+    choices: ["Python", "Data Analysis", "Data Science", "Machine Learning"]
   },
   {
     variant: "radio",
-    title: "What do you do in free time ?",
+    title: "How much experience do you have with Python ?",
     step: 2,
     choices: [
-      "Reading",
-      "Playing games",
-      "Watching movies",
-      "Listening to music",
-      "Other"
+      "No experience at all",
+      "Some basic knowledge, but not fluent",
+      "Fluent in programming"
     ]
   },
   {
     variant: "radio",
-    title: "What is your preferred length of learning?",
+    title: "How much experience do you have with data visualization ?",
     step: 3,
     choices: [
-      "Short (less than 20 hours)",
-      "Medium (20-60 hours)",
-      "Long (more than 60 hours)"
+      "No experience at all",
+      "Some basic knowledge, but not fluent",
+      "Fluent"
     ]
   }
 ];
 
-export const onBoardGoalQuestion: Question = [
+export const onBoardGoalQuestionTH: Question = [
   {
     variant: "checkbox",
-    title: "Choose your favorite Journey",
+    title: "คุณอยากเรียนอะไร ?",
     step: 1,
-    choices: ["Programming", "Health", "Law"]
+    choices: ["Python", "Data Analysis", "Data Science", "Machine Learning"]
   },
   {
     variant: "radio",
-    title: "What is your knowledge level?",
+    title: "คุณมีพื้นฐานการเขียน Python มามากน้อยแค่ไหน ?",
     step: 2,
-    choices: ["Secondary school", "Undergraduate", "Graduate"]
+    choices: [
+      "ไม่มีพื้นฐานเลย",
+      "มีพื้นฐานมาบ้าง แต่ยังไม่คล่อง",
+      "เขียนโปรแกรมได้คล่องแล้ว"
+    ]
+  },
+  {
+    variant: "radio",
+    title: "คุณมีพื้นฐานการทำ Visualization มามากน้อยแค่ไหน ?",
+    step: 3,
+    choices: ["ไม่มีพื้นฐานเลย", "มีพื้นฐานมาบ้าง แต่ยังไม่คล่อง", "คล่องแล้ว"]
   }
 ];
+
