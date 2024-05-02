@@ -3,6 +3,7 @@ import { PathStatus } from "@/types/enum";
 import { UndirectedGraphNodeData } from "@/types/type";
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
+import React, { useRef, useEffect, useState } from "react";
 
 function CircleNode({
   id,
@@ -28,6 +29,15 @@ export interface NodeProps {
 }
 
 export function Node({ status, name }: NodeProps) {
+  const descRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+  console.log(width);
+  useEffect(() => {
+    if (descRef.current) {
+      const elementWidth = descRef.current.offsetWidth;
+      setWidth(elementWidth);
+    }
+  }, []);
   if (status === PathStatus.CURRENT_PREVIEW) {
     return (
       <div className="bg-primary w-12 h-12 rounded-full glow-selected-node" />
@@ -44,7 +54,11 @@ export function Node({ status, name }: NodeProps) {
             status === PathStatus.PASSED_TEST ? "bg-progress" : ""
           )}
         />
-        <div className="absolute bottom-30 -left-6 w-20 text-center text-xs line-clamp-2">
+        <div
+          ref={descRef}
+          className="absolute bottom-30 w-auto text-center text-xs line-clamp-2"
+          style={{left: -width / 2 + 12}}
+        >
           {name}
         </div>
       </div>
