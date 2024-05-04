@@ -31,7 +31,6 @@ export interface NodeProps {
 export function Node({ status, name }: NodeProps) {
   const descRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
-  console.log(width);
   useEffect(() => {
     if (descRef.current) {
       const elementWidth = descRef.current.offsetWidth;
@@ -57,7 +56,7 @@ export function Node({ status, name }: NodeProps) {
         <div
           ref={descRef}
           className="absolute bottom-30 w-auto text-center text-xs line-clamp-2"
-          style={{left: -width / 2 + 12}}
+          style={{ left: -width / 2 + 12 }}
         >
           {name}
         </div>

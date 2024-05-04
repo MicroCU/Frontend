@@ -56,7 +56,6 @@ export const getAccessToken = async (oauthToken: string) => {
   });
 
   const tokens: MCVAccessTokenResponse = await res.json();
-  console.log(tokens);
   cookies().set("access_token", tokens.access_token, {
     expires: new Date(Date.now() + tokens.expires_in * 1000)
   });

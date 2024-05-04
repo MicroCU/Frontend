@@ -31,11 +31,6 @@ const Home = () => {
           }}
         >
           {isViewCheckList ? <CheckList /> : <CheckListIcon />}
-          <aside className="absolute right-0 mt-4 h-40 flex-wrap text-progress Bold16">
-            For Testing <br />
-            {user?.name} <br />
-            {/* {user?.id} */}
-          </aside>
         </div>
       </div>
       <CookiePopup className="z-40" />
