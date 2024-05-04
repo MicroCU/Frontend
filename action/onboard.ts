@@ -38,7 +38,6 @@ export const checkIsOnBoard = async () => {
       }
     });
     const resp: GetJourneysResp = await data.json();
-    console.log(resp);
     if (resp.data.total > 0) return true;
   } catch (e) {
     console.log(e);
@@ -63,11 +62,6 @@ export const storeMCVPref = async (answer: Answer) => {
   }
 
   const allJourneys = await fetchALLJourney();
-  // mock
-  // TODO: Yod will provide the real data by analysing from the user's answer
-  // answer = answer from onboarding
-  console.log("All journeys: ", allJourneys);
-  console.log("Answer: ", answer);
 
   const PY = 10000;
   const ML = 20000;
@@ -184,8 +178,6 @@ export const storeMCVPref = async (answer: Answer) => {
     jid3: score[2]
   };
 
-  console.log("Params: ", params);
-
   let url = process.env.MCV_JOURNEY_POST_URL! + `?jid1=${params.jid1}`;
   if (params.jid2) {
     url += `&jid2=${params.jid2}`;
@@ -202,7 +194,6 @@ export const storeMCVPref = async (answer: Answer) => {
       }
     });
     const resp: PostJourneysResp = await data.json();
-    console.log(resp);
   } catch (e) {
     console.log(e);
   }
