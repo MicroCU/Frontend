@@ -83,7 +83,7 @@ export function PathContextProvider({
   useEffect(() => {
     handleFetchPathInfo(pathId, lang);
     handleUpdateRecentlyPath(pathId);
-  }, [pathId, lang]);
+  }, [pathId, lang, pathInfo == null]);
 
   return (
     <PathContext.Provider

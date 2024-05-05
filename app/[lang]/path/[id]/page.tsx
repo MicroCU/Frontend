@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { usePath } from "@/context/Path";
 
 export default function Path({ params }: { params: { id: string } }) {
-  const { pathInfo, setSelectedPathId } = usePath();
+  const { pathInfo, setSelectedPathId, setPathInfo } = usePath();
   const [descriptionHeight, setDescriptionHeight] = useState(0);
 
   const searchParams = useSearchParams();
@@ -18,6 +18,7 @@ export default function Path({ params }: { params: { id: string } }) {
   const zoom = searchParams.get("zoom");
 
   useEffect(() => {
+    setPathInfo(null);
     setSelectedPathId(params.id);
   }, []);
 
