@@ -173,9 +173,9 @@ export const storeMCVPref = async (answer: Answer) => {
   score = score.sort((a, b) => b.score - a.score);
 
   const params = {
-    jid1: score[0],
-    jid2: score[1],
-    jid3: score[2]
+    jid1: score[0].jid,
+    jid2: score[1].jid,
+    jid3: score[2].jid
   };
 
   let url = process.env.MCV_JOURNEY_POST_URL! + `?jid1=${params.jid1}`;
