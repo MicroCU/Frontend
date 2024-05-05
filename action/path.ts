@@ -10,7 +10,7 @@ export const updateRecentlyPath = async (id: string) => {
         throw new Error(AuthError.ERR_ACCESS_TOKEN);
     }
 
-    const res = await fetch(process.env.MCV_PATH__UPDATE_RECENT_URL! + id + "/patch", {
+    const res = await fetch(process.env.MCV_PATH_UPDATE_RECENT_URL! + id + "/patch", {
         headers: {
             Authorization: `Bearer ${accessToken.value}`
         }
