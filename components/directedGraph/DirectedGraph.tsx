@@ -149,7 +149,7 @@ export default function DirectedGraph({
       let nodeWidth = node.width || 0;
 
       const x = -node.position.x + window.innerWidth / 2 - nodeWidth / 2;
-      const y = node.position.y + 40 + descriptionHeight;
+      const y = Math.abs(node.position.y) + 40 + descriptionHeight;
       const zoom = 1;
 
       reactFlow.setViewport({ x, y, zoom }, { duration: 1000 });
