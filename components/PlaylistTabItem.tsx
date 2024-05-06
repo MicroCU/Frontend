@@ -24,7 +24,7 @@ const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
       const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${id}`;
       router.push(desiredPathUrl);
     } else {
-      router.push(testLink);
+      window.open(testLink, '_blank');
     }
   };
   return (

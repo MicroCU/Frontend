@@ -88,7 +88,9 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
       className="flex justify-between gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain"
       onClick={handleOnClick}
     >
-      <p>{data.name}</p>
+      <p>
+        <I18nTypo>{data.name}</I18nTypo>
+      </p>
       <ArrowDownToLine />
     </div>
   );
