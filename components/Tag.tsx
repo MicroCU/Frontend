@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import I18nTypo from "./ui/I18nTypo";
 
 export interface TagProps {
   title: string;
@@ -16,7 +17,8 @@ export default function Tag({ title, imageURL, className }: TagProps) {
     >
       <Image src={imageURL} width={16} height={16} alt="Category Image" />
       <p className="Medium12 overflow-hidden whitespace-nowrap overflow-ellipsis">
-        {title}
+      <I18nTypo>{title}</I18nTypo>
+        
       </p>
     </div>
   );

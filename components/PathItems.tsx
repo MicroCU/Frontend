@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import I18nTypo from "./ui/I18nTypo";
 
 export interface PathItemsProps {
   name: string;
@@ -15,7 +16,7 @@ export default function PathItems({
   return (
     <div
       className={cn(
-        "flex flex-row justify-between items-center px-3 min-h-[35px]",
+        "flex flex-row justify-between items-center px-3 min-h-[35px] cursor-pointer",
         isSelected
           ? "bg-primary text-white rounded-lg Medium16"
           : "Reg16 text-grayMain",
@@ -23,7 +24,7 @@ export default function PathItems({
       )}
     >
       <p className="overflow-hidden whitespace-nowrap overflow-ellipsis">
-        {name}
+      <I18nTypo>{name}</I18nTypo>
       </p>
       {isSelected && <ChevronRight />}
     </div>

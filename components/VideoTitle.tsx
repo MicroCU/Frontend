@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import I18nTypo from "./ui/I18nTypo";
 
 interface VideoTitleProps {
   videoName: string;
@@ -48,7 +49,9 @@ const VideoTitle: React.FC<VideoTitleProps> = ({ videoName, className }) => {
         strokeWidth={3}
         onClick={handleGoBack}
       />
-      <p className="Bold32 text-white">{videoName}</p>
+      <p className="Bold32 text-white">
+        <I18nTypo>{videoName}</I18nTypo>
+      </p>
     </div>
   );
 };

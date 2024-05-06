@@ -5,6 +5,7 @@ import { BriefPathInfo } from "@/types/type";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "@/context/Translation";
+import I18nTypo from "./ui/I18nTypo";
 
 export interface PathCardProps {
   path: BriefPathInfo;
@@ -16,8 +17,12 @@ export default function PathCard({ path }: PathCardProps) {
     <Link href={`/${lang}/path/${path.id}`}>
       <div className="flex flex-row justify-between items-center w-full">
         <div className="flex flex-col gap-y-2 w-10/12">
-          <p className="Bold16 text-black"> {path.name} </p>
-          <p className="Reg12 text-grayMain line-clamp-2">{path.description}</p>
+          <p className="Bold16 text-black">
+            <I18nTypo>{path.name}</I18nTypo>
+          </p>
+          <p className="Reg12 text-grayMain line-clamp-2">
+            <I18nTypo>{path.description}</I18nTypo>
+          </p>
           <div className="flex flex-row gap-x-2">
             {path.tags?.map((category) => (
               <Tag

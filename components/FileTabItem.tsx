@@ -5,6 +5,7 @@ import { usePath } from "@/context/Path";
 import { DocumentData } from "@/types/type";
 import { ArrowDownToLine } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import I18nTypo from "./ui/I18nTypo";
 
 interface FileTabItemProps {
   data: DocumentData;
@@ -68,7 +69,9 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
           className="flex justify-between gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain"
           onClick={handleOnClick}
         >
-          <p>{data.name}</p>
+          <p>
+            <I18nTypo>{data.name}</I18nTypo>
+          </p>
           <ArrowDownToLine />
         </div>
       </DialogTrigger>
@@ -85,7 +88,9 @@ const FileTabItem: React.FC<FileTabItemProps> = ({ data }) => {
       className="flex justify-between gap-4 cursor-pointer bg-graySmall py-2.5 px-5 rounded-lg Bold16 text-grayMain"
       onClick={handleOnClick}
     >
-      <p>{data.name}</p>
+      <p>
+        <I18nTypo>{data.name}</I18nTypo>
+      </p>
       <ArrowDownToLine />
     </div>
   );

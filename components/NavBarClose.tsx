@@ -11,7 +11,7 @@ export default function NavBarCloseMode({ setIsOpen }: NavBarCloseModeProps) {
   return (
     <div className="bg-white shadow-md h-screen w-fit flex flex-col pt-6 px-[9px] gap-y-6 justify-start items-center">
       <ArrowRight
-        className="text-grayMain"
+        className="text-grayMain cursor-pointer"
         onClick={() => setIsOpen(true)}
         size={24}
       />

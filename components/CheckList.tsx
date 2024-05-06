@@ -43,7 +43,7 @@ export default function CheckList({ className }: ICheckListProps) {
         )}
         ref={containerRef}
       >
-        <div className="flex items-center gap-x-1">
+        <div className="flex items-center gap-x-1 cursor-pointer">
           <ListTodo size={24} className="stroke-primary" />
           <I18nTypo className="Bold24 text-I18nTyporimary">
             {dict["home.checklist.title"]}

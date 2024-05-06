@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import { MicroType } from "@/types/enum";
 import { usePathname, useRouter } from "next/navigation";
+import I18nTypo from "./ui/I18nTypo";
 
 interface PlaylistTabItemProps {
   id: string;
@@ -13,7 +14,7 @@ const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
   id,
   name,
   type,
-  testLink,
+  testLink
 }) => {
   const router = useRouter();
   const pathName = usePathname();
@@ -23,20 +24,26 @@ const PlaylistTabItem: React.FC<PlaylistTabItemProps> = ({
       const desiredPathUrl = `/${pathSegments[1]}/${pathSegments[2]}/${pathSegments[3]}/video/${id}`;
       router.push(desiredPathUrl);
     } else {
-      router.push(testLink);
+      window.open(testLink, '_blank');
     }
-  }
+  };
   return (
     <div className="flex  gap-4 cursor-pointer" onClick={handleRoute}>
       <div className="bg-primary min-w-[150px] h-[90px]">
         <img
-          src={type === MicroType.Video ? "/defaultVideoImage.svg" : "/defaultTestImage.svg"}
+          src={
+            type === MicroType.Video
+              ? "/defaultVideoImage.svg"
+              : "/defaultTestImage.svg"
+          }
           alt="Video Thumbnail"
           className="w-full h-full object-cover"
         />
       </div>
       <div className="w-full Bold16 flex items-center">
-        <p>{name}</p>
+        <p>
+          <I18nTypo>{name}</I18nTypo>
+        </p>
       </div>
     </div>
   );

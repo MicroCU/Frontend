@@ -4,6 +4,7 @@ import { UndirectedGraphNodeData } from "@/types/type";
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
 import React, { useRef, useEffect, useState } from "react";
+import I18nTypo from "../ui/I18nTypo";
 
 function CircleNode({
   id,
@@ -58,7 +59,7 @@ export function Node({ status, name }: NodeProps) {
           className="absolute bottom-30 w-auto text-center text-xs line-clamp-2"
           style={{ left: -width / 2 + 12 }}
         >
-          {name}
+          <I18nTypo>{name}</I18nTypo>
         </div>
       </div>
     );

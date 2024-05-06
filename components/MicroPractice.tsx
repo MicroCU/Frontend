@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { MicroType } from "@/types/enum";
 import { Micro } from "@/types/path";
 import MicroContextMenu from "./MicroContextMenu";
+import I18nTypo from "./ui/I18nTypo";
 
 interface MicroPracticeProps {
   data: Micro;
@@ -18,7 +19,9 @@ export default function MicroPractice({ data, className }: MicroPracticeProps) {
           className
         )}
       >
-        <p className="break-words">{data.name}</p>
+        <p className="break-words">
+          <I18nTypo>{data.name}</I18nTypo>
+        </p>
       </div>
     </MicroContextMenu>
   );

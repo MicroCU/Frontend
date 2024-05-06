@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Micro } from "@/types/path";
 import MicroContextMenu from "./MicroContextMenu";
 import { MicroType } from "@/types/enum";
+import I18nTypo from "./ui/I18nTypo";
 
 interface MicroTestProps {
   data: Micro;
@@ -30,7 +31,9 @@ export default function MicroTest({ data, className }: MicroTestProps) {
               className
             )}
           >
-            <p className="break-words">{data.name}</p>
+            <p className="break-words">
+              <I18nTypo>{data.name}</I18nTypo>
+            </p>
           </div>
         </div>
       </a>
