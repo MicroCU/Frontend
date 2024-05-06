@@ -6,6 +6,7 @@ type OnBoardRadioProps = {
   title: string;
   step: number;
   choices: string[];
+  required: boolean;
 };
 
 const OnboardRadio = (props: OnBoardRadioProps) => {
@@ -16,6 +17,7 @@ const OnboardRadio = (props: OnBoardRadioProps) => {
         title={props.title}
         choices={props.choices}
         step={props.step}
+        required={props.required}
       >
         <div className="space-y-6 max-h-[200px] overflow-y-auto">
           {props.choices.map((c, index) => {

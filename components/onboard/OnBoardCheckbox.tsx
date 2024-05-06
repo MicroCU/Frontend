@@ -6,6 +6,7 @@ type OnBoardCheckboxProps = {
   title: string;
   step: number;
   choices: string[];
+  required: boolean;
 };
 
 const OnboardCheckbox = (props: OnBoardCheckboxProps) => {
@@ -16,6 +17,7 @@ const OnboardCheckbox = (props: OnBoardCheckboxProps) => {
         title={props.title}
         choices={props.choices}
         step={props.step}
+        required={props.required}
       >
         <div className="grid grid-cols-2 gap-y-4 gap-x-6 max-h-[200px] overflow-y-auto">
           {props.choices.map((c, index) => {

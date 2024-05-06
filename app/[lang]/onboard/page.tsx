@@ -32,6 +32,7 @@ const OnBoardContent = () => {
                 variant={q.variant}
                 title={q.title}
                 choices={q.choices}
+                required={q.required}
               />
             );
           }
