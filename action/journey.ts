@@ -78,24 +78,3 @@ export const fetchSearch = async (searchText: string, lang: string) => {
         msg: res.statusText
     }
 }
-
-export const fetchALLJourney = async () => {
-    const accessToken = cookies().get("access_token");
-
-    if (!accessToken) {
-        throw new Error(AuthError.ERR_ACCESS_TOKEN);
-    }
-
-    const res = await fetch(process.env.MCV_JOURNEY_ALL_URL!, {
-        headers: {
-            Authorization: `Bearer ${accessToken.value}`
-        }
-    });
-    if (res.status === 200) {
-        const resp = await res.json();
-        return resp.data as JourneyALLData[]
-    }
-    return {
-        msg: res.statusText
-    }
-}

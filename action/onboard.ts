@@ -1,23 +1,19 @@
 "use server";
 import { AuthError } from "@/constants/error";
+
+import { cookies } from "next/headers";
 import {
   Answer,
-  onBoardGoalQuestionEN,
-  onBoardGoalQuestionTH,
-  onBoardNoGoalQuestionEN,
-  onBoardNoGoalQuestionTH
+  onBoardGoalQuestion,
+  onBoardNoGoalQuestion
 } from "@/constants/onboard";
-import { cookies } from "next/headers";
-import { fetchALLJourney } from "./journey";
 
-export const fetchGoalQuestion = async (lang: string) => {
-  if (lang === "en") return onBoardGoalQuestionEN;
-  return onBoardGoalQuestionTH;
+export const fetchGoalQuestion = async () => {
+  return onBoardGoalQuestion;
 };
 
-export const fetchNoGoalQuestion = async (lang: string) => {
-  if (lang === "en") return onBoardNoGoalQuestionEN;
-  return onBoardNoGoalQuestionTH;
+export const fetchNoGoalQuestion = async () => {
+  return onBoardNoGoalQuestion;
 };
 
 type GetJourneysResp = {
@@ -61,17 +57,17 @@ export const storeMCVPref = async (answer: Answer) => {
     throw new Error(AuthError.ERR_ACCESS_TOKEN);
   }
 
-  const allJourneys = await fetchALLJourney();
-
   const PY = 10000;
   const ML = 20000;
   const DS = 30000;
   const DA = 40000;
+  const APY = 50000;
 
   let score: JourneyScore[] = [
     { score: 2, jid: PY },
     { score: 1, jid: DS },
     { score: 1, jid: DA },
+    { score: 1, jid: APY },
     { score: 0, jid: ML }
   ];
 
@@ -86,8 +82,10 @@ export const storeMCVPref = async (answer: Answer) => {
       score[index].score += 3;
     }
     if (answer[1] == 2) {
-      let index = score.findIndex((s) => s.jid === PY);
-      score[index].score += 4;
+      let indexPY = score.findIndex((s) => s.jid === PY);
+      let indexAPY = score.findIndex((s) => s.jid === APY);
+      score[indexPY].score += 4;
+      score[indexAPY].score += 2;
     }
 
     if (answer[2] == 0) {
@@ -131,14 +129,18 @@ export const storeMCVPref = async (answer: Answer) => {
       score[index].score += 3;
     }
     if ((answer[1] as number[]).includes(1)) {
-      let index = score.findIndex((s) => s.jid === DS);
+      let index = score.findIndex((s) => s.jid === APY);
       score[index].score += 3;
     }
     if ((answer[1] as number[]).includes(2)) {
-      let index = score.findIndex((s) => s.jid === DA);
+      let index = score.findIndex((s) => s.jid === DS);
       score[index].score += 3;
     }
     if ((answer[1] as number[]).includes(3)) {
+      let index = score.findIndex((s) => s.jid === DA);
+      score[index].score += 3;
+    }
+    if ((answer[1] as number[]).includes(4)) {
       let index = score.findIndex((s) => s.jid === ML);
       score[index].score += 3;
     }
@@ -148,12 +150,14 @@ export const storeMCVPref = async (answer: Answer) => {
       score[index].score += 2;
     }
     if (answer[2] == 1) {
-      let index = score.findIndex((s) => s.jid === PY);
-      score[index].score += 1;
+      let indexPY = score.findIndex((s) => s.jid === PY);
+      let indexAPY = score.findIndex((s) => s.jid === APY);
+      score[indexPY].score += 1;
+      score[indexAPY].score += 1;
     }
     if (answer[2] == 2) {
-      let index = score.findIndex((s) => s.jid === PY);
-      score[index].score -= 3;
+      let index = score.findIndex((s) => s.jid === APY);
+      score[index].score += 2;
     }
 
     if (answer[3] == 0) {

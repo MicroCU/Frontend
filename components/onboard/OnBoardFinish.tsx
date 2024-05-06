@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { storeMCVPref } from "@/action/onboard";
 
 const OnboardFinish = () => {
-  const { dict } = useTranslation();
+  const { dict, lang } = useTranslation();
   const { maxPage, answer } = useOnBoard();
   return (
     <OnBoardModalContainer>
@@ -26,7 +26,7 @@ const OnboardFinish = () => {
           className="w-fit"
           onClick={() => {
             storeMCVPref(answer);
-            window.location.href = "/en";
+            window.location.href = "/" + lang;
           }}
         >
           {dict["onboard.finish.button"]}

@@ -17,6 +17,7 @@ type OnBoardModalProps =
       step: number;
       title: string;
       choices: string[];
+      required: boolean;
     };
 
 const OnBoardModal = (props: OnBoardModalProps) => {
@@ -32,6 +33,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
             title={props.title}
             choices={props.choices}
             step={props.step}
+            required={props.required}
           />
         );
       case "checkbox":
@@ -40,6 +42,7 @@ const OnBoardModal = (props: OnBoardModalProps) => {
             title={props.title}
             choices={props.choices}
             step={props.step}
+            required={props.required}
           />
         );
     }
@@ -70,6 +73,7 @@ type QuestionWrapperProps = {
   title: string;
   step: number;
   choices: string[];
+  required: boolean;
 };
 
 export const QuestionWrapper = (props: QuestionWrapperProps) => {
@@ -80,6 +84,8 @@ export const QuestionWrapper = (props: QuestionWrapperProps) => {
       addAnswer(props.step, []);
     }
   }, [addAnswer, answer, props.step]);
+
+  const isAnswered = (answer[props.step] as number[] | undefined)?.length === 0;
 
   return (
     <>
@@ -98,10 +104,9 @@ export const QuestionWrapper = (props: QuestionWrapperProps) => {
           className="w-fit self-end Bold16 text-grayMain"
           variant="ghost"
           onClick={nextPage}
+          disabled={props.required && isAnswered}
         >
-          {(answer[props.step] as number[] | undefined)?.length === 0
-            ? "Skip"
-            : "Next"}
+          {isAnswered ? "Skip" : "Next"}
         </Button>
       </div>
     </>

@@ -60,10 +60,10 @@ const OnBoardContextProvider = ({ children }: OnBoardContextProviderProps) => {
   const fetchQuestion = async (mode: OnBoardMode) => {
     setIsLoading(true);
     if (mode === OnBoardMode.GOAL) {
-      const q = await fetchGoalQuestion(lang);
+      const q = await fetchGoalQuestion();
       setQuestion(q);
     } else {
-      const q = await fetchNoGoalQuestion(lang);
+      const q = await fetchNoGoalQuestion();
       setQuestion(q);
     }
     setIsLoading(false);
