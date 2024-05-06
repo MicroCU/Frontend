@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "@/context/Translation";
+import I18nTypo from "./ui/I18nTypo";
 
 export default function LanguageSwitcher() {
   const { setLang } = useTranslation();
@@ -31,7 +32,7 @@ export default function LanguageSwitcher() {
                 setLang(localeName);
               }}
             >
-              {getSettingLanguageName(localeName)}
+              <I18nTypo>{getSettingLanguageName(localeName)}</I18nTypo>
             </Link>
             {index !== i18n.locales.length - 1 && (
               <Separator orientation="vertical" />

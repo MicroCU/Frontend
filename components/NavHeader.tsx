@@ -15,7 +15,7 @@ const NavHeader = ({ setIsOpen }: NavHeaderProps) => {
       </div>
       <LanguageSwitcher />
       <ArrowLeft
-        className="text-grayMain"
+        className="text-grayMain cursor-pointer"
         onClick={() => {
           setIsOpen(false);
         }}

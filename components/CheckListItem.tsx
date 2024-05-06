@@ -1,4 +1,5 @@
 import { RadialProgress } from "./RadialProgress";
+import I18nTypo from "./ui/I18nTypo";
 
 export interface ICheckListItem {
   journeyName: string;
@@ -21,7 +22,7 @@ export function CheckListItem({
       </div>
       <div className="flex flex-col gap-y-2 justify-center items-start w-3/5">
         <p className="Bold16 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
-          {journeyName}
+          <I18nTypo>{journeyName}</I18nTypo>
         </p>
         <div className="w-full pl-2">
           {paths.map((path, index) => (
@@ -29,7 +30,7 @@ export function CheckListItem({
               className="RegUnderline12 text-grayMedium overflow-hidden whitespace-nowrap overflow-ellipsis"
               key={index}
             >
-              {path}
+              <I18nTypo>{path}</I18nTypo>
             </li>
           ))}
         </div>
