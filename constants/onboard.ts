@@ -17,6 +17,7 @@ export type Answer = Record<number, number[] | number>;
 export type Question = (onBoardGoalQuestionType | onBoardWelcomeFinishType)[];
 
 // Python
+// Advanced Python
 // DS
 // DA
 // ML
@@ -51,7 +52,7 @@ export const onBoardNoGoalQuestion: Question = [
     title_th:
       "“เมื่อมีปัญหา คุณชอบที่จะวิเคราะห์หาสาเหตุที่แท้จริง (Root cause) ของปัญหา” ข้อความนี้ตรงกับคุณมากน้อยแค่ไหน ?",
     step: 3,
-    choices_en: ["Not interested", "Somewhat interested", "Very interested"],
+    choices_en: ["Not at all", "Somewhat", "Very much"],
     choices_th: ["ไม่ตรงเลย", "ปานกลาง", "ตรงมาก"],
     required: true
   },
@@ -62,8 +63,8 @@ export const onBoardNoGoalQuestion: Question = [
     title_th:
       "“เมื่อคุณพบปัญหา คุณเลือกที่จะพัฒนาและออกแบบระบบที่สามารถเรียนรู้ได้ด้วยตัวเอง เพื่อใช้ในการช่วยทำนายสิ่งที่จะเกิดขึ้นและเพื่อใช้ในอนาคตเมื่อปัญหานี้หรือปัญหาที่คล้ายกันถูกพบเจออีก” ข้อความนี้ตรงกับคุณมากน้อยแค่ไหน ?",
     step: 4,
-    choices_en: ["Not interested", "Somewhat interested", "Very interested"],
-    choices_th: ["ไม่สนใจ", "ปานกลาง", "สนใจมาก"],
+    choices_en: ["Not at all", "Somewhat", "Very much"],
+    choices_th: ["ไม่ตรงเลย", "ปานกลาง", "ตรงมาก"],
     required: true
   }
 ];
@@ -74,8 +75,8 @@ export const onBoardGoalQuestion: Question = [
     title_en: "What do you want to learn ?",
     title_th: "คุณอยากเรียนอะไร ?",
     step: 1,
-    choices_en: ["Python", "Data Analysis", "Data Science", "Machine Learning"],
-    choices_th: ["Python", "Data Analysis", "Data Science", "Machine Learning"],
+    choices_en: ["Python", "Advanced Python", "Data Analysis", "Data Science", "Machine Learning"],
+    choices_th: ["Python", "Advanced Python", "Data Analysis", "Data Science", "Machine Learning"],
     required: true
   },
   {
