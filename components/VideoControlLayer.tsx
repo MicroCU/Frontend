@@ -7,7 +7,7 @@ import VideoTab from "./VideoTab";
 import VideoChoice from "./VideoChoice";
 import { cn } from "@/lib/utils";
 import { VideoTabType } from "@/types/enum";
-import { MicroData } from "@/types/type";
+import { DocumentData, MicroData } from "@/types/type";
 import { usePath } from "@/context/Path";
 import { getNextMicro, getPathInitialNodesAndEdges } from "@/utils/path";
 import { useTranslation } from "@/context/Translation";
@@ -58,8 +58,15 @@ const VideoControlLayer = ({
   const playlistData = pathInfo?.groups
     .flatMap((group) => group.micros)
     .filter((micro) => micro.id !== microData.id)
-    .map(({ id, name, type, test }) => ({ id, name, type, link: test?.link || "" }));
-  const fileData = microData.documents;
+    .map(({ id, name, type, test }) => ({
+      id,
+      name,
+      type,
+      link: test?.link || ""
+    }));
+  const fileData = microData.documents
+    ? filterEmptyFile(microData.documents)
+    : [];
   const choiceData = getNextMicro(microData.id, initialNodes, initialEdges);
 
   const [currentVideoTab, setCurrentVideoTab] = useState<VideoTabType>(
@@ -84,7 +91,7 @@ const VideoControlLayer = ({
         videoName={videoName}
         currentTab={currentVideoTab}
         videoTabHandle={videoTabHandle}
-        isFile={fileData ? true : false}
+        isFile={fileData && fileData.length > 0 ? true : false}
         isPlaylist={playlistData ? true : false}
         className="bg-gradient-to-b from-black"
       />
@@ -105,7 +112,7 @@ const VideoControlLayer = ({
           />
         )}
 
-        {fileData && (
+        {fileData && fileData.length > 0 && (
           <VideoTab.VideoFileTab
             data={fileData}
             className={cn(
@@ -121,7 +128,10 @@ const VideoControlLayer = ({
           <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
             {choiceData.map((item) => (
               <VideoChoice
-                choiceName={item.video?.decisionTitle || dict["micro.videoChoice.goto"] + " " + item.name}
+                choiceName={
+                  item.video?.decisionTitle ||
+                  dict["micro.videoChoice.goto"] + " " + item.name
+                }
                 microId={item.id}
                 microType={item.type}
                 testLink={item.test?.link || ""}
@@ -151,3 +161,7 @@ const VideoControlLayer = ({
 };
 
 export default VideoControlLayer;
+
+const filterEmptyFile = (fileData: DocumentData[]) => {
+  return fileData.filter((obj) => Object.keys(obj).length !== 0);
+};
