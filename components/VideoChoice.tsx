@@ -33,7 +33,10 @@ const VideoChoice: React.FC<VideoChoiceProps> = ({
   return (
     <Button
       className="bg-white text-grayMain hover:bg-primary hover:text-white Bold24 w-[530px] py-6"
-      onClick={handleRoute}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleRoute();
+      }}
     >
       <I18nTypo>{choiceName}</I18nTypo>
     </Button>
