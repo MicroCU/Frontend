@@ -1,23 +1,20 @@
 "use server";
 import { AuthError } from "@/constants/error";
-import {
-  Answer,
-  onBoardGoalQuestionEN,
-  onBoardGoalQuestionTH,
-  onBoardNoGoalQuestionEN,
-  onBoardNoGoalQuestionTH
-} from "@/constants/onboard";
+
 import { cookies } from "next/headers";
 import { fetchALLJourney } from "./journey";
+import {
+  Answer,
+  onBoardGoalQuestion,
+  onBoardNoGoalQuestion
+} from "@/constants/onboard";
 
-export const fetchGoalQuestion = async (lang: string) => {
-  if (lang === "en") return onBoardGoalQuestionEN;
-  return onBoardGoalQuestionTH;
+export const fetchGoalQuestion = async () => {
+  return onBoardGoalQuestion;
 };
 
-export const fetchNoGoalQuestion = async (lang: string) => {
-  if (lang === "en") return onBoardNoGoalQuestionEN;
-  return onBoardNoGoalQuestionTH;
+export const fetchNoGoalQuestion = async () => {
+  return onBoardNoGoalQuestion;
 };
 
 type GetJourneysResp = {

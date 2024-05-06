@@ -9,9 +9,12 @@ import {
   PopoverTrigger
 } from "@/components/ui/popover";
 import { Settings } from "lucide-react";
+import { useTranslation } from "@/context/Translation";
 
 const OnBoardContent = () => {
   const { page, question, isLoading } = useOnBoard();
+
+  const { lang } = useTranslation();
 
   const CurrentModal = () => {
     switch (page) {
@@ -30,8 +33,8 @@ const OnBoardContent = () => {
                 step={q.step}
                 key={index}
                 variant={q.variant}
-                title={q.title}
-                choices={q.choices}
+                title={lang === "en" ? q.title_en : q.title_th}
+                choices={lang === "en" ? q.choices_en : q.choices_th}
                 required={q.required}
               />
             );
