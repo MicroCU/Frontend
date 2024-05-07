@@ -39,7 +39,7 @@ export const onBoardNoGoalQuestion: Question = [
     title_en:
       "How interested are you in visualizing data, analyzing data, and presenting ?",
     title_th:
-      "คุณสนใจในการ visualization ข้อมูล, วิเคราะห์ข้อมูล และพรีเซ็นต์งาน มากน้อยแค่ไหน ? ",
+      "คุณสนใจในการสร้างกราฟเพื่อสรุปและตีความข้อมูล, วิเคราะห์ข้อมูล และพรีเซ็นต์งาน มากน้อยแค่ไหน ? ",
     step: 2,
     choices_en: ["Not interested", "Somewhat interested", "Very interested"],
     choices_th: ["ไม่สนใจ", "ปานกลาง", "สนใจมาก"],
@@ -50,7 +50,7 @@ export const onBoardNoGoalQuestion: Question = [
     title_en:
       "The statement, 'When there is a problem, you like to analyze and find the root cause of the issue,' how well does this describe you ?",
     title_th:
-      "“เมื่อมีปัญหา คุณชอบที่จะวิเคราะห์หาสาเหตุที่แท้จริง (Root cause) ของปัญหา” ข้อความนี้ตรงกับคุณมากน้อยแค่ไหน ?",
+      "“เมื่อมีปัญหา คุณชอบที่จะวิเคราะห์หาสาเหตุที่แท้จริงของปัญหา” ข้อความนี้ตรงกับคุณมากน้อยแค่ไหน ?",
     step: 3,
     choices_en: ["Not at all", "Somewhat", "Very much"],
     choices_th: ["ไม่ตรงเลย", "ปานกลาง", "ตรงมาก"],
@@ -81,25 +81,25 @@ export const onBoardGoalQuestion: Question = [
   },
   {
     variant: "radio",
-    title_en: "How much experience do you have with Python ?",
-    title_th: "คุณมีพื้นฐานการเขียน Python มามากน้อยแค่ไหน ?",
+    title_en: "Have you ever learned Python before ?",
+    title_th: "คุณเคยเรียน Python มาก่อนไหม ?",
     step: 2,
     choices_en: [
-      "No experience at all",
-      "Some basic knowledge, but not fluent",
-      "Fluent in programming"
+      "Never learned",
+      "Learned but never used it seriously",
+      "Learned and used it seriously"
     ],
     choices_th: [
-      "ไม่มีพื้นฐานเลย",
-      "มีพื้นฐานมาบ้าง แต่ยังไม่คล่อง",
-      "เขียนโปรแกรมได้คล่องแล้ว"
+      "ไม่เคยเรียน",
+      "เคยเรียน แต่ไม่เคยใช้ในการทำงานจริงจัง",
+      "เคยเรียน และใช้ในการทำงานจริง ๆ"
     ],
     required: true
   },
   {
     variant: "radio",
     title_en: "How much experience do you have with data visualization ?",
-    title_th: "คุณมีพื้นฐานการทำ Visualization มามากน้อยแค่ไหน ?",
+    title_th: "คุณมีพื้นฐานการสร้างกราฟเพื่อสรุปและตีความข้อมูล มามากน้อยแค่ไหน ?",
     step: 3,
     choices_en: [
       "No experience at all",
