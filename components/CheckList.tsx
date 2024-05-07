@@ -38,7 +38,7 @@ export default function CheckList({ className }: ICheckListProps) {
     >
       <div
         className={cn(
-          "flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[250px] overflow-y-auto effect-default",
+          "flex flex-col gap-y-4 bg-white p-6 rounded-lg w-[350px] overflow-y-auto effect-default",
           className
         )}
         ref={containerRef}
@@ -50,7 +50,7 @@ export default function CheckList({ className }: ICheckListProps) {
           </I18nTypo>
         </div>
         {journeys && checkIfAllCompleted(journeys) ? (
-          <div className="w-[200px] h-full flex justify-center items-center">
+          <div className="h-full flex justify-center items-center">
             <I18nTypo className="Reg12">
               {dict["home.checklist.complete"]}
             </I18nTypo>
@@ -66,7 +66,12 @@ export default function CheckList({ className }: ICheckListProps) {
             <CheckListItem
               key={index}
               journeyName={journey.name}
-              paths={journey.paths.data.map((path) => path.name)}
+              paths={journey.paths.data.map((path) => {
+                return {
+                  id: path.id,
+                  name: path.name
+                };
+              })}
               progress={journey.progress}
             />
           ))
