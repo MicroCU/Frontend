@@ -32,7 +32,9 @@ export default function JourneyItem({ id, name, paths }: JourneyData) {
               <ChevronRight className="h-4 w-4" strokeWidth={3} size={16} />
             )}
           </div>
-          <span className="break-words max-w-60"><I18nTypo>{name}</I18nTypo></span>
+          <span className="break-words max-w-60">
+            <I18nTypo>{name}</I18nTypo>
+          </span>
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent>

@@ -4,16 +4,18 @@ import { useState } from "react";
 import SelectedPathModal from "@/components/SelectedPathModal";
 import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
-import { JourneyGraphContextProvider } from "@/context/JourneysGraph";
 import Flow from "@/components/undirectedGraph/Flow";
 import CookiePopup from "@/components/CookiePopup";
 import { useAuth } from "@/context/Auth";
+import { useJourneyGraph } from "@/context/JourneysGraph";
+import { MenuTab } from "@/types/enum";
 
 const Home = () => {
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
+  const { selectedTab } = useJourneyGraph();
   const { user } = useAuth();
   return (
-    <JourneyGraphContextProvider>
+    <>
       <div className="flex min-h-screen bg-grayLight">
         <div className="z-40">
           <NavBar />
@@ -30,11 +32,15 @@ const Home = () => {
             setIsViewCheckList(!isViewCheckList);
           }}
         >
-          {isViewCheckList ? <CheckList /> : <CheckListIcon />}
+          {selectedTab == MenuTab.journey ? (
+            <>{isViewCheckList ? <CheckList /> : <CheckListIcon />}</>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <CookiePopup className="z-40" />
-    </JourneyGraphContextProvider>
+    </>
   );
 };
 
