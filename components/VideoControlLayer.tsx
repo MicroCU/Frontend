@@ -125,7 +125,7 @@ const VideoControlLayer = ({
         )}
 
         {videoState.ended && choiceData && (
-          <div className="absolute bottom-16 w-full flex justify-center gap-10 px-20">
+          <div className="absolute bottom-16 w-full flex justify-center gap-10 px-10">
             {choiceData.map((item) => (
               <VideoChoice
                 choiceName={

@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { MicroType } from "@/types/enum";
 import I18nTypo from "./ui/I18nTypo";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 interface VideoChoiceProps {
   choiceName: string;
@@ -31,15 +32,24 @@ const VideoChoice: React.FC<VideoChoiceProps> = ({
   };
 
   return (
-    <Button
-      className="bg-white text-grayMain hover:bg-primary hover:text-white Bold24 w-[530px] py-6"
-      onClick={(e) => {
-        e.stopPropagation();
-        handleRoute();
-      }}
-    >
-      <I18nTypo>{choiceName}</I18nTypo>
-    </Button>
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <Button
+          className="bg-white text-grayMain hover:bg-primary hover:text-white Bold24 w-[23%] py-6 px-6"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleRoute();
+          }}
+        >
+          <I18nTypo className="truncate leading-normal">{choiceName}</I18nTypo>
+        </Button>
+      </HoverCardTrigger>
+      <HoverCardContent className="p-0 border-none w-full">
+        <div className="bg-white p-3 rounded-sm opacity-90">
+          <I18nTypo className="text-grayMain Reg14">{choiceName}</I18nTypo>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
   );
 };
 
