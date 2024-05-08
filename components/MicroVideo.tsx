@@ -52,9 +52,7 @@ export default function MicroVideo({
           }}
         >
           <div className="w-fit h-full px-5 py-3 text-center Bold16 flex items-center justify-center max-w-52">
-            <p className="break-words">
-              <I18nTypo>{data.name}</I18nTypo>
-            </p>
+            <I18nTypo className="break-words">{data.name}</I18nTypo>
           </div>
           {data.progress > 0 && data.progress <= 100 && (
             <div
