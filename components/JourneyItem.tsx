@@ -46,7 +46,7 @@ export default function JourneyItem({ id, name, paths }: JourneyData) {
             }}
             className={cn(
               "ml-5",
-              index !== paths.data.length - 1 ? "my-2" : ""
+              index !== paths.data.length ? "my-2" : ""
             )}
           >
             <PathItems
