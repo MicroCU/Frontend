@@ -7,7 +7,7 @@ import { useTranslation } from "@/context/Translation";
 import I18nTypo from "./ui/I18nTypo";
 
 export default function LanguageSwitcher() {
-  const { setLang } = useTranslation();
+  const { lang, setLang } = useTranslation();
   const pathName = usePathname();
   const redirectedPathName = (locale: Locale) => {
     if (!pathName) return "/";
@@ -24,15 +24,13 @@ export default function LanguageSwitcher() {
             <Link
               href={redirectedPathName(localeName)}
               className={`${
-                pathName.split("/")[1] === localeName
-                  ? "text-primary"
-                  : "text-black"
+                lang === localeName ? "text-primary" : "text-black"
               } px-2`}
               onClick={() => {
                 setLang(localeName);
               }}
             >
-              <I18nTypo>{getSettingLanguageName(localeName)}</I18nTypo>
+              <I18nTypo> {getSettingLanguageName(localeName)} </I18nTypo>
             </Link>
             {index !== i18n.locales.length - 1 && (
               <Separator orientation="vertical" />

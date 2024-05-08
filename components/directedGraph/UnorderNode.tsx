@@ -3,6 +3,7 @@ import { memo, useRef } from "react";
 import { Handle, Position } from "reactflow";
 import Micro from "../Micro";
 import { useOverflowDetectionWithMicrosWidth } from "@/hooks/Overflow";
+import I18nTypo from "../ui/I18nTypo";
 
 function UnorderedGroup({ id, data }: { id: string; data: Group }) {
   const titleWidthRef = useRef<HTMLDivElement>(null);
@@ -17,8 +18,8 @@ function UnorderedGroup({ id, data }: { id: string; data: Group }) {
         className="pl-4 pr-4 w-fit uppercase Bold16 text-progress"
         style={{ maxWidth: microsWidth + "px" }}
       >
-        <div className="break-words" ref={titleWidthRef}>
-          {data.name}
+        <div ref={titleWidthRef}>
+          <I18nTypo className="break-words"> {data.name} </I18nTypo>
         </div>
       </div>
       <div
