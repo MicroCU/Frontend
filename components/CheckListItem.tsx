@@ -35,7 +35,7 @@ export function CheckListItem({
               className="RegUnderline12 text-grayMedium overflow-hidden whitespace-nowrap overflow-ellipsis mb-2"
               key={index}
             >
-              <Link href={path.id}>
+              <Link href={"/path/" + path.id}>
                 <I18nTypo className="inline">{path.name}</I18nTypo>
               </Link>
             </li>
