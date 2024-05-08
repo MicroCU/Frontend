@@ -23,9 +23,9 @@ export default function PathItems({
         className
       )}
     >
-      <p className="overflow-hidden whitespace-nowrap overflow-ellipsis">
-      <I18nTypo>{name}</I18nTypo>
-      </p>
+      <I18nTypo className="overflow-hidden whitespace-nowrap overflow-ellipsis">
+        {name}
+      </I18nTypo>
       {isSelected && <ChevronRight />}
     </div>
   );
