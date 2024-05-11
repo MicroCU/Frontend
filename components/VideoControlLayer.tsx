@@ -14,7 +14,7 @@ import { useTranslation } from "@/context/Translation";
 
 interface VideoControlLayerProps {
   videoName: string;
-  onPlayPause: () => void;
+  onPlayPause: (playing?: boolean) => void;
   onSeek: (value: number[]) => void;
   onSeekMouseUp: (value: number[]) => void;
   onVolumeChangeHandler: (value: number[]) => void;
@@ -78,8 +78,15 @@ const VideoControlLayer = ({
       setCurrentVideoTab(VideoTabType.HIDE);
     } else {
       setCurrentVideoTab(currentTab);
+      onPlayPause(false);
     }
   };
+
+  useEffect(() => {
+    if (isHidden) {
+      setCurrentVideoTab(VideoTabType.HIDE);
+    }
+  }, [isHidden]);
 
   return (
     <div
@@ -97,7 +104,7 @@ const VideoControlLayer = ({
       />
       <div
         className="h-full overflow-hidden flex justify-center items-center relative"
-        onClick={onPlayPause}
+        onClick={() => onPlayPause()}
       >
         {videoState.buffer && videoState.playing && <LoadingSpinner />}
         {playlistData && (
