@@ -111,12 +111,20 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
 
   const formatDuration = formatTime(duration);
 
-  const playPauseHandler = () => {
-    setVideoState({
-      ...videoState,
-      playing: !videoState.playing,
-      ended: false
-    });
+  const playPauseHandler = (playing?: boolean) => {
+    if (playing !== undefined) {
+      setVideoState({
+        ...videoState,
+        playing: playing,
+        ended: false
+      });
+    } else {
+      setVideoState({
+        ...videoState,
+        playing: !videoState.playing,
+        ended: false
+      });
+    }
   };
 
   const rewindHandler = () => {
