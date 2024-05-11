@@ -39,6 +39,7 @@ const VideoPlaylistTab: React.FC<VideoPlaylistTabProps> = ({
         className={`flex flex-col gap-4 `}
         onClick={(e) => e.stopPropagation()}
       >
+        <p className="Bold16">Path Playlist</p>
         {data.map((item, index) => (
           <PlaylistTabItem
             key={index}
