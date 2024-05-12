@@ -29,8 +29,6 @@ export default function CheckList({ className }: ICheckListProps) {
     }
   }, [journeys]);
 
-  console.log(journeys);
-
   return (
     <ScrollArea
       className={cn(
