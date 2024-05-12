@@ -14,6 +14,7 @@
   "home.selectedPathModal.button": "Go to path",
   "home.checklist.title": "Checklist",
   "home.checklist.complete": "All Journeys are accomplished",
+  "home.checklist.noprogress": "No progress yet, let's start learning some path!", 
   "home.searchbar.placeholder": "Search for paths",
   "home.searchbar.noresult": "No results found",
   "home.recently.noresult": "No recently paths",

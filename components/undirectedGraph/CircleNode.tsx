@@ -40,7 +40,16 @@ export function Node({ status, name }: NodeProps) {
   }, []);
   if (status === PathStatus.CURRENT_PREVIEW) {
     return (
-      <div className="bg-primary w-12 h-12 rounded-full glow-selected-node" />
+      <>
+        <div className="bg-primary w-12 h-12 rounded-full glow-selected-node" />
+        <div
+          ref={descRef}
+          className="absolute w-[120px] text-center text-xs mt-2"
+          style={{ left: -width / 2 + 20 }}
+        >
+          <I18nTypo>{name}</I18nTypo>
+        </div>
+      </>
     );
   } else {
     return (
@@ -56,7 +65,7 @@ export function Node({ status, name }: NodeProps) {
         />
         <div
           ref={descRef}
-          className="absolute bottom-30 w-auto text-center text-xs line-clamp-2"
+          className="absolute w-[120px] text-center text-xs mt-2"
           style={{ left: -width / 2 + 12 }}
         >
           <I18nTypo>{name}</I18nTypo>

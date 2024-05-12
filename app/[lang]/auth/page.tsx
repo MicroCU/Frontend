@@ -1,18 +1,19 @@
-import { Metadata } from "next";
 import LoginPanel from "./LoginPanel";
 import Link from "next/link";
-
-export const metadata: Metadata = {
-  title: "Login",
-  description: "Login"
-};
 
 const LoginPage = () => {
   return (
     <div className="container relative h-screen flex-col items-center justify-center sm:grid lg:max-w-none lg:grid-cols-5 lg:px-0">
       <div className="col-span-2">
-        <div className="mx-auto flex h-screen w-full flex-col justify-center space-y-8 sm:w-[400px]">
-          <h1 className="text-4xl font-semibold tracking-tight">Login</h1>
+        <div className="mx-auto flex h-screen w-full flex-col justify-center space-y-6 sm:w-[400px]">
+          <section className="space-y-2">
+            <h1 className="Bold32 text-black font-semibold tracking-tight">
+              Login
+            </h1>
+            <h1 className="Reg14 text-grayMedium font-semibold">
+              Please login with either of the following choices.
+            </h1>
+          </section>
           <LoginPanel />
           <div className="space-x-1  text-center text-grayMedium">
             <Link href="" className="text-primary">

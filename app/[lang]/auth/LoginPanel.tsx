@@ -1,22 +1,18 @@
 "use client";
 
+import { authorize } from "@/action/mcv";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import {
-  authorize,
-  refreshAccessToken,
-  getUserInfo,
-  logout
-} from "@/action/mcv";
+import Image from "next/image";
 import { ReactNode } from "react";
 
 const LoginPanel = () => {
   return (
     <div className="flex">
       <div className="flex flex-col w-full gap-2 p-2">
-        <LoginButton
+        <AuthButton
           onClick={() => authorize({})}
+          preText="Login with"
           Icon={
             <Image
               src="/cv-logo.png"
@@ -27,8 +23,9 @@ const LoginPanel = () => {
             />
           }
         />
-        <LoginButton
+        <AuthButton
           onClick={() => authorize({ isChulaIT: true })}
+          preText="Login with"
           Icon={
             <Image
               src="/cu.svg"
@@ -39,12 +36,22 @@ const LoginPanel = () => {
             />
           }
         />
-        {/* <Separator className="my-4 bg-grayMedium" />
-        <Button onClick={() => logout()}>Logout</Button> */}
-        {/* for testing auth
-          <Button onClick={() => getUserInfo()}>Get User</Button>
-          <Button onClick={() => refreshAccessToken()}>Refresh Token</Button> 
-        \*/}
+        <Separator className="my-4 bg-grayMedium" />
+        <AuthButton
+          onClick={() => {
+            window.location.href = "https://www.mycourseville.com/api/register";
+          }}
+          preText="Register with"
+          Icon={
+            <Image
+              src="/cv-logo.png"
+              width={100}
+              height={20}
+              alt="mcv"
+              className="p-2 h-8"
+            />
+          }
+        />
       </div>
     </div>
   );
@@ -52,12 +59,14 @@ const LoginPanel = () => {
 
 export default LoginPanel;
 
-const LoginButton = ({
+const AuthButton = ({
   onClick,
-  Icon
+  Icon,
+  preText
 }: {
   onClick: () => void;
   Icon: ReactNode;
+  preText: string;
 }) => {
   return (
     <Button
@@ -65,7 +74,7 @@ const LoginButton = ({
       variant="ghost"
       className="border-grayMedium border hover:border-primary"
     >
-      Login in with
+      {preText}
       {Icon}
       account
     </Button>
