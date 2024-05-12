@@ -6,14 +6,13 @@ import CheckListIcon from "@/components/CheckListIcon";
 import CheckList from "@/components/CheckList";
 import Flow from "@/components/undirectedGraph/Flow";
 import CookiePopup from "@/components/CookiePopup";
-import { useAuth } from "@/context/Auth";
 import { useJourneyGraph } from "@/context/JourneysGraph";
 import { MenuTab } from "@/types/enum";
+import type { Metadata } from "next";
 
 const Home = () => {
   const [isViewCheckList, setIsViewCheckList] = useState<boolean>(false);
   const { selectedTab } = useJourneyGraph();
-  const { user } = useAuth();
   return (
     <>
       <div className="flex min-h-screen bg-grayLight">

@@ -1,14 +1,9 @@
 "use client";
 
+import { authorize } from "@/action/mcv";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import {
-  authorize,
-  refreshAccessToken,
-  getUserInfo,
-  logout
-} from "@/action/mcv";
+import Image from "next/image";
 import { ReactNode } from "react";
 
 const LoginPanel = () => {
@@ -39,12 +34,26 @@ const LoginPanel = () => {
             />
           }
         />
+        <Separator className="my-4 bg-grayMedium" />
+        <RegisterButton
+          onClick={() => {
+            window.location.href = "https://www.mycourseville.com/api/register";
+          }}
+          Icon={
+            <Image
+              src="/cv-logo.png"
+              width={100}
+              height={20}
+              alt="mcv"
+              className="p-2 h-8"
+            />
+          }
+        />
         {/* <Separator className="my-4 bg-grayMedium" />
-        <Button onClick={() => logout()}>Logout</Button> */}
-        {/* for testing auth
-          <Button onClick={() => getUserInfo()}>Get User</Button>
-          <Button onClick={() => refreshAccessToken()}>Refresh Token</Button> 
-        \*/}
+        for testing auth
+        <Button onClick={() => logout()}>Logout</Button>
+        <Button onClick={() => getUserInfo()}>Get User</Button>
+        <Button onClick={() => refreshAccessToken()}>Refresh Token</Button> */}
       </div>
     </div>
   );
@@ -66,6 +75,26 @@ const LoginButton = ({
       className="border-grayMedium border hover:border-primary"
     >
       Login in with
+      {Icon}
+      account
+    </Button>
+  );
+};
+
+const RegisterButton = ({
+  onClick,
+  Icon
+}: {
+  onClick: () => void;
+  Icon: ReactNode;
+}) => {
+  return (
+    <Button
+      onClick={onClick}
+      variant="ghost"
+      className="border-grayMedium border hover:border-primary"
+    >
+      Register with
       {Icon}
       account
     </Button>

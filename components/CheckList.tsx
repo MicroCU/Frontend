@@ -29,6 +29,8 @@ export default function CheckList({ className }: ICheckListProps) {
     }
   }, [journeys]);
 
+  console.log(journeys);
+
   return (
     <ScrollArea
       className={cn(
@@ -43,16 +45,22 @@ export default function CheckList({ className }: ICheckListProps) {
         )}
         ref={containerRef}
       >
-        <div className="flex items-center gap-x-1 cursor-pointer">
+        <div className="flex items-center gap-x-2 cursor-pointer">
           <ListTodo size={24} className="stroke-primary" />
           <I18nTypo className="Bold24 text-I18nTyporimary">
             {dict["home.checklist.title"]}
           </I18nTypo>
         </div>
         {journeys && checkIfAllCompleted(journeys) ? (
-          <div className="h-full flex justify-center items-center">
+          <div className="flex justify-center items-center text-grayMain">
             <I18nTypo className="Reg12">
               {dict["home.checklist.complete"]}
+            </I18nTypo>
+          </div>
+        ) : journeys && checkStartLearningSomePath(journeys) ? (
+          <div className="flex justify-center items-center text-grayMain">
+            <I18nTypo className="Reg12">
+              {dict["home.checklist.noprogress"]}
             </I18nTypo>
           </div>
         ) : (!journeys && selectedTab != MenuTab.search) ||
@@ -86,3 +94,9 @@ function checkIfAllCompleted(journeys: JourneyStoreData) {
     journeys.data && journeys.data.every((journey) => journey.progress === 100)
   );
 }
+
+const checkStartLearningSomePath = (journeys: JourneyStoreData) => {
+  return (
+    journeys.data && journeys.data.every((journey) => journey.progress === 0)
+  );
+};

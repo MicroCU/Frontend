@@ -9,7 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "µCU",
-  description: "µCU is a platform for learning MicroLearning."
+  description:
+    "µCU is a online learning platform with MicroLearning Style, powered by MyCourseVille"
 };
 
 export default function RootLayout({
