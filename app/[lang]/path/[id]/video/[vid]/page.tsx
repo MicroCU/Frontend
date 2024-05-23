@@ -261,7 +261,7 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
         currentTime < secondToUpdate * tick + 1
       ) {
         try {
-          const res = await updateVideoProgress(
+          await updateVideoProgress(
             videoData?.sourceId || "",
             pathId || "",
             videoData?.sourceType === VideoType.Youtube
@@ -275,7 +275,9 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
         }
       }
     };
-    handleUpdateVideoProgress();
+    if (videoData && videoData.sourceType == VideoType.Youtube) {
+      handleUpdateVideoProgress();
+    }
   }, [currentTime]);
 
   useEffect(() => {
