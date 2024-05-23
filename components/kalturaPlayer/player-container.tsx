@@ -73,30 +73,44 @@ export function PlayerContainer(props: PlayerContainerProps) {
 
   const [isVideoEnded, setIsVideoEnded] = useState<boolean>(false);
 
+
   useEffect(() => {
-    const playerInstance = getPlayerInstance();
-    if (playerInstance) {
-      const currentTime = getPlayerTime() / 1000;
-      const duration = Math.floor(playerInstance.duration * 1000) / 1000;
-      if (currentTime >= duration) {
-        setIsVideoEnded(true);
-      } else {
-        setIsVideoEnded(false);
+    const checkVideoStatus = () => {
+      const playerInstance = getPlayerInstance();
+
+      if (playerInstance) {
+        const currentTime = getPlayerTime() / 1000;
+        const duration = Math.floor(playerInstance.duration * 1000) / 1000;
+        if (currentTime >= duration) {
+          setIsVideoEnded(true);
+        } else {
+          setIsVideoEnded(false);
+        }
       }
-    }
-  }, [getPlayerTime()]);
+    };
+
+    const interval = setInterval(checkVideoStatus, 500);
+    return () => clearInterval(interval);
+  }, []);  
 
   useEffect(() => {
     const handleUpdateVideoProgress = async () => {
+      const playerInstance = getPlayerInstance();
+
+      if (!playerInstance || getPlayerState() === PlaybackStatuses.Paused) return;
       const totalTick = Math.min(playerInstance.duration, 400);
       const secondToUpdate =
-        totalTick < 400 ? 1 : playerInstance.duration / totalTick;
+        totalTick < 400 ? 1 : playerInstance.duration / totalTick;      
       const currentTime = getPlayerTime() / 1000;
       const tick = Math.floor(currentTime / secondToUpdate);
+      console.log(microData.video?.progress , (tick / totalTick)*100);
+
       if (
         currentTime >= secondToUpdate * tick &&
-        currentTime < secondToUpdate * tick + 1
-      ) {
+        currentTime < secondToUpdate * tick + 1 &&
+        microData.video?.progress != undefined &&
+        microData.video?.progress < (tick / totalTick) * 100
+      ) {        
         try {
           const res = await updateVideoProgress(
             entryId,
@@ -110,11 +124,9 @@ export function PlayerContainer(props: PlayerContainerProps) {
         }
       }
     };
-    const playerInstance = getPlayerInstance();
-    if (playerInstance) {
-      handleUpdateVideoProgress();
-    }
-  }, [getPlayerTime()]);
+    const interval = setInterval(handleUpdateVideoProgress, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleFullScreenToggle = () => {
     if (document.fullscreenElement) {
