@@ -46,7 +46,6 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
     .flatMap((group) => group.micros)
     .find((micro) => micro.id === params.vid);
   const videoData = currentMicroData?.video;
-  console.log(videoData);
 
   const [playerConfig, setPlayerConfig] = useState<PlayerBundleConfig | null>(
     null
@@ -262,7 +261,7 @@ const VideoPage = ({ params }: { params: { id: string; vid: string } }) => {
         currentTime < secondToUpdate * tick + 1
       ) {
         try {
-          const res = await updateVideoProgress(
+          await updateVideoProgress(
             videoData?.sourceId || "",
             pathId || "",
             videoData?.sourceType === VideoType.Youtube

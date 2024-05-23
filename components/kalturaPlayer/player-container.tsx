@@ -103,8 +103,6 @@ export function PlayerContainer(props: PlayerContainerProps) {
         totalTick < 400 ? 1 : playerInstance.duration / totalTick;      
       const currentTime = getPlayerTime() / 1000;
       const tick = Math.floor(currentTime / secondToUpdate);
-      console.log(microData.video?.progress , (tick / totalTick)*100);
-
       if (
         currentTime >= secondToUpdate * tick &&
         currentTime < secondToUpdate * tick + 1 &&
@@ -112,7 +110,7 @@ export function PlayerContainer(props: PlayerContainerProps) {
         microData.video?.progress < (tick / totalTick) * 100
       ) {        
         try {
-          const res = await updateVideoProgress(
+          await updateVideoProgress(
             entryId,
             pathInfo?.id || "",
             VideoType.Kaltura,
